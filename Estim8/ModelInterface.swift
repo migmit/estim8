@@ -40,6 +40,8 @@ protocol ModelInterface {
     
     func slices() -> [Slice] //ordered backwards
     
+    func dateOfSlice(s: Slice) -> NSDate
+    
     mutating func addAccountAnUpdate(name: String, value: Float, isNegative: Bool) -> Account
     
     mutating func createSlice() -> Slice

@@ -17,6 +17,9 @@
 		B51DE5741CAF401F0060960A /* Estim8UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5731CAF401F0060960A /* Estim8UITests.swift */; };
 		B51DE5861CB2D88B0060960A /* ModelInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5851CB2D88B0060960A /* ModelInterface.swift */; };
 		B51DE5881CB2DEEE0060960A /* ModelImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5871CB2DEEE0060960A /* ModelImplementation.swift */; };
+		B51DE5981CB4477B0060960A /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5971CB4477B0060960A /* ModelTests.swift */; };
+		B51DE5991CB448970060960A /* ModelInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5851CB2D88B0060960A /* ModelInterface.swift */; };
+		B51DE59B1CB449E90060960A /* ModelImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5871CB2DEEE0060960A /* ModelImplementation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,7 @@
 		B51DE5751CAF401F0060960A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B51DE5851CB2D88B0060960A /* ModelInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInterface.swift; sourceTree = "<group>"; };
 		B51DE5871CB2DEEE0060960A /* ModelImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelImplementation.swift; sourceTree = "<group>"; };
+		B51DE5971CB4477B0060960A /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 		B51DE5671CAF401F0060960A /* Estim8Tests */ = {
 			isa = PBXGroup;
 			children = (
+				B51DE5971CB4477B0060960A /* ModelTests.swift */,
 				B51DE5681CAF401F0060960A /* Estim8Tests.swift */,
 				B51DE56A1CAF401F0060960A /* Info.plist */,
 			);
@@ -286,6 +291,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B51DE5691CAF401F0060960A /* Estim8Tests.swift in Sources */,
+				B51DE5981CB4477B0060960A /* ModelTests.swift in Sources */,
+				B51DE5991CB448970060960A /* ModelInterface.swift in Sources */,
+				B51DE59B1CB449E90060960A /* ModelImplementation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -95,12 +95,19 @@ class ModelImplementation: ModelInterface {
         return (a.valueForKey("updates") as! Set<Update>).sort({(u1: Update, u2: Update) -> Bool in dateOfUpdate(u1).compare(dateOfUpdate(u2)) == NSComparisonResult.OrderedDescending})
     }
     
+    func dateOfSlice(s: Slice) -> NSDate {
+        return s.valueForKey("date") as! NSDate
+    }
+    
     func removeAccount(a: Account) {
         a.setValue(true, forKey: "removed")
+        a.setValue(NSDate(), forKey: "closingDate")
+        do {try managedObjectContext.save()} catch {}
     }
     
     func removeSlice(s: Slice) {
         s.setValue(true, forKey: "removed")
+        do {try managedObjectContext.save()} catch {}
     }
     
     func updateAccount(a: Account, value: Float) {
@@ -126,7 +133,7 @@ class ModelImplementation: ModelInterface {
         account.setValue(count, forKey: "sortingIndex")
         account.setValue(Set<Update>(), forKey: "updates")
         updateAccount(account, value: value)
-        return NSManagedObject()
+        return account
     }
     
     func createSlice() -> Slice {
