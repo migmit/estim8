@@ -53,9 +53,9 @@ protocol ControllerDecantInterface {
     
     func numberOfAccounts() -> Int
     
-    func account(n: Int) -> ControllerAccountInterface
+    func account(n: Int) -> ControllerROAccountInterface?
     
-    func decant(amount: Float) -> Bool
+    func decant(from: Int, to: Int, amount: Float) -> Bool
     
 }
 

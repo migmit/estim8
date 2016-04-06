@@ -51,11 +51,14 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
         createView.show()
     }
     
-    //
-    
     func decant() {
-        
+        let decantController = ControllerDecantImplementation(parent: self, model: model)
+        let decantView = view.decant(decantController)
+        decantController.setView(decantView)
+        decantView.show()
     }
+    
+    //
     
     func showSlices() {
         
@@ -172,5 +175,95 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
             parent.addAccount()
             return true
         }
+    }
+}
+
+class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInterface {
+    
+    let parent: ControllerImplementation<Model>
+    
+    let model: Model
+    
+    var view: DecantView? = nil
+    
+    init(parent: ControllerImplementation<Model>, model: Model) {
+        self.parent = parent
+        self.model = model
+    }
+    
+    func setView(view: DecantView) {
+        self.view = view
+    }
+    
+    func numberOfAccounts() -> Int {
+        return model.liveAccounts().count + model.deadAccounts().count
+    }
+    
+    func account(n: Int) -> ControllerROAccountInterface? {
+        let accounts = model.liveAccounts()
+        if (n >= accounts.count) {
+            return nil
+        } else {
+            return ControllerROAccountImplementation(model: model, account: accounts[n])
+        }
+    }
+    
+    func decant(from: Int, to: Int, amount: Float) -> Bool {
+        let accounts = model.liveAccounts()
+        if (from >= accounts.count || to >= accounts.count) {
+            return false
+        } else {
+            let accountFrom = accounts[from]
+            let accountTo = accounts[to]
+            if
+                let amountFrom = tryAddToAccount(accountFrom, add: -amount),
+                let amountTo = tryAddToAccount(accountTo, add: amount) {
+                view?.hide()
+                model.updateAccount(accountFrom, value: amountFrom)
+                model.updateAccount(accountTo, value: amountTo)
+                parent.refreshAccount(from)
+                parent.refreshAccount(to)
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
+    private func tryAddToAccount(account: Model.Account, add: Float) -> Float? {
+        let isNegative = model.accountIsNegative(account)
+        let updates = model.updatesOfAccount(account)
+        let update = updates[0]
+        let oldValue = model.valueOfUpdate(update)
+        let newValue = oldValue + add
+        let verifyValue = isNegative ? -newValue : newValue
+        if (verifyValue < 0) {
+            return nil
+        } else {
+            return newValue
+        }
+    }
+    
+}
+
+class ControllerROAccountImplementation<Model: ModelInterface>: ControllerROAccountInterface {
+    
+    let model: Model
+    
+    let account: Model.Account
+    
+    init(model: Model, account: Model.Account) {
+        self.model = model
+        self.account = account
+    }
+
+    func name() -> String {
+        return model.nameOfAccount(account)
+    }
+    
+    func value() -> Float {
+        let updates = model.updatesOfAccount(account)
+        let update = updates[0]
+        return model.valueOfUpdate(update)
     }
 }
