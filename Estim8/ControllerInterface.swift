@@ -71,7 +71,7 @@ protocol ControllerSlicesInterface {
 
 protocol ControllerSliceInterface {
     
-    func account(n: Int) -> ControllerROAccountInterface
+    func account(n: Int) -> ControllerROAccountInterface?
     
     func next() -> ControllerSliceInterface?
     
