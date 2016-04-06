@@ -22,6 +22,9 @@ protocol MainWindowView {
 
 protocol EditAccountView {
     
+    func show()
+    
+    func hide()
 }
 
 protocol CreateAccountView {

@@ -42,14 +42,14 @@ protocol ModelInterface {
     
     func dateOfSlice(s: Slice) -> NSDate
     
-    mutating func addAccountAnUpdate(name: String, value: Float, isNegative: Bool) -> Account
+    func addAccountAnUpdate(name: String, value: Float, isNegative: Bool) -> Account
     
-    mutating func createSlice() -> Slice
+    func createSlice() -> Slice
     
-    mutating func updateAccount(a: Account, value: Float)
+    func updateAccount(a: Account, value: Float)
     
-    mutating func removeAccount(a: Account)
+    func removeAccount(a: Account)
     
-    mutating func removeSlice(s: Slice)
+    func removeSlice(s: Slice)
     
 }

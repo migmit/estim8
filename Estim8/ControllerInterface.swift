@@ -77,4 +77,5 @@ protocol ControllerSliceInterface {
     
     func prev() -> ControllerSliceInterface?
     
+    func createOrRemove()
 }

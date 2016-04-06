@@ -28,7 +28,7 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
         if (n >= accounts.count) {
             return nil
         } else {
-            return ControllerAccountImplementation<Model>(model: model, view: view, account: accounts[n])
+            return ControllerAccountImplementation(model: model, view: view, account: accounts[n])
         }
     }
     
@@ -72,9 +72,46 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
         return model.valueOfUpdate(update)
     }
     
-    //
-    
     func edit() {
-        
+        let editController = ControllerEditAccountImplementation(model: model, account: account)
+        let editView = view.edit(editController)
+        editController.setView(editView)
+        editView.show()
     }
+}
+
+class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEditAccountInterface {
+    
+    let model: Model
+    
+    var view: EditAccountView? = nil
+    
+    let account: Model.Account
+    
+    init(model: Model, account: Model.Account) {
+        self.model = model
+        self.account = account
+    }
+    
+    func setView(view: EditAccountView) {
+        self.view = view
+    }
+    
+    func setValue(value: Float) -> Bool {
+        let isNegative = model.accountIsNegative(account)
+        let verifyValue = isNegative ? -value : value
+        if (verifyValue < 0) {
+            return false
+        } else {
+            view?.hide()
+            model.updateAccount(account, value: value)
+            return true
+        }
+    }
+    
+    func remove() {
+        view?.hide()
+        model.removeAccount(account)
+    }
+    
 }
