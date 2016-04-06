@@ -12,13 +12,13 @@ protocol ControllerInterface {
     
     func numberOfAccounts() -> Int
     
-    func account(n: Int) -> ControllerAccountInterface
+    func account(n: Int) -> ControllerAccountInterface?
     
-    func createAccount(view: ControllerCreateAccountInterface -> CreateAccountView)
+    func createAccount()
     
-    func decant(view: ControllerDecantInterface -> DecantView)
+    func decant()
     
-    func showSlices(view: ControllerSlicesInterface -> SlicesView)
+    func showSlices()
 }
 
 protocol ControllerROAccountInterface {
@@ -31,7 +31,7 @@ protocol ControllerROAccountInterface {
 
 protocol ControllerAccountInterface: ControllerROAccountInterface {
 
-    func edit(view: ControllerEditAccountInterface -> EditAccountView)
+    func edit()
     
 }
 

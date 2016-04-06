@@ -10,6 +10,14 @@ import Foundation
 
 protocol MainWindowView {
     
+    func createAccount(controller: ControllerCreateAccountInterface) -> CreateAccountView
+    
+    func decant(controller: ControllerDecantInterface) -> DecantView
+    
+    func showSlices(controller: ControllerSlicesInterface) -> SlicesView
+    
+    func edit(controller: ControllerEditAccountInterface) -> EditAccountView
+    
 }
 
 protocol EditAccountView {
