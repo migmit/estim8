@@ -92,7 +92,7 @@ class ModelImplementation: ModelInterface {
     }
     
     func updatesOfAccount(a: Account) -> [Update] {
-        return (a.valueForKey("updates") as! Set<Update>).sort({(u1: Update, u2: Update) -> Bool in dateOfUpdate(u1).compare(dateOfUpdate(u2)) == NSComparisonResult.OrderedDescending})
+        return (a.valueForKey("updates") as! Set<Update>).sort({dateOfUpdate($0).compare(dateOfUpdate($1)) == NSComparisonResult.OrderedDescending})
     }
     
     func dateOfSlice(s: Slice) -> NSDate {
@@ -138,7 +138,7 @@ class ModelImplementation: ModelInterface {
     
     func createSlice() -> Slice {
         let accounts = liveAccounts()
-        let updates = accounts.map({(a: Account) -> Update in updatesOfAccount(a)[0]})
+        let updates = accounts.map({updatesOfAccount($0)[0]})
         let sliceDescr = NSEntityDescription.entityForName("Slice", inManagedObjectContext: managedObjectContext)!
         let slice = NSManagedObject(entity: sliceDescr, insertIntoManagedObjectContext: managedObjectContext)
         slice.setValue(NSDate(), forKey: "date")
