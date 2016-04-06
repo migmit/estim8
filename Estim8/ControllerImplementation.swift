@@ -28,11 +28,19 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
         if (n >= accounts.count) {
             return nil
         } else {
-            return ControllerAccountImplementation(model: model, view: view, account: accounts[n])
+            return ControllerAccountImplementation(parent: self, model: model, view: view, account: accounts[n], index: n)
         }
     }
     
     //
+    
+    func refreshAccount(n: Int) {
+        
+    }
+    
+    func removeAccount(n: Int) {
+        
+    }
     
     func createAccount() {
         
@@ -50,16 +58,22 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
 
 class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountInterface {
     
+    let parent: ControllerImplementation<Model>
+    
     let model: Model
     
     let view: MainWindowView
     
     let account: Model.Account
     
-    init(model: Model, view: MainWindowView, account: Model.Account) {
+    let index: Int
+    
+    init(parent: ControllerImplementation<Model>, model: Model, view: MainWindowView, account: Model.Account, index: Int) {
+        self.parent = parent
         self.model = model
         self.view = view
         self.account = account
+        self.index = index
     }
     
     func name() -> String {
@@ -73,7 +87,7 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
     }
     
     func edit() {
-        let editController = ControllerEditAccountImplementation(model: model, account: account)
+        let editController = ControllerEditAccountImplementation(parent: parent, model: model, account: account, index: index)
         let editView = view.edit(editController)
         editController.setView(editView)
         editView.show()
@@ -82,15 +96,21 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
 
 class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEditAccountInterface {
     
+    let parent: ControllerImplementation<Model>
+    
     let model: Model
     
     var view: EditAccountView? = nil
     
     let account: Model.Account
     
-    init(model: Model, account: Model.Account) {
+    let index: Int
+    
+    init(parent: ControllerImplementation<Model>, model: Model, account: Model.Account, index: Int) {
+        self.parent = parent
         self.model = model
         self.account = account
+        self.index = index
     }
     
     func setView(view: EditAccountView) {
@@ -105,6 +125,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         } else {
             view?.hide()
             model.updateAccount(account, value: value)
+            parent.refreshAccount(index)
             return true
         }
     }
@@ -112,6 +133,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     func remove() {
         view?.hide()
         model.removeAccount(account)
+        parent.removeAccount(index)
     }
     
 }
