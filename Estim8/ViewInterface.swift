@@ -26,25 +26,25 @@ protocol MainWindowView {
     
 }
 
-protocol EditAccountView {
+protocol SubView {
     
     func show()
     
     func hide()
 }
 
-protocol CreateAccountView {
-    
-    func show()
-    
-    func hide()
+protocol EditAccountView: SubView {
+
+}
+
+protocol CreateAccountView: SubView {
     
 }
 
-protocol DecantView {
+protocol DecantView: SubView {
     
 }
 
-protocol SlicesView {
+protocol SlicesView: SubView {
     
 }
