@@ -22,6 +22,8 @@ protocol MainWindowView {
     
     func removeAccount(n: Int)
     
+    func addAccount()
+    
 }
 
 protocol EditAccountView {
@@ -32,6 +34,10 @@ protocol EditAccountView {
 }
 
 protocol CreateAccountView {
+    
+    func show()
+    
+    func hide()
     
 }
 

@@ -40,11 +40,18 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
         view.removeAccount(n)
     }
     
-    //
+    func addAccount() {
+        view.addAccount()
+    }
     
     func createAccount() {
-        
+        let createController = ControllerCreateAccountImplementation(parent: self, model: model)
+        let createView = view.createAccount(createController)
+        createController.setView(createView)
+        createView.show()
     }
+    
+    //
     
     func decant() {
         
@@ -136,4 +143,34 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         parent.removeAccount(index)
     }
     
+}
+
+class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCreateAccountInterface {
+    
+    let parent: ControllerImplementation<Model>
+    
+    let model: Model
+    
+    var view: CreateAccountView? = nil
+    
+    init(parent: ControllerImplementation<Model>, model: Model) {
+        self.parent = parent
+        self.model = model
+    }
+    
+    func setView(view: CreateAccountView) {
+        self.view = view
+    }
+    
+    func create(title: String, initialValue: Float, isNegative: Bool) -> Bool {
+        let verifyValue = isNegative ? -initialValue : initialValue
+        if (verifyValue < 0) {
+            return false
+        } else {
+            view?.hide()
+            model.addAccountAnUpdate(title, value: initialValue, isNegative: isNegative)
+            parent.addAccount()
+            return true
+        }
+    }
 }
