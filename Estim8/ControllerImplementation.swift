@@ -32,15 +32,15 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
         }
     }
     
-    //
-    
     func refreshAccount(n: Int) {
-        
+        view.refreshAccount(n)
     }
     
     func removeAccount(n: Int) {
-        
+        view.removeAccount(n)
     }
+    
+    //
     
     func createAccount() {
         

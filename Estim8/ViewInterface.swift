@@ -18,6 +18,10 @@ protocol MainWindowView {
     
     func edit(controller: ControllerEditAccountInterface) -> EditAccountView
     
+    func refreshAccount(n: Int)
+    
+    func removeAccount(n: Int)
+    
 }
 
 protocol EditAccountView {
