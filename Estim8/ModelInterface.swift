@@ -10,7 +10,7 @@ import Foundation
 
 protocol ModelInterface {
 
-    associatedtype Account
+    associatedtype Account: Hashable
     
     associatedtype Slice
     

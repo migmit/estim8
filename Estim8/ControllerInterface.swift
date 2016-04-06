@@ -65,7 +65,7 @@ protocol ControllerSlicesInterface {
     
     func numberOfAccounts() -> Int
     
-    func slice(n: Int) -> ControllerSliceInterface
+    func slice(n: Int) -> ControllerSliceInterface?
     
 }
 

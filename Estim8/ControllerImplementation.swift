@@ -267,3 +267,163 @@ class ControllerROAccountImplementation<Model: ModelInterface>: ControllerROAcco
         return model.valueOfUpdate(update)
     }
 }
+
+class ControllerSlicesImplementation<Model: ModelInterface>: ControllerSlicesInterface {
+    
+    let model: Model
+    
+    let accounts: [Model.Account]
+    
+    init(model: Model) {
+        self.model = model
+        self.accounts = model.liveAccounts() + model.deadAccounts()
+    }
+
+    func numberOfSlices() -> Int {
+        return model.slices().count + 1
+    }
+    
+    func numberOfAccounts() -> Int {
+        return accounts.count
+    }
+    
+    func slice(n: Int) -> ControllerSliceInterface? {
+        let slices = model.slices()
+        if (n == 0) {
+            return ControllerCurrentStatePseudoSliceImplementation(model: model, accounts: accounts)
+        } else if (n >= slices.count) {
+            return nil
+        } else {
+            return ControllerSliceImplementation(model: model, accounts: accounts, slice: slices[n-1], index: n-1)
+        }
+    }
+}
+
+class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: ControllerSliceInterface {
+    
+    let model: Model
+    
+    let accounts: [Model.Account]
+    
+    let allAccounts: [Model.Account]
+    
+    init(model: Model, accounts: [Model.Account]) {
+        self.model = model
+        self.accounts = model.liveAccounts()
+        self.allAccounts = accounts
+    }
+    
+    func account(n: Int) -> ControllerROAccountInterface? {
+        if (n > accounts.count) {
+            return nil
+        } else {
+            return ControllerROAccountImplementation(model: model, account: accounts[n])
+        }
+    }
+
+    func next() -> ControllerSliceInterface? {
+        let slices = model.slices()
+        if (slices.isEmpty) {
+            return nil
+        } else {
+            return ControllerSliceImplementation(model: model, accounts: allAccounts, slice: slices[0], index: 0)
+        }
+    }
+    
+    func prev() -> ControllerSliceInterface? {
+        return nil
+    }
+    
+    //
+    
+    func createOrRemove() {
+        //create
+    }
+}
+
+class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInterface {
+    
+    let model: Model
+    
+    let accounts: [Model.Account]
+    
+    let slice: Model.Slice
+    
+    let index: Int
+    
+    let updates: [Model.Account: Model.Update]
+    
+    init(model: Model, accounts: [Model.Account], slice: Model.Slice, index: Int) {
+        self.model = model
+        self.accounts = accounts
+        self.slice = slice
+        self.index = index
+        let updates = model.lastUpdatesOfSlice(slice)
+        var updateAccounts: [Model.Account: Model.Update] = [:]
+        for update in updates {
+            updateAccounts.updateValue(update, forKey: model.accountOfUpdate(update))
+        }
+        self.updates = updateAccounts
+    }
+    
+    func account(n: Int) -> ControllerROAccountInterface? {
+        if (n >= accounts.count) {
+            return nil
+        } else {
+            let account = accounts[n]
+            if let update = updates[account] {
+                return ControllerUpdateInterface(model: model, update: update)
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    func next() -> ControllerSliceInterface? {
+        let slices = model.slices()
+        let n = index + 1
+        if (n >= slices.count) {
+            return nil
+        } else {
+            return ControllerSliceImplementation(model: model, accounts: accounts, slice: slices[n], index: n)
+        }
+    }
+    
+    func prev() -> ControllerSliceInterface? {
+        if (index == 0) {
+            return ControllerCurrentStatePseudoSliceImplementation(model: model, accounts: accounts)
+        } else {
+            let slices = model.slices()
+            let n = index - 1
+            return ControllerSliceImplementation(model: model, accounts: accounts, slice: slices[n], index: n)
+        }
+    }
+    
+    //
+    
+    func createOrRemove() {
+        //remove
+    }
+}
+
+class ControllerUpdateInterface<Model: ModelInterface>: ControllerROAccountInterface {
+    
+    let model: Model
+    
+    let update: Model.Update
+    
+    init(model: Model, update: Model.Update) {
+        self.model = model
+        self.update = update
+    }
+    
+    func name() -> String {
+        let account = model.accountOfUpdate(update)
+        return model.nameOfAccount(account)
+    }
+    
+    func value() -> Float {
+        return model.valueOfUpdate(update)
+    }
+
+}
