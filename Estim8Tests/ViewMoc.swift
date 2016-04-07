@@ -101,6 +101,12 @@ class CreateAccountMoc: CreateAccountView {
     
     let view: MocView
     
+    var title: String = ""
+    
+    var value: Float = 0
+    
+    var isNegative: Bool = false
+    
     init(parent: MainWindowMoc, controller: ControllerCreateAccountInterface, view: MocView) {
         self.parent = parent
         self.controller = controller
@@ -108,11 +114,19 @@ class CreateAccountMoc: CreateAccountView {
     }
     
     func showSubView() {
-        
+        view.state = .CreateAccount(self)
     }
     
     func hideSubView() {
-        
+        view.state = .MainWindow(parent)
+    }
+    
+    func tapCancel() {
+        hideSubView()
+    }
+    
+    func tapOk() {
+        controller.create(title, initialValue: value, isNegative: isNegative)
     }
    }
 
