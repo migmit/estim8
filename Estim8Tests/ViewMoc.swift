@@ -82,11 +82,10 @@ class MainWindowMoc: MainWindowView {
     
     private var display: [(String, Float)] = []
     
-    let view: MocView
+    var view: MocView? = nil
     
-    init(controller: ControllerInterface, view: MocView) {
+    init(controller: ControllerInterface) {
         self.controller = controller
-        self.view = view
         let n = controller.numberOfAccounts()
         for i in 0...(n-1) {
             if let account = controller.account(i) {
@@ -95,20 +94,24 @@ class MainWindowMoc: MainWindowView {
         }
     }
     
+    func setView(view: MocView) {
+        self.view = view
+    }
+    
     func createAccount(createAccount: ControllerCreateAccountInterface) -> CreateAccountView {
-        return CreateAccountMoc(parent: self, controller: createAccount, view: view)
+        return CreateAccountMoc(parent: self, controller: createAccount, view: view!)
     }
     
     func decant(decant: ControllerDecantInterface) -> DecantView {
-        return DecantMoc(parent: self, controller: decant, view: view)
+        return DecantMoc(parent: self, controller: decant, view: view!)
     }
     
     func showSlices(slices: ControllerSlicesInterface) -> SlicesView {
-        return SlicesMoc(parent: self, controller: slices, view: view)
+        return SlicesMoc(parent: self, controller: slices, view: view!)
     }
     
     func editAccount(editAccount: ControllerEditAccountInterface) -> EditAccountView {
-        return EditAccountMoc(parent: self, controller: editAccount, view: view)
+        return EditAccountMoc(parent: self, controller: editAccount, view: view!)
     }
     
     func refreshAccount(n: Int) {
