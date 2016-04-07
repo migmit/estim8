@@ -47,4 +47,7 @@ protocol DecantView: SubView {
 
 protocol SlicesView: SubView {
     
+    func createSlice()
+    
+    func removeSlice()
 }

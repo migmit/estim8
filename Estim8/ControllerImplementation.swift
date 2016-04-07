@@ -272,11 +272,17 @@ class ControllerSlicesImplementation<Model: ModelInterface>: ControllerSlicesInt
     
     let model: Model
     
+    var view: SlicesView? = nil
+    
     let accounts: [Model.Account]
     
     init(model: Model) {
         self.model = model
         self.accounts = model.liveAccounts() + model.deadAccounts()
+    }
+    
+    func setView(view: SlicesView) {
+        self.view = view
     }
 
     func numberOfSlices() -> Int {
@@ -290,16 +296,26 @@ class ControllerSlicesImplementation<Model: ModelInterface>: ControllerSlicesInt
     func slice(n: Int) -> ControllerSliceInterface? {
         let slices = model.slices()
         if (n == 0) {
-            return ControllerCurrentStatePseudoSliceImplementation(model: model, accounts: accounts)
+            return ControllerCurrentStatePseudoSliceImplementation(parent: self, model: model, accounts: accounts)
         } else if (n >= slices.count) {
             return nil
         } else {
-            return ControllerSliceImplementation(model: model, accounts: accounts, slice: slices[n-1], index: n-1)
+            return ControllerSliceImplementation(parent: self, model: model, accounts: accounts, slice: slices[n-1], index: n-1)
         }
+    }
+    
+    func createSlice() {
+        view?.createSlice()
+    }
+    
+    func removeSlice() {
+        view?.removeSlice()
     }
 }
 
 class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: ControllerSliceInterface {
+    
+    let parent: ControllerSlicesImplementation<Model>
     
     let model: Model
     
@@ -307,7 +323,8 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
     
     let allAccounts: [Model.Account]
     
-    init(model: Model, accounts: [Model.Account]) {
+    init(parent: ControllerSlicesImplementation<Model>, model: Model, accounts: [Model.Account]) {
+        self.parent = parent
         self.model = model
         self.accounts = model.liveAccounts()
         self.allAccounts = accounts
@@ -326,7 +343,7 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         if (slices.isEmpty) {
             return nil
         } else {
-            return ControllerSliceImplementation(model: model, accounts: allAccounts, slice: slices[0], index: 0)
+            return ControllerSliceImplementation(parent: parent, model: model, accounts: allAccounts, slice: slices[0], index: 0)
         }
     }
     
@@ -334,14 +351,15 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         return nil
     }
     
-    //
-    
     func createOrRemove() {
-        //create
+        model.createSlice()
+        parent.createSlice()
     }
 }
 
 class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInterface {
+    
+    let parent: ControllerSlicesImplementation<Model>
     
     let model: Model
     
@@ -353,7 +371,8 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
     
     let updates: [Model.Account: Model.Update]
     
-    init(model: Model, accounts: [Model.Account], slice: Model.Slice, index: Int) {
+    init(parent: ControllerSlicesImplementation<Model>, model: Model, accounts: [Model.Account], slice: Model.Slice, index: Int) {
+        self.parent = parent
         self.model = model
         self.accounts = accounts
         self.slice = slice
@@ -385,24 +404,23 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         if (n >= slices.count) {
             return nil
         } else {
-            return ControllerSliceImplementation(model: model, accounts: accounts, slice: slices[n], index: n)
+            return ControllerSliceImplementation(parent: parent, model: model, accounts: accounts, slice: slices[n], index: n)
         }
     }
     
     func prev() -> ControllerSliceInterface? {
         if (index == 0) {
-            return ControllerCurrentStatePseudoSliceImplementation(model: model, accounts: accounts)
+            return ControllerCurrentStatePseudoSliceImplementation(parent: parent, model: model, accounts: accounts)
         } else {
             let slices = model.slices()
             let n = index - 1
-            return ControllerSliceImplementation(model: model, accounts: accounts, slice: slices[n], index: n)
+            return ControllerSliceImplementation(parent: parent, model: model, accounts: accounts, slice: slices[n], index: n)
         }
     }
     
-    //
-    
     func createOrRemove() {
-        //remove
+        model.removeSlice(slice)
+        parent.removeSlice()
     }
 }
 
