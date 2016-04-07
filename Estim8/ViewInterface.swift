@@ -22,8 +22,7 @@ protocol MainWindowView {
     
     func removeAccount(n: Int)
     
-    func addAccount()
-    
+    func addAccount()    
 }
 
 protocol SubView {
