@@ -16,7 +16,7 @@ protocol MainWindowView {
     
     func showSlices(controller: ControllerSlicesInterface) -> SlicesView
     
-    func edit(controller: ControllerEditAccountInterface) -> EditAccountView
+    func editAccount(controller: ControllerEditAccountInterface) -> EditAccountView
     
     func refreshAccount(n: Int)
     
@@ -28,9 +28,9 @@ protocol MainWindowView {
 
 protocol SubView {
     
-    func show()
+    func showSubView()
     
-    func hide()
+    func hideSubView()
 }
 
 protocol EditAccountView: SubView {

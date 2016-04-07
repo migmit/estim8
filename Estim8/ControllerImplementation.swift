@@ -48,14 +48,14 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
         let createController = ControllerCreateAccountImplementation(parent: self, model: model)
         let createView = view.createAccount(createController)
         createController.setView(createView)
-        createView.show()
+        createView.showSubView()
     }
     
     func decant() {
         let decantController = ControllerDecantImplementation(parent: self, model: model)
         let decantView = view.decant(decantController)
         decantController.setView(decantView)
-        decantView.show()
+        decantView.showSubView()
     }
     
     //
@@ -98,9 +98,9 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
     
     func edit() {
         let editController = ControllerEditAccountImplementation(parent: parent, model: model, account: account, index: index)
-        let editView = view.edit(editController)
+        let editView = view.editAccount(editController)
         editController.setView(editView)
-        editView.show()
+        editView.showSubView()
     }
 }
 
@@ -133,7 +133,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         if (verifyValue < 0) {
             return false
         } else {
-            view?.hide()
+            view?.hideSubView()
             model.updateAccount(account, value: value)
             parent.refreshAccount(index)
             return true
@@ -141,7 +141,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     }
     
     func remove() {
-        view?.hide()
+        view?.hideSubView()
         model.removeAccount(account)
         parent.removeAccount(index)
     }
@@ -170,7 +170,7 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         if (verifyValue < 0) {
             return false
         } else {
-            view?.hide()
+            view?.hideSubView()
             model.addAccountAnUpdate(title, value: initialValue, isNegative: isNegative)
             parent.addAccount()
             return true
@@ -218,7 +218,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
             if
                 let amountFrom = tryAddToAccount(accountFrom, add: -amount),
                 let amountTo = tryAddToAccount(accountTo, add: amount) {
-                view?.hide()
+                view?.hideSubView()
                 model.updateAccount(accountFrom, value: amountFrom)
                 model.updateAccount(accountTo, value: amountTo)
                 parent.refreshAccount(from)
