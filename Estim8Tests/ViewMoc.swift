@@ -243,34 +243,130 @@ class DecantMoc: DecantView {
 
 class SlicesMoc: SlicesView {
     
+    class State {
+        
+        let number: Int
+        
+        let slice: ControllerSliceInterface
+        
+        let display: [(String, Float)?]
+        
+        let buttonTitle: String
+        
+        let prevEnabled: Bool
+        
+        let nextEnabled: Bool
+        
+        init(controller: ControllerSlicesInterface, number: Int, slice: ControllerSliceInterface) {
+            self.number = number
+            self.slice = slice
+            var display: [(String, Float)?] = []
+            let n = controller.numberOfAccounts()
+            for i in 0...(n-1) {
+                if let account = slice.account(i) {
+                    display.append((account.name(), account.value()))
+                } else {
+                    display.append(nil)
+                }
+            }
+            self.display = display
+            self.buttonTitle = slice.buttonCalledCreate() ? "Create" : "Delete"
+            if let _ = slice.prev() {
+                self.prevEnabled = true
+            } else {
+                self.prevEnabled = false
+            }
+            if let _ = slice.next() {
+                self.nextEnabled = true
+            } else {
+                self.nextEnabled = false
+            }
+        }
+        
+        convenience init?(controller: ControllerSlicesInterface, number: Int) {
+            if let slice = controller.slice(number) {
+                self.init(controller: controller, number: number, slice: slice)
+            } else {
+                return nil
+            }
+        }
+    }
+    
     let parent: MainWindowMoc
     
     let controller: ControllerSlicesInterface
     
     let view: MocView
     
+    var numberOfSlices: Int
+    
+    let numberOfAccounts: Int
+    
+    var state: State
+    
     init(parent: MainWindowMoc, controller: ControllerSlicesInterface, view: MocView) {
         self.parent = parent
         self.controller = controller
         self.view = view
+        self.numberOfSlices = controller.numberOfSlices()
+        self.numberOfAccounts = controller.numberOfAccounts()
+        state = State(controller: controller, number: 0)!
     }
     
-    //
-    
     func showSubView() {
-        
+        view.state = .Slices(self)
     }
     
     func hideSubView() {
-        
+        view.state = .MainWindow(parent)
     }
     
     func createSlice() {
-        
+        numberOfSlices += 1
+        state = State(controller: controller, number: 1)!
     }
     
     func removeSlice() {
-        
+        numberOfSlices -= 1
+        state = State(controller: controller, number: state.number-1)!
+    }
+    
+    func tapPrevButton() {
+        if let s = state.slice.prev() {
+            state = State(controller: controller, number: state.number-1, slice: s)
+        }
+    }
+    
+    func tapNextButton() {
+        if let s = state.slice.next() {
+            state = State(controller: controller, number: state.number+1, slice: s)
+        }
+    }
+    
+    func tapCloseButton() {
+        hideSubView()
+    }
+    
+    func slideTo(n: Int) {
+        if let s = State(controller: controller, number: n) {
+            state = s
+        }
+    }
+    
+    func expect(expect: [(String, Float)?], buttonTitle: String, prevEnabled: Bool, nextEnabled: Bool) {
+        XCTAssertEqual(state.display.count, expect.count)
+        for i in 0...(expect.count-1) {
+            if let d = state.display[i], let e = expect[i] {
+                XCTAssertEqual(d.0, e.0)
+                XCTAssertEqual(d.1, e.1)
+            } else {
+                XCTAssertNil(state.display[i])
+                XCTAssertNil(expect[i])
+            }
+        }
+        XCTAssertEqual(buttonTitle, state.buttonTitle)
+        XCTAssertEqual(prevEnabled, state.prevEnabled)
+        XCTAssertEqual(nextEnabled, state.nextEnabled)
     }
 }
 
