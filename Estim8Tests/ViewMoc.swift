@@ -185,7 +185,9 @@ class CreateAccountMoc: CreateAccountView {
     }
     
     func tapOk() {
-        controller.create(title, initialValue: value, isNegative: isNegative)
+        if (!title.isEmpty) {
+            controller.create(title, initialValue: value, isNegative: isNegative)
+        }
     }
 }
 
