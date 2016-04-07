@@ -330,6 +330,10 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         self.allAccounts = accounts
     }
     
+    func buttonCalledCreate() -> Bool {
+        return true
+    }
+    
     func account(n: Int) -> ControllerROAccountInterface? {
         if (n > accounts.count) {
             return nil
@@ -383,6 +387,10 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
             updateAccounts.updateValue(update, forKey: model.accountOfUpdate(update))
         }
         self.updates = updateAccounts
+    }
+    
+    func buttonCalledCreate() -> Bool {
+        return false
     }
     
     func account(n: Int) -> ControllerROAccountInterface? {
