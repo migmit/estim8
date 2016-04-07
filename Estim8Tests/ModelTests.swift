@@ -26,8 +26,9 @@ class ModelTests: XCTestCase {
                     model = ModelImplementation(managedObjectContext: context)
                 }
             }
-        } catch {}
-        XCTAssertNotNil(model)
+        } catch {
+            XCTFail()
+        }
     }
     
     override func tearDown() {
