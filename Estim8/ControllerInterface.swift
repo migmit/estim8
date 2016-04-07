@@ -35,7 +35,7 @@ protocol ControllerAccountInterface: ControllerROAccountInterface {
     
 }
 
-protocol ControllerEditAccountInterface {
+protocol ControllerEditAccountInterface: ControllerROAccountInterface {
     
     func setValue(value: Float) -> Bool
     

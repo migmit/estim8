@@ -80,7 +80,7 @@ class MainWindowMoc: MainWindowView {
     
     let controller: ControllerInterface
     
-    var display: [(String, Float)] = []
+    private var display: [(String, Float)] = []
     
     let view: MocView
     
@@ -277,19 +277,35 @@ class EditAccountMoc: EditAccountView {
     
     let view: MocView
     
+    let name: String
+    
+    var value: Float
+    
     init(parent: MainWindowMoc, controller: ControllerEditAccountInterface, view: MocView) {
         self.parent = parent
         self.controller = controller
         self.view = view
+        self.name = controller.name()
+        self.value = controller.value()
     }
     
-    //
-    
     func showSubView() {
-        
+        view.state = .EditAccount(self)
     }
     
     func hideSubView() {
-        
+        view.state = .MainWindow(parent)
+    }
+    
+    func tapCancel() {
+        hideSubView()
+    }
+    
+    func tapOk() {
+        controller.setValue(value)
+    }
+    
+    func tapDeleteButton() {
+        controller.remove()
     }
 }

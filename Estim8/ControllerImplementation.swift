@@ -127,6 +127,16 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         self.view = view
     }
     
+    func name() -> String {
+        return model.nameOfAccount(account)
+    }
+    
+    func value() -> Float {
+        let updates = model.updatesOfAccount(account)
+        let update = updates[0]
+        return model.valueOfUpdate(update)
+    }
+    
     func setValue(value: Float) -> Bool {
         let isNegative = model.accountIsNegative(account)
         let verifyValue = isNegative ? -value : value
