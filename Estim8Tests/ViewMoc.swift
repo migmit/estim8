@@ -359,18 +359,25 @@ class SlicesMoc: SlicesView {
         }
     }
     
+    func tapCreateDeleteButton() {
+        state.slice.createOrRemove()
+    }
+    
     func expect(expect: [(String, Float)?], buttonTitle: String, prevEnabled: Bool, nextEnabled: Bool) {
-        XCTAssertEqual(state.display.count, expect.count)
-        if (expect.count > 0) {
-            for i in 0...(expect.count-1) {
-                if let d = state.display[i], let e = expect[i] {
-                    XCTAssertEqual(d.0, e.0)
-                    XCTAssertEqual(d.1, e.1)
-                } else {
-                    XCTAssertNil(state.display[i])
-                    XCTAssertNil(expect[i])
+        if (state.display.count == expect.count) {
+            if (expect.count > 0) {
+                for i in 0...(expect.count-1) {
+                    if let d = state.display[i], let e = expect[i] {
+                        XCTAssertEqual(d.0, e.0)
+                        XCTAssertEqual(d.1, e.1)
+                    } else {
+                        XCTAssertNil(state.display[i])
+                        XCTAssertNil(expect[i])
+                    }
                 }
             }
+        } else {
+            XCTFail()
         }
         XCTAssertEqual(buttonTitle, state.buttonTitle)
         XCTAssertEqual(prevEnabled, state.prevEnabled)
