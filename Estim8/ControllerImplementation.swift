@@ -311,7 +311,7 @@ class ControllerSlicesImplementation<Model: ModelInterface>: ControllerSlicesInt
         let slices = model.slices()
         if (n == 0) {
             return ControllerCurrentStatePseudoSliceImplementation(parent: self, model: model, accounts: accounts)
-        } else if (n >= slices.count) {
+        } else if (n > slices.count) {
             return nil
         } else {
             return ControllerSliceImplementation(parent: self, model: model, accounts: accounts, slice: slices[n-1], index: n-1)
@@ -349,7 +349,7 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
     }
     
     func account(n: Int) -> ControllerROAccountInterface? {
-        if (n > accounts.count) {
+        if (n >= accounts.count) {
             return nil
         } else {
             return ControllerROAccountImplementation(model: model, account: accounts[n])
