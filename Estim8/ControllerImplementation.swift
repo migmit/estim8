@@ -106,6 +106,11 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
         editController.setView(editView)
         editView.showSubView()
     }
+    
+    func remove() {
+        model.removeAccount(account)
+        parent.removeAccount(index)
+    }
 }
 
 class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEditAccountInterface {

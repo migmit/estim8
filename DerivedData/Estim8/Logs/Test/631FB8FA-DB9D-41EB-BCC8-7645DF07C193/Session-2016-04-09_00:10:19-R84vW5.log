@@ -1,0 +1,373 @@
+00:10:19.218 Xcode[22813:1998245] Beginning test session 0DAB9950-D7F5-4BE1-AD37-88C380AB4C81 with Xcode 7D175 on target <DVTiPhoneSimulator: 0x7fc953bcc310> {
+		SimDevice: SimDevice : iPhone 5s (D511D772-274B-40F4-8CB7-BDA789009549) : state={ Booted } deviceType={ SimDeviceType : com.apple.CoreSimulator.SimDeviceType.iPhone-5s } runtime={ SimRuntime : 9.3 (13E230) - com.apple.CoreSimulator.SimRuntime.iOS-9-3 }
+} (9.3 (13E230))
+00:10:19.218 Xcode[22813:1998245] Launching with Xcode.DebuggerFoundation.Launcher.LLDB
+00:10:19.256 Xcode[22813:1998245] Initializing test infrastructure.
+00:10:19.257 Xcode[22813:7328648] D511D772-274B-40F4-8CB7-BDA789009549: Registered for sim device notification, got token 166
+00:10:19.258 Xcode[22813:7328648] D511D772-274B-40F4-8CB7-BDA789009549: Unregistering for sim device notification with token 166
+00:10:19.258 Xcode[22813:7328648] Sim iPhone 5s is booted (state = 3)
+00:10:19.258 Xcode[22813:7328648] Calling -[SimDevice getenv:error:] for TESTMANAGERD_SIM_SOCK
+00:10:19.291 Xcode[22813:7328648] Returning /private/tmp/com.apple.launchd.QATlDElJQp/com.apple.testmanagerd.unix-domain.socket for TESTMANAGERD_SIM_SOCK
+00:10:19.291 Xcode[22813:7328648] Sim iPhone 5s has testmanagerd socket at /private/tmp/com.apple.launchd.QATlDElJQp/com.apple.testmanagerd.unix-domain.socket
+00:10:19.291 Xcode[22813:7328648] Connected to testmanagerd socket for Sim iPhone 5s
+00:10:19.321 Xcode[22813:7328648] Creating the connection.
+00:10:19.321 Xcode[22813:7328648] Listening for proxy connection request from the test bundle (all platforms)
+00:10:19.321 Xcode[22813:7328648] Resuming the connection.
+00:10:19.322 Xcode[22813:7328648] Test connection requires daemon assistance.
+00:10:19.328 Xcode[22813:1998245] Received Ready from iPhoneSimulator
+00:10:19.328 Xcode[22813:1998245] Sending notification: NSConcreteNotification 0x7fc901728f90 {name = com.apple.iphonesimulator.startSession; userInfo = {
+    deviceUDID = "D511D772-274B-40F4-8CB7-BDA789009549";
+}}
+00:10:19.449 Xcode[22813:1998245] Checking test manager availability..., will wait up to 120s
+00:10:19.450 Xcode[22813:1998245] Starting test session with ID <__NSConcreteUUID 0x7fc904e30120> 0DAB9950-D7F5-4BE1-AD37-88C380AB4C81
+00:10:19.704 Xcode[22813:1998245] Launch session started, setting a disallow-finish-token on the run operation.
+00:10:19.849 Xcode[22813:1998245] Received Ready from iPhoneSimulator
+00:10:19.849 Xcode[22813:1998245] Sending notification: NSConcreteNotification 0x7fc94f596400 {name = com.apple.iphonesimulator.startSession; userInfo = {
+    deviceUDID = "D511D772-274B-40F4-8CB7-BDA789009549";
+}}
+00:10:19.856 Xcode[22813:7330457] D511D772-274B-40F4-8CB7-BDA789009549: Registered for sim device notification, got token 167
+00:10:19.856 Xcode[22813:7330453] D511D772-274B-40F4-8CB7-BDA789009549: Unregistering for sim device notification with token 167
+00:10:19.858 Xcode[22813:1998245] Adding console adaptor <IDEConsoleAdaptor: 0x7fc9048205f0 'target'> for test session 0DAB9950-D7F5-4BE1-AD37-88C380AB4C81.
+00:10:19.858 Xcode[22813:7330498] D511D772-274B-40F4-8CB7-BDA789009549: Installing app at path: /Users/MigMit/Documents/Estim8/DerivedData/Estim8/Build/Products/Debug-iphonesimulator/Estim8.app and options: {
+    CFBundleIdentifier = "info.migmit.Estim8";
+}
+00:10:19.858 Xcode[22813:1998245] Received Ready from iPhoneSimulator
+00:10:19.858 Xcode[22813:1998245] Sending notification: NSConcreteNotification 0x7fc9217f7230 {name = com.apple.iphonesimulator.startSession; userInfo = {
+    deviceUDID = "D511D772-274B-40F4-8CB7-BDA789009549";
+}}
+00:10:38.150 Xcode[22813:7330498] D511D772-274B-40F4-8CB7-BDA789009549: Installed app at path: /Users/MigMit/Documents/Estim8/DerivedData/Estim8/Build/Products/Debug-iphonesimulator/Estim8.app and options: {
+    CFBundleIdentifier = "info.migmit.Estim8";
+}
+00:10:38.303 Xcode[22813:7330498] D511D772-274B-40F4-8CB7-BDA789009549: Launching app with identifier: info.migmit.Estim8 and options: {
+    arguments =     (
+        "-NSTreatUnknownArgumentsAsOpen",
+        NO,
+        "-ApplePersistenceIgnoreState",
+        YES
+    );
+    environment =     {
+        "DTX_CONNECTION_SERVICES_PATH" = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/DTXConnectionServices.framework";
+        "DYLD_FRAMEWORK_PATH" = "/Users/MigMit/Documents/Estim8/DerivedData/Estim8/Build/Products/Debug-iphonesimulator:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks";
+        "DYLD_INSERT_LIBRARIES" = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/PrivateFrameworks/IDEBundleInjection.framework/IDEBundleInjection";
+        "DYLD_LIBRARY_PATH" = "/Users/MigMit/Documents/Estim8/DerivedData/Estim8/Build/Products/Debug-iphonesimulator:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks";
+        NSUnbufferedIO = YES;
+        "OBJC_DISABLE_GC" = YES;
+        XCInjectBundleInto = "/Users/MigMit/Documents/Estim8/DerivedData/Estim8/Build/Products/Debug-iphonesimulator/Estim8.app/Estim8";
+        "XCODE_DBG_XPC_EXCLUSIONS" = "com.apple.dt.xctestSymbolicator";
+        XCTestConfigurationFilePath = "/Users/MigMit/Documents/Estim8/DerivedData/Estim8/Build/Products/Debug-iphonesimulator/Estim8.app/PlugIns/Estim8Tests.xctest/Estim8Tests-0DAB9950-D7F5-4BE1-AD37-88C380AB4C81.xctestconfiguration";
+    };
+    stderr = "/dev/ttys003";
+    stdout = "/dev/ttys003";
+    "wait_for_debugger" = 1;
+}
+00:10:42.217 Xcode[22813:7330498] testmanagerd handled session request.
+00:10:42.217 Xcode[22813:1998245] Waiting for test process to launch.
+00:10:58.656 Xcode[22813:7330464] D511D772-274B-40F4-8CB7-BDA789009549: Launched app with identifier: info.migmit.Estim8 (pid = 50908)
+00:10:58.656 Xcode[22813:7330464] Tracking pid 50908 for simulator <DVTiPhoneSimulator: 0x7fc953bcc310> {
+		SimDevice: SimDevice : iPhone 5s (D511D772-274B-40F4-8CB7-BDA789009549) : state={ Booted } deviceType={ SimDeviceType : com.apple.CoreSimulator.SimDeviceType.iPhone-5s } runtime={ SimRuntime : 9.3 (13E230) - com.apple.CoreSimulator.SimRuntime.iOS-9-3 }
+}
+00:10:58.656 Xcode[22813:7330464] Checking to see if pid 50908 is valid: kill(pid, 0) = 0 (YES, it's still running)
+00:10:58.656 Xcode[22813:7330464] Setting up DVTNotifyOnProcDeath for pid 50908
+00:11:04.316 Xcode[22813:1998245] Launch session finished initial intensive file IO.
+00:11:04.317 Xcode[22813:1998245] Waiting for test process to check in..., will wait up to 120s
+00:11:11.287 Xcode[22813:7330464] Got proxy channel request from test bundle
+00:11:11.317 Xcode[22813:7330464] Test bundle is ready, running protocol 16, requires at least version 8. IDE is running 16 and requires at least 8
+00:11:11.317 Xcode[22813:7330457] Creating secondary transport and connection for whitelisting test process PID.
+00:11:11.318 Xcode[22813:7330457] D511D772-274B-40F4-8CB7-BDA789009549: Registered for sim device notification, got token 168
+00:11:11.318 Xcode[22813:7330457] D511D772-274B-40F4-8CB7-BDA789009549: Unregistering for sim device notification with token 168
+00:11:11.318 Xcode[22813:7330457] Sim iPhone 5s is booted (state = 3)
+00:11:11.318 Xcode[22813:7330457] Calling -[SimDevice getenv:error:] for TESTMANAGERD_SIM_SOCK
+00:11:11.319 Xcode[22813:7330457] Returning /private/tmp/com.apple.launchd.QATlDElJQp/com.apple.testmanagerd.unix-domain.socket for TESTMANAGERD_SIM_SOCK
+00:11:11.319 Xcode[22813:7330457] Sim iPhone 5s has testmanagerd socket at /private/tmp/com.apple.launchd.QATlDElJQp/com.apple.testmanagerd.unix-domain.socket
+00:11:11.319 Xcode[22813:7330457] Connected to testmanagerd socket for Sim iPhone 5s
+00:11:11.319 Xcode[22813:7330457] Creating the connection.
+00:11:11.319 Xcode[22813:7330457] Resuming the secondary connection.
+00:11:11.319 Xcode[22813:7330457] Whitelisting test process ID 50908
+00:10:41.453 testmanagerd[50894:7330425] Launched testmanagerd from /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/libexec/testmanagerd, built at Saturday, March 5, 2016 at 12:23:46 AM Central European Standard Time
+00:10:41.661 testmanagerd[50894:7331089] IDE connected over socket 6 (__47-[XCTestManagerIDEServer initWithListenSocket:]_block_invoke)
+00:10:41.661 testmanagerd[50894:7330425] Setting availability state.
+00:10:41.662 testmanagerd[50894:7330425] Posting availability to test bundles...
+00:10:41.661 testmanagerd[50894:7331089] Created session with socket 6
+00:10:42.002 testmanagerd[50894:7331082] Handled a proxy request from the IDE with session <XCIDESession: 0x7fb069e09200> proxy <_DTXProxy: 0x7fb069f04410>
+00:10:42.215 testmanagerd[50894:7330425] __84-[XCIDESession _IDE_initiateSessionWithIdentifier:forClient:atPath:protocolVersion:]_block_invoke <__NSConcreteUUID 0x7fb069e102f0> 0DAB9950-D7F5-4BE1-AD37-88C380AB4C81 1 6 from client B36CA9E3-5945-498D-A9CB-F78920225762-22813-00026DE38DAAF34E (/Applications/Xcode.app)
+00:10:42.216 testmanagerd[50894:7331082] __45-[XCTestManager setIDESession:forIdentifier:]_block_invoke <XCIDESession: 0x7fb069e09200> -> <__NSConcreteUUID 0x7fb069e102f0> 0DAB9950-D7F5-4BE1-AD37-88C380AB4C81
+00:10:42.216 testmanagerd[50894:7331082] -[XCTestManager _handleRequestForSessionWithIdentifier:]
+00:10:46.761 testmanagerd[50894:7330425] Considering exiting, 0 test sessions, 1 sessions with identifiers, 0 unidentified sessions...
+00:11:11.045 testmanagerd[50894:7333419] Received new test session connection (-[XCTestManager listener:shouldAcceptNewConnection:])
+00:11:11.046 testmanagerd[50894:7330425] Initial orientation 0
+00:11:11.160 testmanagerd[50894:7333422] Test session <__NSConcreteUUID 0x7fb069f0a7f0> 0DAB9950-D7F5-4BE1-AD37-88C380AB4C81 requested socket (-[XCTestSession _XCT_requestSocketForSessionIdentifier:reply:])
+00:11:11.160 testmanagerd[50894:7333419] Test session <__NSConcreteUUID 0x7fb069f0a7f0> 0DAB9950-D7F5-4BE1-AD37-88C380AB4C81 requested socket (__57-[XCTestManager requestSocketForSessionIdentifier:reply:]_block_invoke)
+00:11:11.160 testmanagerd[50894:7333419] -[XCTestManager _handleRequestForSessionWithIdentifier:]
+00:11:11.160 testmanagerd[50894:7333419] Closing IDE connection before sending socket 8 to test host.
+00:11:11.160 testmanagerd[50894:7333419] -[XCIDESession closeIDEConnection:] sending barrier
+00:11:11.160 testmanagerd[50894:7330425] barrier flushed, closing DTXConnection to IDE, socket will not be closed
+00:11:11.160 testmanagerd[50894:7333423] Socket disconnected
+00:11:11.160 testmanagerd[50894:7333419] __33-[XCTestManager closeIDESession:]_block_invoke <XCIDESession: 0x7fb069e09200>
+00:11:11.160 testmanagerd[50894:7333419] Considering exiting, 1 test sessions, 0 sessions with identifiers, 0 unidentified sessions...
+00:11:11.269 testmanagerd[50894:7330425] Sending socket 8 to test host
+00:11:11.270 testmanagerd[50894:7333423] __33-[XCTestManager closeIDESession:]_block_invoke <XCIDESession: 0x7fb069e09200>
+00:11:11.270 testmanagerd[50894:7333423] Considering exiting, 1 test sessions, 0 sessions with identifiers, 0 unidentified sessions...
+00:11:11.319 testmanagerd[50894:7333423] IDE connected over socket 7 (__47-[XCTestManagerIDEServer initWithListenSocket:]_block_invoke)
+00:11:11.319 testmanagerd[50894:7333423] Created session with socket 7
+00:11:11.344 testmanagerd[50894:7333419] Handled a proxy request from the IDE with session <XCIDESession: 0x7fb069d13c50> proxy <_DTXProxy: 0x7fb069d16330>
+00:11:11.344 testmanagerd[50894:7333419] -[XCIDESession _IDE_initiateControlSessionForTestProcessID:protocolVersion:] 50908 16
+00:11:11.344 testmanagerd[50894:7330425] Set control session <XCIDESession: 0x7fb069d13c50> with proto 16 and proxy <_DTXProxy: 0x7fb069d16330>
+00:11:11.349 Xcode[22813:7330464] Got whitelisting response and daemon protocol version 16
+00:11:10.622 Estim8[50908:7332161] Linked XCTest.framework from /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/XCTest, built at Wednesday, March 16, 2016 at 1:32:00 AM Central European Standard Time
+00:11:10.623 Estim8[50908:7332161] Process arguments: (
+    "/Users/MigMit/Library/Developer/CoreSimulator/Devices/D511D772-274B-40F4-8CB7-BDA789009549/data/Containers/Bundle/Application/379DB2F3-9A03-475C-B0D7-0C313F2EF84F/Estim8.app/Estim8",
+    "-NSTreatUnknownArgumentsAsOpen",
+    NO,
+    "-ApplePersistenceIgnoreState",
+    YES
+)
+00:11:10.623 Estim8[50908:7332161] Process environment: {
+    "CFFIXED_USER_HOME" = "/Users/MigMit/Library/Developer/CoreSimulator/Devices/D511D772-274B-40F4-8CB7-BDA789009549/data/Containers/Data/Application/A3A80E76-9706-44B2-A768-0B148C021BD8";
+    "CFLOG_FORCE_STDERR" = YES;
+    CLASSIC = 0;
+    "CUPS_SERVER" = "/private/tmp/com.apple.launchd.GxTvFKHFC2/Listeners";
+    "DTX_CONNECTION_SERVICES_PATH" = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/DTXConnectionServices.framework";
+    "DYLD_FALLBACK_FRAMEWORK_PATH" = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks";
+    "DYLD_FALLBACK_LIBRARY_PATH" = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib";
+    "DYLD_FRAMEWORK_PATH" = "/Users/MigMit/Documents/Estim8/DerivedData/Estim8/Build/Products/Debug-iphonesimulator:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks";
+    "DYLD_INSERT_LIBRARIES" = "";
+    "DYLD_LIBRARY_PATH" = "/Users/MigMit/Documents/Estim8/DerivedData/Estim8/Build/Products/Debug-iphonesimulator:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks";
+    "DYLD_ROOT_PATH" = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk";
+    "DYLD_SHARED_REGION" = avoid;
+    FBSClientLogging = 0;
+    HOME = "/Users/MigMit/Library/Developer/CoreSimulator/Devices/D511D772-274B-40F4-8CB7-BDA789009549/data/Containers/Data/Application/A3A80E76-9706-44B2-A768-0B148C021BD8";
+    "IOS_SIMULATOR_SYSLOG_SOCKET" = "/private/tmp/com.apple.CoreSimulator.SimDevice.D511D772-274B-40F4-8CB7-BDA789009549.launchd_sim/syslogsock";
+    "IPHONE_SHARED_RESOURCES_DIRECTORY" = "/Users/MigMit/Library/Developer/CoreSimulator/Devices/D511D772-274B-40F4-8CB7-BDA789009549/data";
+    "IPHONE_SIMULATOR_CLASS" = N51;
+    "IPHONE_SIMULATOR_DEVICE" = iPhone;
+    "IPHONE_SIMULATOR_ROOT" = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk";
+    "IPHONE_TVOUT_EXTENDED_PROPERTIES" = "/Users/MigMit/Library/Developer/CoreSimulator/Devices/D511D772-274B-40F4-8CB7-BDA789009549/data/Library/Application Support/iPhone Simulator/com.apple.iphonesimulator/extended_display.plist";
+    NSUnbufferedIO = YES;
+    "OBJC_DISABLE_GC" = YES;
+    PATH = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/bin:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/bin:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/sbin:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/sbin:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/local/bin";
+    "SIMULATOR_CAPABILITIES" = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/CoreSimulator/Profiles/DeviceTypes/iPhone 5s.simdevicetype/Contents/Resources/capabilities.plist";
+    "SIMULATOR_DEVICE_NAME" = "iPhone 5s";
+    "SIMULATOR_EXTENDED_DISPLAY_PROPERTIES" = "/Users/MigMit/Library/Developer/CoreSimulator/Devices/D511D772-274B-40F4-8CB7-BDA789009549/data/Library/Application Support/iPhone Simulator/com.apple.iphonesimulator/extended_display.plist";
+    "SIMULATOR_HOST_HOME" = "/Users/MigMit";
+    "SIMULATOR_LEGACY_ASSET_SUFFIX" = iphone;
+    "SIMULATOR_LOG_ROOT" = "/Users/MigMit/Library/Logs/CoreSimulator/D511D772-274B-40F4-8CB7-BDA789009549";
+    "SIMULATOR_MAINSCREEN_HEIGHT" = 1136;
+    "SIMULATOR_MAINSCREEN_PITCH" = "326.000000";
+    "SIMULATOR_MAINSCREEN_SCALE" = "2.000000";
+    "SIMULATOR_MAINSCREEN_WIDTH" = 640;
+    "SIMULATOR_MEMORY_WARNINGS" = "/Users/MigMit/Library/Developer/CoreSimulator/Devices/D511D772-274B-40F4-8CB7-BDA789009549/data/var/run/memory_warning_simulation";
+    "SIMULATOR_MODEL_IDENTIFIER" = "iPhone6,1";
+    "SIMULATOR_PLATFORM_RUNTIME_OVERLAY_ROOT" = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/CoreSimulator/RuntimeOverlay";
+    "SIMULATOR_ROOT" = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk";
+    "SIMULATOR_RUNTIME_BUILD_VERSION" = 13E230;
+    "SIMULATOR_RUNTIME_VERSION" = "9.3";
+    "SIMULATOR_SHARED_RESOURCES_DIRECTORY" = "/Users/MigMit/Library/Developer/CoreSimulator/Devices/D511D772-274B-40F4-8CB7-BDA789009549/data";
+    "SIMULATOR_UDID" = "D511D772-274B-40F4-8CB7-BDA789009549";
+    "SIMULATOR_VERSION_INFO" = "CoreSimulator 209.19 - Device: iPhone 5s - Runtime: iOS 9.3 (13E230) - DeviceType: iPhone 5s";
+    "TESTMANAGERD_SIM_SOCK" = "/private/tmp/com.apple.launchd.QATlDElJQp/com.apple.testmanagerd.unix-domain.socket";
+    TMPDIR = "/Users/MigMit/Library/Developer/CoreSimulator/Devices/D511D772-274B-40F4-8CB7-BDA789009549/data/Containers/Data/Application/A3A80E76-9706-44B2-A768-0B148C021BD8/tmp";
+    XCInjectBundleInto = "/Users/MigMit/Documents/Estim8/DerivedData/Estim8/Build/Products/Debug-iphonesimulator/Estim8.app/Estim8";
+    "XCODE_DBG_XPC_EXCLUSIONS" = "com.apple.dt.xctestSymbolicator";
+    XCTestConfigurationFilePath = "/Users/MigMit/Documents/Estim8/DerivedData/Estim8/Build/Products/Debug-iphonesimulator/Estim8.app/PlugIns/Estim8Tests.xctest/Estim8Tests-0DAB9950-D7F5-4BE1-AD37-88C380AB4C81.xctestconfiguration";
+    "XPC_FLAGS" = 0x0;
+    "XPC_SERVICE_NAME" = "UIKitApplication:info.migmit.Estim8[0x4819]";
+    "XPC_SIMULATOR_LAUNCHD_NAME" = "com.apple.CoreSimulator.SimDevice.D511D772-274B-40F4-8CB7-BDA789009549.launchd_sim";
+}
+00:11:10.623 Estim8[50908:7332161] Loading DTXConnectionServices from /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/Developer/Library/PrivateFrameworks/DTXConnectionServices.framework
+00:11:11.042 Estim8[50908:7332161] Session ID <__NSConcreteUUID 0x7ffbc2e043a0> 0DAB9950-D7F5-4BE1-AD37-88C380AB4C81
+00:11:11.043 Estim8[50908:7332161] Registering for testmanagerd availability notify post.
+00:11:11.043 Estim8[50908:7332161] testmanagerd availability confirmed via notify_get_state.
+00:11:11.043 Estim8[50908:7332161] Initiating connection to testmanagerd to request socket for IDE connection.
+00:11:11.270 Estim8[50908:7333145] Got socket 7 from daemon, making connection to IDE
+00:11:11.270 Estim8[50908:7333145] Creating connection with transport
+00:11:11.270 Estim8[50908:7333145] Resuming connection
+00:11:11.271 Estim8[50908:7333145] Messaging IDE proxy - _XCT_testBundleReadyWithProtocolVersion:16 minimumVersion:8
+00:11:11.352 Xcode[22813:1998245] Starting test plan, clearing initialization timeout timer.
+00:11:11.352 Estim8[50908:7332161] -[XCTestDriver _runSuite]
+00:11:11.352 Estim8[50908:7332161] Loading test suite...
+00:11:11.586 Estim8[50908:7332161] Finished loading test suite, took 0.234s
+00:11:11.808 Estim8[50908:7332161] -[_XCTestDriverTestObserver testBundleWillStart:]
+00:11:11.808 Estim8[50908:7332161] Running suite...
+00:11:11.318 Estim8[50908:7333204] _XCT_testBundleReadyWithProtocolVersion:minimumVersion: reply received
+00:11:11.349 Estim8[50908:7333204] _IDE_startExecutingTestPlanWithProtocolVersion:16
+Test Suite 'Selected tests' started at 2016-04-09 00:11:11.808
+00:11:11.808 Estim8[50908:7332161] -[_XCTestDriverTestObserver testSuiteWillStart:]
+00:11:13.579 Xcode[22813:7333442] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.043 Xcode[22813:7330464] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.217 Xcode[22813:7330457] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.218 Xcode[22813:7333442] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.218 Xcode[22813:7333442] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.219 Xcode[22813:7333442] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.219 Xcode[22813:7330457] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.219 Xcode[22813:7333442] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.304 Xcode[22813:7330457] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.308 Xcode[22813:7330457] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.311 Xcode[22813:7333445] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.315 Xcode[22813:7333445] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.318 Xcode[22813:7330457] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.385 Xcode[22813:7330457] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.388 Xcode[22813:7330457] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.392 Xcode[22813:7330457] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.395 Xcode[22813:7333442] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.397 Xcode[22813:7333442] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.400 Xcode[22813:7333442] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.402 Xcode[22813:7333442] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:14.405 Xcode[22813:7333442] (LOG ARBITER) Dumping buffered message data; 0 messages.
+00:11:15.218 Xcode[22813:7330464] (LOG ARBITER) Rotating message buffer with 153 messages.
+00:11:11.809 Xcode[22813:1998245] _XCT_testSuite:Selected tests didStartAt:2016-04-08 22:11:11 +0000
+00:11:11.809 Estim8[50908:7332161] -[_XCTestDriverTestObserver testSuiteWillStart:]
+00:11:11.838 Xcode[22813:1998245] _XCT_testSuite:ControllerTests didStartAt:2016-04-08 22:11:11 +0000
+00:11:11.809 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testAddRightThenWrong
+00:11:11.839 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testAddRightThenWrong
+Test Suite 'ControllerTests' started at 2016-04-09 00:11:11.809
+Test Case '-[Estim8Tests.ControllerTests testAddRightThenWrong]' started.
+00:11:13.442 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:13.547 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testAddRightThenWrong withStatus:passed duration:1.632475972175598
+00:11:13.442 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testAddSlice
+00:11:13.579 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testAddSlice
+Test Case '-[Estim8Tests.ControllerTests testAddRightThenWrong]' passed (1.632 seconds).
+Test Case '-[Estim8Tests.ControllerTests testAddSlice]' started.
+00:11:14.039 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.043 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testAddSlice withStatus:passed duration:0.5964239835739136
+00:11:14.039 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testAddSliceRemove
+00:11:14.043 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testAddSliceRemove
+Test Case '-[Estim8Tests.ControllerTests testAddSlice]' passed (0.596 seconds).
+Test Case '-[Estim8Tests.ControllerTests testAddSliceRemove]' started.
+00:11:14.148 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.217 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testAddSliceRemove withStatus:passed duration:0.1087790131568909
+00:11:14.149 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testAddSliceUpdate
+00:11:14.218 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testAddSliceUpdate
+00:11:14.158 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.218 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testAddSliceUpdate withStatus:passed duration:0.009555995464324951
+00:11:14.158 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testAddWrongAccount
+00:11:14.218 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testAddWrongAccount
+00:11:14.160 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.218 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testAddWrongAccount withStatus:passed duration:0.001715958118438721
+00:11:14.161 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testCancelCreating
+00:11:14.218 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testCancelCreating
+00:11:14.163 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.219 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testCancelCreating withStatus:passed duration:0.001891016960144043
+00:11:14.163 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testCreateAccount
+00:11:14.219 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testCreateAccount
+00:11:14.166 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.219 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testCreateAccount withStatus:passed duration:0.003122031688690186
+00:11:14.166 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testCreateTwoAccounts
+00:11:14.219 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testCreateTwoAccounts
+00:11:14.170 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.219 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testCreateTwoAccounts withStatus:passed duration:0.003117024898529053
+00:11:14.217 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testDecant
+00:11:14.220 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testDecant
+Test Case '-[Estim8Tests.ControllerTests testAddSliceRemove]' passed (0.109 seconds).
+Test Case '-[Estim8Tests.ControllerTests testAddSliceUpdate]' started.
+Test Case '-[Estim8Tests.ControllerTests testAddSliceUpdate]' passed (0.010 seconds).
+Test Case '-[Estim8Tests.ControllerTests testAddWrongAccount]' started.
+Test Case '-[Estim8Tests.ControllerTests testAddWrongAccount]' passed (0.002 seconds).
+Test Case '-[Estim8Tests.ControllerTests testCancelCreating]' started.
+Test Case '-[Estim8Tests.ControllerTests testCancelCreating]' passed (0.002 seconds).
+Test Case '-[Estim8Tests.ControllerTests testCreateAccount]' started.
+Test Case '-[Estim8Tests.ControllerTests testCreateAccount]' passed (0.003 seconds).
+Test Case '-[Estim8Tests.ControllerTests testCreateTwoAccounts]' started.
+Test Case '-[Estim8Tests.ControllerTests testCreateTwoAccounts]' passed (0.003 seconds).
+Test Case '-[Estim8Tests.ControllerTests testDecant]' started.
+Test Case '-[Estim8Tests.ControllerTests testDecant]' passed (0.056 seconds).
+Test Case '-[Estim8Tests.ControllerTests testDecantSlice]' started.
+Test Case '-[Estim8Tests.ControllerTests testDecantSlice]' passed (0.007 seconds).
+Test Case '-[Estim8Tests.ControllerTests testNoSlices]' started.
+Test Case '-[Estim8Tests.ControllerTests testNoSlices]' passed (0.004 seconds).
+Test Case '-[Estim8Tests.ControllerTests testRemoveAccount]' started.
+Test Case '-[Estim8Tests.ControllerTests testRemoveAccount]' passed (0.004 seconds).
+Test Case '-[Estim8Tests.ControllerTests testStrikeOverAccount]' started.
+Test Case '-[Estim8Tests.ControllerTests testStrikeOverAccount]' passed (0.003 seconds).
+Test Suite 'ControllerTests' passed at 2016-04-09 00:11:14.247.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 2.432 (2.438) seconds
+Test Suite 'ModelTests' started at 2016-04-09 00:11:14.249
+00:11:14.226 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.304 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testDecant withStatus:passed duration:0.05606400966644287
+00:11:14.226 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testDecantSlice
+00:11:14.305 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testDecantSlice
+00:11:14.233 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.308 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testDecantSlice withStatus:passed duration:0.006942987442016602
+00:11:14.234 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testNoSlices
+00:11:14.309 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testNoSlices
+00:11:14.238 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.311 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testNoSlices withStatus:passed duration:0.0039520263671875
+00:11:14.238 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testRemoveAccount
+00:11:14.312 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testRemoveAccount
+00:11:14.243 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.315 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testRemoveAccount withStatus:passed duration:0.004458963871002197
+00:11:14.243 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ControllerTests testStrikeOverAccount
+00:11:14.316 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ControllerTests method:testStrikeOverAccount
+00:11:14.247 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.318 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ControllerTests method:testStrikeOverAccount withStatus:passed duration:0.003327012062072754
+00:11:14.248 Estim8[50908:7332161] -[_XCTestDriverTestObserver testSuiteDidFinish:]
+00:11:14.319 Xcode[22813:1998245] _XCT_testSuite:ControllerTests didFinishAt:2016-04-08 22:11:14 +0000 runCount:13 withFailures:0 unexpected:0 testDuration:2.431825995445251 totalDuration:2.438180029392242
+00:11:14.249 Estim8[50908:7332161] -[_XCTestDriverTestObserver testSuiteWillStart:]
+00:11:14.320 Xcode[22813:1998245] _XCT_testSuite:ModelTests didStartAt:2016-04-08 22:11:14 +0000
+00:11:14.249 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ModelTests testAddAccount
+00:11:14.320 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ModelTests method:testAddAccount
+Test Case '-[Estim8Tests.ModelTests testAddAccount]' started.
+Test Case '-[Estim8Tests.ModelTests testAddAccount]' passed (0.080 seconds).
+Test Case '-[Estim8Tests.ModelTests testCreateSlice]' started.
+Test Case '-[Estim8Tests.ModelTests testCreateSlice]' passed (0.004 seconds).
+Test Case '-[Estim8Tests.ModelTests testDates]' started.
+Test Case '-[Estim8Tests.ModelTests testDates]' passed (0.006 seconds).
+Test Case '-[Estim8Tests.ModelTests testDeleteSlice]' started.
+Test Case '-[Estim8Tests.ModelTests testDeleteSlice]' passed (0.003 seconds).
+Test Case '-[Estim8Tests.ModelTests testModelIsEmpty]' started.
+Test Case '-[Estim8Tests.ModelTests testModelIsEmpty]' passed (0.003 seconds).
+Test Case '-[Estim8Tests.ModelTests testMultipleAccounts]' started.
+Test Case '-[Estim8Tests.ModelTests testMultipleAccounts]' passed (0.003 seconds).
+Test Case '-[Estim8Tests.ModelTests testMultipleSlices]' started.
+Test Case '-[Estim8Tests.ModelTests testMultipleSlices]' passed (0.004 seconds).
+Test Case '-[Estim8Tests.ModelTests testUpdateAccount]' started.
+Test Case '-[Estim8Tests.ModelTests testUpdateAccount]' passed (0.003 seconds).
+Test Suite 'ModelTests' passed at 2016-04-09 00:11:14.369.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.107 (0.121) seconds
+00:11:14.329 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.385 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ModelTests method:testAddAccount withStatus:passed duration:0.08006894588470459
+00:11:14.330 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ModelTests testCreateSlice
+00:11:14.386 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ModelTests method:testCreateSlice
+00:11:14.334 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.388 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ModelTests method:testCreateSlice withStatus:passed duration:0.004077017307281494
+00:11:14.334 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ModelTests testDates
+00:11:14.389 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ModelTests method:testDates
+00:11:14.341 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.392 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ModelTests method:testDates withStatus:passed duration:0.00643998384475708
+00:11:14.341 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ModelTests testDeleteSlice
+00:11:14.393 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ModelTests method:testDeleteSlice
+00:11:14.344 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.395 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ModelTests method:testDeleteSlice withStatus:passed duration:0.002959966659545898
+00:11:14.344 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ModelTests testModelIsEmpty
+00:11:14.396 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ModelTests method:testModelIsEmpty
+00:11:14.347 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.397 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ModelTests method:testModelIsEmpty withStatus:passed duration:0.002719998359680176
+00:11:14.348 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ModelTests testMultipleAccounts
+00:11:14.398 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ModelTests method:testMultipleAccounts
+00:11:14.351 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.400 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ModelTests method:testMultipleAccounts withStatus:passed duration:0.003242015838623047
+00:11:14.351 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ModelTests testMultipleSlices
+00:11:14.401 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ModelTests method:testMultipleSlices
+00:11:14.365 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.402 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ModelTests method:testMultipleSlices withStatus:passed duration:0.00374305248260498
+00:11:14.366 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseWillStart:] Estim8Tests.ModelTests testUpdateAccount
+00:11:14.403 Xcode[22813:1998245] _XCT_testCaseDidStartForTestClass:Estim8Tests.ModelTests method:testUpdateAccount
+00:11:14.369 Estim8[50908:7332161] -[_XCTestDriverTestObserver testCaseDidFinish:]
+00:11:14.405 Xcode[22813:1998245] _XCT_testCaseDidFinishForTestClass:Estim8Tests.ModelTests method:testUpdateAccount withStatus:passed duration:0.003366947174072266
+00:11:14.369 Estim8[50908:7332161] -[_XCTestDriverTestObserver testSuiteDidFinish:]
+00:11:14.406 Xcode[22813:1998245] _XCT_testSuite:ModelTests didFinishAt:2016-04-08 22:11:14 +0000 runCount:8 withFailures:0 unexpected:0 testDuration:0.1066179275512695 totalDuration:0.1208059787750244
+00:11:14.370 Estim8[50908:7332161] -[_XCTestDriverTestObserver testSuiteDidFinish:]
+00:11:14.406 Xcode[22813:1998245] _XCT_testSuite:Selected tests didFinishAt:2016-04-08 22:11:14 +0000 runCount:21 withFailures:0 unexpected:0 testDuration:2.538443922996521 totalDuration:2.56181401014328
+00:11:14.370 Estim8[50908:7332161] Finished running suite.
+00:11:14.371 Estim8[50908:7332161] -[_XCTestDriverTestObserver testBundleDidFinish:], Flushing connection to IDE...
+00:11:14.406 Xcode[22813:1998245] -[_IDETestManagerAPIMediator _XCT_didFinishExecutingTestPlan]
+00:11:14.406 Xcode[22813:1998245] _finishWithError:(null) didCancel: 0
+00:11:14.407 Estim8[50908:7332161] Calling completion.
+00:11:14.618 testmanagerd[50894:7333423] Test process connection invalidated or interrupted, closing test session <XCTestSession: 0x7fb069d13600>.
+00:11:14.619 testmanagerd[50894:7333446] Closed <XCTestSession: 0x7fb069d13600>, removing from (
+    "<XCTestSession: 0x7fb069d13600>"
+)
+00:11:14.619 testmanagerd[50894:7333446] Tearing down test session <XCTestSession: 0x7fb069d13600>.
+00:11:14.619 testmanagerd[50894:7333446] Considering exiting, 0 test sessions, 0 sessions with identifiers, 0 unidentified sessions...
+00:11:14.620 testmanagerd[50894:7333446] testmanagerd exiting, idle with no test activity.
+00:11:14.622 Xcode[22813:1998245] Got death notice for pid 50908, removing from SimulatorSessionMap
+00:11:15.185 Xcode[22813:1998245] Launch session expired.

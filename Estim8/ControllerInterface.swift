@@ -33,6 +33,8 @@ protocol ControllerAccountInterface: ControllerROAccountInterface {
 
     func edit()
     
+    func remove()
+    
 }
 
 protocol ControllerEditAccountInterface: ControllerROAccountInterface {

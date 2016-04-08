@@ -145,6 +145,14 @@ class ControllerTests: XCTestCase {
         view?.mainWindow()?.expect([("OOO", 14)])
     }
     
+    func testStrikeOverAccount() {
+        view?.mainWindow()?.expect([])
+        createAccount("YYY", value: 25, isNegative: false)
+        view?.mainWindow()?.expect([("YYY", 25)])
+        view?.mainWindow()?.strikeOverAccount(0)
+        view?.mainWindow()?.expect([])
+    }
+    
     func testNoSlices() {
         view?.mainWindow()?.expect([])
         createAccount("HHH", value: 7, isNegative: false)

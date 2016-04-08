@@ -148,6 +148,12 @@ class MainWindowMoc: MainWindowView {
         controller.showSlices()
     }
     
+    func strikeOverAccount(n: Int) {
+        if let account = controller.account(n) {
+            account.remove()
+        }
+    }
+    
     func expect(expected: [(String, Float)]) {
         XCTAssert(display.map{$0.0} == expected.map{$0.0})
         XCTAssert(display.map{$0.1} == expected.map{$0.1})

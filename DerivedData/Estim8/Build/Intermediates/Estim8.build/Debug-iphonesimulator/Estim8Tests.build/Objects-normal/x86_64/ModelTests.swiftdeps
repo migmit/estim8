@@ -1,0 +1,727 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ModelTests"
+provides-nominal:
+- "C11Estim8Tests10ModelTests"
+provides-member:
+- ["C11Estim8Tests10ModelTests", ""]
+provides-dynamic-lookup:
+- "tearDown"
+- "testMultipleSlices"
+- "testCreateSlice"
+- "testDeleteSlice"
+- "testDates"
+- "testUpdateAccount"
+- "testMultipleAccounts"
+- "setUp"
+- "testModelIsEmpty"
+- "testAddAccount"
+depends-top-level:
+- !private "NSManagedObjectModel"
+- !private "StringLiteralType"
+- "XCTestCase"
+- !private "NSManagedObjectContextConcurrencyType"
+- "ModelImplementation"
+- !private "NSManagedObjectContext"
+- !private "NSPersistentStoreCoordinator"
+- !private "XCTAssertEqual"
+- !private "XCTAssertNotEqual"
+- !private "XCTAssertNotNil"
+- !private "Array"
+- !private "XCTFail"
+- !private "NSComparisonResult"
+- !private "NSBundle"
+- !private "NSDate"
+- !private "BooleanLiteralType"
+- "ModelTests"
+- !private "NSInMemoryStoreType"
+- !private "XCTAssertNil"
+depends-member:
+- !private ["Ps9AnyObject", "ModelImplementation"]
+- !private ["Ps9AnyObject", "NSBundle"]
+- !private ["Ps9AnyObject", "NSComparisonResult"]
+- !private ["Ps9AnyObject", "NSDate"]
+- !private ["Ps9AnyObject", "NSInMemoryStoreType"]
+- !private ["Ps9AnyObject", "NSManagedObjectContext"]
+- !private ["Ps9AnyObject", "NSManagedObjectContextConcurrencyType"]
+- !private ["Ps9AnyObject", "NSManagedObjectModel"]
+- !private ["Ps9AnyObject", "NSPersistentStoreCoordinator"]
+- !private ["Ps9AnyObject", "XCTAssertEqual"]
+- !private ["Ps9AnyObject", "XCTAssertNil"]
+- !private ["Ps9AnyObject", "XCTAssertNotEqual"]
+- !private ["Ps9AnyObject", "XCTAssertNotNil"]
+- !private ["Ps9AnyObject", "XCTFail"]
+- !private ["Ps9AnyObject", "accountClosingDate"]
+- !private ["Ps9AnyObject", "accountIsNegative"]
+- !private ["Ps9AnyObject", "accountOfUpdate"]
+- !private ["Ps9AnyObject", "accountOpenDate"]
+- !private ["Ps9AnyObject", "addAccountAnUpdate"]
+- !private ["Ps9AnyObject", "addPersistentStoreWithType"]
+- !private ["Ps9AnyObject", "allBundles"]
+- !private ["Ps9AnyObject", "compare"]
+- !private ["Ps9AnyObject", "createSlice"]
+- !private ["Ps9AnyObject", "dateOfSlice"]
+- !private ["Ps9AnyObject", "dateOfUpdate"]
+- !private ["Ps9AnyObject", "deadAccounts"]
+- ["Ps9AnyObject", "init"]
+- !private ["Ps9AnyObject", "lastUpdatesOfSlice"]
+- !private ["Ps9AnyObject", "liveAccounts"]
+- !private ["Ps9AnyObject", "mergedModelFromBundles"]
+- ["Ps9AnyObject", "model"]
+- !private ["Ps9AnyObject", "nameOfAccount"]
+- !private ["Ps9AnyObject", "persistentStoreCoordinator"]
+- !private ["Ps9AnyObject", "removeAccount"]
+- !private ["Ps9AnyObject", "removeSlice"]
+- ["Ps9AnyObject", "setUp"]
+- !private ["Ps9AnyObject", "slices"]
+- ["Ps9AnyObject", "tearDown"]
+- ["Ps9AnyObject", "testAddAccount"]
+- ["Ps9AnyObject", "testCreateSlice"]
+- ["Ps9AnyObject", "testDates"]
+- ["Ps9AnyObject", "testDeleteSlice"]
+- ["Ps9AnyObject", "testModelIsEmpty"]
+- ["Ps9AnyObject", "testMultipleAccounts"]
+- ["Ps9AnyObject", "testMultipleSlices"]
+- ["Ps9AnyObject", "testUpdateAccount"]
+- !private ["Ps9AnyObject", "updateAccount"]
+- !private ["Ps9AnyObject", "updatesOfAccount"]
+- !private ["Ps9AnyObject", "valueOfUpdate"]
+- ["Ps9AnyObject", ""]
+- !private ["Sa", "Element"]
+- !private ["Sa", "Generator"]
+- !private ["Sa", "Index"]
+- !private ["Sa", "SubSequence"]
+- !private ["Sa", "count"]
+- !private ["Sa", "deinit"]
+- !private ["Sa", "subscript"]
+- !private ["Ps23ArrayLiteralConvertible", "Element"]
+- !private ["Ps23ArrayLiteralConvertible", "Generator"]
+- !private ["Ps23ArrayLiteralConvertible", "Index"]
+- !private ["Ps23ArrayLiteralConvertible", "SubSequence"]
+- !private ["Ps23ArrayLiteralConvertible", "count"]
+- !private ["Ps23ArrayLiteralConvertible", "subscript"]
+- !private ["Vs10ArraySlice", "Generator"]
+- !private ["Vs10ArraySlice", "Index"]
+- !private ["Ps22BidirectionalIndexType", "Distance"]
+- !private ["Ps22BidirectionalIndexType", "IntegerLiteralType"]
+- !private ["Ps21BitwiseOperationsType", "Distance"]
+- !private ["Ps21BitwiseOperationsType", "IntegerLiteralType"]
+- !private ["Ps11CVarArgType", "Distance"]
+- !private ["Ps11CVarArgType", "IntegerLiteralType"]
+- !private ["Ps11CVarArgType", "ModelImplementation"]
+- !private ["Ps11CVarArgType", "NSBundle"]
+- !private ["Ps11CVarArgType", "NSComparisonResult"]
+- !private ["Ps11CVarArgType", "NSDate"]
+- !private ["Ps11CVarArgType", "NSInMemoryStoreType"]
+- !private ["Ps11CVarArgType", "NSManagedObjectContext"]
+- !private ["Ps11CVarArgType", "NSManagedObjectContextConcurrencyType"]
+- !private ["Ps11CVarArgType", "NSManagedObjectModel"]
+- !private ["Ps11CVarArgType", "NSPersistentStoreCoordinator"]
+- !private ["Ps11CVarArgType", "XCTAssertEqual"]
+- !private ["Ps11CVarArgType", "XCTAssertNil"]
+- !private ["Ps11CVarArgType", "XCTAssertNotEqual"]
+- !private ["Ps11CVarArgType", "XCTAssertNotNil"]
+- !private ["Ps11CVarArgType", "XCTFail"]
+- !private ["Ps11CVarArgType", "addPersistentStoreWithType"]
+- !private ["Ps11CVarArgType", "allBundles"]
+- !private ["Ps11CVarArgType", "compare"]
+- ["Ps11CVarArgType", "init"]
+- !private ["Ps11CVarArgType", "mergedModelFromBundles"]
+- ["Ps11CVarArgType", "model"]
+- !private ["Ps11CVarArgType", "persistentStoreCoordinator"]
+- ["Ps11CVarArgType", "setUp"]
+- ["Ps11CVarArgType", "tearDown"]
+- ["Ps11CVarArgType", "testAddAccount"]
+- ["Ps11CVarArgType", "testCreateSlice"]
+- ["Ps11CVarArgType", "testDates"]
+- ["Ps11CVarArgType", "testDeleteSlice"]
+- ["Ps11CVarArgType", "testModelIsEmpty"]
+- ["Ps11CVarArgType", "testMultipleAccounts"]
+- ["Ps11CVarArgType", "testMultipleSlices"]
+- ["Ps11CVarArgType", "testUpdateAccount"]
+- ["Ps11CVarArgType", ""]
+- !private ["Ps14CollectionType", "Element"]
+- !private ["Ps14CollectionType", "Generator"]
+- !private ["Ps14CollectionType", "Index"]
+- !private ["Ps14CollectionType", "SubSequence"]
+- !private ["Ps14CollectionType", "_Element"]
+- !private ["Ps14CollectionType", "count"]
+- !private ["Ps14CollectionType", "subscript"]
+- !private ["Ps10Comparable", "Distance"]
+- !private ["Ps10Comparable", "IntegerLiteralType"]
+- !private ["Ps28CustomDebugStringConvertible", "Element"]
+- !private ["Ps28CustomDebugStringConvertible", "Generator"]
+- !private ["Ps28CustomDebugStringConvertible", "Index"]
+- !private ["Ps28CustomDebugStringConvertible", "ModelImplementation"]
+- !private ["Ps28CustomDebugStringConvertible", "NSBundle"]
+- !private ["Ps28CustomDebugStringConvertible", "NSComparisonResult"]
+- !private ["Ps28CustomDebugStringConvertible", "NSDate"]
+- !private ["Ps28CustomDebugStringConvertible", "NSInMemoryStoreType"]
+- !private ["Ps28CustomDebugStringConvertible", "NSManagedObjectContext"]
+- !private ["Ps28CustomDebugStringConvertible", "NSManagedObjectContextConcurrencyType"]
+- !private ["Ps28CustomDebugStringConvertible", "NSManagedObjectModel"]
+- !private ["Ps28CustomDebugStringConvertible", "NSPersistentStoreCoordinator"]
+- ["Ps28CustomDebugStringConvertible", "Some"]
+- !private ["Ps28CustomDebugStringConvertible", "SubSequence"]
+- !private ["Ps28CustomDebugStringConvertible", "XCTAssertEqual"]
+- !private ["Ps28CustomDebugStringConvertible", "XCTAssertNil"]
+- !private ["Ps28CustomDebugStringConvertible", "XCTAssertNotEqual"]
+- !private ["Ps28CustomDebugStringConvertible", "XCTAssertNotNil"]
+- !private ["Ps28CustomDebugStringConvertible", "XCTFail"]
+- !private ["Ps28CustomDebugStringConvertible", "addPersistentStoreWithType"]
+- !private ["Ps28CustomDebugStringConvertible", "allBundles"]
+- !private ["Ps28CustomDebugStringConvertible", "compare"]
+- !private ["Ps28CustomDebugStringConvertible", "count"]
+- ["Ps28CustomDebugStringConvertible", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "mergedModelFromBundles"]
+- ["Ps28CustomDebugStringConvertible", "model"]
+- !private ["Ps28CustomDebugStringConvertible", "persistentStoreCoordinator"]
+- ["Ps28CustomDebugStringConvertible", "setUp"]
+- !private ["Ps28CustomDebugStringConvertible", "subscript"]
+- ["Ps28CustomDebugStringConvertible", "tearDown"]
+- ["Ps28CustomDebugStringConvertible", "testAddAccount"]
+- ["Ps28CustomDebugStringConvertible", "testCreateSlice"]
+- ["Ps28CustomDebugStringConvertible", "testDates"]
+- ["Ps28CustomDebugStringConvertible", "testDeleteSlice"]
+- ["Ps28CustomDebugStringConvertible", "testModelIsEmpty"]
+- ["Ps28CustomDebugStringConvertible", "testMultipleAccounts"]
+- ["Ps28CustomDebugStringConvertible", "testMultipleSlices"]
+- ["Ps28CustomDebugStringConvertible", "testUpdateAccount"]
+- ["Ps28CustomDebugStringConvertible", ""]
+- !private ["Ps23CustomStringConvertible", "Distance"]
+- !private ["Ps23CustomStringConvertible", "Element"]
+- !private ["Ps23CustomStringConvertible", "Generator"]
+- !private ["Ps23CustomStringConvertible", "Index"]
+- !private ["Ps23CustomStringConvertible", "IntegerLiteralType"]
+- !private ["Ps23CustomStringConvertible", "ModelImplementation"]
+- !private ["Ps23CustomStringConvertible", "NSBundle"]
+- !private ["Ps23CustomStringConvertible", "NSComparisonResult"]
+- !private ["Ps23CustomStringConvertible", "NSDate"]
+- !private ["Ps23CustomStringConvertible", "NSInMemoryStoreType"]
+- !private ["Ps23CustomStringConvertible", "NSManagedObjectContext"]
+- !private ["Ps23CustomStringConvertible", "NSManagedObjectContextConcurrencyType"]
+- !private ["Ps23CustomStringConvertible", "NSManagedObjectModel"]
+- !private ["Ps23CustomStringConvertible", "NSPersistentStoreCoordinator"]
+- !private ["Ps23CustomStringConvertible", "SubSequence"]
+- !private ["Ps23CustomStringConvertible", "XCTAssertEqual"]
+- !private ["Ps23CustomStringConvertible", "XCTAssertNil"]
+- !private ["Ps23CustomStringConvertible", "XCTAssertNotEqual"]
+- !private ["Ps23CustomStringConvertible", "XCTAssertNotNil"]
+- !private ["Ps23CustomStringConvertible", "XCTFail"]
+- !private ["Ps23CustomStringConvertible", "addPersistentStoreWithType"]
+- !private ["Ps23CustomStringConvertible", "allBundles"]
+- !private ["Ps23CustomStringConvertible", "compare"]
+- !private ["Ps23CustomStringConvertible", "count"]
+- ["Ps23CustomStringConvertible", "init"]
+- !private ["Ps23CustomStringConvertible", "mergedModelFromBundles"]
+- ["Ps23CustomStringConvertible", "model"]
+- !private ["Ps23CustomStringConvertible", "persistentStoreCoordinator"]
+- ["Ps23CustomStringConvertible", "setUp"]
+- !private ["Ps23CustomStringConvertible", "subscript"]
+- ["Ps23CustomStringConvertible", "tearDown"]
+- ["Ps23CustomStringConvertible", "testAddAccount"]
+- ["Ps23CustomStringConvertible", "testCreateSlice"]
+- ["Ps23CustomStringConvertible", "testDates"]
+- ["Ps23CustomStringConvertible", "testDeleteSlice"]
+- ["Ps23CustomStringConvertible", "testModelIsEmpty"]
+- ["Ps23CustomStringConvertible", "testMultipleAccounts"]
+- ["Ps23CustomStringConvertible", "testMultipleSlices"]
+- ["Ps23CustomStringConvertible", "testUpdateAccount"]
+- ["Ps23CustomStringConvertible", ""]
+- !private ["Ps9Equatable", "Distance"]
+- !private ["Ps9Equatable", "IntegerLiteralType"]
+- !private ["Ps9Equatable", "MainQueueConcurrencyType"]
+- !private ["Ps9Equatable", "ModelImplementation"]
+- !private ["Ps9Equatable", "NSBundle"]
+- !private ["Ps9Equatable", "NSComparisonResult"]
+- !private ["Ps9Equatable", "NSDate"]
+- !private ["Ps9Equatable", "NSInMemoryStoreType"]
+- !private ["Ps9Equatable", "NSManagedObjectContext"]
+- !private ["Ps9Equatable", "NSManagedObjectContextConcurrencyType"]
+- !private ["Ps9Equatable", "NSManagedObjectModel"]
+- !private ["Ps9Equatable", "NSPersistentStoreCoordinator"]
+- !private ["Ps9Equatable", "OrderedDescending"]
+- !private ["Ps9Equatable", "XCTAssertEqual"]
+- !private ["Ps9Equatable", "XCTAssertNil"]
+- !private ["Ps9Equatable", "XCTAssertNotEqual"]
+- !private ["Ps9Equatable", "XCTAssertNotNil"]
+- !private ["Ps9Equatable", "XCTFail"]
+- !private ["Ps9Equatable", "addPersistentStoreWithType"]
+- !private ["Ps9Equatable", "allBundles"]
+- !private ["Ps9Equatable", "compare"]
+- ["Ps9Equatable", "init"]
+- !private ["Ps9Equatable", "mergedModelFromBundles"]
+- ["Ps9Equatable", "model"]
+- !private ["Ps9Equatable", "persistentStoreCoordinator"]
+- ["Ps9Equatable", "setUp"]
+- ["Ps9Equatable", "tearDown"]
+- ["Ps9Equatable", "testAddAccount"]
+- ["Ps9Equatable", "testCreateSlice"]
+- ["Ps9Equatable", "testDates"]
+- ["Ps9Equatable", "testDeleteSlice"]
+- ["Ps9Equatable", "testModelIsEmpty"]
+- ["Ps9Equatable", "testMultipleAccounts"]
+- ["Ps9Equatable", "testMultipleSlices"]
+- ["Ps9Equatable", "testUpdateAccount"]
+- ["Ps9Equatable", ""]
+- !private ["Ps16ForwardIndexType", "Distance"]
+- !private ["Ps16ForwardIndexType", "IntegerLiteralType"]
+- !private ["Ps13GeneratorType", "Element"]
+- !private ["Ps8Hashable", "Distance"]
+- !private ["Ps8Hashable", "IntegerLiteralType"]
+- !private ["Ps8Hashable", "MainQueueConcurrencyType"]
+- !private ["Ps8Hashable", "ModelImplementation"]
+- !private ["Ps8Hashable", "NSBundle"]
+- !private ["Ps8Hashable", "NSComparisonResult"]
+- !private ["Ps8Hashable", "NSDate"]
+- !private ["Ps8Hashable", "NSInMemoryStoreType"]
+- !private ["Ps8Hashable", "NSManagedObjectContext"]
+- !private ["Ps8Hashable", "NSManagedObjectContextConcurrencyType"]
+- !private ["Ps8Hashable", "NSManagedObjectModel"]
+- !private ["Ps8Hashable", "NSPersistentStoreCoordinator"]
+- !private ["Ps8Hashable", "OrderedDescending"]
+- !private ["Ps8Hashable", "XCTAssertEqual"]
+- !private ["Ps8Hashable", "XCTAssertNil"]
+- !private ["Ps8Hashable", "XCTAssertNotEqual"]
+- !private ["Ps8Hashable", "XCTAssertNotNil"]
+- !private ["Ps8Hashable", "XCTFail"]
+- !private ["Ps8Hashable", "addPersistentStoreWithType"]
+- !private ["Ps8Hashable", "allBundles"]
+- !private ["Ps8Hashable", "compare"]
+- ["Ps8Hashable", "init"]
+- !private ["Ps8Hashable", "mergedModelFromBundles"]
+- ["Ps8Hashable", "model"]
+- !private ["Ps8Hashable", "persistentStoreCoordinator"]
+- ["Ps8Hashable", "setUp"]
+- ["Ps8Hashable", "tearDown"]
+- ["Ps8Hashable", "testAddAccount"]
+- ["Ps8Hashable", "testCreateSlice"]
+- ["Ps8Hashable", "testDates"]
+- ["Ps8Hashable", "testDeleteSlice"]
+- ["Ps8Hashable", "testModelIsEmpty"]
+- ["Ps8Hashable", "testMultipleAccounts"]
+- ["Ps8Hashable", "testMultipleSlices"]
+- ["Ps8Hashable", "testUpdateAccount"]
+- ["Ps8Hashable", ""]
+- !private ["Ps9Indexable", "Element"]
+- !private ["Ps9Indexable", "Generator"]
+- !private ["Ps9Indexable", "Index"]
+- !private ["Ps9Indexable", "SubSequence"]
+- !private ["Ps9Indexable", "_Element"]
+- !private ["Ps9Indexable", "count"]
+- !private ["Ps9Indexable", "subscript"]
+- !private ["Vs17IndexingGenerator", "Element"]
+- !private ["Si", "Distance"]
+- !private ["Si", "IntegerLiteralType"]
+- !private ["Ps21IntegerArithmeticType", "Distance"]
+- !private ["Ps21IntegerArithmeticType", "IntegerLiteralType"]
+- !private ["Ps25IntegerLiteralConvertible", "Distance"]
+- !private ["Ps25IntegerLiteralConvertible", "IntegerLiteralType"]
+- !private ["Ps11IntegerType", "Distance"]
+- !private ["Ps11IntegerType", "IntegerLiteralType"]
+- !private ["Ps14MirrorPathType", "Distance"]
+- !private ["Ps14MirrorPathType", "IntegerLiteralType"]
+- !private ["C11Estim8Tests19ModelImplementation", "accountClosingDate"]
+- !private ["C11Estim8Tests19ModelImplementation", "accountIsNegative"]
+- !private ["C11Estim8Tests19ModelImplementation", "accountOfUpdate"]
+- !private ["C11Estim8Tests19ModelImplementation", "accountOpenDate"]
+- !private ["C11Estim8Tests19ModelImplementation", "addAccountAnUpdate"]
+- !private ["C11Estim8Tests19ModelImplementation", "createSlice"]
+- !private ["C11Estim8Tests19ModelImplementation", "dateOfSlice"]
+- !private ["C11Estim8Tests19ModelImplementation", "dateOfUpdate"]
+- !private ["C11Estim8Tests19ModelImplementation", "deadAccounts"]
+- !private ["C11Estim8Tests19ModelImplementation", "deinit"]
+- !private ["C11Estim8Tests19ModelImplementation", "init"]
+- !private ["C11Estim8Tests19ModelImplementation", "lastUpdatesOfSlice"]
+- !private ["C11Estim8Tests19ModelImplementation", "liveAccounts"]
+- !private ["C11Estim8Tests19ModelImplementation", "nameOfAccount"]
+- !private ["C11Estim8Tests19ModelImplementation", "removeAccount"]
+- !private ["C11Estim8Tests19ModelImplementation", "removeSlice"]
+- !private ["C11Estim8Tests19ModelImplementation", "slices"]
+- !private ["C11Estim8Tests19ModelImplementation", "updateAccount"]
+- !private ["C11Estim8Tests19ModelImplementation", "updatesOfAccount"]
+- !private ["C11Estim8Tests19ModelImplementation", "valueOfUpdate"]
+- !private ["P11Estim8Tests14ModelInterface", "accountClosingDate"]
+- !private ["P11Estim8Tests14ModelInterface", "accountIsNegative"]
+- !private ["P11Estim8Tests14ModelInterface", "accountOfUpdate"]
+- !private ["P11Estim8Tests14ModelInterface", "accountOpenDate"]
+- !private ["P11Estim8Tests14ModelInterface", "addAccountAnUpdate"]
+- !private ["P11Estim8Tests14ModelInterface", "createSlice"]
+- !private ["P11Estim8Tests14ModelInterface", "dateOfSlice"]
+- !private ["P11Estim8Tests14ModelInterface", "dateOfUpdate"]
+- !private ["P11Estim8Tests14ModelInterface", "deadAccounts"]
+- !private ["P11Estim8Tests14ModelInterface", "init"]
+- !private ["P11Estim8Tests14ModelInterface", "lastUpdatesOfSlice"]
+- !private ["P11Estim8Tests14ModelInterface", "liveAccounts"]
+- !private ["P11Estim8Tests14ModelInterface", "nameOfAccount"]
+- !private ["P11Estim8Tests14ModelInterface", "removeAccount"]
+- !private ["P11Estim8Tests14ModelInterface", "removeSlice"]
+- !private ["P11Estim8Tests14ModelInterface", "slices"]
+- !private ["P11Estim8Tests14ModelInterface", "updateAccount"]
+- !private ["P11Estim8Tests14ModelInterface", "updatesOfAccount"]
+- !private ["P11Estim8Tests14ModelInterface", "valueOfUpdate"]
+- ["C11Estim8Tests10ModelTests", "ModelImplementation"]
+- !private ["C11Estim8Tests10ModelTests", "NSBundle"]
+- !private ["C11Estim8Tests10ModelTests", "NSComparisonResult"]
+- !private ["C11Estim8Tests10ModelTests", "NSDate"]
+- !private ["C11Estim8Tests10ModelTests", "NSInMemoryStoreType"]
+- !private ["C11Estim8Tests10ModelTests", "NSManagedObjectContext"]
+- !private ["C11Estim8Tests10ModelTests", "NSManagedObjectContextConcurrencyType"]
+- !private ["C11Estim8Tests10ModelTests", "NSManagedObjectModel"]
+- !private ["C11Estim8Tests10ModelTests", "NSPersistentStoreCoordinator"]
+- !private ["C11Estim8Tests10ModelTests", "XCTAssertEqual"]
+- !private ["C11Estim8Tests10ModelTests", "XCTAssertNil"]
+- !private ["C11Estim8Tests10ModelTests", "XCTAssertNotEqual"]
+- !private ["C11Estim8Tests10ModelTests", "XCTAssertNotNil"]
+- !private ["C11Estim8Tests10ModelTests", "XCTFail"]
+- ["C11Estim8Tests10ModelTests", "deinit"]
+- ["C11Estim8Tests10ModelTests", "init"]
+- ["C11Estim8Tests10ModelTests", "model"]
+- ["C11Estim8Tests10ModelTests", "setUp"]
+- ["C11Estim8Tests10ModelTests", "tearDown"]
+- ["C11Estim8Tests10ModelTests", "testAddAccount"]
+- ["C11Estim8Tests10ModelTests", "testCreateSlice"]
+- ["C11Estim8Tests10ModelTests", "testDates"]
+- ["C11Estim8Tests10ModelTests", "testDeleteSlice"]
+- ["C11Estim8Tests10ModelTests", "testModelIsEmpty"]
+- ["C11Estim8Tests10ModelTests", "testMultipleAccounts"]
+- ["C11Estim8Tests10ModelTests", "testMultipleSlices"]
+- ["C11Estim8Tests10ModelTests", "testUpdateAccount"]
+- !private ["Ps21MutableCollectionType", "Element"]
+- !private ["Ps21MutableCollectionType", "Generator"]
+- !private ["Ps21MutableCollectionType", "Index"]
+- !private ["Ps21MutableCollectionType", "SubSequence"]
+- !private ["Ps21MutableCollectionType", "count"]
+- !private ["Ps21MutableCollectionType", "subscript"]
+- !private ["Ps16MutableIndexable", "Element"]
+- !private ["Ps16MutableIndexable", "Generator"]
+- !private ["Ps16MutableIndexable", "Index"]
+- !private ["Ps16MutableIndexable", "SubSequence"]
+- !private ["Ps16MutableIndexable", "count"]
+- !private ["Ps16MutableIndexable", "subscript"]
+- !private ["Ps16MutableSliceable", "Element"]
+- !private ["Ps16MutableSliceable", "Generator"]
+- !private ["Ps16MutableSliceable", "Index"]
+- !private ["Ps16MutableSliceable", "SubSequence"]
+- !private ["Ps16MutableSliceable", "count"]
+- !private ["Ps16MutableSliceable", "subscript"]
+- !private ["CSo8NSBundle", "allBundles"]
+- !private ["PSo8NSCoding", "compare"]
+- !private ["PSo8NSCoding", "init"]
+- !private ["PSo8NSCoding", "mergedModelFromBundles"]
+- !private ["PSo8NSCoding", "persistentStoreCoordinator"]
+- !private ["OSC18NSComparisonResult", "OrderedDescending"]
+- !private ["PSo9NSCopying", "compare"]
+- !private ["PSo9NSCopying", "init"]
+- !private ["PSo9NSCopying", "mergedModelFromBundles"]
+- !private ["CSo6NSDate", "compare"]
+- !private ["CSo6NSDate", "init"]
+- !private ["PSo17NSFastEnumeration", "mergedModelFromBundles"]
+- !private ["PSo9NSLocking", "addPersistentStoreWithType"]
+- !private ["PSo9NSLocking", "init"]
+- !private ["PSo9NSLocking", "persistentStoreCoordinator"]
+- !private ["CSo22NSManagedObjectContext", "init"]
+- !private ["CSo22NSManagedObjectContext", "persistentStoreCoordinator"]
+- !private ["OSC37NSManagedObjectContextConcurrencyType", "MainQueueConcurrencyType"]
+- !private ["CSo20NSManagedObjectModel", "mergedModelFromBundles"]
+- ["CSo8NSObject", "ModelImplementation"]
+- !private ["CSo8NSObject", "NSBundle"]
+- !private ["CSo8NSObject", "NSComparisonResult"]
+- !private ["CSo8NSObject", "NSDate"]
+- !private ["CSo8NSObject", "NSInMemoryStoreType"]
+- !private ["CSo8NSObject", "NSManagedObjectContext"]
+- !private ["CSo8NSObject", "NSManagedObjectContextConcurrencyType"]
+- !private ["CSo8NSObject", "NSManagedObjectModel"]
+- !private ["CSo8NSObject", "NSPersistentStoreCoordinator"]
+- !private ["CSo8NSObject", "XCTAssertEqual"]
+- !private ["CSo8NSObject", "XCTAssertNil"]
+- !private ["CSo8NSObject", "XCTAssertNotEqual"]
+- !private ["CSo8NSObject", "XCTAssertNotNil"]
+- !private ["CSo8NSObject", "XCTFail"]
+- !private ["CSo8NSObject", "addPersistentStoreWithType"]
+- !private ["CSo8NSObject", "allBundles"]
+- !private ["CSo8NSObject", "compare"]
+- ["CSo8NSObject", "init"]
+- !private ["CSo8NSObject", "mergedModelFromBundles"]
+- ["CSo8NSObject", "model"]
+- !private ["CSo8NSObject", "persistentStoreCoordinator"]
+- ["CSo8NSObject", "setUp"]
+- ["CSo8NSObject", "tearDown"]
+- ["CSo8NSObject", "testAddAccount"]
+- ["CSo8NSObject", "testCreateSlice"]
+- ["CSo8NSObject", "testDates"]
+- ["CSo8NSObject", "testDeleteSlice"]
+- ["CSo8NSObject", "testModelIsEmpty"]
+- ["CSo8NSObject", "testMultipleAccounts"]
+- ["CSo8NSObject", "testMultipleSlices"]
+- ["CSo8NSObject", "testUpdateAccount"]
+- !private ["PSo16NSObjectProtocol", "ModelImplementation"]
+- !private ["PSo16NSObjectProtocol", "NSBundle"]
+- !private ["PSo16NSObjectProtocol", "NSComparisonResult"]
+- !private ["PSo16NSObjectProtocol", "NSDate"]
+- !private ["PSo16NSObjectProtocol", "NSInMemoryStoreType"]
+- !private ["PSo16NSObjectProtocol", "NSManagedObjectContext"]
+- !private ["PSo16NSObjectProtocol", "NSManagedObjectContextConcurrencyType"]
+- !private ["PSo16NSObjectProtocol", "NSManagedObjectModel"]
+- !private ["PSo16NSObjectProtocol", "NSPersistentStoreCoordinator"]
+- !private ["PSo16NSObjectProtocol", "XCTAssertEqual"]
+- !private ["PSo16NSObjectProtocol", "XCTAssertNil"]
+- !private ["PSo16NSObjectProtocol", "XCTAssertNotEqual"]
+- !private ["PSo16NSObjectProtocol", "XCTAssertNotNil"]
+- !private ["PSo16NSObjectProtocol", "XCTFail"]
+- !private ["PSo16NSObjectProtocol", "addPersistentStoreWithType"]
+- !private ["PSo16NSObjectProtocol", "allBundles"]
+- !private ["PSo16NSObjectProtocol", "compare"]
+- ["PSo16NSObjectProtocol", "init"]
+- !private ["PSo16NSObjectProtocol", "mergedModelFromBundles"]
+- ["PSo16NSObjectProtocol", "model"]
+- !private ["PSo16NSObjectProtocol", "persistentStoreCoordinator"]
+- ["PSo16NSObjectProtocol", "setUp"]
+- ["PSo16NSObjectProtocol", "tearDown"]
+- ["PSo16NSObjectProtocol", "testAddAccount"]
+- ["PSo16NSObjectProtocol", "testCreateSlice"]
+- ["PSo16NSObjectProtocol", "testDates"]
+- ["PSo16NSObjectProtocol", "testDeleteSlice"]
+- ["PSo16NSObjectProtocol", "testModelIsEmpty"]
+- ["PSo16NSObjectProtocol", "testMultipleAccounts"]
+- ["PSo16NSObjectProtocol", "testMultipleSlices"]
+- ["PSo16NSObjectProtocol", "testUpdateAccount"]
+- ["PSo16NSObjectProtocol", ""]
+- !private ["CSo28NSPersistentStoreCoordinator", "addPersistentStoreWithType"]
+- !private ["CSo28NSPersistentStoreCoordinator", "init"]
+- !private ["PSo14NSSecureCoding", "compare"]
+- !private ["PSo14NSSecureCoding", "init"]
+- ["Ps21NilLiteralConvertible", "Some"]
+- ["Sq", "Some"]
+- !private ["Sq", "deinit"]
+- !private ["Ps21RandomAccessIndexType", "Distance"]
+- !private ["Ps21RandomAccessIndexType", "IntegerLiteralType"]
+- !private ["Ps30RangeReplaceableCollectionType", "Element"]
+- !private ["Ps30RangeReplaceableCollectionType", "Generator"]
+- !private ["Ps30RangeReplaceableCollectionType", "Index"]
+- !private ["Ps30RangeReplaceableCollectionType", "SubSequence"]
+- !private ["Ps30RangeReplaceableCollectionType", "count"]
+- !private ["Ps30RangeReplaceableCollectionType", "subscript"]
+- !private ["Ps16RawRepresentable", "MainQueueConcurrencyType"]
+- !private ["Ps16RawRepresentable", "OrderedDescending"]
+- !private ["Ps12SequenceType", "Element"]
+- !private ["Ps12SequenceType", "Generator"]
+- !private ["Ps12SequenceType", "Index"]
+- !private ["Ps12SequenceType", "SubSequence"]
+- !private ["Ps12SequenceType", "_Element"]
+- !private ["Ps12SequenceType", "count"]
+- !private ["Ps12SequenceType", "subscript"]
+- !private ["Ps17SignedIntegerType", "Distance"]
+- !private ["Ps17SignedIntegerType", "IntegerLiteralType"]
+- !private ["Ps16SignedNumberType", "Distance"]
+- !private ["Ps16SignedNumberType", "IntegerLiteralType"]
+- !private ["Vs5Slice", "Generator"]
+- !private ["Vs5Slice", "Index"]
+- !private ["Vs5Slice", "SubSequence"]
+- !private ["Vs5Slice", "_Element"]
+- !private ["Vs12StaticString", "deinit"]
+- !private ["Ps10Strideable", "Distance"]
+- !private ["Ps10Strideable", "IntegerLiteralType"]
+- ["CSo6XCTest", "ModelImplementation"]
+- !private ["CSo6XCTest", "NSBundle"]
+- !private ["CSo6XCTest", "NSComparisonResult"]
+- !private ["CSo6XCTest", "NSDate"]
+- !private ["CSo6XCTest", "NSInMemoryStoreType"]
+- !private ["CSo6XCTest", "NSManagedObjectContext"]
+- !private ["CSo6XCTest", "NSManagedObjectContextConcurrencyType"]
+- !private ["CSo6XCTest", "NSManagedObjectModel"]
+- !private ["CSo6XCTest", "NSPersistentStoreCoordinator"]
+- !private ["CSo6XCTest", "XCTAssertEqual"]
+- !private ["CSo6XCTest", "XCTAssertNil"]
+- !private ["CSo6XCTest", "XCTAssertNotEqual"]
+- !private ["CSo6XCTest", "XCTAssertNotNil"]
+- !private ["CSo6XCTest", "XCTFail"]
+- ["CSo6XCTest", "init"]
+- ["CSo6XCTest", "model"]
+- ["CSo6XCTest", "setUp"]
+- ["CSo6XCTest", "tearDown"]
+- ["CSo6XCTest", "testAddAccount"]
+- ["CSo6XCTest", "testCreateSlice"]
+- ["CSo6XCTest", "testDates"]
+- ["CSo6XCTest", "testDeleteSlice"]
+- ["CSo6XCTest", "testModelIsEmpty"]
+- ["CSo6XCTest", "testMultipleAccounts"]
+- ["CSo6XCTest", "testMultipleSlices"]
+- ["CSo6XCTest", "testUpdateAccount"]
+- ["CSo10XCTestCase", "ModelImplementation"]
+- !private ["CSo10XCTestCase", "NSBundle"]
+- !private ["CSo10XCTestCase", "NSComparisonResult"]
+- !private ["CSo10XCTestCase", "NSDate"]
+- !private ["CSo10XCTestCase", "NSInMemoryStoreType"]
+- !private ["CSo10XCTestCase", "NSManagedObjectContext"]
+- !private ["CSo10XCTestCase", "NSManagedObjectContextConcurrencyType"]
+- !private ["CSo10XCTestCase", "NSManagedObjectModel"]
+- !private ["CSo10XCTestCase", "NSPersistentStoreCoordinator"]
+- !private ["CSo10XCTestCase", "XCTAssertEqual"]
+- !private ["CSo10XCTestCase", "XCTAssertNil"]
+- !private ["CSo10XCTestCase", "XCTAssertNotEqual"]
+- !private ["CSo10XCTestCase", "XCTAssertNotNil"]
+- !private ["CSo10XCTestCase", "XCTFail"]
+- ["CSo10XCTestCase", "init"]
+- ["CSo10XCTestCase", "model"]
+- ["CSo10XCTestCase", "setUp"]
+- ["CSo10XCTestCase", "tearDown"]
+- ["CSo10XCTestCase", "testAddAccount"]
+- ["CSo10XCTestCase", "testCreateSlice"]
+- ["CSo10XCTestCase", "testDates"]
+- ["CSo10XCTestCase", "testDeleteSlice"]
+- ["CSo10XCTestCase", "testModelIsEmpty"]
+- ["CSo10XCTestCase", "testMultipleAccounts"]
+- ["CSo10XCTestCase", "testMultipleSlices"]
+- ["CSo10XCTestCase", "testUpdateAccount"]
+- ["CSo10XCTestCase", ""]
+- !private ["Ps10_ArrayType", "Element"]
+- !private ["Ps10_ArrayType", "Generator"]
+- !private ["Ps10_ArrayType", "Index"]
+- !private ["Ps10_ArrayType", "SubSequence"]
+- !private ["Ps10_ArrayType", "count"]
+- !private ["Ps10_ArrayType", "subscript"]
+- !private ["Ps33_BuiltinIntegerLiteralConvertible", "Distance"]
+- !private ["Ps33_BuiltinIntegerLiteralConvertible", "IntegerLiteralType"]
+- !private ["Ps24_DestructorSafeContainer", "Element"]
+- !private ["Ps24_DestructorSafeContainer", "Generator"]
+- !private ["Ps24_DestructorSafeContainer", "Index"]
+- !private ["Ps24_DestructorSafeContainer", "SubSequence"]
+- !private ["Ps24_DestructorSafeContainer", "count"]
+- !private ["Ps24_DestructorSafeContainer", "subscript"]
+- !private ["Ps14_Incrementable", "Distance"]
+- !private ["Ps14_Incrementable", "IntegerLiteralType"]
+- !private ["Ps22_IntegerArithmeticType", "Distance"]
+- !private ["Ps22_IntegerArithmeticType", "IntegerLiteralType"]
+- !private ["Ps12_IntegerType", "Distance"]
+- !private ["Ps12_IntegerType", "IntegerLiteralType"]
+- !private ["Ps21_ObjectiveCBridgeable", "Distance"]
+- !private ["Ps21_ObjectiveCBridgeable", "Element"]
+- !private ["Ps21_ObjectiveCBridgeable", "Generator"]
+- !private ["Ps21_ObjectiveCBridgeable", "Index"]
+- !private ["Ps21_ObjectiveCBridgeable", "IntegerLiteralType"]
+- !private ["Ps21_ObjectiveCBridgeable", "SubSequence"]
+- !private ["Ps21_ObjectiveCBridgeable", "count"]
+- !private ["Ps21_ObjectiveCBridgeable", "subscript"]
+- !private ["Ps22_RandomAccessAmbiguity", "Distance"]
+- !private ["Ps22_RandomAccessAmbiguity", "IntegerLiteralType"]
+- !private ["Ps12_Reflectable", "Distance"]
+- !private ["Ps12_Reflectable", "Element"]
+- !private ["Ps12_Reflectable", "Generator"]
+- !private ["Ps12_Reflectable", "Index"]
+- !private ["Ps12_Reflectable", "IntegerLiteralType"]
+- ["Ps12_Reflectable", "Some"]
+- !private ["Ps12_Reflectable", "SubSequence"]
+- !private ["Ps12_Reflectable", "compare"]
+- !private ["Ps12_Reflectable", "count"]
+- !private ["Ps12_Reflectable", "init"]
+- !private ["Ps12_Reflectable", "subscript"]
+- !private ["Ps18_SignedIntegerType", "Distance"]
+- !private ["Ps18_SignedIntegerType", "IntegerLiteralType"]
+depends-nominal:
+- "Ps9AnyObject"
+- !private "Sa"
+- !private "Ps23ArrayLiteralConvertible"
+- !private "Vs10ArraySlice"
+- !private "Ps22BidirectionalIndexType"
+- !private "Ps21BitwiseOperationsType"
+- "Ps11CVarArgType"
+- !private "Ps14CollectionType"
+- !private "Ps10Comparable"
+- "Ps28CustomDebugStringConvertible"
+- "Ps23CustomStringConvertible"
+- "Ps9Equatable"
+- !private "Ps16ForwardIndexType"
+- !private "Ps13GeneratorType"
+- "Ps8Hashable"
+- !private "Ps9Indexable"
+- !private "Vs17IndexingGenerator"
+- !private "Si"
+- !private "Ps21IntegerArithmeticType"
+- !private "Ps25IntegerLiteralConvertible"
+- !private "Ps11IntegerType"
+- !private "Ps14MirrorPathType"
+- !private "C11Estim8Tests19ModelImplementation"
+- !private "P11Estim8Tests14ModelInterface"
+- "C11Estim8Tests10ModelTests"
+- !private "Ps21MutableCollectionType"
+- !private "Ps16MutableIndexable"
+- !private "Ps16MutableSliceable"
+- !private "CSo8NSBundle"
+- !private "PSo8NSCoding"
+- !private "OSC18NSComparisonResult"
+- !private "PSo9NSCopying"
+- !private "CSo6NSDate"
+- !private "PSo17NSFastEnumeration"
+- !private "PSo9NSLocking"
+- !private "CSo22NSManagedObjectContext"
+- !private "OSC37NSManagedObjectContextConcurrencyType"
+- !private "CSo20NSManagedObjectModel"
+- "CSo8NSObject"
+- "PSo16NSObjectProtocol"
+- !private "CSo28NSPersistentStoreCoordinator"
+- !private "PSo14NSSecureCoding"
+- "Ps21NilLiteralConvertible"
+- "Sq"
+- !private "Ps21RandomAccessIndexType"
+- !private "Ps30RangeReplaceableCollectionType"
+- !private "Ps16RawRepresentable"
+- !private "Ps12SequenceType"
+- !private "Ps17SignedIntegerType"
+- !private "Ps16SignedNumberType"
+- !private "Vs5Slice"
+- !private "Vs12StaticString"
+- !private "Ps10Strideable"
+- "CSo6XCTest"
+- "CSo10XCTestCase"
+- !private "Ps10_ArrayType"
+- !private "Ps33_BuiltinIntegerLiteralConvertible"
+- !private "Ps24_DestructorSafeContainer"
+- !private "Ps14_Incrementable"
+- !private "Ps22_IntegerArithmeticType"
+- !private "Ps12_IntegerType"
+- !private "Ps21_ObjectiveCBridgeable"
+- !private "Ps22_RandomAccessAmbiguity"
+- "Ps12_Reflectable"
+- !private "Ps18_SignedIntegerType"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/XCTest.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCUIRemote.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCUIKeyboardKeys.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCUIElementQuery.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCUICoordinate.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCUIDevice.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCUIElementTypeQueryProvider.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCUIElementTypes.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCUIElementAttributes.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCUIElement.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCUIApplication.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestSuiteRun.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestSuite.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestProbe.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestObservation.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestObservationCenter.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestObserver.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestLog.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestRun.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCaseRun.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase+AsynchronousTesting.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestCase.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestAssertionsImpl.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestAssertions.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCAbstractTest.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestErrors.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTestDefines.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Headers/XCTest.h"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks/XCTest.framework/Modules/module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
+interface-hash: "5f3335cd63998b62a441a6a36c3bf57b"
