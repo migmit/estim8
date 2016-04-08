@@ -11,8 +11,8 @@ import CoreData
 
 class ControllerTests: XCTestCase {
     
-    var model: ModelImplementation? = nil
-
+    var view: MocView? = nil
+    
     override func setUp() {
         super.setUp()
 
@@ -23,15 +23,20 @@ class ControllerTests: XCTestCase {
                     let context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
                     context.persistentStoreCoordinator = coordinator
                     
-                    model = ModelImplementation(managedObjectContext: context)
+                    let model = ModelImplementation(managedObjectContext: context)
+                    let controller = ControllerImplementation(model: model)
+                    let mainWindowView = MainWindowMoc(controller: controller)
+                    controller.setView(mainWindowView)
+                    view = MocView(mainWindow: mainWindowView)
                 }
             }
-        } catch {}
-        XCTAssertNotNil(model)
+        } catch {
+            XCTFail()
+        }
     }
     
     override func tearDown() {
-        model = nil
+        view = nil
         super.tearDown()
     }
     

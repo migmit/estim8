@@ -87,9 +87,11 @@ class MainWindowMoc: MainWindowView {
     init(controller: ControllerInterface) {
         self.controller = controller
         let n = controller.numberOfAccounts()
-        for i in 0...(n-1) {
-            if let account = controller.account(i) {
-                display.append((account.name(), account.value()))
+        if (n > 0) {
+            for i in 0...(n-1) {
+                if let account = controller.account(i) {
+                    display.append((account.name(), account.value()))
+                }
             }
         }
     }
@@ -215,9 +217,11 @@ class DecantMoc: DecantView {
         self.view = view
         let n = controller.numberOfAccounts()
         var allAccounts: [(String, Float)] = []
-        for i in 0...(n-1) {
-            if let account = controller.account(i) {
-                allAccounts.append((account.name(), account.value()))
+        if (n > 0) {
+            for i in 0...(n-1) {
+                if let account = controller.account(i) {
+                    allAccounts.append((account.name(), account.value()))
+                }
             }
         }
         self.fromAccounts = allAccounts
@@ -262,11 +266,13 @@ class SlicesMoc: SlicesView {
             self.slice = slice
             var display: [(String, Float)?] = []
             let n = controller.numberOfAccounts()
-            for i in 0...(n-1) {
-                if let account = slice.account(i) {
-                    display.append((account.name(), account.value()))
-                } else {
-                    display.append(nil)
+            if (n > 0) {
+                for i in 0...(n-1) {
+                    if let account = slice.account(i) {
+                        display.append((account.name(), account.value()))
+                    } else {
+                        display.append(nil)
+                    }
                 }
             }
             self.display = display
@@ -355,13 +361,15 @@ class SlicesMoc: SlicesView {
     
     func expect(expect: [(String, Float)?], buttonTitle: String, prevEnabled: Bool, nextEnabled: Bool) {
         XCTAssertEqual(state.display.count, expect.count)
-        for i in 0...(expect.count-1) {
-            if let d = state.display[i], let e = expect[i] {
-                XCTAssertEqual(d.0, e.0)
-                XCTAssertEqual(d.1, e.1)
-            } else {
-                XCTAssertNil(state.display[i])
-                XCTAssertNil(expect[i])
+        if (expect.count > 0) {
+            for i in 0...(expect.count-1) {
+                if let d = state.display[i], let e = expect[i] {
+                    XCTAssertEqual(d.0, e.0)
+                    XCTAssertEqual(d.1, e.1)
+                } else {
+                    XCTAssertNil(state.display[i])
+                    XCTAssertNil(expect[i])
+                }
             }
         }
         XCTAssertEqual(buttonTitle, state.buttonTitle)
