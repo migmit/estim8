@@ -12,10 +12,13 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
     
     let model: Model
     
-    let view: MainWindowView
+    var view: MainWindowView?
     
-    init(model: Model, view: MainWindowView) {
+    init(model: Model) {
         self.model = model
+    }
+    
+    func setView(view: MainWindowView) {
         self.view = view
     }
     
@@ -28,40 +31,41 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
         if (n >= accounts.count) {
             return nil
         } else {
-            return ControllerAccountImplementation(parent: self, model: model, view: view, account: accounts[n], index: n)
+            return ControllerAccountImplementation(parent: self, model: model, view: view!, account: accounts[n], index: n)
         }
     }
     
     func refreshAccount(n: Int) {
-        view.refreshAccount(n)
+        view?.refreshAccount(n)
     }
     
     func removeAccount(n: Int) {
-        view.removeAccount(n)
+        view?.removeAccount(n)
     }
     
     func addAccount() {
-        view.addAccount()
+        view?.addAccount()
     }
     
     func createAccount() {
         let createController = ControllerCreateAccountImplementation(parent: self, model: model)
-        let createView = view.createAccount(createController)
+        let createView = view!.createAccount(createController)
         createController.setView(createView)
         createView.showSubView()
     }
     
     func decant() {
         let decantController = ControllerDecantImplementation(parent: self, model: model)
-        let decantView = view.decant(decantController)
+        let decantView = view!.decant(decantController)
         decantController.setView(decantView)
         decantView.showSubView()
     }
     
-    //
-    
     func showSlices() {
-        
+        let slicesController = ControllerSlicesImplementation(model: model)
+        let slicesView = view!.showSlices(slicesController)
+        slicesController.setView(slicesView)
+        slicesView.showSubView()
     }
     
 }
