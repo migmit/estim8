@@ -7,12 +7,12 @@ provides-member:
 - ["P6Estim814ModelInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "String"
+- "Float"
+- "Bool"
 - "Hashable"
+- "String"
 - "NSDate"
 - "ModelInterface"
-- "Bool"
-- "Float"
 depends-member:
 - ["P6Estim814ModelInterface", "Account"]
 - ["P6Estim814ModelInterface", "Bool"]

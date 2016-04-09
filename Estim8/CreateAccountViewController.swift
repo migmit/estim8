@@ -10,19 +10,39 @@ import UIKit
 
 class CreateAccountImplementation: CreateAccountView {
     
-    //
+    let controller: ControllerCreateAccountInterface
+    
+    let parent: ViewController
+    
+    var view: CreateAccountViewController? = nil
+    
+    init(controller: ControllerCreateAccountInterface, parent: ViewController) {
+        self.controller = controller
+        self.parent = parent
+    }
+    
+    func setView(view: CreateAccountViewController) {
+        self.view = view
+        view.setController(controller)
+    }
     
     func showSubView() {
-        
+        parent.performSegueWithIdentifier("CreateAccount", sender: self)
     }
     
     func hideSubView() {
-        
+        view?.navigationController?.popViewControllerAnimated(true)
     }
 }
 
 class CreateAccountViewController: SubViewController {
 
+    var controller: ControllerCreateAccountInterface? = nil
+    
+    func setController(controller: ControllerCreateAccountInterface) {
+        self.controller = controller
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

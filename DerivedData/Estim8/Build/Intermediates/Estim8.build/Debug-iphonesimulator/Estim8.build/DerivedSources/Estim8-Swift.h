@@ -158,25 +158,44 @@ SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
 @interface EditAccountViewController : SubViewController
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+- (void)buttonSaveClicked;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UIButton;
 
 SWIFT_CLASS("_TtC6Estim820SlicesViewController")
 @interface SlicesViewController : UIViewController
+- (void)dismiss;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+- (IBAction)buttonTempClicked:(UIButton * _Nonnull)sender;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+@class UIStoryboardSegue;
+@class UITableView;
+@class NSIndexPath;
+@class UITableViewCell;
+@class UIBarButtonItem;
 
 SWIFT_CLASS("_TtC6Estim814ViewController")
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, weak) IBOutlet UITableView * _Null_unspecified accountsTable;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+- (void)viewDidAppear:(BOOL)animated;
+- (void)prepareForSegue:(UIStoryboardSegue * _Nonnull)segue sender:(id _Nullable)sender;
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString * _Nonnull)identifier sender:(id _Nullable)sender;
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (NSIndexPath * _Nullable)tableView:(UITableView * _Nonnull)tableView willSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (IBAction)buttonPlusClicked:(UIBarButtonItem * _Nonnull)sender;
+- (IBAction)buttonDecantClicked:(id _Nonnull)sender;
+- (IBAction)buttonSlicesClicked:(id _Nonnull)sender;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end

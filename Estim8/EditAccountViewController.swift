@@ -10,20 +10,42 @@ import UIKit
 
 class EditAccountImplementation: EditAccountView {
     
+    let controller: ControllerEditAccountInterface
+    
+    let parent: ViewController
+    
+    var view: EditAccountViewController? = nil
+    
+    init(controller: ControllerEditAccountInterface, parent: ViewController) {
+        self.controller = controller
+        self.parent = parent
+    }
+    
+    func setView(view: EditAccountViewController) {
+        self.view = view
+        view.setController(controller)
+    }
+    
     func showSubView() {
-        
+        parent.performSegueWithIdentifier("EditAccount", sender: self)
     }
     
     func hideSubView() {
-        
+        view?.navigationController?.popViewControllerAnimated(true)
     }
 }
 
 class EditAccountViewController: SubViewController {
+    
+    var controller: ControllerEditAccountInterface? = nil
+    
+    func setController(controller: ControllerEditAccountInterface) {
+        self.controller = controller
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
         // Do any additional setup after loading the view.
     }
 
@@ -32,6 +54,10 @@ class EditAccountViewController: SubViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func buttonSaveClicked() {
+        //
+        navigationController?.popViewControllerAnimated(true)
+    }
 
     /*
     // MARK: - Navigation

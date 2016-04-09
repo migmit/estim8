@@ -10,17 +10,39 @@ import UIKit
 
 class DecantImplementation: DecantView {
     
+    let controller: ControllerDecantInterface
+    
+    let parent: ViewController
+    
+    var view: DecantViewController? = nil
+    
+    init(controller: ControllerDecantInterface, parent: ViewController) {
+        self.controller = controller
+        self.parent = parent
+    }
+    
+    func setView(view: DecantViewController) {
+        self.view = view
+        view.setController(controller)
+    }
+    
     func showSubView() {
-        
+        parent.performSegueWithIdentifier("Decant", sender: self)
     }
     
     func hideSubView() {
-        
+        view?.navigationController?.popViewControllerAnimated(true)
     }
 }
 
 class DecantViewController: SubViewController {
 
+    var controller: ControllerDecantInterface? = nil
+    
+    func setController(controller: ControllerDecantInterface) {
+        self.controller = controller
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
