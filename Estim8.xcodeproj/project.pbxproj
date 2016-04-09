@@ -27,6 +27,11 @@
 		B51DE5A61CB6C2920060960A /* ControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5A21CB58A770060960A /* ControllerInterface.swift */; };
 		B51DE5A81CB6C36F0060960A /* ControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5A71CB6C36F0060960A /* ControllerTests.swift */; };
 		B51DE5AA1CB6C6BA0060960A /* ViewMoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5A91CB6C6BA0060960A /* ViewMoc.swift */; };
+		B51DE5AC1CB92ADF0060960A /* SubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5AB1CB92ADF0060960A /* SubViewController.swift */; };
+		B51DE5AE1CB92F910060960A /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5AD1CB92F910060960A /* CreateAccountViewController.swift */; };
+		B51DE5B01CB930840060960A /* DecantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5AF1CB930840060960A /* DecantViewController.swift */; };
+		B51DE5B21CB931060060960A /* SlicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5B11CB931060060960A /* SlicesViewController.swift */; };
+		B51DE5B41CB9315B0060960A /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +73,11 @@
 		B51DE5A21CB58A770060960A /* ControllerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerInterface.swift; sourceTree = "<group>"; };
 		B51DE5A71CB6C36F0060960A /* ControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerTests.swift; sourceTree = "<group>"; };
 		B51DE5A91CB6C6BA0060960A /* ViewMoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewMoc.swift; sourceTree = "<group>"; };
+		B51DE5AB1CB92ADF0060960A /* SubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubViewController.swift; sourceTree = "<group>"; };
+		B51DE5AD1CB92F910060960A /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		B51DE5AF1CB930840060960A /* DecantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecantViewController.swift; sourceTree = "<group>"; };
+		B51DE5B11CB931060060960A /* SlicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlicesViewController.swift; sourceTree = "<group>"; };
+		B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +132,6 @@
 				B51DE5841CB149870060960A /* Model */,
 				B51DE59E1CB57B920060960A /* View */,
 				B51DE5501CAF401E0060960A /* AppDelegate.swift */,
-				B51DE5521CAF401E0060960A /* ViewController.swift */,
 				B51DE5541CAF401E0060960A /* Main.storyboard */,
 				B51DE55A1CAF401E0060960A /* Assets.xcassets */,
 				B51DE55C1CAF401E0060960A /* LaunchScreen.storyboard */,
@@ -165,6 +174,12 @@
 			isa = PBXGroup;
 			children = (
 				B51DE59C1CB57B290060960A /* ViewInterface.swift */,
+				B51DE5521CAF401E0060960A /* ViewController.swift */,
+				B51DE5AB1CB92ADF0060960A /* SubViewController.swift */,
+				B51DE5AD1CB92F910060960A /* CreateAccountViewController.swift */,
+				B51DE5AF1CB930840060960A /* DecantViewController.swift */,
+				B51DE5B11CB931060060960A /* SlicesViewController.swift */,
+				B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -309,14 +324,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B51DE5AE1CB92F910060960A /* CreateAccountViewController.swift in Sources */,
+				B51DE5B01CB930840060960A /* DecantViewController.swift in Sources */,
 				B51DE5531CAF401E0060960A /* ViewController.swift in Sources */,
 				B51DE5A31CB58A770060960A /* ControllerInterface.swift in Sources */,
 				B51DE5861CB2D88B0060960A /* ModelInterface.swift in Sources */,
 				B51DE5591CAF401E0060960A /* Estim8.xcdatamodeld in Sources */,
 				B51DE5881CB2DEEE0060960A /* ModelImplementation.swift in Sources */,
 				B51DE59D1CB57B2A0060960A /* ViewInterface.swift in Sources */,
+				B51DE5AC1CB92ADF0060960A /* SubViewController.swift in Sources */,
 				B51DE5511CAF401E0060960A /* AppDelegate.swift in Sources */,
 				B51DE5A11CB57CBA0060960A /* ControllerImplementation.swift in Sources */,
+				B51DE5B21CB931060060960A /* SlicesViewController.swift in Sources */,
+				B51DE5B41CB9315B0060960A /* EditAccountViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

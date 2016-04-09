@@ -1,101 +1,226 @@
 ### Swift dependencies file v0 ###
 provides-top-level:
+- "MainWindowImplementation"
 - "ViewController"
 provides-nominal:
+- "C6Estim824MainWindowImplementation"
 - "C6Estim814ViewController"
 provides-member:
+- ["C6Estim824MainWindowImplementation", ""]
 - ["C6Estim814ViewController", ""]
 provides-dynamic-lookup:
 - "viewDidLoad"
 - "didReceiveMemoryWarning"
 depends-top-level:
+- "EditAccountView"
+- !private "BooleanLiteralType"
+- "SlicesView"
+- "CreateAccountView"
 - "UIViewController"
+- !private "DecantImplementation"
+- !private "CreateAccountImplementation"
+- "MainWindowImplementation"
+- !private "SlicesImplementation"
+- !private "EditAccountImplementation"
+- "DecantView"
 - "ViewController"
+- "ControllerCreateAccountInterface"
+- "Int"
+- "ControllerEditAccountInterface"
+- "ControllerSlicesInterface"
+- "ControllerDecantInterface"
+- "MainWindowView"
 depends-member:
+- !private ["Ps9AnyObject", "CreateAccountImplementation"]
+- !private ["Ps9AnyObject", "DecantImplementation"]
+- !private ["Ps9AnyObject", "EditAccountImplementation"]
+- !private ["Ps9AnyObject", "SlicesImplementation"]
+- ["Ps9AnyObject", "addAccount"]
+- ["Ps9AnyObject", "createAccount"]
+- ["Ps9AnyObject", "decant"]
 - ["Ps9AnyObject", "didReceiveMemoryWarning"]
+- ["Ps9AnyObject", "editAccount"]
 - ["Ps9AnyObject", "init"]
+- !private ["Ps9AnyObject", "navigationBarHidden"]
+- !private ["Ps9AnyObject", "navigationController"]
+- ["Ps9AnyObject", "refreshAccount"]
+- ["Ps9AnyObject", "removeAccount"]
+- ["Ps9AnyObject", "showSlices"]
 - ["Ps9AnyObject", "viewDidLoad"]
 - ["Ps9AnyObject", ""]
 - ["Ps11CVarArgType", "didReceiveMemoryWarning"]
 - ["Ps11CVarArgType", "init"]
+- !private ["Ps11CVarArgType", "navigationBarHidden"]
+- !private ["Ps11CVarArgType", "navigationController"]
 - ["Ps11CVarArgType", "viewDidLoad"]
 - ["Ps11CVarArgType", ""]
+- !private ["C6Estim827CreateAccountImplementation", "deinit"]
+- !private ["C6Estim827CreateAccountImplementation", "init"]
+- !private ["P6Estim817CreateAccountView", "init"]
 - ["Ps28CustomDebugStringConvertible", "didReceiveMemoryWarning"]
 - ["Ps28CustomDebugStringConvertible", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "navigationBarHidden"]
+- !private ["Ps28CustomDebugStringConvertible", "navigationController"]
 - ["Ps28CustomDebugStringConvertible", "viewDidLoad"]
 - ["Ps28CustomDebugStringConvertible", ""]
 - ["Ps23CustomStringConvertible", "didReceiveMemoryWarning"]
 - ["Ps23CustomStringConvertible", "init"]
+- !private ["Ps23CustomStringConvertible", "navigationBarHidden"]
+- !private ["Ps23CustomStringConvertible", "navigationController"]
 - ["Ps23CustomStringConvertible", "viewDidLoad"]
 - ["Ps23CustomStringConvertible", ""]
+- !private ["C6Estim820DecantImplementation", "deinit"]
+- !private ["C6Estim820DecantImplementation", "init"]
+- !private ["P6Estim810DecantView", "init"]
+- !private ["C6Estim825EditAccountImplementation", "deinit"]
+- !private ["C6Estim825EditAccountImplementation", "init"]
+- !private ["P6Estim815EditAccountView", "init"]
 - ["Ps9Equatable", "didReceiveMemoryWarning"]
 - ["Ps9Equatable", "init"]
+- !private ["Ps9Equatable", "navigationBarHidden"]
+- !private ["Ps9Equatable", "navigationController"]
 - ["Ps9Equatable", "viewDidLoad"]
 - ["Ps9Equatable", ""]
 - ["Ps8Hashable", "didReceiveMemoryWarning"]
 - ["Ps8Hashable", "init"]
+- !private ["Ps8Hashable", "navigationBarHidden"]
+- !private ["Ps8Hashable", "navigationController"]
 - ["Ps8Hashable", "viewDidLoad"]
 - ["Ps8Hashable", ""]
+- ["C6Estim824MainWindowImplementation", "ControllerCreateAccountInterface"]
+- ["C6Estim824MainWindowImplementation", "ControllerDecantInterface"]
+- ["C6Estim824MainWindowImplementation", "ControllerEditAccountInterface"]
+- ["C6Estim824MainWindowImplementation", "ControllerSlicesInterface"]
+- !private ["C6Estim824MainWindowImplementation", "CreateAccountImplementation"]
+- ["C6Estim824MainWindowImplementation", "CreateAccountView"]
+- !private ["C6Estim824MainWindowImplementation", "DecantImplementation"]
+- ["C6Estim824MainWindowImplementation", "DecantView"]
+- !private ["C6Estim824MainWindowImplementation", "EditAccountImplementation"]
+- ["C6Estim824MainWindowImplementation", "EditAccountView"]
+- ["C6Estim824MainWindowImplementation", "Int"]
+- !private ["C6Estim824MainWindowImplementation", "SlicesImplementation"]
+- ["C6Estim824MainWindowImplementation", "SlicesView"]
+- ["C6Estim824MainWindowImplementation", "addAccount"]
+- ["C6Estim824MainWindowImplementation", "createAccount"]
+- ["C6Estim824MainWindowImplementation", "decant"]
+- ["C6Estim824MainWindowImplementation", "deinit"]
+- ["C6Estim824MainWindowImplementation", "editAccount"]
+- ["C6Estim824MainWindowImplementation", "init"]
+- ["C6Estim824MainWindowImplementation", "refreshAccount"]
+- ["C6Estim824MainWindowImplementation", "removeAccount"]
+- ["C6Estim824MainWindowImplementation", "showSlices"]
+- !private ["P6Estim814MainWindowView", "CreateAccountImplementation"]
+- !private ["P6Estim814MainWindowView", "DecantImplementation"]
+- !private ["P6Estim814MainWindowView", "EditAccountImplementation"]
+- !private ["P6Estim814MainWindowView", "SlicesImplementation"]
+- ["P6Estim814MainWindowView", "addAccount"]
+- ["P6Estim814MainWindowView", "createAccount"]
+- ["P6Estim814MainWindowView", "decant"]
+- ["P6Estim814MainWindowView", "editAccount"]
+- ["P6Estim814MainWindowView", "refreshAccount"]
+- ["P6Estim814MainWindowView", "removeAccount"]
+- ["P6Estim814MainWindowView", "showSlices"]
+- ["P6Estim814MainWindowView", ""]
 - ["PSo8NSCoding", "didReceiveMemoryWarning"]
 - ["PSo8NSCoding", "init"]
+- !private ["PSo8NSCoding", "navigationBarHidden"]
+- !private ["PSo8NSCoding", "navigationController"]
 - ["PSo8NSCoding", "viewDidLoad"]
 - ["PSo8NSCoding", ""]
 - ["PSo26NSExtensionRequestHandling", "didReceiveMemoryWarning"]
 - ["PSo26NSExtensionRequestHandling", "init"]
+- !private ["PSo26NSExtensionRequestHandling", "navigationBarHidden"]
+- !private ["PSo26NSExtensionRequestHandling", "navigationController"]
 - ["PSo26NSExtensionRequestHandling", "viewDidLoad"]
 - ["PSo26NSExtensionRequestHandling", ""]
 - ["CSo8NSObject", "didReceiveMemoryWarning"]
 - ["CSo8NSObject", "init"]
+- !private ["CSo8NSObject", "navigationBarHidden"]
+- !private ["CSo8NSObject", "navigationController"]
 - ["CSo8NSObject", "viewDidLoad"]
 - ["PSo16NSObjectProtocol", "didReceiveMemoryWarning"]
 - ["PSo16NSObjectProtocol", "init"]
+- !private ["PSo16NSObjectProtocol", "navigationBarHidden"]
+- !private ["PSo16NSObjectProtocol", "navigationController"]
 - ["PSo16NSObjectProtocol", "viewDidLoad"]
 - ["PSo16NSObjectProtocol", ""]
+- !private ["C6Estim820SlicesImplementation", "deinit"]
+- !private ["C6Estim820SlicesImplementation", "init"]
+- !private ["P6Estim810SlicesView", "init"]
+- !private ["P6Estim87SubView", "init"]
 - ["PSo21UIAppearanceContainer", "didReceiveMemoryWarning"]
 - ["PSo21UIAppearanceContainer", "init"]
+- !private ["PSo21UIAppearanceContainer", "navigationBarHidden"]
+- !private ["PSo21UIAppearanceContainer", "navigationController"]
 - ["PSo21UIAppearanceContainer", "viewDidLoad"]
 - ["PSo21UIAppearanceContainer", ""]
 - ["PSo18UIContentContainer", "didReceiveMemoryWarning"]
 - ["PSo18UIContentContainer", "init"]
+- !private ["PSo18UIContentContainer", "navigationBarHidden"]
+- !private ["PSo18UIContentContainer", "navigationController"]
 - ["PSo18UIContentContainer", "viewDidLoad"]
 - ["PSo18UIContentContainer", ""]
 - ["PSo18UIFocusEnvironment", "didReceiveMemoryWarning"]
 - ["PSo18UIFocusEnvironment", "init"]
+- !private ["PSo18UIFocusEnvironment", "navigationBarHidden"]
+- !private ["PSo18UIFocusEnvironment", "navigationController"]
 - ["PSo18UIFocusEnvironment", "viewDidLoad"]
 - ["PSo18UIFocusEnvironment", ""]
+- !private ["CSo22UINavigationController", "navigationBarHidden"]
 - ["CSo11UIResponder", "didReceiveMemoryWarning"]
 - ["CSo11UIResponder", "init"]
+- !private ["CSo11UIResponder", "navigationBarHidden"]
+- !private ["CSo11UIResponder", "navigationController"]
 - ["CSo11UIResponder", "viewDidLoad"]
 - ["PSo16UIStateRestoring", "didReceiveMemoryWarning"]
 - ["PSo16UIStateRestoring", "init"]
+- !private ["PSo16UIStateRestoring", "navigationBarHidden"]
+- !private ["PSo16UIStateRestoring", "navigationController"]
 - ["PSo16UIStateRestoring", "viewDidLoad"]
 - ["PSo16UIStateRestoring", ""]
 - ["PSo18UITraitEnvironment", "didReceiveMemoryWarning"]
 - ["PSo18UITraitEnvironment", "init"]
+- !private ["PSo18UITraitEnvironment", "navigationBarHidden"]
+- !private ["PSo18UITraitEnvironment", "navigationController"]
 - ["PSo18UITraitEnvironment", "viewDidLoad"]
 - ["PSo18UITraitEnvironment", ""]
 - ["CSo16UIViewController", "didReceiveMemoryWarning"]
 - ["CSo16UIViewController", "init"]
+- !private ["CSo16UIViewController", "navigationBarHidden"]
+- !private ["CSo16UIViewController", "navigationController"]
 - ["CSo16UIViewController", "viewDidLoad"]
 - ["CSo16UIViewController", ""]
 - ["C6Estim814ViewController", "deinit"]
 - ["C6Estim814ViewController", "didReceiveMemoryWarning"]
 - ["C6Estim814ViewController", "init"]
+- !private ["C6Estim814ViewController", "navigationController"]
 - ["C6Estim814ViewController", "viewDidLoad"]
 depends-nominal:
 - "Ps9AnyObject"
 - "Ps11CVarArgType"
+- !private "C6Estim827CreateAccountImplementation"
+- !private "P6Estim817CreateAccountView"
 - "Ps28CustomDebugStringConvertible"
 - "Ps23CustomStringConvertible"
+- !private "C6Estim820DecantImplementation"
+- !private "P6Estim810DecantView"
+- !private "C6Estim825EditAccountImplementation"
+- !private "P6Estim815EditAccountView"
 - "Ps9Equatable"
 - "Ps8Hashable"
+- "C6Estim824MainWindowImplementation"
+- "P6Estim814MainWindowView"
 - "PSo8NSCoding"
 - "PSo26NSExtensionRequestHandling"
 - "CSo8NSObject"
 - "PSo16NSObjectProtocol"
+- !private "C6Estim820SlicesImplementation"
+- !private "P6Estim810SlicesView"
+- !private "P6Estim87SubView"
 - "PSo21UIAppearanceContainer"
 - "PSo18UIContentContainer"
 - "PSo18UIFocusEnvironment"
+- !private "CSo22UINavigationController"
 - "CSo11UIResponder"
 - "PSo16UIStateRestoring"
 - "PSo18UITraitEnvironment"
@@ -112,4 +237,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "2273e0b6560749631899e82af2412a52"
+interface-hash: "37314764842132d913bc194a484cfda4"
