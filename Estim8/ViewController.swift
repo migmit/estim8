@@ -112,7 +112,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell")
         if let account = controller?.account(indexPath.row) {
             cell?.textLabel?.text = account.name()
-            cell?.detailTextLabel?.text = String(format: "%.2f", account.value())
+            let numberFormatter = NSNumberFormatter()
+            numberFormatter.numberStyle = .DecimalStyle
+            cell?.detailTextLabel?.text = numberFormatter.stringFromNumber(account.value())
         }
         return cell!
     }
