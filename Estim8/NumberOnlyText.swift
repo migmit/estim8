@@ -38,7 +38,7 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
         if (isEditing) {
             isEditing = false
             let text = textField.text ?? ""
-            if (text.isEmpty) {
+            if (text.isEmpty || text == "-") {
                 value = 0
             } else if let v = numberFormatter.numberFromString(text) {
                 value = NSDecimalNumber(decimal: v.decimalValue)
