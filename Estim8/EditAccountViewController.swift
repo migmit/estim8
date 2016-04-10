@@ -77,7 +77,10 @@ class EditAccountViewController: UITableViewController {
     }
 
     @IBAction func buttonDeleteClicked(sender: UIButton) {
-        controller?.remove()
+        let alert = UIAlertController(title: controller?.name() ?? "", message: "Delete?", preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: {_ in self.controller?.remove()}))
+        alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func buttonSaveClicked() {
