@@ -80,7 +80,7 @@ class MainWindowMoc: MainWindowView {
     
     let controller: ControllerInterface
     
-    private var display: [(String, Float)] = []
+    private var display: [(String, NSDecimalNumber)] = []
     
     var view: MocView? = nil
     
@@ -154,7 +154,7 @@ class MainWindowMoc: MainWindowView {
         }
     }
     
-    func expect(expected: [(String, Float)]) {
+    func expect(expected: [(String, NSDecimalNumber)]) {
         XCTAssert(display.map{$0.0} == expected.map{$0.0})
         XCTAssert(display.map{$0.1} == expected.map{$0.1})
     }
@@ -170,7 +170,7 @@ class CreateAccountMoc: CreateAccountView {
     
     var title: String = ""
     
-    var value: Float = 0
+    var value: NSDecimalNumber = 0
     
     var isNegative: Bool = false
     
@@ -207,22 +207,22 @@ class DecantMoc: DecantView {
     
     let view: MocView
     
-    let fromAccounts: [(String, Float)]
+    let fromAccounts: [(String, NSDecimalNumber)]
     
-    let toAccounts: [(String, Float)]
+    let toAccounts: [(String, NSDecimalNumber)]
     
     var fromSelected: Int = 0
     
     var toSelected: Int = 0
     
-    var value: Float = 0
+    var value: NSDecimalNumber = 0
     
     init(parent: MainWindowMoc, controller: ControllerDecantInterface, view: MocView) {
         self.parent = parent
         self.controller = controller
         self.view = view
         let n = controller.numberOfAccounts()
-        var allAccounts: [(String, Float)] = []
+        var allAccounts: [(String, NSDecimalNumber)] = []
         if (n > 0) {
             for i in 0...(n-1) {
                 if let account = controller.account(i) {
@@ -259,7 +259,7 @@ class SlicesMoc: SlicesView {
         
         let slice: ControllerSliceInterface
         
-        let display: [(String, Float)?]
+        let display: [(String, NSDecimalNumber)?]
         
         let buttonTitle: String
         
@@ -270,7 +270,7 @@ class SlicesMoc: SlicesView {
         init(controller: ControllerSlicesInterface, number: Int, slice: ControllerSliceInterface) {
             self.number = number
             self.slice = slice
-            var display: [(String, Float)?] = []
+            var display: [(String, NSDecimalNumber)?] = []
             let n = controller.numberOfAccounts()
             if (n > 0) {
                 for i in 0...(n-1) {
@@ -401,7 +401,7 @@ class EditAccountMoc: EditAccountView {
     
     let name: String
     
-    var value: Float
+    var value: NSDecimalNumber
     
     init(parent: MainWindowMoc, controller: ControllerEditAccountInterface, view: MocView) {
         self.parent = parent
