@@ -64,11 +64,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let mainWindow = MainWindowImplementation(controller: controller, view: self)
         controller.setView(mainWindow)
         self.controller = controller
-        //
-//        model.addAccountAnUpdate("XXX", value: 1, isNegative: false)
-//        model.addAccountAnUpdate("YYY", value: 2, isNegative: false)
-//        model.addAccountAnUpdate("ZZZ", value: -3, isNegative: true)
-//        model.addAccountAnUpdate("UUU", value: 4, isNegative: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -122,6 +117,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         controller?.account(indexPath.row)?.edit()
         return indexPath
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .Delete
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        let alert = UIAlertController(title: controller?.account(indexPath.row)?.name() ?? "", message: "Delete?", preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: {_ in self.controller?.account(indexPath.row)?.remove()}))
+        alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: {_ in tableView.setEditing(false, animated: true)}))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     @IBAction func buttonPlusClicked(sender: UIBarButtonItem) {
