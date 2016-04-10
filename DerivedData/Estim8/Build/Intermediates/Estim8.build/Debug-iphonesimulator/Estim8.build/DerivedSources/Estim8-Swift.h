@@ -153,17 +153,26 @@ SWIFT_CLASS("_TtC6Estim820DecantViewController")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class UIButton;
+@class UILabel;
+@class UITextField;
 
 SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
-@interface EditAccountViewController : SubViewController
+@interface EditAccountViewController : UITableViewController
+@property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified accountNameLabel;
+@property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountValueText;
+@property (nonatomic) BOOL parentNavigationBarHidden;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
+- (IBAction)buttonDeleteClicked:(UIButton * _Nonnull)sender;
 - (void)buttonSaveClicked;
+- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class UIButton;
 
 SWIFT_CLASS("_TtC6Estim820SlicesViewController")
 @interface SlicesViewController : UIViewController

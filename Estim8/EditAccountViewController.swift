@@ -35,9 +35,15 @@ class EditAccountImplementation: EditAccountView {
     }
 }
 
-class EditAccountViewController: SubViewController {
+class EditAccountViewController: UITableViewController {
     
     var controller: ControllerEditAccountInterface? = nil
+    
+    @IBOutlet weak var accountNameLabel: UILabel!
+
+    @IBOutlet weak var accountValueText: UITextField!
+    
+    var parentNavigationBarHidden: Bool = false
     
     func setController(controller: ControllerEditAccountInterface) {
         self.controller = controller
@@ -46,7 +52,12 @@ class EditAccountViewController: SubViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
-        // Do any additional setup after loading the view.
+        if let controller = self.controller {
+            accountNameLabel.text = controller.name()
+            let numberFormatter = NSNumberFormatter()
+            numberFormatter.numberStyle = .DecimalStyle
+            accountValueText.text = numberFormatter.stringFromNumber(controller.value())
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,9 +65,35 @@ class EditAccountViewController: SubViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        parentNavigationBarHidden = navigationController?.navigationBarHidden ?? false
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        navigationController?.setNavigationBarHidden(parentNavigationBarHidden, animated: animated)
+        super.viewWillDisappear(animated)
+    }
+
+    @IBAction func buttonDeleteClicked(sender: UIButton) {
+        controller?.remove()
+    }
+    
     func buttonSaveClicked() {
-        //
-        navigationController?.popViewControllerAnimated(true)
+        let numberFormatter = NSNumberFormatter()
+        numberFormatter.numberStyle = .DecimalStyle
+        if let value = numberFormatter.numberFromString(accountValueText.text ?? "")?.floatValue {
+            if (!(controller?.setValue(value) ?? false)) {
+                let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller?.name() ?? "the account") to \(value)", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Wrong value: \"\(accountValueText.text ?? "")\"", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
 
     /*

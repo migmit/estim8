@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -91,9 +93,9 @@
                     <connections>
                         <outlet property="accountsTable" destination="d0D-an-lva" id="Pi2-jT-OgE"/>
                         <segue destination="sSL-wY-4wF" kind="show" identifier="CreateAccount" id="nXH-Zn-Ro9"/>
-                        <segue destination="mzM-ae-Pij" kind="show" identifier="EditAccount" id="NTX-pP-BnW"/>
                         <segue destination="uIo-tV-dUq" kind="presentation" identifier="Slices" id="obh-0P-FFU"/>
                         <segue destination="0qX-hU-vps" kind="show" identifier="Decant" id="2xF-YE-Fzg"/>
+                        <segue destination="yab-Hh-duo" kind="show" identifier="EditAccount" id="W2K-yt-Wb7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -167,23 +169,87 @@
             <point key="canvasLocation" x="1160" y="510"/>
         </scene>
         <!--Edit Account View Controller-->
-        <scene sceneID="sYA-Wt-TEO">
+        <scene sceneID="Tlu-tn-Vjp">
             <objects>
-                <viewController id="mzM-ae-Pij" customClass="EditAccountViewController" customModule="Estim8" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ncv-Q6-86w"/>
-                        <viewControllerLayoutGuide type="bottom" id="dAM-Hs-lcc"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="X8F-ny-NLi">
+                <tableViewController id="yab-Hh-duo" customClass="EditAccountViewController" customModule="Estim8" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="8Ok-Hu-efQ">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="OOi-CR-iak">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Rn0-pv-Kea">
+                                        <rect key="frame" x="0.0" y="35" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rn0-pv-Kea" id="Gf8-Ui-gz7">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EpF-Wu-vMU">
+                                                    <rect key="frame" x="8" y="11" width="106" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YBX-TJ-DH4">
+                                                    <rect key="frame" x="114" y="13" width="198" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="leadingMargin" secondItem="EpF-Wu-vMU" secondAttribute="leading" id="BbT-Mc-Wmt"/>
+                                                <constraint firstItem="YBX-TJ-DH4" firstAttribute="leading" secondItem="EpF-Wu-vMU" secondAttribute="trailing" id="HIU-Xh-ejy"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="YBX-TJ-DH4" secondAttribute="trailing" id="MMF-ST-ydb"/>
+                                                <constraint firstItem="EpF-Wu-vMU" firstAttribute="width" secondItem="Gf8-Ui-gz7" secondAttribute="width" multiplier="0.33" id="MP1-al-qkz"/>
+                                                <constraint firstItem="EpF-Wu-vMU" firstAttribute="centerY" secondItem="Gf8-Ui-gz7" secondAttribute="centerY" id="u4d-v0-oOD"/>
+                                                <constraint firstItem="YBX-TJ-DH4" firstAttribute="centerY" secondItem="Gf8-Ui-gz7" secondAttribute="centerY" id="zXC-FI-9hx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="Zyh-oq-BUu">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="o2C-kQ-hux">
+                                        <rect key="frame" x="0.0" y="115" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o2C-kQ-hux" id="80O-JH-nVe">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mej-Kh-iHO">
+                                                    <rect key="frame" x="138" y="7" width="45" height="30"/>
+                                                    <state key="normal" title="Delete"/>
+                                                    <connections>
+                                                        <action selector="buttonDeleteClicked:" destination="yab-Hh-duo" eventType="touchUpInside" id="1Qq-IU-1F4"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mej-Kh-iHO" firstAttribute="centerX" secondItem="80O-JH-nVe" secondAttribute="centerX" id="Grg-6x-SxU"/>
+                                                <constraint firstItem="mej-Kh-iHO" firstAttribute="centerY" secondItem="80O-JH-nVe" secondAttribute="centerY" id="NXw-eu-BH7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="yab-Hh-duo" id="qSZ-pP-0JE"/>
+                            <outlet property="delegate" destination="yab-Hh-duo" id="0iC-q9-N5q"/>
+                        </connections>
+                    </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SRH-O2-6K5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    <connections>
+                        <outlet property="accountNameLabel" destination="EpF-Wu-vMU" id="qLC-5I-vFo"/>
+                        <outlet property="accountValueText" destination="YBX-TJ-DH4" id="HcH-4m-vCO"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dMZ-hn-E08" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1160" y="-215"/>
+            <point key="canvasLocation" x="1160" y="-206"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fTT-Gw-M5k">

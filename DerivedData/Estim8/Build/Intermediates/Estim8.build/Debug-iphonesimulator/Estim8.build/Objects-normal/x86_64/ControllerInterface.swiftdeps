@@ -28,18 +28,18 @@ provides-member:
 - ["P6Estim824ControllerSliceInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "String"
-- "ControllerEditAccountInterface"
-- "Int"
-- "ControllerAccountInterface"
-- "Bool"
-- "ControllerInterface"
-- "ControllerDecantInterface"
-- "ControllerSliceInterface"
-- "ControllerSlicesInterface"
-- "ControllerCreateAccountInterface"
 - "Float"
 - "ControllerROAccountInterface"
+- "ControllerInterface"
+- "ControllerDecantInterface"
+- "ControllerSlicesInterface"
+- "ControllerEditAccountInterface"
+- "ControllerAccountInterface"
+- "Int"
+- "String"
+- "ControllerSliceInterface"
+- "Bool"
+- "ControllerCreateAccountInterface"
 depends-member:
 - ["P6Estim826ControllerAccountInterface", "edit"]
 - ["P6Estim826ControllerAccountInterface", "remove"]
