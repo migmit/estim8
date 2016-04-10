@@ -43,6 +43,8 @@ class EditAccountViewController: UITableViewController {
 
     @IBOutlet weak var accountValueText: UITextField!
     
+    var accountValueTextDelegate: NumberOnlyText = NumberOnlyText()
+    
     var parentNavigationBarHidden: Bool = false
     
     func setController(controller: ControllerEditAccountInterface) {
@@ -52,11 +54,11 @@ class EditAccountViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
+        accountValueText.delegate = accountValueTextDelegate
         if let controller = self.controller {
             accountNameLabel.text = controller.name()
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = .DecimalStyle
-            accountValueText.text = numberFormatter.stringFromNumber(controller.value())
+            accountValueTextDelegate.value = controller.value()
+            accountValueText.text = accountValueTextDelegate.numberFormatter.stringFromNumber(controller.value())
         }
     }
 
@@ -75,6 +77,15 @@ class EditAccountViewController: UITableViewController {
         navigationController?.setNavigationBarHidden(parentNavigationBarHidden, animated: animated)
         super.viewWillDisappear(animated)
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch indexPath.section {
+        case 0:
+            accountValueText.becomeFirstResponder()
+        default:
+            break;
+        }
+    }
 
     @IBAction func buttonDeleteClicked(sender: UIButton) {
         let alert = UIAlertController(title: controller?.name() ?? "", message: "Delete?", preferredStyle: .ActionSheet)
@@ -84,16 +95,10 @@ class EditAccountViewController: UITableViewController {
     }
     
     func buttonSaveClicked() {
-        let numberFormatter = NSNumberFormatter()
-        numberFormatter.numberStyle = .DecimalStyle
-        if let value = numberFormatter.numberFromString(accountValueText.text ?? "")?.floatValue {
-            if (!(controller?.setValue(value) ?? false)) {
-                let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller?.name() ?? "the account") to \(value)", preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
-        } else {
-            let alert = UIAlertController(title: "Error", message: "Wrong value: \"\(accountValueText.text ?? "")\"", preferredStyle: .Alert)
+        accountValueText.resignFirstResponder()
+        let value = accountValueTextDelegate.value
+        if (!(controller?.setValue(value) ?? false)) {
+            let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller?.name() ?? "the account") to \(value)", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }

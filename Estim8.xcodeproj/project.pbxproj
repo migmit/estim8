@@ -32,6 +32,7 @@
 		B51DE5B01CB930840060960A /* DecantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5AF1CB930840060960A /* DecantViewController.swift */; };
 		B51DE5B21CB931060060960A /* SlicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5B11CB931060060960A /* SlicesViewController.swift */; };
 		B51DE5B41CB9315B0060960A /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */; };
+		B5A39D0A1CBA9D2700079E5F /* NumberOnlyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A39D091CBA9D2700079E5F /* NumberOnlyText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		B51DE5AF1CB930840060960A /* DecantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecantViewController.swift; sourceTree = "<group>"; };
 		B51DE5B11CB931060060960A /* SlicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlicesViewController.swift; sourceTree = "<group>"; };
 		B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
+		B5A39D091CBA9D2700079E5F /* NumberOnlyText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberOnlyText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 				B51DE5AF1CB930840060960A /* DecantViewController.swift */,
 				B51DE5B11CB931060060960A /* SlicesViewController.swift */,
 				B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */,
+				B5A39D091CBA9D2700079E5F /* NumberOnlyText.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				B51DE5531CAF401E0060960A /* ViewController.swift in Sources */,
 				B51DE5A31CB58A770060960A /* ControllerInterface.swift in Sources */,
 				B51DE5861CB2D88B0060960A /* ModelInterface.swift in Sources */,
+				B5A39D0A1CBA9D2700079E5F /* NumberOnlyText.swift in Sources */,
 				B51DE5591CAF401E0060960A /* Estim8.xcdatamodeld in Sources */,
 				B51DE5881CB2DEEE0060960A /* ModelImplementation.swift in Sources */,
 				B51DE59D1CB57B2A0060960A /* ViewInterface.swift in Sources */,

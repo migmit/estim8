@@ -186,7 +186,7 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
     
     func create(title: String, initialValue: Float, isNegative: Bool) -> Bool {
         let verifyValue = isNegative ? -initialValue : initialValue
-        if (verifyValue < 0) {
+        if (verifyValue < 0 || title.isEmpty) {
             return false
         } else {
             view?.hideSubView()

@@ -34,45 +34,45 @@ provides-member:
 - ["C6Estim825ControllerUpdateInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "Bool"
-- "ControllerSlicesInterface"
-- "ControllerSliceInterface"
-- !private ">"
-- "ControllerAccountInterface"
-- "ControllerInterface"
-- "ControllerDecantInterface"
-- !private "-"
-- "ControllerEditAccountInterface"
 - "ModelInterface"
-- "MainWindowView"
-- "ControllerAccountImplementation"
-- "SlicesView"
-- !private "||"
-- "ControllerEditAccountImplementation"
+- !private "-"
+- "ControllerSlicesInterface"
 - "ControllerDecantImplementation"
-- "ControllerCurrentStatePseudoSliceImplementation"
-- !private "=="
-- "ControllerCreateAccountImplementation"
-- !private "+"
-- "CreateAccountView"
-- "EditAccountView"
-- "ControllerUpdateInterface"
-- "ControllerImplementation"
-- !private "FloatLiteralType"
 - !private "IntegerLiteralType"
-- "ControllerSliceImplementation"
-- "Int"
-- !private "Dictionary"
-- !private "<"
-- "ControllerROAccountImplementation"
-- "ControllerSlicesImplementation"
-- "ControllerCreateAccountInterface"
-- !private "BooleanLiteralType"
-- "String"
-- "DecantView"
-- !private ">="
+- "ControllerDecantInterface"
+- "ControllerEditAccountInterface"
+- "ControllerCreateAccountImplementation"
 - "Float"
 - "ControllerROAccountInterface"
+- !private ">"
+- !private "=="
+- "CreateAccountView"
+- !private ">="
+- "String"
+- "Bool"
+- !private "||"
+- "ControllerImplementation"
+- "ControllerAccountInterface"
+- "DecantView"
+- "ControllerCurrentStatePseudoSliceImplementation"
+- "ControllerSliceImplementation"
+- "ControllerROAccountImplementation"
+- "ControllerCreateAccountInterface"
+- "ControllerEditAccountImplementation"
+- !private "<"
+- !private "FloatLiteralType"
+- "Int"
+- "SlicesView"
+- "ControllerSliceInterface"
+- !private "+"
+- "ControllerInterface"
+- !private "Dictionary"
+- "EditAccountView"
+- "MainWindowView"
+- "ControllerUpdateInterface"
+- "ControllerSlicesImplementation"
+- !private "BooleanLiteralType"
+- "ControllerAccountImplementation"
 depends-member:
 - !private ["Ps9AnyObject", "ControllerAccountImplementation"]
 - !private ["Ps9AnyObject", "ControllerCreateAccountImplementation"]
@@ -96,6 +96,7 @@ depends-member:
 - ["Ps9AnyObject", "edit"]
 - !private ["Ps9AnyObject", "index"]
 - !private ["Ps9AnyObject", "init"]
+- !private ["Ps9AnyObject", "isEmpty"]
 - !private ["Ps9AnyObject", "model"]
 - ["Ps9AnyObject", "name"]
 - ["Ps9AnyObject", "next"]
@@ -143,6 +144,7 @@ depends-member:
 - !private ["Ps11BooleanType", "_getBuiltinLogicValue"]
 - !private ["Ps11CVarArgType", "Distance"]
 - !private ["Ps11CVarArgType", "IntegerLiteralType"]
+- !private ["Ps11CVarArgType", "isEmpty"]
 - !private ["Ps14CollectionType", "Generator"]
 - !private ["Ps14CollectionType", "Index"]
 - !private ["Ps14CollectionType", "Key"]
@@ -156,6 +158,7 @@ depends-member:
 - !private ["Ps10Comparable", "Distance"]
 - !private ["Ps10Comparable", "IntegerLiteralType"]
 - !private ["Ps10Comparable", "_DisabledRangeIndex"]
+- !private ["Ps10Comparable", "isEmpty"]
 - !private ["C6Estim831ControllerAccountImplementation", "ControllerEditAccountImplementation"]
 - ["C6Estim831ControllerAccountImplementation", "ControllerImplementation"]
 - ["C6Estim831ControllerAccountImplementation", "Float"]
@@ -477,6 +480,8 @@ depends-member:
 - !private ["Ps9Equatable", "IntegerLiteralType"]
 - !private ["Ps9Equatable", "_DisabledRangeIndex"]
 - !private ["Ps9Equatable", "_getBuiltinLogicValue"]
+- !private ["Ps9Equatable", "isEmpty"]
+- !private ["Ps41ExtendedGraphemeClusterLiteralConvertible", "isEmpty"]
 - !private ["Ps16ForwardIndexType", "Distance"]
 - !private ["Ps16ForwardIndexType", "IntegerLiteralType"]
 - !private ["Ps16ForwardIndexType", "_DisabledRangeIndex"]
@@ -484,6 +489,7 @@ depends-member:
 - !private ["Ps8Hashable", "Distance"]
 - !private ["Ps8Hashable", "IntegerLiteralType"]
 - !private ["Ps8Hashable", "_getBuiltinLogicValue"]
+- !private ["Ps8Hashable", "isEmpty"]
 - !private ["Ps9Indexable", "Generator"]
 - !private ["Ps9Indexable", "Index"]
 - !private ["Ps9Indexable", "Key"]
@@ -512,6 +518,7 @@ depends-member:
 - !private ["P6Estim814MainWindowView", "showSlices"]
 - !private ["Ps14MirrorPathType", "Distance"]
 - !private ["Ps14MirrorPathType", "IntegerLiteralType"]
+- !private ["Ps14MirrorPathType", "isEmpty"]
 - ["P6Estim814ModelInterface", "Account"]
 - ["P6Estim814ModelInterface", "Slice"]
 - ["P6Estim814ModelInterface", "Update"]
@@ -550,9 +557,17 @@ depends-member:
 - !private ["Ps16MutableSliceable", "count"]
 - !private ["Ps16MutableSliceable", "isEmpty"]
 - !private ["Ps16MutableSliceable", "subscript"]
+- !private ["PSo8NSCoding", "isEmpty"]
+- !private ["PSo9NSCopying", "isEmpty"]
+- !private ["PSo16NSMutableCopying", "isEmpty"]
+- !private ["CSo8NSObject", "isEmpty"]
+- !private ["PSo16NSObjectProtocol", "isEmpty"]
+- !private ["PSo14NSSecureCoding", "isEmpty"]
+- !private ["CSo8NSString", "isEmpty"]
 - ["Ps21NilLiteralConvertible", "Some"]
 - ["Sq", "Some"]
 - !private ["Sq", "deinit"]
+- !private ["Ps16OutputStreamType", "isEmpty"]
 - !private ["Ps21RandomAccessIndexType", "Distance"]
 - !private ["Ps21RandomAccessIndexType", "IntegerLiteralType"]
 - !private ["Ps30RangeReplaceableCollectionType", "Generator"]
@@ -584,12 +599,17 @@ depends-member:
 - !private ["P6Estim810SlicesView", "createSlice"]
 - !private ["P6Estim810SlicesView", "removeSlice"]
 - !private ["P6Estim810SlicesView", "showSubView"]
+- !private ["Ps10Streamable", "isEmpty"]
 - !private ["Ps10Strideable", "Distance"]
 - !private ["Ps10Strideable", "IntegerLiteralType"]
+- !private ["SS", "isEmpty"]
+- !private ["Ps30StringInterpolationConvertible", "isEmpty"]
+- !private ["Ps24StringLiteralConvertible", "isEmpty"]
 - !private ["P6Estim87SubView", "createSlice"]
 - !private ["P6Estim87SubView", "hideSubView"]
 - !private ["P6Estim87SubView", "removeSlice"]
 - !private ["P6Estim87SubView", "showSubView"]
+- !private ["Ps31UnicodeScalarLiteralConvertible", "isEmpty"]
 - !private ["Ps10_ArrayType", "Generator"]
 - !private ["Ps10_ArrayType", "Index"]
 - !private ["Ps10_ArrayType", "SubSequence"]
@@ -598,8 +618,12 @@ depends-member:
 - !private ["Ps10_ArrayType", "isEmpty"]
 - !private ["Ps10_ArrayType", "subscript"]
 - !private ["Ps33_BuiltinBooleanLiteralConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps49_BuiltinExtendedGraphemeClusterLiteralConvertible", "isEmpty"]
 - !private ["Ps33_BuiltinIntegerLiteralConvertible", "Distance"]
 - !private ["Ps33_BuiltinIntegerLiteralConvertible", "IntegerLiteralType"]
+- !private ["Ps32_BuiltinStringLiteralConvertible", "isEmpty"]
+- !private ["Ps37_BuiltinUTF16StringLiteralConvertible", "isEmpty"]
+- !private ["Ps39_BuiltinUnicodeScalarLiteralConvertible", "isEmpty"]
 - !private ["Ps24_DestructorSafeContainer", "Generator"]
 - !private ["Ps24_DestructorSafeContainer", "Index"]
 - !private ["Ps24_DestructorSafeContainer", "SubSequence"]
@@ -685,6 +709,7 @@ depends-nominal:
 - !private "Ps28DictionaryLiteralConvertible"
 - !private "P6Estim815EditAccountView"
 - !private "Ps9Equatable"
+- !private "Ps41ExtendedGraphemeClusterLiteralConvertible"
 - !private "Ps16ForwardIndexType"
 - !private "Ps13GeneratorType"
 - !private "Ps8Hashable"
@@ -700,8 +725,16 @@ depends-nominal:
 - !private "Ps21MutableCollectionType"
 - !private "Ps16MutableIndexable"
 - !private "Ps16MutableSliceable"
+- !private "PSo8NSCoding"
+- !private "PSo9NSCopying"
+- !private "PSo16NSMutableCopying"
+- !private "CSo8NSObject"
+- !private "PSo16NSObjectProtocol"
+- !private "PSo14NSSecureCoding"
+- !private "CSo8NSString"
 - "Ps21NilLiteralConvertible"
 - "Sq"
+- !private "Ps16OutputStreamType"
 - !private "Ps21RandomAccessIndexType"
 - !private "Ps30RangeReplaceableCollectionType"
 - !private "Ps12SequenceType"
@@ -709,11 +742,20 @@ depends-nominal:
 - !private "Ps16SignedNumberType"
 - !private "Vs5Slice"
 - !private "P6Estim810SlicesView"
+- !private "Ps10Streamable"
 - !private "Ps10Strideable"
+- !private "SS"
+- !private "Ps30StringInterpolationConvertible"
+- !private "Ps24StringLiteralConvertible"
 - !private "P6Estim87SubView"
+- !private "Ps31UnicodeScalarLiteralConvertible"
 - !private "Ps10_ArrayType"
 - !private "Ps33_BuiltinBooleanLiteralConvertible"
+- !private "Ps49_BuiltinExtendedGraphemeClusterLiteralConvertible"
 - !private "Ps33_BuiltinIntegerLiteralConvertible"
+- !private "Ps32_BuiltinStringLiteralConvertible"
+- !private "Ps37_BuiltinUTF16StringLiteralConvertible"
+- !private "Ps39_BuiltinUnicodeScalarLiteralConvertible"
 - !private "Ps24_DestructorSafeContainer"
 - !private "Ps14_Incrementable"
 - !private "Ps22_IntegerArithmeticType"

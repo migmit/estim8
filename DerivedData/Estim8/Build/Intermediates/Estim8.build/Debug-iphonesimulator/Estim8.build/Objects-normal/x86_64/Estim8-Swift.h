@@ -93,6 +93,8 @@ typedef int swift_int4  __attribute__((__ext_vector_type__(4)));
 #endif
 #if defined(__has_feature) && __has_feature(modules)
 @import UIKit;
+@import ObjectiveC;
+@import Foundation;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -122,8 +124,34 @@ SWIFT_CLASS("_TtC6Estim811AppDelegate")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class NumberOnlyText;
+@class UITableView;
+@class NSIndexPath;
+@class UITextField;
+@class UITableViewCell;
 @class NSBundle;
 @class NSCoder;
+
+SWIFT_CLASS("_TtC6Estim827CreateAccountViewController")
+@interface CreateAccountViewController : UITableViewController
+@property (nonatomic) BOOL parentNavigationBarHidden;
+@property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountTitleText;
+@property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountValueText;
+@property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified positiveCell;
+@property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified negativeCell;
+@property (nonatomic, readonly, strong) NumberOnlyText * _Nonnull accountValueTextDelegate;
+@property (nonatomic) BOOL isNegative;
+- (void)viewDidLoad;
+- (void)didReceiveMemoryWarning;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)buttonSaveClicked;
+- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 SWIFT_CLASS("_TtC6Estim817SubViewController")
 @interface SubViewController : UIViewController
@@ -131,15 +159,6 @@ SWIFT_CLASS("_TtC6Estim817SubViewController")
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC6Estim827CreateAccountViewController")
-@interface CreateAccountViewController : SubViewController
-- (void)viewDidLoad;
-- (void)didReceiveMemoryWarning;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -155,22 +174,37 @@ SWIFT_CLASS("_TtC6Estim820DecantViewController")
 
 @class UIButton;
 @class UILabel;
-@class UITextField;
 
 SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
 @interface EditAccountViewController : UITableViewController
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified accountNameLabel;
 @property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountValueText;
+@property (nonatomic, strong) NumberOnlyText * _Nonnull accountValueTextDelegate;
 @property (nonatomic) BOOL parentNavigationBarHidden;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (IBAction)buttonDeleteClicked:(UIButton * _Nonnull)sender;
 - (void)buttonSaveClicked;
 - (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class NSNumberFormatter;
+
+SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
+@interface NumberOnlyText : NSObject <UITextFieldDelegate>
+@property (nonatomic) float value;
+@property (nonatomic) BOOL initialUsesGroupingSeparator;
+@property (nonatomic) BOOL isEditing;
+@property (nonatomic, readonly, strong) NSNumberFormatter * _Nonnull numberFormatter;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (BOOL)textFieldShouldBeginEditing:(UITextField * _Nonnull)textField;
+- (BOOL)textFieldShouldEndEditing:(UITextField * _Nonnull)textField;
+- (BOOL)textField:(UITextField * _Nonnull)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString * _Nonnull)string;
 @end
 
 
@@ -186,9 +220,6 @@ SWIFT_CLASS("_TtC6Estim820SlicesViewController")
 
 
 @class UIStoryboardSegue;
-@class UITableView;
-@class NSIndexPath;
-@class UITableViewCell;
 @class UIBarButtonItem;
 
 SWIFT_CLASS("_TtC6Estim814ViewController")
