@@ -25,7 +25,7 @@ protocol ControllerROAccountInterface {
     
     func name() -> String
     
-    func value() -> Float
+    func value() -> NSDecimalNumber
     
 }
 
@@ -39,7 +39,7 @@ protocol ControllerAccountInterface: ControllerROAccountInterface {
 
 protocol ControllerEditAccountInterface: ControllerROAccountInterface {
     
-    func setValue(value: Float) -> Bool
+    func setValue(value: NSDecimalNumber) -> Bool
     
     func remove()
     
@@ -47,7 +47,7 @@ protocol ControllerEditAccountInterface: ControllerROAccountInterface {
 
 protocol ControllerCreateAccountInterface {
     
-    func create(title: String, initialValue: Float, isNegative: Bool) -> Bool
+    func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
 
 }
 
@@ -57,7 +57,7 @@ protocol ControllerDecantInterface {
     
     func account(n: Int) -> ControllerROAccountInterface?
     
-    func decant(from: Int, to: Int, amount: Float) -> Bool
+    func decant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool
     
 }
 

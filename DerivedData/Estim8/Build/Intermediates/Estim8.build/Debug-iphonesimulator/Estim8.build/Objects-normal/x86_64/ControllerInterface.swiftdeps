@@ -28,34 +28,34 @@ provides-member:
 - ["P6Estim824ControllerSliceInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "Float"
-- "ControllerROAccountInterface"
-- "ControllerInterface"
-- "ControllerDecantInterface"
-- "ControllerSlicesInterface"
-- "ControllerEditAccountInterface"
-- "ControllerAccountInterface"
-- "Int"
-- "String"
 - "ControllerSliceInterface"
-- "Bool"
+- "ControllerAccountInterface"
+- "String"
+- "ControllerSlicesInterface"
 - "ControllerCreateAccountInterface"
+- "Int"
+- "NSDecimalNumber"
+- "Bool"
+- "ControllerEditAccountInterface"
+- "ControllerROAccountInterface"
+- "ControllerDecantInterface"
+- "ControllerInterface"
 depends-member:
 - ["P6Estim826ControllerAccountInterface", "edit"]
 - ["P6Estim826ControllerAccountInterface", "remove"]
 - ["P6Estim832ControllerCreateAccountInterface", "Bool"]
-- ["P6Estim832ControllerCreateAccountInterface", "Float"]
+- ["P6Estim832ControllerCreateAccountInterface", "NSDecimalNumber"]
 - ["P6Estim832ControllerCreateAccountInterface", "String"]
 - ["P6Estim832ControllerCreateAccountInterface", "create"]
 - ["P6Estim825ControllerDecantInterface", "Bool"]
 - ["P6Estim825ControllerDecantInterface", "ControllerROAccountInterface"]
-- ["P6Estim825ControllerDecantInterface", "Float"]
 - ["P6Estim825ControllerDecantInterface", "Int"]
+- ["P6Estim825ControllerDecantInterface", "NSDecimalNumber"]
 - ["P6Estim825ControllerDecantInterface", "account"]
 - ["P6Estim825ControllerDecantInterface", "decant"]
 - ["P6Estim825ControllerDecantInterface", "numberOfAccounts"]
 - ["P6Estim830ControllerEditAccountInterface", "Bool"]
-- ["P6Estim830ControllerEditAccountInterface", "Float"]
+- ["P6Estim830ControllerEditAccountInterface", "NSDecimalNumber"]
 - ["P6Estim830ControllerEditAccountInterface", "remove"]
 - ["P6Estim830ControllerEditAccountInterface", "setValue"]
 - ["P6Estim819ControllerInterface", "ControllerAccountInterface"]
@@ -66,7 +66,7 @@ depends-member:
 - ["P6Estim819ControllerInterface", "numberOfAccounts"]
 - ["P6Estim819ControllerInterface", "showSlices"]
 - ["P6Estim828ControllerROAccountInterface", "Bool"]
-- ["P6Estim828ControllerROAccountInterface", "Float"]
+- ["P6Estim828ControllerROAccountInterface", "NSDecimalNumber"]
 - ["P6Estim828ControllerROAccountInterface", "String"]
 - ["P6Estim828ControllerROAccountInterface", "name"]
 - ["P6Estim828ControllerROAccountInterface", "value"]
@@ -105,4 +105,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "5c0fe5d5fc4e10f2c88c83bcc2297c78"
+interface-hash: "cb223d87283cbf3d86c6f962a65400d1"

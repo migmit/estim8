@@ -30,7 +30,7 @@ protocol ModelInterface {
     
     func accountOfUpdate(u: Update) -> Account
     
-    func valueOfUpdate(u: Update) -> Float
+    func valueOfUpdate(u: Update) -> NSDecimalNumber
     
     func dateOfUpdate(u: Update) -> NSDate
     
@@ -42,11 +42,11 @@ protocol ModelInterface {
     
     func dateOfSlice(s: Slice) -> NSDate
     
-    func addAccountAnUpdate(name: String, value: Float, isNegative: Bool) -> Account
+    func addAccountAnUpdate(name: String, value: NSDecimalNumber, isNegative: Bool) -> Account
     
     func createSlice() -> Slice
     
-    func updateAccount(a: Account, value: Float)
+    func updateAccount(a: Account, value: NSDecimalNumber)
     
     func removeAccount(a: Account)
     

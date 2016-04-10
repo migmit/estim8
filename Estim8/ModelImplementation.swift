@@ -75,8 +75,8 @@ class ModelImplementation: ModelInterface {
         return a.valueForKey("title") as! String
     }
     
-    func valueOfUpdate(u: Update) -> Float {
-        return u.valueForKey("value") as! Float
+    func valueOfUpdate(u: Update) -> NSDecimalNumber {
+        return u.valueForKey("value") as! NSDecimalNumber
     }
     
     func dateOfUpdate(u: Update) -> NSDate {
@@ -110,7 +110,7 @@ class ModelImplementation: ModelInterface {
         do {try managedObjectContext.save()} catch {}
     }
     
-    func updateAccount(a: Account, value: Float) {
+    func updateAccount(a: Account, value: NSDecimalNumber) {
         let updateDescr = NSEntityDescription.entityForName("Update", inManagedObjectContext: managedObjectContext)!
         let update = NSManagedObject(entity: updateDescr, insertIntoManagedObjectContext: managedObjectContext)
         update.setValue(NSDate(), forKey: "date")
@@ -120,7 +120,7 @@ class ModelImplementation: ModelInterface {
         do {try managedObjectContext.save()} catch {}
     }
     
-    func addAccountAnUpdate(title: String, value: Float, isNegative: Bool) -> Account {
+    func addAccountAnUpdate(title: String, value: NSDecimalNumber, isNegative: Bool) -> Account {
         let countRequest = NSFetchRequest(entityName: "Account")
         var error: NSError?
         let count: Int = managedObjectContext.countForFetchRequest(countRequest, error: &error)

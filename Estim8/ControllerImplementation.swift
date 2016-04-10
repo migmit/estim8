@@ -94,7 +94,7 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
         return model.nameOfAccount(account)
     }
     
-    func value() -> Float {
+    func value() -> NSDecimalNumber {
         let updates = model.updatesOfAccount(account)
         let update = updates[0]
         return model.valueOfUpdate(update)
@@ -140,16 +140,16 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         return model.nameOfAccount(account)
     }
     
-    func value() -> Float {
+    func value() -> NSDecimalNumber {
         let updates = model.updatesOfAccount(account)
         let update = updates[0]
         return model.valueOfUpdate(update)
     }
     
-    func setValue(value: Float) -> Bool {
+    func setValue(value: NSDecimalNumber) -> Bool {
         let isNegative = model.accountIsNegative(account)
-        let verifyValue = isNegative ? -value : value
-        if (verifyValue < 0) {
+        let verifyValue = isNegative ? value.decimalNumberByMultiplyingBy(-1) : value
+        if (verifyValue.compare(0) == .OrderedAscending) {
             return false
         } else {
             view?.hideSubView()
@@ -184,9 +184,9 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         self.view = view
     }
     
-    func create(title: String, initialValue: Float, isNegative: Bool) -> Bool {
-        let verifyValue = isNegative ? -initialValue : initialValue
-        if (verifyValue < 0 || title.isEmpty) {
+    func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
+        let verifyValue = isNegative ? initialValue.decimalNumberByMultiplyingBy(-1) : initialValue
+        if (verifyValue.compare(0) == .OrderedAscending || title.isEmpty) {
             return false
         } else {
             view?.hideSubView()
@@ -227,7 +227,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         }
     }
     
-    func decant(from: Int, to: Int, amount: Float) -> Bool {
+    func decant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool {
         let accounts = model.liveAccounts()
         if (from >= accounts.count || to >= accounts.count) {
             return false
@@ -235,7 +235,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
             let accountFrom = accounts[from]
             let accountTo = accounts[to]
             if
-                let amountFrom = tryAddToAccount(accountFrom, add: -amount),
+                let amountFrom = tryAddToAccount(accountFrom, add: amount.decimalNumberByMultiplyingBy(-1)),
                 let amountTo = tryAddToAccount(accountTo, add: amount) {
                 view?.hideSubView()
                 model.updateAccount(accountFrom, value: amountFrom)
@@ -249,14 +249,14 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         }
     }
     
-    private func tryAddToAccount(account: Model.Account, add: Float) -> Float? {
+    private func tryAddToAccount(account: Model.Account, add: NSDecimalNumber) -> NSDecimalNumber? {
         let isNegative = model.accountIsNegative(account)
         let updates = model.updatesOfAccount(account)
         let update = updates[0]
         let oldValue = model.valueOfUpdate(update)
-        let newValue = oldValue + add
-        let verifyValue = isNegative ? -newValue : newValue
-        if (verifyValue < 0) {
+        let newValue = oldValue.decimalNumberByAdding(add)
+        let verifyValue = isNegative ? newValue.decimalNumberByMultiplyingBy(-1) : newValue
+        if (verifyValue.compare(0) == .OrderedAscending) {
             return nil
         } else {
             return newValue
@@ -280,7 +280,7 @@ class ControllerROAccountImplementation<Model: ModelInterface>: ControllerROAcco
         return model.nameOfAccount(account)
     }
     
-    func value() -> Float {
+    func value() -> NSDecimalNumber {
         let updates = model.updatesOfAccount(account)
         let update = updates[0]
         return model.valueOfUpdate(update)
@@ -467,7 +467,7 @@ class ControllerUpdateInterface<Model: ModelInterface>: ControllerROAccountInter
         return model.nameOfAccount(account)
     }
     
-    func value() -> Float {
+    func value() -> NSDecimalNumber {
         return model.valueOfUpdate(update)
     }
 

@@ -7,27 +7,27 @@ provides-member:
 - ["C6Estim819ModelImplementation", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "Float"
-- !private "NSFetchRequest"
-- "String"
-- "NSManagedObjectContext"
-- !private "StringLiteralType"
-- !private "NSEntityDescription"
-- !private "NSSortDescriptor"
-- !private "Int"
-- "Bool"
-- !private "Set"
-- "ModelImplementation"
-- !private "=="
 - !private "BooleanLiteralType"
-- "ModelInterface"
+- "NSManagedObject"
 - !private "NSPredicate"
+- !private "NSSortDescriptor"
+- !private "NSEntityDescription"
+- !private "NSError"
+- "ModelInterface"
+- "ModelImplementation"
+- !private "NSFetchRequest"
+- "NSDecimalNumber"
+- !private "Set"
+- !private "??"
+- "String"
+- "NSDate"
+- !private "Int"
+- !private "StringLiteralType"
+- "Bool"
 - !private "NSComparisonResult"
 - !private "Array"
-- !private "??"
-- !private "NSError"
-- "NSDate"
-- "NSManagedObject"
+- "NSManagedObjectContext"
+- !private "=="
 depends-member:
 - ["Ps9AnyObject", "Account"]
 - !private ["Ps9AnyObject", "Array"]
@@ -179,7 +179,6 @@ depends-member:
 - !private ["Ps9Equatable", "sort"]
 - !private ["Ps9Equatable", "sortDescriptors"]
 - !private ["Ps9Equatable", "valueForKey"]
-- !private ["Sf", "deinit"]
 - !private ["Ps16ForwardIndexType", "Distance"]
 - !private ["Ps16ForwardIndexType", "IntegerLiteralType"]
 - !private ["Ps13GeneratorType", "Element"]
@@ -224,10 +223,10 @@ depends-member:
 - ["C6Estim819ModelImplementation", "Account"]
 - !private ["C6Estim819ModelImplementation", "Array"]
 - ["C6Estim819ModelImplementation", "Bool"]
-- ["C6Estim819ModelImplementation", "Float"]
 - !private ["C6Estim819ModelImplementation", "Int"]
 - !private ["C6Estim819ModelImplementation", "NSComparisonResult"]
 - ["C6Estim819ModelImplementation", "NSDate"]
+- ["C6Estim819ModelImplementation", "NSDecimalNumber"]
 - !private ["C6Estim819ModelImplementation", "NSEntityDescription"]
 - !private ["C6Estim819ModelImplementation", "NSError"]
 - !private ["C6Estim819ModelImplementation", "NSFetchRequest"]
@@ -483,7 +482,6 @@ depends-nominal:
 - !private "Ps28CustomDebugStringConvertible"
 - !private "Ps23CustomStringConvertible"
 - !private "Ps9Equatable"
-- !private "Sf"
 - !private "Ps16ForwardIndexType"
 - !private "Ps13GeneratorType"
 - !private "Ps8Hashable"
@@ -549,4 +547,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "665e2ef92954b029015497e8032e2078"
+interface-hash: "7bf28f10bd2549bc621165f322585c4b"

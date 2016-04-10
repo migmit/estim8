@@ -10,7 +10,7 @@ import UIKit
 
 class NumberOnlyText: NSObject, UITextFieldDelegate {
     
-    var value: Float = 0
+    var value: NSDecimalNumber = 0
     
     var initialUsesGroupingSeparator: Bool = false
     
@@ -29,7 +29,7 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
             isEditing = true
             initialUsesGroupingSeparator = numberFormatter.usesGroupingSeparator
             numberFormatter.usesGroupingSeparator = false
-            textField.text = numberFormatter.stringFromNumber(value)
+            textField.text = value == 0 ? "" : numberFormatter.stringFromNumber(value)
         }
         return true
     }
@@ -41,7 +41,7 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
             if (text.isEmpty) {
                 value = 0
             } else if let v = numberFormatter.numberFromString(text) {
-                value = v.floatValue
+                value = NSDecimalNumber(decimal: v.decimalValue)
             }
             numberFormatter.usesGroupingSeparator = initialUsesGroupingSeparator
             textField.text = numberFormatter.stringFromNumber(value)
@@ -51,9 +51,9 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let text = ((textField.text ?? "") as NSString).stringByReplacingCharactersInRange(range, withString: string)
-        if (text.isEmpty) {
+        if (text.isEmpty || text == "-") {
             return true
-        } else if let _ = numberFormatter.numberFromString(text)?.floatValue {
+        } else if let _ = numberFormatter.numberFromString(text) {
             return true
         } else {
             return false

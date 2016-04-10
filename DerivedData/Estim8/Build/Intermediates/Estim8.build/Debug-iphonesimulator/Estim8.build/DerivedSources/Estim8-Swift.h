@@ -193,11 +193,12 @@ SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class NSDecimalNumber;
 @class NSNumberFormatter;
 
 SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
 @interface NumberOnlyText : NSObject <UITextFieldDelegate>
-@property (nonatomic) float value;
+@property (nonatomic, strong) NSDecimalNumber * _Nonnull value;
 @property (nonatomic) BOOL initialUsesGroupingSeparator;
 @property (nonatomic) BOOL isEditing;
 @property (nonatomic, readonly, strong) NSNumberFormatter * _Nonnull numberFormatter;

@@ -16,7 +16,7 @@
     </entity>
     <entity name="Update" syncable="YES">
         <attribute name="date" attributeType="Date" indexed="YES" syncable="YES"/>
-        <attribute name="value" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="value" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <relationship name="account" maxCount="1" deletionRule="Deny" destinationEntity="Account" inverseName="updates" inverseEntity="Account" syncable="YES"/>
         <relationship name="slices" toMany="YES" deletionRule="Deny" destinationEntity="Slice" inverseName="lastUpdates" inverseEntity="Slice" syncable="YES"/>
     </entity>
