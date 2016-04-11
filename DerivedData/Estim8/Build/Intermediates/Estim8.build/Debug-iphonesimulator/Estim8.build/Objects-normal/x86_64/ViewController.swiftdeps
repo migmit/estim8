@@ -10,66 +10,66 @@ provides-member:
 - ["C6Estim814ViewController", ""]
 provides-dynamic-lookup:
 - "viewDidLoad"
-- "viewDidAppear"
-- "accountsTable"
 - "tableView"
 - "tableView"
 - "tableView"
 - "tableView"
 - "tableView"
 - "tableView"
+- "prepareForSegue"
+- "shouldPerformSegueWithIdentifier"
 - "didReceiveMemoryWarning"
 - "buttonPlusClicked"
-- "buttonDecantClicked"
+- "accountsTable"
 - "buttonSlicesClicked"
-- "shouldPerformSegueWithIdentifier"
-- "prepareForSegue"
+- "viewDidAppear"
+- "buttonDecantClicked"
 depends-top-level:
-- !private "UIApplication"
-- !private "DecantImplementation"
-- !private "ControllerImplementation"
-- !private "CreateAccountImplementation"
-- "ControllerSlicesInterface"
-- "AnyObject"
-- !private "BooleanLiteralType"
-- !private "Array"
-- !private "CreateAccountViewController"
-- "UIBarButtonItem"
-- !private "DecantViewController"
-- "ControllerDecantInterface"
-- !private "EditAccountViewController"
-- "CreateAccountView"
-- !private "ModelImplementation"
-- !private "UIAlertController"
-- !private "EditAccountImplementation"
-- "MainWindowImplementation"
-- !private "UIAlertAction"
-- "UITableViewDelegate"
-- "UITableViewCellEditingStyle"
-- "UITableViewDataSource"
-- "EditAccountView"
-- "DecantView"
-- "UIViewController"
-- !private "StringLiteralType"
-- "MainWindowView"
-- "ControllerCreateAccountInterface"
-- !private "NSNumberFormatter"
-- !private "AppDelegate"
-- "Int"
-- "Bool"
-- !private "SlicesImplementation"
-- "NSIndexPath"
-- !private "-"
-- !private "??"
 - "ControllerEditAccountInterface"
-- "String"
-- !private "~="
-- "ControllerInterface"
-- "UITableViewCell"
 - "SlicesView"
+- "MainWindowImplementation"
+- "UIBarButtonItem"
+- "Bool"
+- !private "ModelImplementation"
 - "UIStoryboardSegue"
+- !private "DecantImplementation"
+- !private "-"
+- !private "UIAlertAction"
 - "ViewController"
+- !private "??"
+- !private "EditAccountViewController"
+- "ControllerCreateAccountInterface"
+- "EditAccountView"
+- "UITableViewCell"
+- !private "BooleanLiteralType"
+- !private "UIAlertController"
+- "Int"
+- "MainWindowView"
+- "DecantView"
+- !private "ControllerImplementation"
+- !private "SlicesImplementation"
+- !private "DecantViewController"
+- "String"
+- !private "NSNumberFormatter"
+- "AnyObject"
+- "ControllerInterface"
+- !private "EditAccountImplementation"
+- !private "UIApplication"
+- !private "CreateAccountViewController"
+- !private "Array"
+- "ControllerDecantInterface"
+- "CreateAccountView"
+- !private "~="
+- !private "AppDelegate"
+- !private "CreateAccountImplementation"
 - "UITableView"
+- "UITableViewDataSource"
+- "UIViewController"
+- "UITableViewDelegate"
+- !private "StringLiteralType"
+- "ControllerSlicesInterface"
+- "NSIndexPath"
+- "UITableViewCellEditingStyle"
 depends-member:
 - !private ["Ps9AnyObject", "Account"]
 - !private ["Ps9AnyObject", "ControllerImplementation"]
@@ -90,7 +90,7 @@ depends-member:
 - ["Ps9AnyObject", "buttonDecantClicked"]
 - ["Ps9AnyObject", "buttonPlusClicked"]
 - ["Ps9AnyObject", "buttonSlicesClicked"]
-- ["Ps9AnyObject", "controller"]
+- !private ["Ps9AnyObject", "controller"]
 - ["Ps9AnyObject", "createAccount"]
 - ["Ps9AnyObject", "decant"]
 - !private ["Ps9AnyObject", "delegate"]
@@ -143,6 +143,7 @@ depends-member:
 - ["Ps9AnyObject", "viewDidAppear"]
 - ["Ps9AnyObject", "viewDidLoad"]
 - ["Ps9AnyObject", "viewForZoomingInScrollView"]
+- ["Ps9AnyObject", "viewImplementation"]
 - ["Ps9AnyObject", ""]
 - !private ["C6Estim811AppDelegate", "managedObjectContext"]
 - !private ["Sa", "Element"]
@@ -162,7 +163,6 @@ depends-member:
 - ["Ps11CVarArgType", "buttonDecantClicked"]
 - ["Ps11CVarArgType", "buttonPlusClicked"]
 - ["Ps11CVarArgType", "buttonSlicesClicked"]
-- ["Ps11CVarArgType", "controller"]
 - !private ["Ps11CVarArgType", "delegate"]
 - !private ["Ps11CVarArgType", "deleteRowsAtIndexPaths"]
 - !private ["Ps11CVarArgType", "dequeueReusableCellWithIdentifier"]
@@ -207,6 +207,7 @@ depends-member:
 - ["Ps11CVarArgType", "viewDidAppear"]
 - ["Ps11CVarArgType", "viewDidLoad"]
 - ["Ps11CVarArgType", "viewForZoomingInScrollView"]
+- ["Ps11CVarArgType", "viewImplementation"]
 - ["Ps11CVarArgType", ""]
 - !private ["Ps14CollectionType", "Element"]
 - !private ["P6Estim826ControllerAccountInterface", "edit"]
@@ -246,7 +247,6 @@ depends-member:
 - ["Ps28CustomDebugStringConvertible", "buttonDecantClicked"]
 - ["Ps28CustomDebugStringConvertible", "buttonPlusClicked"]
 - ["Ps28CustomDebugStringConvertible", "buttonSlicesClicked"]
-- ["Ps28CustomDebugStringConvertible", "controller"]
 - !private ["Ps28CustomDebugStringConvertible", "delegate"]
 - !private ["Ps28CustomDebugStringConvertible", "deleteRowsAtIndexPaths"]
 - !private ["Ps28CustomDebugStringConvertible", "dequeueReusableCellWithIdentifier"]
@@ -291,6 +291,7 @@ depends-member:
 - ["Ps28CustomDebugStringConvertible", "viewDidAppear"]
 - ["Ps28CustomDebugStringConvertible", "viewDidLoad"]
 - ["Ps28CustomDebugStringConvertible", "viewForZoomingInScrollView"]
+- ["Ps28CustomDebugStringConvertible", "viewImplementation"]
 - ["Ps28CustomDebugStringConvertible", ""]
 - !private ["Ps23CustomStringConvertible", "ControllerImplementation"]
 - !private ["Ps23CustomStringConvertible", "Element"]
@@ -306,7 +307,6 @@ depends-member:
 - ["Ps23CustomStringConvertible", "buttonDecantClicked"]
 - ["Ps23CustomStringConvertible", "buttonPlusClicked"]
 - ["Ps23CustomStringConvertible", "buttonSlicesClicked"]
-- ["Ps23CustomStringConvertible", "controller"]
 - !private ["Ps23CustomStringConvertible", "delegate"]
 - !private ["Ps23CustomStringConvertible", "deleteRowsAtIndexPaths"]
 - !private ["Ps23CustomStringConvertible", "dequeueReusableCellWithIdentifier"]
@@ -351,6 +351,7 @@ depends-member:
 - ["Ps23CustomStringConvertible", "viewDidAppear"]
 - ["Ps23CustomStringConvertible", "viewDidLoad"]
 - ["Ps23CustomStringConvertible", "viewForZoomingInScrollView"]
+- ["Ps23CustomStringConvertible", "viewImplementation"]
 - ["Ps23CustomStringConvertible", ""]
 - !private ["C6Estim820DecantImplementation", "deinit"]
 - !private ["C6Estim820DecantImplementation", "init"]
@@ -382,7 +383,6 @@ depends-member:
 - ["Ps9Equatable", "buttonDecantClicked"]
 - ["Ps9Equatable", "buttonPlusClicked"]
 - ["Ps9Equatable", "buttonSlicesClicked"]
-- ["Ps9Equatable", "controller"]
 - !private ["Ps9Equatable", "delegate"]
 - !private ["Ps9Equatable", "deleteRowsAtIndexPaths"]
 - !private ["Ps9Equatable", "dequeueReusableCellWithIdentifier"]
@@ -427,6 +427,7 @@ depends-member:
 - ["Ps9Equatable", "viewDidAppear"]
 - ["Ps9Equatable", "viewDidLoad"]
 - ["Ps9Equatable", "viewForZoomingInScrollView"]
+- ["Ps9Equatable", "viewImplementation"]
 - ["Ps9Equatable", ""]
 - !private ["Ps8Hashable", "ActionSheet"]
 - !private ["Ps8Hashable", "Cancel"]
@@ -448,7 +449,6 @@ depends-member:
 - ["Ps8Hashable", "buttonDecantClicked"]
 - ["Ps8Hashable", "buttonPlusClicked"]
 - ["Ps8Hashable", "buttonSlicesClicked"]
-- ["Ps8Hashable", "controller"]
 - !private ["Ps8Hashable", "delegate"]
 - !private ["Ps8Hashable", "deleteRowsAtIndexPaths"]
 - !private ["Ps8Hashable", "dequeueReusableCellWithIdentifier"]
@@ -493,6 +493,7 @@ depends-member:
 - ["Ps8Hashable", "viewDidAppear"]
 - ["Ps8Hashable", "viewDidLoad"]
 - ["Ps8Hashable", "viewForZoomingInScrollView"]
+- ["Ps8Hashable", "viewImplementation"]
 - ["Ps8Hashable", ""]
 - !private ["Ps9Indexable", "Element"]
 - ["C6Estim824MainWindowImplementation", "ControllerCreateAccountInterface"]
@@ -558,7 +559,6 @@ depends-member:
 - ["PSo8NSCoding", "buttonDecantClicked"]
 - ["PSo8NSCoding", "buttonPlusClicked"]
 - ["PSo8NSCoding", "buttonSlicesClicked"]
-- ["PSo8NSCoding", "controller"]
 - !private ["PSo8NSCoding", "deleteRowsAtIndexPaths"]
 - !private ["PSo8NSCoding", "dequeueReusableCellWithIdentifier"]
 - !private ["PSo8NSCoding", "deselectRowAtIndexPath"]
@@ -598,6 +598,7 @@ depends-member:
 - ["PSo8NSCoding", "viewDidAppear"]
 - ["PSo8NSCoding", "viewDidLoad"]
 - ["PSo8NSCoding", "viewForZoomingInScrollView"]
+- ["PSo8NSCoding", "viewImplementation"]
 - ["PSo8NSCoding", ""]
 - !private ["PSo9NSCopying", "init"]
 - !private ["PSo9NSCopying", "numberStyle"]
@@ -615,7 +616,6 @@ depends-member:
 - ["PSo26NSExtensionRequestHandling", "buttonDecantClicked"]
 - ["PSo26NSExtensionRequestHandling", "buttonPlusClicked"]
 - ["PSo26NSExtensionRequestHandling", "buttonSlicesClicked"]
-- ["PSo26NSExtensionRequestHandling", "controller"]
 - ["PSo26NSExtensionRequestHandling", "didReceiveMemoryWarning"]
 - ["PSo26NSExtensionRequestHandling", "indexPathForPreferredFocusedViewInTableView"]
 - ["PSo26NSExtensionRequestHandling", "init"]
@@ -642,6 +642,7 @@ depends-member:
 - ["PSo26NSExtensionRequestHandling", "viewDidAppear"]
 - ["PSo26NSExtensionRequestHandling", "viewDidLoad"]
 - ["PSo26NSExtensionRequestHandling", "viewForZoomingInScrollView"]
+- ["PSo26NSExtensionRequestHandling", "viewImplementation"]
 - ["PSo26NSExtensionRequestHandling", ""]
 - !private ["CSo11NSFormatter", "init"]
 - !private ["CSo11NSFormatter", "numberStyle"]
@@ -656,7 +657,6 @@ depends-member:
 - !private ["CSo8NSObject", "AppDelegate"]
 - ["CSo8NSObject", "Bool"]
 - !private ["CSo8NSObject", "ControllerImplementation"]
-- ["CSo8NSObject", "ControllerInterface"]
 - !private ["CSo8NSObject", "CreateAccountImplementation"]
 - !private ["CSo8NSObject", "CreateAccountViewController"]
 - !private ["CSo8NSObject", "DecantImplementation"]
@@ -664,7 +664,7 @@ depends-member:
 - !private ["CSo8NSObject", "EditAccountImplementation"]
 - !private ["CSo8NSObject", "EditAccountViewController"]
 - ["CSo8NSObject", "Int"]
-- !private ["CSo8NSObject", "MainWindowImplementation"]
+- ["CSo8NSObject", "MainWindowImplementation"]
 - !private ["CSo8NSObject", "ModelImplementation"]
 - ["CSo8NSObject", "NSIndexPath"]
 - !private ["CSo8NSObject", "NSNumberFormatter"]
@@ -682,7 +682,6 @@ depends-member:
 - ["CSo8NSObject", "buttonDecantClicked"]
 - ["CSo8NSObject", "buttonPlusClicked"]
 - ["CSo8NSObject", "buttonSlicesClicked"]
-- ["CSo8NSObject", "controller"]
 - !private ["CSo8NSObject", "deinit"]
 - !private ["CSo8NSObject", "delegate"]
 - !private ["CSo8NSObject", "deleteRowsAtIndexPaths"]
@@ -728,6 +727,7 @@ depends-member:
 - ["CSo8NSObject", "viewDidAppear"]
 - ["CSo8NSObject", "viewDidLoad"]
 - ["CSo8NSObject", "viewForZoomingInScrollView"]
+- ["CSo8NSObject", "viewImplementation"]
 - !private ["PSo16NSObjectProtocol", "ControllerImplementation"]
 - !private ["PSo16NSObjectProtocol", "MainWindowImplementation"]
 - !private ["PSo16NSObjectProtocol", "ModelImplementation"]
@@ -740,7 +740,6 @@ depends-member:
 - ["PSo16NSObjectProtocol", "buttonDecantClicked"]
 - ["PSo16NSObjectProtocol", "buttonPlusClicked"]
 - ["PSo16NSObjectProtocol", "buttonSlicesClicked"]
-- ["PSo16NSObjectProtocol", "controller"]
 - !private ["PSo16NSObjectProtocol", "delegate"]
 - !private ["PSo16NSObjectProtocol", "deleteRowsAtIndexPaths"]
 - !private ["PSo16NSObjectProtocol", "dequeueReusableCellWithIdentifier"]
@@ -785,6 +784,7 @@ depends-member:
 - ["PSo16NSObjectProtocol", "viewDidAppear"]
 - ["PSo16NSObjectProtocol", "viewDidLoad"]
 - ["PSo16NSObjectProtocol", "viewForZoomingInScrollView"]
+- ["PSo16NSObjectProtocol", "viewImplementation"]
 - ["PSo16NSObjectProtocol", ""]
 - !private ["PSo14NSSecureCoding", "init"]
 - !private ["PSo14NSSecureCoding", "row"]
@@ -846,7 +846,6 @@ depends-member:
 - ["PSo21UIAppearanceContainer", "buttonDecantClicked"]
 - ["PSo21UIAppearanceContainer", "buttonPlusClicked"]
 - ["PSo21UIAppearanceContainer", "buttonSlicesClicked"]
-- ["PSo21UIAppearanceContainer", "controller"]
 - !private ["PSo21UIAppearanceContainer", "deleteRowsAtIndexPaths"]
 - !private ["PSo21UIAppearanceContainer", "dequeueReusableCellWithIdentifier"]
 - !private ["PSo21UIAppearanceContainer", "deselectRowAtIndexPath"]
@@ -883,6 +882,7 @@ depends-member:
 - ["PSo21UIAppearanceContainer", "viewDidAppear"]
 - ["PSo21UIAppearanceContainer", "viewDidLoad"]
 - ["PSo21UIAppearanceContainer", "viewForZoomingInScrollView"]
+- ["PSo21UIAppearanceContainer", "viewImplementation"]
 - ["PSo21UIAppearanceContainer", ""]
 - !private ["CSo13UIApplication", "delegate"]
 - !private ["CSo13UIApplication", "sharedApplication"]
@@ -899,7 +899,6 @@ depends-member:
 - ["PSo18UIContentContainer", "buttonDecantClicked"]
 - ["PSo18UIContentContainer", "buttonPlusClicked"]
 - ["PSo18UIContentContainer", "buttonSlicesClicked"]
-- ["PSo18UIContentContainer", "controller"]
 - ["PSo18UIContentContainer", "didReceiveMemoryWarning"]
 - ["PSo18UIContentContainer", "indexPathForPreferredFocusedViewInTableView"]
 - ["PSo18UIContentContainer", "init"]
@@ -926,6 +925,7 @@ depends-member:
 - ["PSo18UIContentContainer", "viewDidAppear"]
 - ["PSo18UIContentContainer", "viewDidLoad"]
 - ["PSo18UIContentContainer", "viewForZoomingInScrollView"]
+- ["PSo18UIContentContainer", "viewImplementation"]
 - ["PSo18UIContentContainer", ""]
 - !private ["PSo17UICoordinateSpace", "deleteRowsAtIndexPaths"]
 - !private ["PSo17UICoordinateSpace", "dequeueReusableCellWithIdentifier"]
@@ -959,7 +959,6 @@ depends-member:
 - ["PSo18UIFocusEnvironment", "buttonDecantClicked"]
 - ["PSo18UIFocusEnvironment", "buttonPlusClicked"]
 - ["PSo18UIFocusEnvironment", "buttonSlicesClicked"]
-- ["PSo18UIFocusEnvironment", "controller"]
 - !private ["PSo18UIFocusEnvironment", "deleteRowsAtIndexPaths"]
 - !private ["PSo18UIFocusEnvironment", "dequeueReusableCellWithIdentifier"]
 - !private ["PSo18UIFocusEnvironment", "deselectRowAtIndexPath"]
@@ -996,6 +995,7 @@ depends-member:
 - ["PSo18UIFocusEnvironment", "viewDidAppear"]
 - ["PSo18UIFocusEnvironment", "viewDidLoad"]
 - ["PSo18UIFocusEnvironment", "viewForZoomingInScrollView"]
+- ["PSo18UIFocusEnvironment", "viewImplementation"]
 - ["PSo18UIFocusEnvironment", ""]
 - !private ["PSo27UIGestureRecognizerDelegate", "detailTextLabel"]
 - !private ["PSo27UIGestureRecognizerDelegate", "textLabel"]
@@ -1005,7 +1005,6 @@ depends-member:
 - !private ["CSo11UIResponder", "AppDelegate"]
 - ["CSo11UIResponder", "Bool"]
 - !private ["CSo11UIResponder", "ControllerImplementation"]
-- ["CSo11UIResponder", "ControllerInterface"]
 - !private ["CSo11UIResponder", "CreateAccountImplementation"]
 - !private ["CSo11UIResponder", "CreateAccountViewController"]
 - !private ["CSo11UIResponder", "DecantImplementation"]
@@ -1013,7 +1012,7 @@ depends-member:
 - !private ["CSo11UIResponder", "EditAccountImplementation"]
 - !private ["CSo11UIResponder", "EditAccountViewController"]
 - ["CSo11UIResponder", "Int"]
-- !private ["CSo11UIResponder", "MainWindowImplementation"]
+- ["CSo11UIResponder", "MainWindowImplementation"]
 - !private ["CSo11UIResponder", "ModelImplementation"]
 - ["CSo11UIResponder", "NSIndexPath"]
 - !private ["CSo11UIResponder", "NSNumberFormatter"]
@@ -1031,7 +1030,6 @@ depends-member:
 - ["CSo11UIResponder", "buttonDecantClicked"]
 - ["CSo11UIResponder", "buttonPlusClicked"]
 - ["CSo11UIResponder", "buttonSlicesClicked"]
-- ["CSo11UIResponder", "controller"]
 - !private ["CSo11UIResponder", "delegate"]
 - !private ["CSo11UIResponder", "deleteRowsAtIndexPaths"]
 - !private ["CSo11UIResponder", "dequeueReusableCellWithIdentifier"]
@@ -1071,6 +1069,7 @@ depends-member:
 - ["CSo11UIResponder", "viewDidAppear"]
 - ["CSo11UIResponder", "viewDidLoad"]
 - ["CSo11UIResponder", "viewForZoomingInScrollView"]
+- ["CSo11UIResponder", "viewImplementation"]
 - !private ["CSo12UIScrollView", "deleteRowsAtIndexPaths"]
 - !private ["CSo12UIScrollView", "dequeueReusableCellWithIdentifier"]
 - !private ["CSo12UIScrollView", "deselectRowAtIndexPath"]
@@ -1086,7 +1085,6 @@ depends-member:
 - !private ["PSo20UIScrollViewDelegate", "UIAlertController"]
 - !private ["PSo20UIScrollViewDelegate", "UIApplication"]
 - !private ["PSo20UIScrollViewDelegate", "accountsTable"]
-- !private ["PSo20UIScrollViewDelegate", "controller"]
 - ["PSo20UIScrollViewDelegate", "indexPathForPreferredFocusedViewInTableView"]
 - !private ["PSo20UIScrollViewDelegate", "navigationController"]
 - ["PSo20UIScrollViewDelegate", "numberOfSectionsInTableView"]
@@ -1106,6 +1104,7 @@ depends-member:
 - ["PSo20UIScrollViewDelegate", "sectionIndexTitlesForTableView"]
 - ["PSo20UIScrollViewDelegate", "tableView"]
 - ["PSo20UIScrollViewDelegate", "viewForZoomingInScrollView"]
+- !private ["PSo20UIScrollViewDelegate", "viewImplementation"]
 - ["PSo20UIScrollViewDelegate", ""]
 - !private ["PSo16UIStateRestoring", "ControllerImplementation"]
 - !private ["PSo16UIStateRestoring", "MainWindowImplementation"]
@@ -1119,7 +1118,6 @@ depends-member:
 - ["PSo16UIStateRestoring", "buttonDecantClicked"]
 - ["PSo16UIStateRestoring", "buttonPlusClicked"]
 - ["PSo16UIStateRestoring", "buttonSlicesClicked"]
-- ["PSo16UIStateRestoring", "controller"]
 - ["PSo16UIStateRestoring", "didReceiveMemoryWarning"]
 - ["PSo16UIStateRestoring", "indexPathForPreferredFocusedViewInTableView"]
 - ["PSo16UIStateRestoring", "init"]
@@ -1146,6 +1144,7 @@ depends-member:
 - ["PSo16UIStateRestoring", "viewDidAppear"]
 - ["PSo16UIStateRestoring", "viewDidLoad"]
 - ["PSo16UIStateRestoring", "viewForZoomingInScrollView"]
+- ["PSo16UIStateRestoring", "viewImplementation"]
 - ["PSo16UIStateRestoring", ""]
 - !private ["CSo17UIStoryboardSegue", "destinationViewController"]
 - !private ["CSo17UIStoryboardSegue", "identifier"]
@@ -1167,7 +1166,6 @@ depends-member:
 - !private ["PSo21UITableViewDataSource", "UIAlertController"]
 - !private ["PSo21UITableViewDataSource", "UIApplication"]
 - !private ["PSo21UITableViewDataSource", "accountsTable"]
-- !private ["PSo21UITableViewDataSource", "controller"]
 - ["PSo21UITableViewDataSource", "indexPathForPreferredFocusedViewInTableView"]
 - !private ["PSo21UITableViewDataSource", "navigationController"]
 - ["PSo21UITableViewDataSource", "numberOfSectionsInTableView"]
@@ -1187,6 +1185,7 @@ depends-member:
 - ["PSo21UITableViewDataSource", "sectionIndexTitlesForTableView"]
 - ["PSo21UITableViewDataSource", "tableView"]
 - ["PSo21UITableViewDataSource", "viewForZoomingInScrollView"]
+- !private ["PSo21UITableViewDataSource", "viewImplementation"]
 - ["PSo21UITableViewDataSource", ""]
 - !private ["PSo19UITableViewDelegate", "ControllerImplementation"]
 - !private ["PSo19UITableViewDelegate", "MainWindowImplementation"]
@@ -1196,7 +1195,6 @@ depends-member:
 - !private ["PSo19UITableViewDelegate", "UIAlertController"]
 - !private ["PSo19UITableViewDelegate", "UIApplication"]
 - !private ["PSo19UITableViewDelegate", "accountsTable"]
-- !private ["PSo19UITableViewDelegate", "controller"]
 - ["PSo19UITableViewDelegate", "indexPathForPreferredFocusedViewInTableView"]
 - !private ["PSo19UITableViewDelegate", "navigationController"]
 - ["PSo19UITableViewDelegate", "numberOfSectionsInTableView"]
@@ -1216,6 +1214,7 @@ depends-member:
 - ["PSo19UITableViewDelegate", "sectionIndexTitlesForTableView"]
 - ["PSo19UITableViewDelegate", "tableView"]
 - ["PSo19UITableViewDelegate", "viewForZoomingInScrollView"]
+- !private ["PSo19UITableViewDelegate", "viewImplementation"]
 - ["PSo19UITableViewDelegate", ""]
 - !private ["OSC23UITableViewRowAnimation", "None"]
 - !private ["OSC23UITableViewRowAnimation", "Top"]
@@ -1231,7 +1230,6 @@ depends-member:
 - ["PSo18UITraitEnvironment", "buttonDecantClicked"]
 - ["PSo18UITraitEnvironment", "buttonPlusClicked"]
 - ["PSo18UITraitEnvironment", "buttonSlicesClicked"]
-- ["PSo18UITraitEnvironment", "controller"]
 - !private ["PSo18UITraitEnvironment", "deleteRowsAtIndexPaths"]
 - !private ["PSo18UITraitEnvironment", "dequeueReusableCellWithIdentifier"]
 - !private ["PSo18UITraitEnvironment", "deselectRowAtIndexPath"]
@@ -1268,6 +1266,7 @@ depends-member:
 - ["PSo18UITraitEnvironment", "viewDidAppear"]
 - ["PSo18UITraitEnvironment", "viewDidLoad"]
 - ["PSo18UITraitEnvironment", "viewForZoomingInScrollView"]
+- ["PSo18UITraitEnvironment", "viewImplementation"]
 - ["PSo18UITraitEnvironment", ""]
 - !private ["CSo6UIView", "deleteRowsAtIndexPaths"]
 - !private ["CSo6UIView", "dequeueReusableCellWithIdentifier"]
@@ -1283,7 +1282,6 @@ depends-member:
 - !private ["CSo16UIViewController", "AppDelegate"]
 - ["CSo16UIViewController", "Bool"]
 - !private ["CSo16UIViewController", "ControllerImplementation"]
-- ["CSo16UIViewController", "ControllerInterface"]
 - !private ["CSo16UIViewController", "CreateAccountImplementation"]
 - !private ["CSo16UIViewController", "CreateAccountViewController"]
 - !private ["CSo16UIViewController", "DecantImplementation"]
@@ -1291,7 +1289,7 @@ depends-member:
 - !private ["CSo16UIViewController", "EditAccountImplementation"]
 - !private ["CSo16UIViewController", "EditAccountViewController"]
 - ["CSo16UIViewController", "Int"]
-- !private ["CSo16UIViewController", "MainWindowImplementation"]
+- ["CSo16UIViewController", "MainWindowImplementation"]
 - !private ["CSo16UIViewController", "ModelImplementation"]
 - ["CSo16UIViewController", "NSIndexPath"]
 - !private ["CSo16UIViewController", "NSNumberFormatter"]
@@ -1309,7 +1307,6 @@ depends-member:
 - ["CSo16UIViewController", "buttonDecantClicked"]
 - ["CSo16UIViewController", "buttonPlusClicked"]
 - ["CSo16UIViewController", "buttonSlicesClicked"]
-- ["CSo16UIViewController", "controller"]
 - !private ["CSo16UIViewController", "deinit"]
 - ["CSo16UIViewController", "didReceiveMemoryWarning"]
 - ["CSo16UIViewController", "indexPathForPreferredFocusedViewInTableView"]
@@ -1337,12 +1334,12 @@ depends-member:
 - ["CSo16UIViewController", "viewDidAppear"]
 - ["CSo16UIViewController", "viewDidLoad"]
 - ["CSo16UIViewController", "viewForZoomingInScrollView"]
+- ["CSo16UIViewController", "viewImplementation"]
 - ["CSo16UIViewController", ""]
 - ["C6Estim814ViewController", "AnyObject"]
 - !private ["C6Estim814ViewController", "AppDelegate"]
 - ["C6Estim814ViewController", "Bool"]
 - !private ["C6Estim814ViewController", "ControllerImplementation"]
-- ["C6Estim814ViewController", "ControllerInterface"]
 - !private ["C6Estim814ViewController", "CreateAccountImplementation"]
 - !private ["C6Estim814ViewController", "CreateAccountViewController"]
 - !private ["C6Estim814ViewController", "DecantImplementation"]
@@ -1350,7 +1347,7 @@ depends-member:
 - !private ["C6Estim814ViewController", "EditAccountImplementation"]
 - !private ["C6Estim814ViewController", "EditAccountViewController"]
 - ["C6Estim814ViewController", "Int"]
-- !private ["C6Estim814ViewController", "MainWindowImplementation"]
+- ["C6Estim814ViewController", "MainWindowImplementation"]
 - !private ["C6Estim814ViewController", "ModelImplementation"]
 - ["C6Estim814ViewController", "NSIndexPath"]
 - !private ["C6Estim814ViewController", "NSNumberFormatter"]
@@ -1367,7 +1364,6 @@ depends-member:
 - ["C6Estim814ViewController", "buttonDecantClicked"]
 - ["C6Estim814ViewController", "buttonPlusClicked"]
 - ["C6Estim814ViewController", "buttonSlicesClicked"]
-- ["C6Estim814ViewController", "controller"]
 - ["C6Estim814ViewController", "deinit"]
 - ["C6Estim814ViewController", "didReceiveMemoryWarning"]
 - ["C6Estim814ViewController", "indexPathForPreferredFocusedViewInTableView"]
@@ -1394,6 +1390,7 @@ depends-member:
 - ["C6Estim814ViewController", "viewDidAppear"]
 - ["C6Estim814ViewController", "viewDidLoad"]
 - ["C6Estim814ViewController", "viewForZoomingInScrollView"]
+- ["C6Estim814ViewController", "viewImplementation"]
 - !private ["Ps10_ArrayType", "Element"]
 - !private ["Ps33_BuiltinBooleanLiteralConvertible", "_getBuiltinLogicValue"]
 - !private ["Ps24_DestructorSafeContainer", "Element"]
@@ -1514,4 +1511,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "a44afcbcb0e2bd1b318a63964709ef90"
+interface-hash: "bfae70a721f555d28fa2568cfad752ac"

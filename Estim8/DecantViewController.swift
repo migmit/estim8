@@ -10,7 +10,7 @@ import UIKit
 
 class DecantImplementation: DecantView {
     
-    weak var controller: ControllerDecantInterface?
+    let controller: ControllerDecantInterface
     
     let parent: ViewController
     
@@ -23,7 +23,7 @@ class DecantImplementation: DecantView {
     
     func setView(view: DecantViewController) {
         self.view = view
-        view.setController(controller!)
+        view.setViewImplementation(self)
     }
     
     func showSubView() {
@@ -37,10 +37,10 @@ class DecantImplementation: DecantView {
 
 class DecantViewController: SubViewController {
 
-    var controller: ControllerDecantInterface? = nil
+    var viewImplementation: DecantImplementation? = nil
     
-    func setController(controller: ControllerDecantInterface) {
-        self.controller = controller
+    func setViewImplementation(viewImplementation: DecantImplementation) {
+        self.viewImplementation = viewImplementation
     }
     
     override func viewDidLoad() {

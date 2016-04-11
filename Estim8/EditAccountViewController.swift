@@ -10,7 +10,7 @@ import UIKit
 
 class EditAccountImplementation: EditAccountView {
     
-    weak var controller: ControllerEditAccountInterface?
+    let controller: ControllerEditAccountInterface
     
     let parent: ViewController
     
@@ -23,7 +23,7 @@ class EditAccountImplementation: EditAccountView {
     
     func setView(view: EditAccountViewController) {
         self.view = view
-        view.setController(controller!)
+        view.setViewImplementation(self)
     }
     
     func showSubView() {
@@ -37,7 +37,7 @@ class EditAccountImplementation: EditAccountView {
 
 class EditAccountViewController: UITableViewController {
     
-    var controller: ControllerEditAccountInterface? = nil
+    var viewImplementation: EditAccountImplementation? = nil
     
     @IBOutlet weak var accountNameLabel: UILabel!
 
@@ -47,15 +47,15 @@ class EditAccountViewController: UITableViewController {
     
     var parentNavigationBarHidden: Bool = false
     
-    func setController(controller: ControllerEditAccountInterface) {
-        self.controller = controller
+    func setViewImplementation(viewImplementation: EditAccountImplementation) {
+        self.viewImplementation = viewImplementation
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
         accountValueText.delegate = accountValueTextDelegate
-        if let controller = self.controller {
+        if let controller = self.viewImplementation?.controller {
             accountNameLabel.text = controller.name()
             accountValueTextDelegate.value = controller.value()
             accountValueText.text = accountValueTextDelegate.numberFormatter.stringFromNumber(controller.value())
@@ -88,19 +88,23 @@ class EditAccountViewController: UITableViewController {
     }
 
     @IBAction func buttonDeleteClicked(sender: UIButton) {
-        let alert = UIAlertController(title: controller?.name() ?? "", message: "Delete?", preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: {_ in self.controller?.remove()}))
-        alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        if let controller = viewImplementation?.controller {
+            let alert = UIAlertController(title: controller.name() ?? "", message: "Delete?", preferredStyle: .ActionSheet)
+            alert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: {_ in controller.remove()}))
+            alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     func buttonSaveClicked() {
         accountValueText.resignFirstResponder()
         let value = accountValueTextDelegate.value
-        if (!(controller?.setValue(value) ?? false)) {
-            let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller?.name() ?? "the account") to \(value)", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+        if let controller = viewImplementation?.controller {
+            if (!(controller.setValue(value) ?? false)) {
+                let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller.name() ?? "the account") to \(value)", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
         }
     }
 

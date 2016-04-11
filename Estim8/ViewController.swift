@@ -10,9 +10,9 @@ import UIKit
 
 class MainWindowImplementation: MainWindowView {
     
-    weak var controller: ControllerInterface?
+    let controller: ControllerInterface
     
-    weak var view: ViewController?
+    var view: ViewController? = nil
     
     init(controller: ControllerInterface, view: ViewController) {
         self.controller = controller
@@ -44,13 +44,13 @@ class MainWindowImplementation: MainWindowView {
     }
     
     func addAccount() {
-        view?.accountsTable.insertRowsAtIndexPaths([NSIndexPath(forRow: controller!.numberOfAccounts()-1, inSection: 0)], withRowAnimation: .Top)
+        view?.accountsTable.insertRowsAtIndexPaths([NSIndexPath(forRow: controller.numberOfAccounts()-1, inSection: 0)], withRowAnimation: .Top)
     }
 }
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var controller: ControllerInterface? = nil
+    var viewImplementation: MainWindowImplementation? = nil
 
     @IBOutlet weak var accountsTable: UITableView!
     
@@ -63,7 +63,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let controller = ControllerImplementation(model: model)
         let mainWindow = MainWindowImplementation(controller: controller, view: self)
         controller.setView(mainWindow)
-        self.controller = controller
+        self.viewImplementation = mainWindow
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,12 +100,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return controller!.numberOfAccounts()
+        if let controller = viewImplementation?.controller {
+            return controller.numberOfAccounts()
+        } else {
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell")
-        if let account = controller?.account(indexPath.row) {
+        if let account = viewImplementation?.controller.account(indexPath.row) {
             cell?.textLabel?.text = account.name()
             let numberFormatter = NSNumberFormatter()
             numberFormatter.numberStyle = .DecimalStyle
@@ -115,7 +119,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        controller?.account(indexPath.row)?.edit()
+        if let controller = viewImplementation?.controller {
+            controller.account(indexPath.row)?.edit()
+        }
         return indexPath
     }
     
@@ -128,22 +134,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        let alert = UIAlertController(title: controller?.account(indexPath.row)?.name() ?? "", message: "Delete?", preferredStyle: .ActionSheet)
-        alert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: {_ in self.controller?.account(indexPath.row)?.remove()}))
-        alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: {_ in tableView.setEditing(false, animated: true)}))
-        self.presentViewController(alert, animated: true, completion: nil)
+        if let controller = viewImplementation?.controller {
+            let alert = UIAlertController(title: controller.account(indexPath.row)?.name() ?? "", message: "Delete?", preferredStyle: .ActionSheet)
+            alert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: {_ in controller.account(indexPath.row)?.remove()}))
+            alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: {_ in tableView.setEditing(false, animated: true)}))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     @IBAction func buttonPlusClicked(sender: UIBarButtonItem) {
-        controller?.createAccount()
+        viewImplementation?.controller.createAccount()
     }
     
     @IBAction func buttonDecantClicked(sender: AnyObject) {
-        controller?.decant()
+        viewImplementation?.controller.decant()
     }
     
     @IBAction func buttonSlicesClicked(sender: AnyObject) {
-        controller?.showSlices()
+        viewImplementation?.controller.showSlices()
     }
 }
 

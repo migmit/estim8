@@ -22,17 +22,17 @@ provides-member:
 - ["P6Estim810SlicesView", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "ControllerCreateAccountInterface"
-- "DecantView"
 - "ControllerSlicesInterface"
-- "CreateAccountView"
-- "ControllerDecantInterface"
-- "SlicesView"
-- "Int"
-- "ControllerEditAccountInterface"
-- "MainWindowView"
+- "ControllerCreateAccountInterface"
 - "SubView"
 - "EditAccountView"
+- "Int"
+- "DecantView"
+- "ControllerDecantInterface"
+- "CreateAccountView"
+- "ControllerEditAccountInterface"
+- "MainWindowView"
+- "SlicesView"
 depends-member:
 - ["P6Estim814MainWindowView", "ControllerCreateAccountInterface"]
 - ["P6Estim814MainWindowView", "ControllerDecantInterface"]
@@ -70,4 +70,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "11a794bdf4b9857a3fd825b8914d840a"
+interface-hash: "a747f70f4cbf897ce5dfeb6e749bc1c0"

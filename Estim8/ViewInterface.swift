@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MainWindowView {
+protocol MainWindowView: class {
     
     func createAccount(controller: ControllerCreateAccountInterface) -> CreateAccountView
     
@@ -25,7 +25,7 @@ protocol MainWindowView {
     func addAccount()    
 }
 
-protocol SubView {
+protocol SubView: class {
     
     func showSubView()
     

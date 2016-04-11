@@ -10,11 +10,11 @@ import UIKit
 
 class CreateAccountImplementation: CreateAccountView {
     
-    weak var controller: ControllerCreateAccountInterface?
+    let controller: ControllerCreateAccountInterface
     
     let parent: ViewController
     
-    var view: CreateAccountViewController? = nil
+    weak var view: CreateAccountViewController? = nil
     
     init(controller: ControllerCreateAccountInterface, parent: ViewController) {
         self.controller = controller
@@ -23,7 +23,7 @@ class CreateAccountImplementation: CreateAccountView {
     
     func setView(view: CreateAccountViewController) {
         self.view = view
-        view.setController(controller!)
+        view.setViewImplementation(self)
     }
     
     func showSubView() {
@@ -37,7 +37,7 @@ class CreateAccountImplementation: CreateAccountView {
 
 class CreateAccountViewController: UITableViewController {
 
-    var controller: ControllerCreateAccountInterface? = nil
+    var viewImplementation: CreateAccountImplementation? = nil
     
     var parentNavigationBarHidden: Bool = false
     
@@ -53,8 +53,8 @@ class CreateAccountViewController: UITableViewController {
     
     var isNegative: Bool = false
     
-    func setController(controller: ControllerCreateAccountInterface) {
-        self.controller = controller
+    func setViewImplementation(viewImplementation: CreateAccountImplementation) {
+        self.viewImplementation = viewImplementation
     }
     
     override func viewDidLoad() {
@@ -110,11 +110,14 @@ class CreateAccountViewController: UITableViewController {
     
     func buttonSaveClicked() {
         accountValueText.resignFirstResponder()
+        let title = accountTitleText.text ?? ""
         let value = accountValueTextDelegate.value
-        if (!(controller?.create(accountTitleText.text ?? "", initialValue: value, isNegative: isNegative) ?? false)) {
-            let alert = UIAlertController(title: "Error", message: "Can't create \(isNegative ? "negative" : "positive") account \"\(accountTitleText.text ?? "")\" with value \(value)", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+        if let controller = viewImplementation?.controller {
+            if (!(controller.create(title, initialValue: value, isNegative: isNegative) ?? false)) {
+                let alert = UIAlertController(title: "Error", message: "Can't create \(isNegative ? "negative" : "positive") account \"\(title)\" with value \(value)", preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
         }
     }
     /*

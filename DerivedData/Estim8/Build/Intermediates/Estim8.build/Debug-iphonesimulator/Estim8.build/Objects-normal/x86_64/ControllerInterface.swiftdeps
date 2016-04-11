@@ -28,18 +28,18 @@ provides-member:
 - ["P6Estim824ControllerSliceInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "String"
+- "NSDecimalNumber"
 - "ControllerDecantInterface"
-- "ControllerInterface"
+- "ControllerSlicesInterface"
 - "ControllerROAccountInterface"
 - "Bool"
-- "ControllerAccountInterface"
-- "ControllerEditAccountInterface"
-- "NSDecimalNumber"
-- "ControllerSlicesInterface"
-- "ControllerSliceInterface"
-- "ControllerCreateAccountInterface"
 - "Int"
+- "ControllerEditAccountInterface"
+- "ControllerSliceInterface"
+- "ControllerAccountInterface"
+- "ControllerCreateAccountInterface"
+- "String"
+- "ControllerInterface"
 depends-member:
 - ["P6Estim826ControllerAccountInterface", "edit"]
 - ["P6Estim826ControllerAccountInterface", "remove"]
@@ -105,4 +105,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "011e5a059670d9e8465400bbb4e18a6e"
+interface-hash: "cb223d87283cbf3d86c6f962a65400d1"

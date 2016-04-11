@@ -12,7 +12,7 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
     
     let model: Model
     
-    var view: MainWindowView?
+    weak var view: MainWindowView?
     
     init(model: Model) {
         self.model = model
@@ -119,7 +119,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     
     let model: Model
     
-    var view: EditAccountView? = nil
+    weak var view: EditAccountView? = nil
     
     let account: Model.Account
     
@@ -173,7 +173,7 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
     
     let model: Model
     
-    var view: CreateAccountView? = nil
+    weak var view: CreateAccountView? = nil
     
     init(parent: ControllerImplementation<Model>, model: Model) {
         self.parent = parent
@@ -203,7 +203,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
     
     let model: Model
     
-    var view: DecantView? = nil
+    weak var view: DecantView? = nil
     
     init(parent: ControllerImplementation<Model>, model: Model) {
         self.parent = parent
@@ -291,7 +291,7 @@ class ControllerSlicesImplementation<Model: ModelInterface>: ControllerSlicesInt
     
     let model: Model
     
-    var view: SlicesView? = nil
+    weak var view: SlicesView? = nil
     
     let accounts: [Model.Account]
     
