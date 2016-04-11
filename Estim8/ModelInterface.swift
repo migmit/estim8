@@ -16,9 +16,9 @@ protocol ModelInterface {
     
     associatedtype Update
     
-    func liveAccounts() -> [Account] //ordered
+    func liveAccounts() -> [Account] //ordered by index
     
-    func deadAccounts() -> [Account] //ordered
+    func deadAccounts() -> [Account] //ordered by date, descending
     
     func accountIsNegative(a: Account) -> Bool
     

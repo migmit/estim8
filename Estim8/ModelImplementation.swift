@@ -38,7 +38,8 @@ class ModelImplementation: ModelInterface {
     func deadAccounts() -> [Account] {
         let fetchRequest = NSFetchRequest(entityName: "Account")
         fetchRequest.predicate = NSPredicate(format: "removed == YES")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sortingIndex", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "closingDate", ascending: false)]
+            [NSSortDescriptor(key: "sortingIndex", ascending: true)]
         do {
             let results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Account]
             return results ?? []

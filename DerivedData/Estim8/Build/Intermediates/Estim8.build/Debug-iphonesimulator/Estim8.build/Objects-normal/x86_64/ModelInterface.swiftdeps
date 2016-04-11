@@ -8,11 +8,11 @@ provides-member:
 provides-dynamic-lookup:
 depends-top-level:
 - "ModelInterface"
-- "String"
 - "Bool"
-- "NSDate"
 - "NSDecimalNumber"
 - "Hashable"
+- "NSDate"
+- "String"
 depends-member:
 - ["P6Estim814ModelInterface", "Account"]
 - ["P6Estim814ModelInterface", "Bool"]
