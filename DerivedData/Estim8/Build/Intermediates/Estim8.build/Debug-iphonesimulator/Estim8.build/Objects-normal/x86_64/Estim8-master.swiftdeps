@@ -1,6 +1,6 @@
 version: "Apple Swift version 2.2 (swiftlang-703.0.18.1 clang-703.0.29)"
 options: "4dad9238aa2a46cda7fb73df4ec5a592"
-build_time: [513686466, 137708000]
+build_time: [513688186, 485407000]
 inputs:
   "/Users/MigMit/Documents/Estim8/Estim8/CreateAccountViewController.swift": [513686055, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/DecantViewController.swift": [513685540, 0]
@@ -14,4 +14,4 @@ inputs:
   "/Users/MigMit/Documents/Estim8/Estim8/AppDelegate.swift": [512869662, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ControllerImplementation.swift": [513685292, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/SlicesViewController.swift": [513685606, 0]
-  "/Users/MigMit/Documents/Estim8/Estim8/EditAccountViewController.swift": [513685766, 0]
+  "/Users/MigMit/Documents/Estim8/Estim8/EditAccountViewController.swift": [513688185, 0]
