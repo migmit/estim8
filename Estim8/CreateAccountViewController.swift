@@ -10,7 +10,7 @@ import UIKit
 
 class CreateAccountImplementation: CreateAccountView {
     
-    let controller: ControllerCreateAccountInterface
+    weak var controller: ControllerCreateAccountInterface?
     
     let parent: ViewController
     
@@ -23,7 +23,7 @@ class CreateAccountImplementation: CreateAccountView {
     
     func setView(view: CreateAccountViewController) {
         self.view = view
-        view.setController(controller)
+        view.setController(controller!)
     }
     
     func showSubView() {

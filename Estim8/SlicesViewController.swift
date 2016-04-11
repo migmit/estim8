@@ -10,11 +10,11 @@ import UIKit
 
 class SlicesImplementation: SlicesView {
     
-    let controller: ControllerSlicesInterface
+    weak var controller: ControllerSlicesInterface?
     
     let parent: ViewController
     
-    var view: SlicesViewController? = nil
+    weak var view: SlicesViewController? = nil
     
     init(controller: ControllerSlicesInterface, parent: ViewController) {
         self.controller = controller
@@ -23,7 +23,7 @@ class SlicesImplementation: SlicesView {
     
     func setView(view: SlicesViewController) {
         self.view = view
-        view.setController(controller)
+        view.setController(controller!)
     }
     
     func showSubView() {

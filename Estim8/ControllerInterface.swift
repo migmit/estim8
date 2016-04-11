@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ControllerInterface {
+protocol ControllerInterface: class {
     
     func numberOfAccounts() -> Int
     
@@ -37,7 +37,7 @@ protocol ControllerAccountInterface: ControllerROAccountInterface {
     
 }
 
-protocol ControllerEditAccountInterface: ControllerROAccountInterface {
+protocol ControllerEditAccountInterface: class, ControllerROAccountInterface {
     
     func setValue(value: NSDecimalNumber) -> Bool
     
@@ -45,13 +45,13 @@ protocol ControllerEditAccountInterface: ControllerROAccountInterface {
     
 }
 
-protocol ControllerCreateAccountInterface {
+protocol ControllerCreateAccountInterface: class {
     
     func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
 
 }
 
-protocol ControllerDecantInterface {
+protocol ControllerDecantInterface: class {
     
     func numberOfAccounts() -> Int
     
@@ -61,7 +61,7 @@ protocol ControllerDecantInterface {
     
 }
 
-protocol ControllerSlicesInterface {
+protocol ControllerSlicesInterface: class {
     
     func numberOfSlices() -> Int
     

@@ -10,11 +10,11 @@ import UIKit
 
 class EditAccountImplementation: EditAccountView {
     
-    let controller: ControllerEditAccountInterface
+    weak var controller: ControllerEditAccountInterface?
     
     let parent: ViewController
     
-    var view: EditAccountViewController? = nil
+    weak var view: EditAccountViewController? = nil
     
     init(controller: ControllerEditAccountInterface, parent: ViewController) {
         self.controller = controller
@@ -23,7 +23,7 @@ class EditAccountImplementation: EditAccountView {
     
     func setView(view: EditAccountViewController) {
         self.view = view
-        view.setController(controller)
+        view.setController(controller!)
     }
     
     func showSubView() {

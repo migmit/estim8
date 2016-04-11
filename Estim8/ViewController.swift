@@ -10,9 +10,9 @@ import UIKit
 
 class MainWindowImplementation: MainWindowView {
     
-    let controller: ControllerInterface
+    weak var controller: ControllerInterface?
     
-    let view: ViewController
+    weak var view: ViewController?
     
     init(controller: ControllerInterface, view: ViewController) {
         self.controller = controller
@@ -20,31 +20,31 @@ class MainWindowImplementation: MainWindowView {
     }
     
     func createAccount(controller: ControllerCreateAccountInterface) -> CreateAccountView {
-        return CreateAccountImplementation(controller: controller, parent: view)
+        return CreateAccountImplementation(controller: controller, parent: view!)
     }
     
     func decant(controller: ControllerDecantInterface) -> DecantView {
-        return DecantImplementation(controller: controller, parent: view)
+        return DecantImplementation(controller: controller, parent: view!)
     }
     
     func showSlices(controller: ControllerSlicesInterface) -> SlicesView {
-        return SlicesImplementation(controller: controller, parent: view)
+        return SlicesImplementation(controller: controller, parent: view!)
     }
     
     func editAccount(controller: ControllerEditAccountInterface) -> EditAccountView {
-        return EditAccountImplementation(controller: controller, parent: view)
+        return EditAccountImplementation(controller: controller, parent: view!)
     }
     
     func refreshAccount(n: Int) {
-        view.accountsTable.reloadRowsAtIndexPaths([NSIndexPath(forRow: n, inSection: 0)], withRowAnimation: .None)
+        view?.accountsTable.reloadRowsAtIndexPaths([NSIndexPath(forRow: n, inSection: 0)], withRowAnimation: .None)
     }
     
     func removeAccount(n: Int) {
-        view.accountsTable.deleteRowsAtIndexPaths([NSIndexPath(forRow: n, inSection: 0)], withRowAnimation: .Top)
+        view?.accountsTable.deleteRowsAtIndexPaths([NSIndexPath(forRow: n, inSection: 0)], withRowAnimation: .Top)
     }
     
     func addAccount() {
-        view.accountsTable.insertRowsAtIndexPaths([NSIndexPath(forRow: controller.numberOfAccounts()-1, inSection: 0)], withRowAnimation: .Top)
+        view?.accountsTable.insertRowsAtIndexPaths([NSIndexPath(forRow: controller!.numberOfAccounts()-1, inSection: 0)], withRowAnimation: .Top)
     }
 }
 
