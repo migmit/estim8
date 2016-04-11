@@ -91,6 +91,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if let decant = sender as? DecantImplementation {
                 decant.setView(segue.destinationViewController as! DecantViewController)
             }
+        case "Slices":
+            if let slices = sender as? SlicesImplementation {
+                slices.setView(segue.destinationViewController as! SlicesViewController)
+            }
         default: break
         }
     }

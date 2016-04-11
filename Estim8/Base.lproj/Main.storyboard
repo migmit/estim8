@@ -114,17 +114,81 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wVC-GC-adI">
-                                <rect key="frame" x="137" y="269" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VBu-WM-Ht9">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="trash" id="1kb-0R-nzK"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="JC4-Ol-cvU"/>
+                                    <barButtonItem image="Left" id="uq3-j7-ifb">
+                                        <connections>
+                                            <action selector="leftButtonClicked:" destination="uIo-tV-dUq" id="Rdb-tO-y7r"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="eT3-yS-GNz"/>
+                                    <barButtonItem image="Right" id="VZS-oT-JYy">
+                                        <connections>
+                                            <action selector="rightButtonClicked:" destination="uIo-tV-dUq" id="4FV-MM-qGf"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ZLe-rc-xdx"/>
+                                    <barButtonItem systemItem="stop" id="ykJ-zT-g3E">
+                                        <connections>
+                                            <action selector="closeButtonClicked:" destination="uIo-tV-dUq" id="20w-Fi-Ph2"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PY4-zS-nw9">
+                                <rect key="frame" x="16" y="28" width="288" height="496"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpdateCell" textLabel="eME-iX-H5t" detailTextLabel="I28-er-oMw" style="IBUITableViewCellStyleValue1" id="App-CR-Hzl">
+                                        <rect key="frame" x="0.0" y="28" width="288" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="App-CR-Hzl" id="BD6-35-vfW">
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eME-iX-H5t">
+                                                    <rect key="frame" x="15" y="12" width="32" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="I28-er-oMw">
+                                                    <rect key="frame" x="231" y="12" width="42" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
-                                    <action selector="buttonTempClicked:" destination="uIo-tV-dUq" eventType="touchUpInside" id="WSB-xp-HFH"/>
+                                    <outlet property="dataSource" destination="uIo-tV-dUq" id="6tA-38-025"/>
+                                    <outlet property="delegate" destination="uIo-tV-dUq" id="oeG-IW-w7T"/>
                                 </connections>
-                            </button>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="PY4-zS-nw9" firstAttribute="top" secondItem="MbT-9o-66f" secondAttribute="bottom" constant="8" id="8xa-sh-rV4"/>
+                            <constraint firstItem="VBu-WM-Ht9" firstAttribute="leading" secondItem="cCm-k2-1Nu" secondAttribute="leading" id="9r5-hP-mBH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PY4-zS-nw9" secondAttribute="trailing" id="HSj-QU-GNO"/>
+                            <constraint firstItem="WwV-iU-GkK" firstAttribute="top" secondItem="VBu-WM-Ht9" secondAttribute="bottom" id="LTu-ne-P1Y"/>
+                            <constraint firstItem="VBu-WM-Ht9" firstAttribute="top" secondItem="PY4-zS-nw9" secondAttribute="bottom" id="Rt7-TW-8rn"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="PY4-zS-nw9" secondAttribute="leading" id="fnV-qF-KSr"/>
+                            <constraint firstAttribute="trailing" secondItem="VBu-WM-Ht9" secondAttribute="trailing" id="zV7-ah-wZg"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="toolbar" destination="VBu-WM-Ht9" id="Koz-Nl-bud"/>
+                        <outlet property="updatesTable" destination="PY4-zS-nw9" id="EPh-Z3-i6T"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KpJ-Gt-mVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -500,5 +564,7 @@
     <resources>
         <image name="DecantButton" width="22" height="22"/>
         <image name="DownArrow" width="16" height="13"/>
+        <image name="Left" width="22" height="22"/>
+        <image name="Right" width="22" height="22"/>
     </resources>
 </document>

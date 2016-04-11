@@ -9,67 +9,68 @@ provides-member:
 - ["C6Estim824MainWindowImplementation", ""]
 - ["C6Estim814ViewController", ""]
 provides-dynamic-lookup:
-- "viewDidLoad"
+- "buttonSlicesClicked"
+- "prepareForSegue"
+- "accountsTable"
+- "buttonDecantClicked"
+- "tableView"
+- "tableView"
+- "tableView"
+- "tableView"
+- "tableView"
+- "tableView"
+- "buttonPlusClicked"
 - "shouldPerformSegueWithIdentifier"
 - "didReceiveMemoryWarning"
-- "buttonPlusClicked"
-- "prepareForSegue"
-- "buttonSlicesClicked"
-- "accountsTable"
-- "tableView"
-- "tableView"
-- "tableView"
-- "tableView"
-- "tableView"
-- "tableView"
-- "buttonDecantClicked"
 - "viewDidAppear"
+- "viewDidLoad"
 depends-top-level:
+- !private "??"
+- !private "ModelImplementation"
+- "SlicesView"
 - "MainWindowImplementation"
+- !private "NSNumberFormatter"
 - !private "DecantImplementation"
-- !private "AppDelegate"
-- "EditAccountView"
-- "String"
-- !private "ControllerImplementation"
+- "ControllerEditAccountInterface"
+- "Bool"
+- "UIStoryboardSegue"
+- !private "-"
 - !private "~="
 - !private "CreateAccountViewController"
 - "AnyObject"
-- "UIBarButtonItem"
-- "CreateAccountView"
-- "UIViewController"
-- "UIStoryboardSegue"
-- !private "DecantViewController"
-- !private "CreateAccountImplementation"
-- "ControllerEditAccountInterface"
-- "SlicesView"
-- "NSIndexPath"
-- !private "UIAlertAction"
-- "UITableViewCellEditingStyle"
-- !private "EditAccountViewController"
-- "DecantView"
-- "UITableView"
-- "MainWindowView"
-- !private "Array"
-- "ViewController"
-- "ControllerSlicesInterface"
-- "Bool"
-- !private "StringLiteralType"
-- "ControllerDecantInterface"
-- "ControllerInterface"
-- "UITableViewDelegate"
-- "UITableViewDataSource"
-- "Int"
-- !private "EditAccountImplementation"
-- "UITableViewCell"
-- !private "ModelImplementation"
-- !private "-"
-- !private "??"
-- !private "NSNumberFormatter"
-- !private "BooleanLiteralType"
-- !private "UIApplication"
 - !private "SlicesImplementation"
-- !private "UIAlertController"
+- "EditAccountView"
+- "DecantView"
+- !private "UIApplication"
+- "MainWindowView"
+- "UITableViewCell"
+- !private "UIAlertAction"
+- !private "Array"
+- !private "EditAccountViewController"
+- !private "SlicesViewController"
+- !private "DecantViewController"
+- !private "ControllerImplementation"
+- !private "StringLiteralType"
 - "ControllerCreateAccountInterface"
+- "ControllerInterface"
+- "CreateAccountView"
+- "UITableViewCellEditingStyle"
+- "UITableView"
+- "String"
+- !private "EditAccountImplementation"
+- "NSIndexPath"
+- !private "UIAlertController"
+- !private "AppDelegate"
+- "ControllerSlicesInterface"
+- !private "BooleanLiteralType"
+- "ControllerDecantInterface"
+- "Int"
+- "UITableViewDelegate"
+- "ViewController"
+- "UIBarButtonItem"
+- !private "CreateAccountImplementation"
+- "UITableViewDataSource"
+- "UIViewController"
 depends-member:
 - !private ["Ps9AnyObject", "Account"]
 - !private ["Ps9AnyObject", "ControllerImplementation"]
@@ -668,6 +669,8 @@ depends-member:
 - !private ["CSo8NSObject", "ModelImplementation"]
 - ["CSo8NSObject", "NSIndexPath"]
 - !private ["CSo8NSObject", "NSNumberFormatter"]
+- !private ["CSo8NSObject", "SlicesImplementation"]
+- !private ["CSo8NSObject", "SlicesViewController"]
 - ["CSo8NSObject", "String"]
 - !private ["CSo8NSObject", "UIAlertAction"]
 - !private ["CSo8NSObject", "UIAlertController"]
@@ -804,7 +807,9 @@ depends-member:
 - !private ["Ps12SequenceType", "Element"]
 - !private ["C6Estim820SlicesImplementation", "deinit"]
 - !private ["C6Estim820SlicesImplementation", "init"]
+- !private ["C6Estim820SlicesImplementation", "setView"]
 - !private ["P6Estim810SlicesView", "init"]
+- !private ["P6Estim810SlicesView", "setView"]
 - !private ["SS", "deinit"]
 - !private ["P6Estim87SubView", "init"]
 - !private ["P6Estim87SubView", "setView"]
@@ -1016,6 +1021,8 @@ depends-member:
 - !private ["CSo11UIResponder", "ModelImplementation"]
 - ["CSo11UIResponder", "NSIndexPath"]
 - !private ["CSo11UIResponder", "NSNumberFormatter"]
+- !private ["CSo11UIResponder", "SlicesImplementation"]
+- !private ["CSo11UIResponder", "SlicesViewController"]
 - ["CSo11UIResponder", "String"]
 - !private ["CSo11UIResponder", "UIAlertAction"]
 - !private ["CSo11UIResponder", "UIAlertController"]
@@ -1293,6 +1300,8 @@ depends-member:
 - !private ["CSo16UIViewController", "ModelImplementation"]
 - ["CSo16UIViewController", "NSIndexPath"]
 - !private ["CSo16UIViewController", "NSNumberFormatter"]
+- !private ["CSo16UIViewController", "SlicesImplementation"]
+- !private ["CSo16UIViewController", "SlicesViewController"]
 - ["CSo16UIViewController", "String"]
 - !private ["CSo16UIViewController", "UIAlertAction"]
 - !private ["CSo16UIViewController", "UIAlertController"]
@@ -1351,6 +1360,8 @@ depends-member:
 - !private ["C6Estim814ViewController", "ModelImplementation"]
 - ["C6Estim814ViewController", "NSIndexPath"]
 - !private ["C6Estim814ViewController", "NSNumberFormatter"]
+- !private ["C6Estim814ViewController", "SlicesImplementation"]
+- !private ["C6Estim814ViewController", "SlicesViewController"]
 - ["C6Estim814ViewController", "String"]
 - !private ["C6Estim814ViewController", "UIAlertAction"]
 - !private ["C6Estim814ViewController", "UIAlertController"]

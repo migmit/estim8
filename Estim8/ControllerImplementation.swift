@@ -323,12 +323,12 @@ class ControllerSlicesImplementation<Model: ModelInterface>: ControllerSlicesInt
         }
     }
     
-    func createSlice() {
-        view?.createSlice()
+    func createSlice(slice: ControllerSliceInterface) {
+        view?.createSlice(slice)
     }
     
-    func removeSlice() {
-        view?.removeSlice()
+    func removeSlice(slice: ControllerSliceInterface) {
+        view?.removeSlice(slice)
     }
 }
 
@@ -347,6 +347,10 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         self.model = model
         self.accounts = model.liveAccounts()
         self.allAccounts = accounts
+    }
+    
+    func sliceIndex() -> Int {
+        return 0
     }
     
     func buttonCalledCreate() -> Bool {
@@ -375,8 +379,8 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
     }
     
     func createOrRemove() {
-        model.createSlice()
-        parent.createSlice()
+        let slice = model.createSlice()
+        parent.createSlice(ControllerSliceImplementation(parent: parent, model: model, accounts: allAccounts, slice: slice, index: 0))
     }
 }
 
@@ -406,6 +410,10 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
             updateAccounts.updateValue(update, forKey: model.accountOfUpdate(update))
         }
         self.updates = updateAccounts
+    }
+    
+    func sliceIndex() -> Int {
+        return index + 1
     }
     
     func buttonCalledCreate() -> Bool {
@@ -446,8 +454,9 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
     }
     
     func createOrRemove() {
+        let newSlice = prev()!
         model.removeSlice(slice)
-        parent.removeSlice()
+        parent.removeSlice(newSlice)
     }
 }
 

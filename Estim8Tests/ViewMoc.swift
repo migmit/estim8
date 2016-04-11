@@ -255,8 +255,6 @@ class SlicesMoc: SlicesView {
     
     class State {
         
-        let number: Int
-        
         let slice: ControllerSliceInterface
         
         let display: [(String, NSDecimalNumber)?]
@@ -267,8 +265,7 @@ class SlicesMoc: SlicesView {
         
         let nextEnabled: Bool
         
-        init(controller: ControllerSlicesInterface, number: Int, slice: ControllerSliceInterface) {
-            self.number = number
+        init(controller: ControllerSlicesInterface, slice: ControllerSliceInterface) {
             self.slice = slice
             var display: [(String, NSDecimalNumber)?] = []
             let n = controller.numberOfAccounts()
@@ -297,7 +294,7 @@ class SlicesMoc: SlicesView {
         
         convenience init?(controller: ControllerSlicesInterface, number: Int) {
             if let slice = controller.slice(number) {
-                self.init(controller: controller, number: number, slice: slice)
+                self.init(controller: controller, slice: slice)
             } else {
                 return nil
             }
@@ -333,25 +330,25 @@ class SlicesMoc: SlicesView {
         view.state = .MainWindow(parent)
     }
     
-    func createSlice() {
+    func createSlice(slice: ControllerSliceInterface) {
         numberOfSlices += 1
-        state = State(controller: controller, number: 1)!
+        state = State(controller: controller, number: slice.sliceIndex())!
     }
     
-    func removeSlice() {
+    func removeSlice(slice: ControllerSliceInterface) {
         numberOfSlices -= 1
-        state = State(controller: controller, number: state.number-1)!
+        state = State(controller: controller, number: slice.sliceIndex())!
     }
     
     func tapPrevButton() {
         if let s = state.slice.prev() {
-            state = State(controller: controller, number: state.number-1, slice: s)
+            state = State(controller: controller, slice: s)
         }
     }
     
     func tapNextButton() {
         if let s = state.slice.next() {
-            state = State(controller: controller, number: state.number+1, slice: s)
+            state = State(controller: controller, slice: s)
         }
     }
     

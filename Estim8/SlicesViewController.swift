@@ -34,18 +34,24 @@ class SlicesImplementation: SlicesView {
         view?.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    func createSlice() {
-        
+    func createSlice(slice: ControllerSliceInterface) {
+        view?.refreshCurrentSlice(slice)
     }
     
-    func removeSlice() {
-        
+    func removeSlice(slice: ControllerSliceInterface) {
+        view?.refreshCurrentSlice(slice)
     }
 }
 
-class SlicesViewController: UIViewController {
+class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var viewImplementation: SlicesImplementation? = nil
+    
+    var currentSlice: ControllerSliceInterface? = nil
+    
+    @IBOutlet weak var updatesTable: UITableView!
+    
+    @IBOutlet weak var toolbar: UIToolbar!
     
     func setViewImplementation(viewImplementation: SlicesImplementation) {
         self.viewImplementation = viewImplementation
@@ -57,8 +63,9 @@ class SlicesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if let slice = viewImplementation?.controller.slice(0) {
+            refreshCurrentSlice(slice)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,10 +73,63 @@ class SlicesViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func buttonTempClicked(sender: UIButton) {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewImplementation?.controller.numberOfAccounts() ?? 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("UpdateCell")
+        if let account = currentSlice?.account(indexPath.row) {
+            cell?.textLabel?.text = account.name()
+            let numberFormatter = NSNumberFormatter()
+            numberFormatter.numberStyle = .DecimalStyle
+            cell?.detailTextLabel?.text = numberFormatter.stringFromNumber(account.value())
+        } else {
+            cell?.textLabel?.text = ""
+            cell?.detailTextLabel?.text = ""
+        }
+        return cell!
+    }
+    
+    func refreshCurrentSlice(slice: ControllerSliceInterface) {
+        var toolbarItems = toolbar.items ?? []
+        currentSlice = slice
+        let isCreateButton = slice.buttonCalledCreate()
+        toolbarItems[0] = UIBarButtonItem(barButtonSystemItem: isCreateButton ? .Compose : .Trash, target: self, action: #selector(createDeleteButtonClicked))
+        if let _ = slice.next() {
+            toolbarItems[2].enabled = true
+        } else {
+            toolbarItems[2].enabled = false
+        }
+        if let _ = slice.prev() {
+            toolbarItems[4].enabled = true
+        } else {
+            toolbarItems[4].enabled = false
+        }
+        toolbar.items = toolbarItems
+        updatesTable.reloadData()
+    }
+    
+    func createDeleteButtonClicked() {
+        currentSlice?.createOrRemove()
+    }
+    
+    @IBAction func leftButtonClicked(sender: UIBarButtonItem) {
+        if let slice = currentSlice?.next() {
+            refreshCurrentSlice(slice)
+        }
+    }
+    
+    @IBAction func rightButtonClicked(sender: UIBarButtonItem) {
+        if let slice = currentSlice?.prev() {
+            refreshCurrentSlice(slice)
+        }
+    }
+    
+    @IBAction func closeButtonClicked(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
     /*
     // MARK: - Navigation
 
