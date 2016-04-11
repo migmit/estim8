@@ -229,7 +229,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
     
     func decant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool {
         let accounts = model.liveAccounts()
-        if (from >= accounts.count || to >= accounts.count) {
+        if (from >= accounts.count || to >= accounts.count || from == to || amount == 0) {
             return false
         } else {
             let accountFrom = accounts[from]

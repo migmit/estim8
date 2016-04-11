@@ -43,7 +43,7 @@ class EditAccountViewController: UITableViewController {
 
     @IBOutlet weak var accountValueText: UITextField!
     
-    var accountValueTextDelegate: NumberOnlyText = NumberOnlyText()
+    let accountValueTextDelegate: NumberOnlyText = NumberOnlyText()
     
     var parentNavigationBarHidden: Bool = false
     
