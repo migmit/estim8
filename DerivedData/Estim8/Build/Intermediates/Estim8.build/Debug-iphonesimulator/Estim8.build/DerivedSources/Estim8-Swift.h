@@ -230,10 +230,12 @@ SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
 
 
 @class UIBarButtonItem;
+@class UIGestureRecognizer;
 @class UIToolbar;
 
 SWIFT_CLASS("_TtC6Estim820SlicesViewController")
 @interface SlicesViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, readonly) NSInteger panPointsCount;
 @property (nonatomic, weak) IBOutlet UITableView * _Null_unspecified updatesTable;
 @property (nonatomic, weak) IBOutlet UIToolbar * _Null_unspecified toolbar;
 - (void)dismiss;
@@ -245,6 +247,7 @@ SWIFT_CLASS("_TtC6Estim820SlicesViewController")
 - (IBAction)leftButtonClicked:(UIBarButtonItem * _Nonnull)sender;
 - (IBAction)rightButtonClicked:(UIBarButtonItem * _Nonnull)sender;
 - (IBAction)closeButtonClicked:(UIBarButtonItem * _Nonnull)sender;
+- (void)panEvent:(UIGestureRecognizer * _Nonnull)recogniser;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end

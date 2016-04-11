@@ -44,10 +44,14 @@ class SlicesImplementation: SlicesView {
 }
 
 class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
+    let panPointsCount = 24
+    
     var viewImplementation: SlicesImplementation? = nil
     
     var currentSlice: ControllerSliceInterface? = nil
+    
+    var oldSliceNumber: Int? = nil
     
     @IBOutlet weak var updatesTable: UITableView!
     
@@ -63,6 +67,8 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panEvent))
+        updatesTable.addGestureRecognizer(panRecognizer)
         if let slice = viewImplementation?.controller.slice(0) {
             refreshCurrentSlice(slice)
         }
@@ -128,6 +134,28 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func closeButtonClicked(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func panEvent(recogniser: UIGestureRecognizer) {
+        if let pan = recogniser as? UIPanGestureRecognizer {
+            switch pan.state {
+            case .Changed:
+                if (oldSliceNumber == nil) {
+                    oldSliceNumber = currentSlice?.sliceIndex()
+                }
+                let shift = pan.translationInView(updatesTable).x
+                let shiftPoints = Int(shift * CGFloat(panPointsCount) / updatesTable.bounds.width)
+                if let sliceCount = viewImplementation?.controller.numberOfSlices() {
+                    let newSliceNumber = oldSliceNumber! - shiftPoints
+                    let sliceNumber = newSliceNumber < 0 ? 0 : newSliceNumber >= sliceCount ? sliceCount-1 : newSliceNumber
+                    if let slice = viewImplementation?.controller.slice(sliceNumber) {
+                        refreshCurrentSlice(slice)
+                    }
+                }
+            default:
+                oldSliceNumber = nil
+            }
+        }
     }
     
     /*
