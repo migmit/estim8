@@ -35,7 +35,7 @@ class EditAccountImplementation: EditAccountView {
     }
 }
 
-class EditAccountViewController: UITableViewController {
+class EditAccountViewController: SubViewController {
     
     var viewImplementation: EditAccountImplementation? = nil
     
@@ -44,8 +44,6 @@ class EditAccountViewController: UITableViewController {
     @IBOutlet weak var accountValueText: UITextField!
     
     let accountValueTextDelegate: NumberOnlyText = NumberOnlyText()
-    
-    var parentNavigationBarHidden: Bool = false
     
     func setViewImplementation(viewImplementation: EditAccountImplementation) {
         self.viewImplementation = viewImplementation
@@ -65,17 +63,6 @@ class EditAccountViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        parentNavigationBarHidden = navigationController?.navigationBarHidden ?? false
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        navigationController?.setNavigationBarHidden(parentNavigationBarHidden, animated: animated)
-        super.viewWillDisappear(animated)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

@@ -51,11 +51,9 @@ class DecantNumberOnlyText: NumberOnlyText {
     
 }
 
-class DecantViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class DecantViewController: SubViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var viewImplementation: DecantImplementation? = nil
-    
-    var parentNavigationBarHidden: Bool = false
     
     func setViewImplementation(viewImplementation: DecantImplementation) {
         self.viewImplementation = viewImplementation
@@ -96,17 +94,6 @@ class DecantViewController: UITableViewController, UIPickerViewDelegate, UIPicke
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        parentNavigationBarHidden = navigationController?.navigationBarHidden ?? false
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        navigationController?.setNavigationBarHidden(parentNavigationBarHidden, animated: animated)
-        super.viewWillDisappear(animated)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

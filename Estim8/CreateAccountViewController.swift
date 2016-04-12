@@ -35,11 +35,9 @@ class CreateAccountImplementation: CreateAccountView {
     }
 }
 
-class CreateAccountViewController: UITableViewController {
+class CreateAccountViewController: SubViewController {
 
     var viewImplementation: CreateAccountImplementation? = nil
-    
-    var parentNavigationBarHidden: Bool = false
     
     @IBOutlet weak var accountTitleText: UITextField!
     
@@ -68,17 +66,6 @@ class CreateAccountViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        parentNavigationBarHidden = navigationController?.navigationBarHidden ?? false
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        navigationController?.setNavigationBarHidden(parentNavigationBarHidden, animated: animated)
-        super.viewWillDisappear(animated)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

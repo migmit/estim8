@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubViewController: UIViewController {
+class SubViewController: UITableViewController {
     
     var parentNavigationBarHidden: Bool = false
 
