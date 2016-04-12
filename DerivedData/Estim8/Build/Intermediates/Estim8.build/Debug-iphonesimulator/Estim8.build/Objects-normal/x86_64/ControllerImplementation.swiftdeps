@@ -34,44 +34,45 @@ provides-member:
 - ["C6Estim825ControllerUpdateInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "ControllerCreateAccountInterface"
-- "ControllerCurrentStatePseudoSliceImplementation"
-- !private "-"
-- "ControllerSliceImplementation"
-- !private "BooleanLiteralType"
-- "ControllerROAccountImplementation"
-- !private "+"
-- !private ">="
-- !private "FloatLiteralType"
-- "EditAccountView"
-- "ControllerSliceInterface"
-- !private "Dictionary"
-- "ControllerEditAccountImplementation"
-- "ControllerDecantInterface"
-- "MainWindowView"
-- "ControllerEditAccountInterface"
-- "ControllerROAccountInterface"
 - "Int"
-- "ControllerImplementation"
-- "ControllerSlicesImplementation"
-- "SlicesView"
-- "ControllerUpdateInterface"
-- !private ">"
-- "ControllerDecantImplementation"
-- "ModelInterface"
-- "ControllerSlicesInterface"
-- "ControllerCreateAccountImplementation"
-- "ControllerAccountImplementation"
 - "NSDecimalNumber"
-- "ControllerInterface"
-- "DecantView"
 - !private "IntegerLiteralType"
-- "String"
+- "EditAccountView"
 - !private "=="
-- "Bool"
-- !private "||"
-- "ControllerAccountInterface"
+- "MainWindowView"
+- "ControllerDecantInterface"
+- "ControllerImplementation"
+- !private "+"
+- "ControllerROAccountInterface"
+- "ControllerROAccountImplementation"
+- "ControllerCurrentStatePseudoSliceImplementation"
+- "NSDate"
+- "ControllerSliceImplementation"
 - "CreateAccountView"
+- "SlicesView"
+- !private ">="
+- "ControllerEditAccountInterface"
+- "ControllerEditAccountImplementation"
+- "ControllerCreateAccountImplementation"
+- "ControllerSlicesInterface"
+- "ControllerAccountInterface"
+- "ControllerDecantImplementation"
+- "ControllerSliceInterface"
+- "String"
+- !private "Dictionary"
+- "ControllerSlicesImplementation"
+- "ControllerCreateAccountInterface"
+- "Bool"
+- "ControllerUpdateInterface"
+- !private "||"
+- "DecantView"
+- "ControllerAccountImplementation"
+- "ControllerInterface"
+- !private "BooleanLiteralType"
+- !private ">"
+- !private "FloatLiteralType"
+- !private "-"
+- "ModelInterface"
 depends-member:
 - !private ["Ps9AnyObject", "ControllerAccountImplementation"]
 - !private ["Ps9AnyObject", "ControllerCreateAccountImplementation"]
@@ -114,6 +115,7 @@ depends-member:
 - !private ["Ps9AnyObject", "setView"]
 - ["Ps9AnyObject", "showSlices"]
 - ["Ps9AnyObject", "slice"]
+- ["Ps9AnyObject", "sliceDate"]
 - ["Ps9AnyObject", "sliceIndex"]
 - !private ["Ps9AnyObject", "tryAddToAccount"]
 - !private ["Ps9AnyObject", "update"]
@@ -226,6 +228,7 @@ depends-member:
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "ControllerSlicesImplementation"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "Int"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "Model"]
+- ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "NSDate"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "account"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "accounts"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "allAccounts"]
@@ -237,6 +240,7 @@ depends-member:
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "next"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "parent"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "prev"]
+- ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "sliceDate"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "sliceIndex"]
 - ["C6Estim830ControllerDecantImplementation", "Bool"]
 - ["C6Estim830ControllerDecantImplementation", "ControllerImplementation"]
@@ -367,6 +371,7 @@ depends-member:
 - !private ["C6Estim829ControllerSliceImplementation", "ControllerUpdateInterface"]
 - ["C6Estim829ControllerSliceImplementation", "Int"]
 - ["C6Estim829ControllerSliceImplementation", "Model"]
+- ["C6Estim829ControllerSliceImplementation", "NSDate"]
 - ["C6Estim829ControllerSliceImplementation", "account"]
 - ["C6Estim829ControllerSliceImplementation", "accounts"]
 - ["C6Estim829ControllerSliceImplementation", "buttonCalledCreate"]
@@ -379,6 +384,7 @@ depends-member:
 - ["C6Estim829ControllerSliceImplementation", "parent"]
 - ["C6Estim829ControllerSliceImplementation", "prev"]
 - ["C6Estim829ControllerSliceImplementation", "slice"]
+- ["C6Estim829ControllerSliceImplementation", "sliceDate"]
 - ["C6Estim829ControllerSliceImplementation", "sliceIndex"]
 - ["C6Estim829ControllerSliceImplementation", "updates"]
 - !private ["P6Estim824ControllerSliceInterface", "ControllerCurrentStatePseudoSliceImplementation"]
@@ -397,6 +403,7 @@ depends-member:
 - !private ["P6Estim824ControllerSliceInterface", "parent"]
 - ["P6Estim824ControllerSliceInterface", "prev"]
 - !private ["P6Estim824ControllerSliceInterface", "slice"]
+- ["P6Estim824ControllerSliceInterface", "sliceDate"]
 - ["P6Estim824ControllerSliceInterface", "sliceIndex"]
 - !private ["P6Estim824ControllerSliceInterface", "updates"]
 - ["P6Estim824ControllerSliceInterface", ""]
@@ -560,6 +567,7 @@ depends-member:
 - !private ["P6Estim814ModelInterface", "accountOfUpdate"]
 - !private ["P6Estim814ModelInterface", "addAccountAnUpdate"]
 - !private ["P6Estim814ModelInterface", "createSlice"]
+- !private ["P6Estim814ModelInterface", "dateOfSlice"]
 - !private ["P6Estim814ModelInterface", "deadAccounts"]
 - !private ["P6Estim814ModelInterface", "lastUpdatesOfSlice"]
 - !private ["P6Estim814ModelInterface", "liveAccounts"]
@@ -847,4 +855,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "e94e2ced1ff4d5e5f1435897ca4fda8c"
+interface-hash: "98ce575336acb8aee346079271c02d3c"

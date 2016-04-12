@@ -55,10 +55,13 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var scrollingHorizontally: Bool? = nil
     
+    let dateFormatter: NSDateFormatter = NSDateFormatter()
+    
     @IBOutlet weak var updatesTable: UITableView!
     
     @IBOutlet weak var toolbar: UIToolbar!
     
+    @IBOutlet weak var titleBar: UINavigationBar!
     func setViewImplementation(viewImplementation: SlicesImplementation) {
         self.viewImplementation = viewImplementation
     }
@@ -71,6 +74,8 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let slice = viewImplementation?.controller.slice(0) {
             refreshCurrentSlice(slice)
         }
+        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.timeStyle = .ShortStyle
     }
 
     override func didReceiveMemoryWarning() {
@@ -126,6 +131,11 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         toolbar.items = toolbarItems
         updatesTable.reloadData()
+        if let date = slice.sliceDate() {
+            titleBar.topItem?.title = dateFormatter.stringFromDate(date)
+        } else {
+            titleBar.topItem?.title = "Current state"
+        }
     }
     
     func createDeleteButtonClicked() {
@@ -163,10 +173,12 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     }
                     let shiftPoints = Int(shiftX * CGFloat(panPointsCount) / updatesTable.bounds.width)
                     if let sliceCount = viewImplementation?.controller.numberOfSlices() {
-                        let newSliceNumber = oldSliceNumber! - shiftPoints
+                        let newSliceNumber = oldSliceNumber! + shiftPoints // shifting backwards
                         let sliceNumber = newSliceNumber < 0 ? 0 : newSliceNumber >= sliceCount ? sliceCount-1 : newSliceNumber
-                        if let slice = viewImplementation?.controller.slice(sliceNumber) {
-                            refreshCurrentSlice(slice)
+                        if (sliceNumber != currentSlice?.sliceIndex()) {
+                            if let slice = viewImplementation?.controller.slice(sliceNumber) {
+                                refreshCurrentSlice(slice)
+                            }
                         }
                     }
                 }

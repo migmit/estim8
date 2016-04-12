@@ -28,18 +28,19 @@ provides-member:
 - ["P6Estim824ControllerSliceInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "ControllerROAccountInterface"
-- "ControllerCreateAccountInterface"
-- "String"
 - "ControllerEditAccountInterface"
-- "NSDecimalNumber"
-- "ControllerInterface"
-- "ControllerAccountInterface"
-- "ControllerDecantInterface"
-- "ControllerSliceInterface"
-- "Bool"
-- "ControllerSlicesInterface"
+- "ControllerROAccountInterface"
 - "Int"
+- "NSDate"
+- "Bool"
+- "ControllerSliceInterface"
+- "ControllerInterface"
+- "ControllerDecantInterface"
+- "ControllerCreateAccountInterface"
+- "ControllerAccountInterface"
+- "ControllerSlicesInterface"
+- "String"
+- "NSDecimalNumber"
 depends-member:
 - ["P6Estim826ControllerAccountInterface", "edit"]
 - ["P6Estim826ControllerAccountInterface", "remove"]
@@ -75,11 +76,13 @@ depends-member:
 - ["P6Estim824ControllerSliceInterface", "ControllerROAccountInterface"]
 - ["P6Estim824ControllerSliceInterface", "ControllerSliceInterface"]
 - ["P6Estim824ControllerSliceInterface", "Int"]
+- ["P6Estim824ControllerSliceInterface", "NSDate"]
 - ["P6Estim824ControllerSliceInterface", "account"]
 - ["P6Estim824ControllerSliceInterface", "buttonCalledCreate"]
 - ["P6Estim824ControllerSliceInterface", "createOrRemove"]
 - ["P6Estim824ControllerSliceInterface", "next"]
 - ["P6Estim824ControllerSliceInterface", "prev"]
+- ["P6Estim824ControllerSliceInterface", "sliceDate"]
 - ["P6Estim824ControllerSliceInterface", "sliceIndex"]
 - ["P6Estim825ControllerSlicesInterface", "ControllerSliceInterface"]
 - ["P6Estim825ControllerSlicesInterface", "Int"]
@@ -106,4 +109,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "173a809eeec26bf9cc7a3940983e903b"
+interface-hash: "a784bfc56a92b6195796e19ea91c2f85"

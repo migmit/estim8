@@ -382,6 +382,10 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         let slice = model.createSlice()
         parent.createSlice(ControllerSliceImplementation(parent: parent, model: model, accounts: allAccounts, slice: slice, index: 0))
     }
+    
+    func sliceDate() -> NSDate? {
+        return nil
+    }
 }
 
 class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInterface {
@@ -457,6 +461,10 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         let newSlice = prev()!
         model.removeSlice(slice)
         parent.removeSlice(newSlice)
+    }
+    
+    func sliceDate() -> NSDate? {
+        return model.dateOfSlice(slice)
     }
 }
 

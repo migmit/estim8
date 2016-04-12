@@ -124,17 +124,28 @@ SWIFT_CLASS("_TtC6Estim811AppDelegate")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class NSBundle;
+@class NSCoder;
+
+SWIFT_CLASS("_TtC6Estim817SubViewController")
+@interface SubViewController : UITableViewController
+@property (nonatomic) BOOL parentNavigationBarHidden;
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
+- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class NumberOnlyText;
 @class UITableView;
 @class NSIndexPath;
 @class UITextField;
 @class UITableViewCell;
-@class NSBundle;
-@class NSCoder;
 
 SWIFT_CLASS("_TtC6Estim827CreateAccountViewController")
-@interface CreateAccountViewController : UITableViewController
-@property (nonatomic) BOOL parentNavigationBarHidden;
+@interface CreateAccountViewController : SubViewController
 @property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountTitleText;
 @property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountValueText;
 @property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified positiveCell;
@@ -143,8 +154,6 @@ SWIFT_CLASS("_TtC6Estim827CreateAccountViewController")
 @property (nonatomic) BOOL isNegative;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewWillDisappear:(BOOL)animated;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)buttonSaveClicked;
 - (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
@@ -179,8 +188,7 @@ SWIFT_CLASS("_TtC6Estim820DecantNumberOnlyText")
 @class UIPickerView;
 
 SWIFT_CLASS("_TtC6Estim820DecantViewController")
-@interface DecantViewController : UITableViewController <UIPickerViewDelegate, UIPickerViewDataSource>
-@property (nonatomic) BOOL parentNavigationBarHidden;
+@interface DecantViewController : SubViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 @property (nonatomic) NSInteger fromSelected;
 @property (nonatomic) NSInteger toSelected;
 @property (nonatomic) BOOL editingTo;
@@ -193,8 +201,6 @@ SWIFT_CLASS("_TtC6Estim820DecantViewController")
 @property (nonatomic, weak) IBOutlet UIPickerView * _Null_unspecified pickler;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewWillDisappear:(BOOL)animated;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView * _Nonnull)pickerView;
 - (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component;
@@ -211,15 +217,12 @@ SWIFT_CLASS("_TtC6Estim820DecantViewController")
 @class UILabel;
 
 SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
-@interface EditAccountViewController : UITableViewController
+@interface EditAccountViewController : SubViewController
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified accountNameLabel;
 @property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountValueText;
 @property (nonatomic, readonly, strong) NumberOnlyText * _Nonnull accountValueTextDelegate;
-@property (nonatomic) BOOL parentNavigationBarHidden;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewWillDisappear:(BOOL)animated;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (IBAction)buttonDeleteClicked:(UIButton * _Nonnull)sender;
 - (void)buttonSaveClicked;
@@ -229,16 +232,19 @@ SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
 @end
 
 
+@class NSDateFormatter;
 @class UIGestureRecognizer;
 @class UIBarButtonItem;
 @class UIToolbar;
+@class UINavigationBar;
 
 SWIFT_CLASS("_TtC6Estim820SlicesViewController")
 @interface SlicesViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UITableViewDelegate>
 @property (nonatomic, readonly) NSInteger panPointsCount;
+@property (nonatomic, readonly, strong) NSDateFormatter * _Nonnull dateFormatter;
 @property (nonatomic, weak) IBOutlet UITableView * _Null_unspecified updatesTable;
 @property (nonatomic, weak) IBOutlet UIToolbar * _Null_unspecified toolbar;
-- (void)dismiss;
+@property (nonatomic, weak) IBOutlet UINavigationBar * _Null_unspecified titleBar;
 - (void)viewDidLoad;
 - (void)didReceiveMemoryWarning;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section;
@@ -253,16 +259,6 @@ SWIFT_CLASS("_TtC6Estim820SlicesViewController")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-
-SWIFT_CLASS("_TtC6Estim817SubViewController")
-@interface SubViewController : UIViewController
-@property (nonatomic) BOOL parentNavigationBarHidden;
-- (void)viewDidLoad;
-- (void)viewWillAppear:(BOOL)animated;
-- (void)viewWillDisappear:(BOOL)animated;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
 
 @class UIStoryboardSegue;
 

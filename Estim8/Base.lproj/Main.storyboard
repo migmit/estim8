@@ -139,7 +139,7 @@
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PY4-zS-nw9">
-                                <rect key="frame" x="16" y="28" width="288" height="496"/>
+                                <rect key="frame" x="16" y="64" width="288" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="UpdateCell" textLabel="eME-iX-H5t" detailTextLabel="I28-er-oMw" style="IBUITableViewCellStyleValue1" id="App-CR-Hzl">
@@ -172,20 +172,30 @@
                                     <outlet property="delegate" destination="uIo-tV-dUq" id="oeG-IW-w7T"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xdx-Gp-1nx">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="oAE-Qb-9lI"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="PY4-zS-nw9" firstAttribute="top" secondItem="MbT-9o-66f" secondAttribute="bottom" constant="8" id="8xa-sh-rV4"/>
+                            <constraint firstAttribute="trailing" secondItem="xdx-Gp-1nx" secondAttribute="trailing" id="9Ud-in-c3M"/>
                             <constraint firstItem="VBu-WM-Ht9" firstAttribute="leading" secondItem="cCm-k2-1Nu" secondAttribute="leading" id="9r5-hP-mBH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PY4-zS-nw9" secondAttribute="trailing" id="HSj-QU-GNO"/>
                             <constraint firstItem="WwV-iU-GkK" firstAttribute="top" secondItem="VBu-WM-Ht9" secondAttribute="bottom" id="LTu-ne-P1Y"/>
+                            <constraint firstItem="xdx-Gp-1nx" firstAttribute="leading" secondItem="cCm-k2-1Nu" secondAttribute="leading" id="RcE-Qc-HVL"/>
                             <constraint firstItem="VBu-WM-Ht9" firstAttribute="top" secondItem="PY4-zS-nw9" secondAttribute="bottom" id="Rt7-TW-8rn"/>
+                            <constraint firstItem="xdx-Gp-1nx" firstAttribute="top" secondItem="MbT-9o-66f" secondAttribute="bottom" id="Udt-kC-1wH"/>
+                            <constraint firstItem="PY4-zS-nw9" firstAttribute="top" secondItem="xdx-Gp-1nx" secondAttribute="bottom" id="asq-iL-FYz"/>
                             <constraint firstAttribute="leadingMargin" secondItem="PY4-zS-nw9" secondAttribute="leading" id="fnV-qF-KSr"/>
                             <constraint firstAttribute="trailing" secondItem="VBu-WM-Ht9" secondAttribute="trailing" id="zV7-ah-wZg"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="titleBar" destination="xdx-Gp-1nx" id="whj-Rm-1W4"/>
                         <outlet property="toolbar" destination="VBu-WM-Ht9" id="Koz-Nl-bud"/>
                         <outlet property="updatesTable" destination="PY4-zS-nw9" id="EPh-Z3-i6T"/>
                     </connections>
