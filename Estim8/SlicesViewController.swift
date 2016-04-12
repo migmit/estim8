@@ -63,10 +63,6 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.viewImplementation = viewImplementation
     }
     
-    func dismiss() {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panEvent))
