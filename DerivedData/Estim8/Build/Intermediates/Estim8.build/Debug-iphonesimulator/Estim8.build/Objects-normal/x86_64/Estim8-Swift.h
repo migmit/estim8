@@ -229,12 +229,12 @@ SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
 @end
 
 
-@class UIBarButtonItem;
 @class UIGestureRecognizer;
+@class UIBarButtonItem;
 @class UIToolbar;
 
 SWIFT_CLASS("_TtC6Estim820SlicesViewController")
-@interface SlicesViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SlicesViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UITableViewDelegate>
 @property (nonatomic, readonly) NSInteger panPointsCount;
 @property (nonatomic, weak) IBOutlet UITableView * _Null_unspecified updatesTable;
 @property (nonatomic, weak) IBOutlet UIToolbar * _Null_unspecified toolbar;
@@ -243,6 +243,7 @@ SWIFT_CLASS("_TtC6Estim820SlicesViewController")
 - (void)didReceiveMemoryWarning;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (BOOL)gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer;
 - (void)createDeleteButtonClicked;
 - (IBAction)leftButtonClicked:(UIBarButtonItem * _Nonnull)sender;
 - (IBAction)rightButtonClicked:(UIBarButtonItem * _Nonnull)sender;

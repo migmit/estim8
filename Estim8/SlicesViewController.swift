@@ -43,7 +43,7 @@ class SlicesImplementation: SlicesView {
     }
 }
 
-class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     
     let panPointsCount = 24
     
@@ -52,6 +52,8 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var currentSlice: ControllerSliceInterface? = nil
     
     var oldSliceNumber: Int? = nil
+    
+    var scrollingHorizontally: Bool? = nil
     
     @IBOutlet weak var updatesTable: UITableView!
     
@@ -68,6 +70,7 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panEvent))
+        panRecognizer.delegate = self
         updatesTable.addGestureRecognizer(panRecognizer)
         if let slice = viewImplementation?.controller.slice(0) {
             refreshCurrentSlice(slice)
@@ -97,11 +100,24 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell!
     }
     
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if (gestureRecognizer is UIPanGestureRecognizer) {
+            if let sH = scrollingHorizontally {
+                return !sH
+            } else {
+                return true
+            }
+        } else {
+            return false
+        }
+    }
+    
     func refreshCurrentSlice(slice: ControllerSliceInterface) {
         var toolbarItems = toolbar.items ?? []
         currentSlice = slice
         let isCreateButton = slice.buttonCalledCreate()
         toolbarItems[0] = UIBarButtonItem(barButtonSystemItem: isCreateButton ? .Compose : .Trash, target: self, action: #selector(createDeleteButtonClicked))
+        toolbarItems[2].enabled = slice.next() != nil
         if let _ = slice.next() {
             toolbarItems[2].enabled = true
         } else {
@@ -140,20 +156,27 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let pan = recogniser as? UIPanGestureRecognizer {
             switch pan.state {
             case .Changed:
-                if (oldSliceNumber == nil) {
-                    oldSliceNumber = currentSlice?.sliceIndex()
+                let shiftX = pan.translationInView(updatesTable).x
+                let shiftY = pan.translationInView(updatesTable).y
+                if (scrollingHorizontally == nil) {
+                    scrollingHorizontally = fabs(shiftY) < fabs(shiftX)
                 }
-                let shift = pan.translationInView(updatesTable).x
-                let shiftPoints = Int(shift * CGFloat(panPointsCount) / updatesTable.bounds.width)
-                if let sliceCount = viewImplementation?.controller.numberOfSlices() {
-                    let newSliceNumber = oldSliceNumber! - shiftPoints
-                    let sliceNumber = newSliceNumber < 0 ? 0 : newSliceNumber >= sliceCount ? sliceCount-1 : newSliceNumber
-                    if let slice = viewImplementation?.controller.slice(sliceNumber) {
-                        refreshCurrentSlice(slice)
+                if (scrollingHorizontally == true) {
+                    if (oldSliceNumber == nil) {
+                        oldSliceNumber = currentSlice?.sliceIndex()
+                    }
+                    let shiftPoints = Int(shiftX * CGFloat(panPointsCount) / updatesTable.bounds.width)
+                    if let sliceCount = viewImplementation?.controller.numberOfSlices() {
+                        let newSliceNumber = oldSliceNumber! - shiftPoints
+                        let sliceNumber = newSliceNumber < 0 ? 0 : newSliceNumber >= sliceCount ? sliceCount-1 : newSliceNumber
+                        if let slice = viewImplementation?.controller.slice(sliceNumber) {
+                            refreshCurrentSlice(slice)
+                        }
                     }
                 }
             default:
                 oldSliceNumber = nil
+                scrollingHorizontally = nil
             }
         }
     }
