@@ -147,16 +147,20 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     }
     
     func setValue(value: NSDecimalNumber) -> Bool {
-        let isNegative = model.accountIsNegative(account)
-        let verifyValue = isNegative ? value.decimalNumberByMultiplyingBy(-1) : value
-        if (verifyValue.compare(0) == .OrderedAscending) {
-            return false
-        } else {
+        if (canSetValue(value)) {
             view?.hideSubView()
             model.updateAccount(account, value: value)
             parent.refreshAccount(index)
             return true
+        } else {
+            return false
         }
+    }
+    
+    func canSetValue(value: NSDecimalNumber) -> Bool {
+        let isNegative = model.accountIsNegative(account)
+        let verifyValue = isNegative ? value.decimalNumberByMultiplyingBy(-1) : value
+        return verifyValue.compare(0) != .OrderedAscending
     }
     
     func remove() {
@@ -185,15 +189,19 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
     }
     
     func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
-        let verifyValue = isNegative ? initialValue.decimalNumberByMultiplyingBy(-1) : initialValue
-        if (verifyValue.compare(0) == .OrderedAscending || title.isEmpty) {
-            return false
-        } else {
+        if (canCreate(title, initialValue: initialValue, isNegative: isNegative)) {
             view?.hideSubView()
             model.addAccountAnUpdate(title, value: initialValue, isNegative: isNegative)
             parent.addAccount()
             return true
+        } else {
+            return false
         }
+    }
+    
+    func canCreate(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
+        let verifyValue = isNegative ? initialValue.decimalNumberByMultiplyingBy(-1) : initialValue
+        return verifyValue.compare(0) != .OrderedAscending && !title.isEmpty
     }
 }
 

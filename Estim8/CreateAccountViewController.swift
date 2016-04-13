@@ -57,12 +57,24 @@ class CreateAccountViewController: SubViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
+        navigationItem.rightBarButtonItem = saveButton
+        saveButton.enabled = false
         accountValueText.delegate = accountValueTextDelegate
-        accountTitleText.becomeFirstResponder()
-        // Do any additional setup after loading the view.
     }
-
+    
+    override func viewDidAppear(animated: Bool) {
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: #selector(notificationTitleChanged), name: UITextFieldTextDidChangeNotification, object: accountTitleText)
+        center.addObserver(self, selector: #selector(notificationValueChanged), name: UITextFieldTextDidChangeNotification, object: accountValueText)
+        somethingChanged()
+        accountTitleText.becomeFirstResponder()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -84,10 +96,12 @@ class CreateAccountViewController: SubViewController {
                 isNegative = true
                 positiveCell.accessoryType = .None
                 negativeCell.accessoryType = .Checkmark
+                somethingChanged()
             } else {
                 isNegative = false
                 positiveCell.accessoryType = .Checkmark
                 negativeCell.accessoryType = .None
+                somethingChanged()
             }
         default:
             break
@@ -106,6 +120,24 @@ class CreateAccountViewController: SubViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    func somethingChanged() {
+        let title = accountTitleText.text ?? ""
+        let value = accountValueTextDelegate.getValue(accountValueText)
+        if let controller = viewImplementation?.controller {
+            navigationItem.rightBarButtonItem?.enabled = controller.canCreate(title, initialValue: value, isNegative: isNegative)
+        } else {
+            navigationItem.rightBarButtonItem?.enabled = false
+        }
+    }
+    
+    func notificationTitleChanged(notification: NSNotification) {
+        somethingChanged()
+    }
+    
+    func notificationValueChanged(notification: NSNotification) {
+        somethingChanged()
     }
     /*
     // MARK: - Navigation

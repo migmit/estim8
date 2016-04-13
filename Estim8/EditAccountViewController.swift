@@ -52,14 +52,24 @@ class EditAccountViewController: SubViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
-        accountValueText.delegate = accountValueTextDelegate
         if let controller = self.viewImplementation?.controller {
             accountNameLabel.text = controller.name()
             accountValueTextDelegate.value = controller.value()
             accountValueText.text = accountValueTextDelegate.numberFormatter.stringFromNumber(controller.value())
+            accountValueText.delegate = accountValueTextDelegate
         }
     }
 
+    override func viewDidAppear(animated: Bool) {
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: #selector(notificationValueChanged), name: UITextFieldTextDidChangeNotification, object: accountValueText)
+        somethingChanged()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -85,8 +95,7 @@ class EditAccountViewController: SubViewController {
     }
     
     func buttonSaveClicked() {
-        accountValueText.resignFirstResponder()
-        let value = accountValueTextDelegate.value
+        let value = accountValueTextDelegate.getValue(accountValueText)
         if let controller = viewImplementation?.controller {
             if (!(controller.setValue(value) ?? false)) {
                 let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller.name() ?? "the account") to \(value)", preferredStyle: .Alert)
@@ -96,6 +105,18 @@ class EditAccountViewController: SubViewController {
         }
     }
 
+    func somethingChanged() {
+        let value = accountValueTextDelegate.getValue(accountValueText)
+        if let controller = viewImplementation?.controller {
+            navigationItem.rightBarButtonItem?.enabled = controller.canSetValue(value)
+        } else {
+            navigationItem.rightBarButtonItem?.enabled = false
+        }
+    }
+    
+    func notificationValueChanged(notification: NSNotification) {
+        somethingChanged()
+    }
     /*
     // MARK: - Navigation
 

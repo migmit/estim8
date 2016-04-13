@@ -141,6 +141,7 @@ SWIFT_CLASS("_TtC6Estim817SubViewController")
 @class NumberOnlyText;
 @class UITableView;
 @class NSIndexPath;
+@class NSNotification;
 @class UITextField;
 @class UITableViewCell;
 
@@ -153,9 +154,14 @@ SWIFT_CLASS("_TtC6Estim827CreateAccountViewController")
 @property (nonatomic, readonly, strong) NumberOnlyText * _Nonnull accountValueTextDelegate;
 @property (nonatomic) BOOL isNegative;
 - (void)viewDidLoad;
+- (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 - (void)didReceiveMemoryWarning;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)buttonSaveClicked;
+- (void)somethingChanged;
+- (void)notificationTitleChanged:(NSNotification * _Nonnull)notification;
+- (void)notificationValueChanged:(NSNotification * _Nonnull)notification;
 - (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -173,6 +179,8 @@ SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (BOOL)textFieldShouldBeginEditing:(UITextField * _Nonnull)textField;
 - (BOOL)textFieldShouldEndEditing:(UITextField * _Nonnull)textField;
+- (NSDecimalNumber * _Nullable)textToNumber:(NSString * _Nonnull)from;
+- (NSDecimalNumber * _Nonnull)getValue:(UITextField * _Nonnull)textField;
 - (BOOL)textField:(UITextField * _Nonnull)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString * _Nonnull)string;
 @end
 
@@ -222,10 +230,14 @@ SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
 @property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountValueText;
 @property (nonatomic, readonly, strong) NumberOnlyText * _Nonnull accountValueTextDelegate;
 - (void)viewDidLoad;
+- (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 - (void)didReceiveMemoryWarning;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (IBAction)buttonDeleteClicked:(UIButton * _Nonnull)sender;
 - (void)buttonSaveClicked;
+- (void)somethingChanged;
+- (void)notificationValueChanged:(NSNotification * _Nonnull)notification;
 - (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;

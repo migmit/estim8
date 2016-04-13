@@ -41,6 +41,8 @@ protocol ControllerEditAccountInterface: ControllerROAccountInterface {
     
     func setValue(value: NSDecimalNumber) -> Bool
     
+    func canSetValue(value: NSDecimalNumber) -> Bool
+    
     func remove()
     
 }
@@ -48,6 +50,8 @@ protocol ControllerEditAccountInterface: ControllerROAccountInterface {
 protocol ControllerCreateAccountInterface {
     
     func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
+    
+    func canCreate(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
 
 }
 

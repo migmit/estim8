@@ -37,27 +37,30 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         if (isEditing) {
             isEditing = false
-            let text = textField.text ?? ""
-            if (text.isEmpty || text == "-") {
-                value = 0
-            } else if let v = numberFormatter.numberFromString(text) {
-                value = NSDecimalNumber(decimal: v.decimalValue)
-            }
+            value = getValue(textField)
             numberFormatter.usesGroupingSeparator = initialUsesGroupingSeparator
             textField.text = numberFormatter.stringFromNumber(value)
         }
         return true
     }
     
+    func textToNumber(from: String) -> NSDecimalNumber? {
+        if (from.isEmpty || from == "-") {
+            return 0
+        } else if let v = numberFormatter.numberFromString(from) {
+            return NSDecimalNumber(decimal: v.decimalValue)
+        } else {
+            return nil
+        }
+    }
+    
+    func getValue(textField: UITextField) -> NSDecimalNumber {
+        return textToNumber(textField.text ?? "") ?? value
+    }
+    
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let text = ((textField.text ?? "") as NSString).stringByReplacingCharactersInRange(range, withString: string)
-        if (text.isEmpty || text == "-") {
-            return true
-        } else if let _ = numberFormatter.numberFromString(text) {
-            return true
-        } else {
-            return false
-        }
+        return textToNumber(text) != nil
     }
 
 }
