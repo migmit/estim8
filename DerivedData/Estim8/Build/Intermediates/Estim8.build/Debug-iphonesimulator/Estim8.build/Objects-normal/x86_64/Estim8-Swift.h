@@ -214,11 +214,12 @@ SWIFT_CLASS("_TtC6Estim820DecantNumberOnlyText")
 @end
 
 @class UIPickerView;
+@class UIScrollView;
 @class UIStoryboardSegue;
 @class NSLayoutConstraint;
 
 SWIFT_CLASS("_TtC6Estim820DecantViewController")
-@interface DecantViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface DecantViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource, UIScrollViewDelegate>
 @property (nonatomic) BOOL parentNavigationBarHidden;
 @property (nonatomic) NSInteger fromSelected;
 @property (nonatomic) NSInteger toSelected;
@@ -227,6 +228,7 @@ SWIFT_CLASS("_TtC6Estim820DecantViewController")
 @property (nonatomic, strong) DecantChildViewController * _Nullable child;
 @property (nonatomic, weak) IBOutlet UIPickerView * _Null_unspecified pickler;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint * _Null_unspecified containerHeight;
+@property (nonatomic, weak) IBOutlet UIScrollView * _Null_unspecified scroll;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
@@ -235,6 +237,7 @@ SWIFT_CLASS("_TtC6Estim820DecantViewController")
 - (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component;
 - (NSString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
 - (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 - (void)somethingChanged;
 - (void)fixFromToCells;
 - (void)buttonDoneClicked;

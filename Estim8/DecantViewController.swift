@@ -66,6 +66,7 @@ class DecantChildViewController: UITableViewController {
     weak var parent: DecantViewController? = nil
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         if let p = parent {
             amountTextDelegate = DecantNumberOnlyText(parent: p)
             amountText.delegate = amountTextDelegate
@@ -111,7 +112,7 @@ class DecantChildViewController: UITableViewController {
     
 }
 
-class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIScrollViewDelegate {
     
     var parentNavigationBarHidden: Bool = false
     
@@ -135,15 +136,19 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     @IBOutlet weak var containerHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var scroll: UIScrollView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(buttonDoneClicked))
         numberFormatter.numberStyle = .DecimalStyle
+        scroll.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
         parentNavigationBarHidden = navigationController?.navigationBarHidden ?? false
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        scroll.directionalLockEnabled = true
         pickler.dataSource = self
         pickler.delegate = self
         pickler.hidden = true
@@ -189,6 +194,10 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             fromSelected = row
         }
         fixFromToCells()
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y)
     }
     
     func somethingChanged() {
