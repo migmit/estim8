@@ -60,14 +60,16 @@ class EditAccountViewController: SubViewController {
         }
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: #selector(notificationValueChanged), name: UITextFieldTextDidChangeNotification, object: accountValueText)
         somethingChanged()
+        super.viewWillAppear(animated)
     }
     
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.viewWillDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {

@@ -95,6 +95,7 @@ typedef int swift_int4  __attribute__((__ext_vector_type__(4)));
 @import UIKit;
 @import ObjectiveC;
 @import Foundation;
+@import CoreGraphics;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -154,7 +155,7 @@ SWIFT_CLASS("_TtC6Estim827CreateAccountViewController")
 @property (nonatomic, readonly, strong) NumberOnlyText * _Nonnull accountValueTextDelegate;
 @property (nonatomic) BOOL isNegative;
 - (void)viewDidLoad;
-- (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
 - (void)didReceiveMemoryWarning;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
@@ -168,6 +169,26 @@ SWIFT_CLASS("_TtC6Estim827CreateAccountViewController")
 @end
 
 @class NSDecimalNumber;
+@class DecantViewController;
+
+SWIFT_CLASS("_TtC6Estim825DecantChildViewController")
+@interface DecantChildViewController : UITableViewController
+@property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified fromCell;
+@property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified toCell;
+@property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified amountText;
+@property (nonatomic, strong) IBOutlet UITableView * _Null_unspecified settingsTable;
+@property (nonatomic, strong) NumberOnlyText * _Nullable amountTextDelegate;
+@property (nonatomic, weak) DecantViewController * _Nullable parent;
+- (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (NSDecimalNumber * _Nullable)getAmount;
+- (void)setCellDetails:(BOOL)to title:(NSString * _Nonnull)title detail:(NSString * _Nullable)detail;
+- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class NSNumberFormatter;
 
 SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
@@ -184,7 +205,6 @@ SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
 - (BOOL)textField:(UITextField * _Nonnull)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString * _Nonnull)string;
 @end
 
-@class DecantViewController;
 
 SWIFT_CLASS("_TtC6Estim820DecantNumberOnlyText")
 @interface DecantNumberOnlyText : NumberOnlyText
@@ -194,23 +214,23 @@ SWIFT_CLASS("_TtC6Estim820DecantNumberOnlyText")
 @end
 
 @class UIPickerView;
+@class UIStoryboardSegue;
+@class NSLayoutConstraint;
 
 SWIFT_CLASS("_TtC6Estim820DecantViewController")
-@interface DecantViewController : SubViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface DecantViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+@property (nonatomic) BOOL parentNavigationBarHidden;
 @property (nonatomic) NSInteger fromSelected;
 @property (nonatomic) NSInteger toSelected;
 @property (nonatomic) BOOL editingTo;
-@property (nonatomic, strong) NumberOnlyText * _Nullable amountTextDelegate;
 @property (nonatomic, readonly, strong) NSNumberFormatter * _Nonnull numberFormatter;
-@property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified fromCell;
-@property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified toCell;
-@property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified picklerCell;
-@property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified amountText;
+@property (nonatomic, strong) DecantChildViewController * _Nullable child;
 @property (nonatomic, weak) IBOutlet UIPickerView * _Null_unspecified pickler;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint * _Null_unspecified containerHeight;
 - (void)viewDidLoad;
-- (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
 - (void)didReceiveMemoryWarning;
-- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView * _Nonnull)pickerView;
 - (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component;
 - (NSString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
@@ -219,7 +239,9 @@ SWIFT_CLASS("_TtC6Estim820DecantViewController")
 - (void)fixFromToCells;
 - (void)buttonDoneClicked;
 - (void)notificationValueChanged:(NSNotification * _Nonnull)notification;
-- (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
+- (void)prepareForSegue:(UIStoryboardSegue * _Nonnull)segue sender:(id _Nullable)sender;
+- (void)showPickler:(BOOL)to;
+- (void)setContainerHeightValue:(CGFloat)height;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -233,7 +255,7 @@ SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
 @property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountValueText;
 @property (nonatomic, readonly, strong) NumberOnlyText * _Nonnull accountValueTextDelegate;
 - (void)viewDidLoad;
-- (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
 - (void)didReceiveMemoryWarning;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
@@ -275,7 +297,6 @@ SWIFT_CLASS("_TtC6Estim820SlicesViewController")
 @end
 
 
-@class UIStoryboardSegue;
 
 SWIFT_CLASS("_TtC6Estim814ViewController")
 @interface ViewController : UIViewController <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>

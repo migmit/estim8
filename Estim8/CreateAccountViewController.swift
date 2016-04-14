@@ -63,16 +63,18 @@ class CreateAccountViewController: SubViewController {
         accountValueText.delegate = accountValueTextDelegate
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: #selector(notificationTitleChanged), name: UITextFieldTextDidChangeNotification, object: accountTitleText)
         center.addObserver(self, selector: #selector(notificationValueChanged), name: UITextFieldTextDidChangeNotification, object: accountValueText)
         somethingChanged()
         accountTitleText.becomeFirstResponder()
+        super.viewWillAppear(animated)
     }
     
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.viewWillDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {
