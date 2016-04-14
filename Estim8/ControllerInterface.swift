@@ -63,6 +63,8 @@ protocol ControllerDecantInterface {
     
     func decant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool
     
+    func canDecant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool
+    
 }
 
 protocol ControllerSlicesInterface {

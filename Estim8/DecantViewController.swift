@@ -85,6 +85,11 @@ class DecantViewController: SubViewController, UIPickerViewDelegate, UIPickerVie
         amountTextDelegate = DecantNumberOnlyText(parent: self)
         amountText.delegate = amountTextDelegate
         numberFormatter.numberStyle = .DecimalStyle
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: #selector(notificationValueChanged), name: UITextFieldTextDidChangeNotification, object: amountText)
         pickler.dataSource = self
         pickler.delegate = self
         pickler.hidden = true
@@ -147,6 +152,12 @@ class DecantViewController: SubViewController, UIPickerViewDelegate, UIPickerVie
         fixFromToCells()
     }
     
+    func somethingChanged() {
+        if let amount = amountTextDelegate?.getValue(amountText), let controller = viewImplementation?.controller {
+            navigationItem.rightBarButtonItem?.enabled = controller.canDecant(fromSelected, to: toSelected, amount: amount)
+        }
+    }
+    
     func fixFromToCells() {
         if let controller = viewImplementation?.controller {
             if let fromAccount = controller.account(fromSelected) {
@@ -164,6 +175,7 @@ class DecantViewController: SubViewController, UIPickerViewDelegate, UIPickerVie
                 toCell.detailTextLabel?.text = "--"
             }
         }
+        somethingChanged()
     }
     
     func buttonDoneClicked() {
@@ -179,6 +191,10 @@ class DecantViewController: SubViewController, UIPickerViewDelegate, UIPickerVie
                 }
             }
         }
+    }
+    
+    func notificationValueChanged(notification: NSNotification) {
+        somethingChanged()
     }
     
     /*

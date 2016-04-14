@@ -28,19 +28,19 @@ provides-member:
 - ["P6Estim824ControllerSliceInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "ControllerCreateAccountInterface"
-- "ControllerEditAccountInterface"
-- "Bool"
-- "ControllerROAccountInterface"
-- "String"
-- "ControllerSlicesInterface"
-- "NSDate"
-- "ControllerInterface"
-- "ControllerDecantInterface"
-- "NSDecimalNumber"
 - "ControllerSliceInterface"
-- "ControllerAccountInterface"
+- "ControllerSlicesInterface"
+- "String"
+- "ControllerEditAccountInterface"
+- "NSDate"
+- "Bool"
+- "NSDecimalNumber"
+- "ControllerDecantInterface"
+- "ControllerROAccountInterface"
 - "Int"
+- "ControllerAccountInterface"
+- "ControllerCreateAccountInterface"
+- "ControllerInterface"
 depends-member:
 - ["P6Estim826ControllerAccountInterface", "edit"]
 - ["P6Estim826ControllerAccountInterface", "remove"]
@@ -54,6 +54,7 @@ depends-member:
 - ["P6Estim825ControllerDecantInterface", "Int"]
 - ["P6Estim825ControllerDecantInterface", "NSDecimalNumber"]
 - ["P6Estim825ControllerDecantInterface", "account"]
+- ["P6Estim825ControllerDecantInterface", "canDecant"]
 - ["P6Estim825ControllerDecantInterface", "decant"]
 - ["P6Estim825ControllerDecantInterface", "numberOfAccounts"]
 - ["P6Estim830ControllerEditAccountInterface", "Bool"]
@@ -111,4 +112,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "706e161b82fd7ed93e7145a931e341d1"
+interface-hash: "a06c8a32d414b307f3ddbd133121c517"

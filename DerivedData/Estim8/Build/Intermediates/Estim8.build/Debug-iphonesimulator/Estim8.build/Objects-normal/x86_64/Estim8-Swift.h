@@ -208,14 +208,17 @@ SWIFT_CLASS("_TtC6Estim820DecantViewController")
 @property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified amountText;
 @property (nonatomic, weak) IBOutlet UIPickerView * _Null_unspecified pickler;
 - (void)viewDidLoad;
+- (void)viewDidAppear:(BOOL)animated;
 - (void)didReceiveMemoryWarning;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView * _Nonnull)pickerView;
 - (NSInteger)pickerView:(UIPickerView * _Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component;
 - (NSString * _Nullable)pickerView:(UIPickerView * _Nonnull)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component;
 - (void)pickerView:(UIPickerView * _Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+- (void)somethingChanged;
 - (void)fixFromToCells;
 - (void)buttonDoneClicked;
+- (void)notificationValueChanged:(NSNotification * _Nonnull)notification;
 - (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;

@@ -236,23 +236,38 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
     }
     
     func decant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool {
+        if let (amountFrom, amountTo) = decantData(from, to: to, amount: amount) {
+            let accounts = model.liveAccounts()
+            let accountFrom = accounts[from]
+            let accountTo = accounts[to]
+            view?.hideSubView()
+            model.updateAccount(accountFrom, value: amountFrom)
+            model.updateAccount(accountTo, value: amountTo)
+            parent.refreshAccount(from)
+            parent.refreshAccount(to)
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func canDecant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool {
+        return decantData(from, to: to, amount: amount) != nil
+    }
+    
+    func decantData(from: Int, to: Int, amount: NSDecimalNumber) -> (NSDecimalNumber, NSDecimalNumber)? {
         let accounts = model.liveAccounts()
         if (from >= accounts.count || to >= accounts.count || from == to || amount == 0) {
-            return false
+            return nil
         } else {
             let accountFrom = accounts[from]
             let accountTo = accounts[to]
             if
                 let amountFrom = tryAddToAccount(accountFrom, add: amount.decimalNumberByMultiplyingBy(-1)),
                 let amountTo = tryAddToAccount(accountTo, add: amount) {
-                view?.hideSubView()
-                model.updateAccount(accountFrom, value: amountFrom)
-                model.updateAccount(accountTo, value: amountTo)
-                parent.refreshAccount(from)
-                parent.refreshAccount(to)
-                return true
+                return (amountFrom, amountTo)
             } else {
-                return false
+                return nil
             }
         }
     }

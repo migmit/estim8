@@ -22,18 +22,18 @@ provides-member:
 - ["P6Estim810SlicesView", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "MainWindowView"
-- "ControllerCreateAccountInterface"
-- "DecantView"
-- "ControllerSlicesInterface"
-- "Int"
-- "SubView"
-- "ControllerSliceInterface"
-- "EditAccountView"
-- "ControllerEditAccountInterface"
-- "ControllerDecantInterface"
 - "SlicesView"
 - "CreateAccountView"
+- "DecantView"
+- "EditAccountView"
+- "ControllerSlicesInterface"
+- "ControllerDecantInterface"
+- "Int"
+- "MainWindowView"
+- "ControllerSliceInterface"
+- "SubView"
+- "ControllerCreateAccountInterface"
+- "ControllerEditAccountInterface"
 depends-member:
 - ["P6Estim814MainWindowView", "ControllerCreateAccountInterface"]
 - ["P6Estim814MainWindowView", "ControllerDecantInterface"]
