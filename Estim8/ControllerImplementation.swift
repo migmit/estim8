@@ -231,7 +231,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
     }
     
     func numberOfAccounts() -> Int {
-        return model.liveAccounts().count + model.deadAccounts().count
+        return model.liveAccounts().count
     }
     
     func account(n: Int) -> ControllerROAccountInterface? {
