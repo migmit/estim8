@@ -199,6 +199,7 @@ SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (void)setTextField:(UITextField * _Nonnull)textField;
 - (void)pmButtonClicked;
+- (NSString * _Nonnull)zeroRepresentation;
 - (void)setFieldText:(NSDecimalNumber * _Nonnull)value;
 - (BOOL)textFieldShouldBeginEditing:(UITextField * _Nonnull)textField;
 - (BOOL)textFieldShouldEndEditing:(UITextField * _Nonnull)textField;

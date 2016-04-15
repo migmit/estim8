@@ -10,8 +10,6 @@ import UIKit
 
 class NumberOnlyText: NSObject, UITextFieldDelegate {
     
-    private var value: NSDecimalNumber = 0
-    
     var initialUsesGroupingSeparator: Bool = false
     
     var isEditing: Bool = false
@@ -48,12 +46,17 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().postNotificationName(UITextFieldTextDidChangeNotification, object: textField)
     }
     
+    func zeroRepresentation() -> String {
+        return isEditing ? (isNegative ? "-" : "") : "0"
+    }
+    
     func setFieldText(value: NSDecimalNumber) {
-        textField?.text = value == 0 ? ((isNegative && isEditing) ? "-" : "") : numberFormatter.stringFromNumber(value)
+        textField?.text = value == 0 ? zeroRepresentation() : numberFormatter.stringFromNumber(value)
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         if (!isEditing) {
+            let value = getValue()
             isEditing = true
             initialUsesGroupingSeparator = numberFormatter.usesGroupingSeparator
             numberFormatter.usesGroupingSeparator = false
@@ -65,7 +68,7 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         if (isEditing) {
             isEditing = false
-            value = getValue()
+            let value = getValue()
             numberFormatter.usesGroupingSeparator = initialUsesGroupingSeparator
             textField.text = numberFormatter.stringFromNumber(value)
         }
@@ -83,20 +86,20 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     }
     
     func setValue(value: NSDecimalNumber) {
-        self.value = value
-        textField?.text = numberFormatter.stringFromNumber(value)
+        setFieldText(value)
         if (value != 0) {
             isNegative = value.compare(0) == .OrderedAscending
         }
     }
     
     func getValue() -> NSDecimalNumber {
-        return textToNumber(textField?.text ?? "") ?? value
+        return textToNumber(textField?.text ?? "") ?? 0
     }
     
     func setIsNegative(isNegative: Bool) {
         if (getValue() == 0) {
             self.isNegative = isNegative
+            setFieldText(0)
         }
     }
     
