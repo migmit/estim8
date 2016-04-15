@@ -16,6 +16,8 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     
     var isEditing: Bool = false
     
+    private var isNegative: Bool = false
+    
     let numberFormatter: NSNumberFormatter
     
     private var textField: UITextField? = nil
@@ -41,12 +43,13 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     }
     
     func pmButtonClicked() {
+        isNegative = !isNegative
         setFieldText(getValue().decimalNumberByMultiplyingBy(-1))
         NSNotificationCenter.defaultCenter().postNotificationName(UITextFieldTextDidChangeNotification, object: textField)
     }
     
     func setFieldText(value: NSDecimalNumber) {
-        textField?.text = value == 0 ? "" : numberFormatter.stringFromNumber(value)
+        textField?.text = value == 0 ? ((isNegative && isEditing) ? "-" : "") : numberFormatter.stringFromNumber(value)
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -81,15 +84,32 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     
     func setValue(value: NSDecimalNumber) {
         self.value = value
+        textField?.text = numberFormatter.stringFromNumber(value)
+        if (value != 0) {
+            isNegative = value.compare(0) == .OrderedAscending
+        }
     }
     
     func getValue() -> NSDecimalNumber {
         return textToNumber(textField?.text ?? "") ?? value
     }
     
+    func setIsNegative(isNegative: Bool) {
+        if (getValue() == 0) {
+            self.isNegative = isNegative
+        }
+    }
+    
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let text = ((textField.text ?? "") as NSString).stringByReplacingCharactersInRange(range, withString: string)
-        return textToNumber(text) != nil
+        if let val = textToNumber(text) {
+            if (val != 0) {
+                isNegative = val.compare(0) == .OrderedAscending
+            }
+            return true
+        } else {
+            return false
+        }
     }
 
 }

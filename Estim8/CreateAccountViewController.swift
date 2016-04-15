@@ -98,11 +98,13 @@ class CreateAccountViewController: SubViewController {
                 isNegative = true
                 positiveCell.accessoryType = .None
                 negativeCell.accessoryType = .Checkmark
+                accountValueTextDelegate.setIsNegative(true)
                 somethingChanged()
             } else {
                 isNegative = false
                 positiveCell.accessoryType = .Checkmark
                 negativeCell.accessoryType = .None
+                accountValueTextDelegate.setIsNegative(false)
                 somethingChanged()
             }
         default:

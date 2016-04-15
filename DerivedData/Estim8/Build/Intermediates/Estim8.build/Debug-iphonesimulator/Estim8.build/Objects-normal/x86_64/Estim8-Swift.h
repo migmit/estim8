@@ -205,6 +205,7 @@ SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
 - (NSDecimalNumber * _Nullable)textToNumber:(NSString * _Nonnull)from;
 - (void)setValue:(NSDecimalNumber * _Nonnull)value;
 - (NSDecimalNumber * _Nonnull)getValue;
+- (void)setIsNegative:(BOOL)isNegative;
 - (BOOL)textField:(UITextField * _Nonnull)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString * _Nonnull)string;
 @end
 
