@@ -69,7 +69,7 @@ class DecantChildViewController: UITableViewController {
         super.viewDidLoad()
         if let p = parent {
             amountTextDelegate = DecantNumberOnlyText(parent: p)
-            amountText.delegate = amountTextDelegate
+            amountTextDelegate?.setTextField(amountText)
             parent?.setContainerHeightValue(settingsTable.rectForSection(0).height)
         }
     }
@@ -101,7 +101,7 @@ class DecantChildViewController: UITableViewController {
     }
     
     func getAmount() -> NSDecimalNumber? {
-        return amountTextDelegate?.getValue(amountText)
+        return amountTextDelegate?.getValue()
     }
     
     func setCellDetails(to: Bool, title: String, detail: String?) {

@@ -193,15 +193,16 @@ SWIFT_CLASS("_TtC6Estim825DecantChildViewController")
 
 SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
 @interface NumberOnlyText : NSObject <UITextFieldDelegate>
-@property (nonatomic, strong) NSDecimalNumber * _Nonnull value;
 @property (nonatomic) BOOL initialUsesGroupingSeparator;
 @property (nonatomic) BOOL isEditing;
 @property (nonatomic, readonly, strong) NSNumberFormatter * _Nonnull numberFormatter;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)setTextField:(UITextField * _Nonnull)textField;
 - (BOOL)textFieldShouldBeginEditing:(UITextField * _Nonnull)textField;
 - (BOOL)textFieldShouldEndEditing:(UITextField * _Nonnull)textField;
 - (NSDecimalNumber * _Nullable)textToNumber:(NSString * _Nonnull)from;
-- (NSDecimalNumber * _Nonnull)getValue:(UITextField * _Nonnull)textField;
+- (void)setValue:(NSDecimalNumber * _Nonnull)value;
+- (NSDecimalNumber * _Nonnull)getValue;
 - (BOOL)textField:(UITextField * _Nonnull)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString * _Nonnull)string;
 @end
 

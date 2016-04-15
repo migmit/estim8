@@ -54,9 +54,9 @@ class EditAccountViewController: SubViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
         if let controller = self.viewImplementation?.controller {
             accountNameLabel.text = controller.name()
-            accountValueTextDelegate.value = controller.value()
+            accountValueTextDelegate.setValue(controller.value())
             accountValueText.text = accountValueTextDelegate.numberFormatter.stringFromNumber(controller.value())
-            accountValueText.delegate = accountValueTextDelegate
+            accountValueTextDelegate.setTextField(accountValueText)
         }
     }
 
@@ -97,7 +97,7 @@ class EditAccountViewController: SubViewController {
     }
     
     func buttonSaveClicked() {
-        let value = accountValueTextDelegate.getValue(accountValueText)
+        let value = accountValueTextDelegate.getValue()
         if let controller = viewImplementation?.controller {
             if (!(controller.setValue(value) ?? false)) {
                 let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller.name() ?? "the account") to \(value)", preferredStyle: .Alert)
@@ -108,7 +108,7 @@ class EditAccountViewController: SubViewController {
     }
 
     func somethingChanged() {
-        let value = accountValueTextDelegate.getValue(accountValueText)
+        let value = accountValueTextDelegate.getValue()
         if let controller = viewImplementation?.controller {
             navigationItem.rightBarButtonItem?.enabled = controller.canSetValue(value)
         } else {

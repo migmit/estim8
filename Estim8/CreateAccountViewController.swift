@@ -60,7 +60,7 @@ class CreateAccountViewController: SubViewController {
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
         navigationItem.rightBarButtonItem = saveButton
         saveButton.enabled = false
-        accountValueText.delegate = accountValueTextDelegate
+        accountValueTextDelegate.setTextField(accountValueText)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -114,7 +114,7 @@ class CreateAccountViewController: SubViewController {
     func buttonSaveClicked() {
         accountValueText.resignFirstResponder()
         let title = accountTitleText.text ?? ""
-        let value = accountValueTextDelegate.value
+        let value = accountValueTextDelegate.getValue()
         if let controller = viewImplementation?.controller {
             if (!(controller.create(title, initialValue: value, isNegative: isNegative) ?? false)) {
                 let alert = UIAlertController(title: "Error", message: "Can't create \(isNegative ? "negative" : "positive") account \"\(title)\" with value \(value)", preferredStyle: .Alert)
@@ -126,7 +126,7 @@ class CreateAccountViewController: SubViewController {
     
     func somethingChanged() {
         let title = accountTitleText.text ?? ""
-        let value = accountValueTextDelegate.getValue(accountValueText)
+        let value = accountValueTextDelegate.getValue()
         if let controller = viewImplementation?.controller {
             navigationItem.rightBarButtonItem?.enabled = controller.canCreate(title, initialValue: value, isNegative: isNegative)
         } else {

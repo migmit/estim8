@@ -10,7 +10,7 @@ import UIKit
 
 class NumberOnlyText: NSObject, UITextFieldDelegate {
     
-    var value: NSDecimalNumber = 0
+    private var value: NSDecimalNumber = 0
     
     var initialUsesGroupingSeparator: Bool = false
     
@@ -18,10 +18,17 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     
     let numberFormatter: NSNumberFormatter
     
+    private var textField: UITextField? = nil
+    
     override init() {
         numberFormatter = NSNumberFormatter()
         numberFormatter.numberStyle = .DecimalStyle
         super.init()
+    }
+    
+    func setTextField(textField: UITextField) {
+        self.textField = textField
+        textField.delegate = self
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -37,7 +44,7 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         if (isEditing) {
             isEditing = false
-            value = getValue(textField)
+            value = getValue()
             numberFormatter.usesGroupingSeparator = initialUsesGroupingSeparator
             textField.text = numberFormatter.stringFromNumber(value)
         }
@@ -54,8 +61,12 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
         }
     }
     
-    func getValue(textField: UITextField) -> NSDecimalNumber {
-        return textToNumber(textField.text ?? "") ?? value
+    func setValue(value: NSDecimalNumber) {
+        self.value = value
+    }
+    
+    func getValue() -> NSDecimalNumber {
+        return textToNumber(textField?.text ?? "") ?? value
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
