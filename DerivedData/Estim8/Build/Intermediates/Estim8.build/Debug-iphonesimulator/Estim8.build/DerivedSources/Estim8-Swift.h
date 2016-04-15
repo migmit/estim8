@@ -198,6 +198,8 @@ SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
 @property (nonatomic, readonly, strong) NSNumberFormatter * _Nonnull numberFormatter;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (void)setTextField:(UITextField * _Nonnull)textField;
+- (void)pmButtonClicked;
+- (void)setFieldText:(NSDecimalNumber * _Nonnull)value;
 - (BOOL)textFieldShouldBeginEditing:(UITextField * _Nonnull)textField;
 - (BOOL)textFieldShouldEndEditing:(UITextField * _Nonnull)textField;
 - (NSDecimalNumber * _Nullable)textToNumber:(NSString * _Nonnull)from;

@@ -29,6 +29,24 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     func setTextField(textField: UITextField) {
         self.textField = textField
         textField.delegate = self
+        let keyboardToolbar = UIToolbar()
+        let pmButton = UIBarButtonItem(title: "+/-", style: .Plain, target: self, action: #selector(pmButtonClicked))
+        let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        keyboardToolbar.items = [leftFlexibleSpace, pmButton, rightFlexibleSpace]
+        keyboardToolbar.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        textField.inputAccessoryView = keyboardToolbar
+        textField.autocorrectionType = .No
+        textField.keyboardType = .DecimalPad
+    }
+    
+    func pmButtonClicked() {
+        setFieldText(getValue().decimalNumberByMultiplyingBy(-1))
+        NSNotificationCenter.defaultCenter().postNotificationName(UITextFieldTextDidChangeNotification, object: textField)
+    }
+    
+    func setFieldText(value: NSDecimalNumber) {
+        textField?.text = value == 0 ? "" : numberFormatter.stringFromNumber(value)
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -36,7 +54,7 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
             isEditing = true
             initialUsesGroupingSeparator = numberFormatter.usesGroupingSeparator
             numberFormatter.usesGroupingSeparator = false
-            textField.text = value == 0 ? "" : numberFormatter.stringFromNumber(value)
+            setFieldText(value)
         }
         return true
     }
