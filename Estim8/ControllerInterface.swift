@@ -27,6 +27,8 @@ protocol ControllerROAccountInterface {
     
     func value() -> NSDecimalNumber
     
+    func isNegative() -> Bool
+    
 }
 
 protocol ControllerAccountInterface: ControllerROAccountInterface {

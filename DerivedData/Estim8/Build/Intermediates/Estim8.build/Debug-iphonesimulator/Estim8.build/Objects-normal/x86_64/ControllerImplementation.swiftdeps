@@ -34,48 +34,48 @@ provides-member:
 - ["C6Estim825ControllerUpdateInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- !private ">="
-- "EditAccountView"
-- !private "=="
-- !private "IntegerLiteralType"
-- !private "!="
-- "ControllerCurrentStatePseudoSliceImplementation"
-- "String"
-- !private "!"
-- "ModelInterface"
-- "ControllerROAccountInterface"
-- "ControllerEditAccountImplementation"
-- "ControllerSlicesInterface"
-- "ControllerAccountInterface"
-- "ControllerSliceImplementation"
-- !private "-"
-- "ControllerCreateAccountInterface"
-- "ControllerDecantImplementation"
-- "ControllerUpdateInterface"
-- !private "||"
-- "CreateAccountView"
-- "ControllerSliceInterface"
-- !private "+"
 - "ControllerROAccountImplementation"
-- "ControllerSlicesImplementation"
-- "NSDate"
-- "ControllerAccountImplementation"
-- "ControllerCreateAccountImplementation"
-- "Bool"
-- !private "&&"
-- "ControllerImplementation"
-- "Int"
-- !private ">"
-- "DecantView"
-- "ControllerInterface"
-- !private "Dictionary"
-- !private "FloatLiteralType"
+- "ControllerSliceImplementation"
+- "ControllerCurrentStatePseudoSliceImplementation"
 - "ControllerDecantInterface"
-- "SlicesView"
+- "ControllerUpdateInterface"
+- !private "!="
+- !private "IntegerLiteralType"
+- "ControllerCreateAccountInterface"
+- "DecantView"
+- "ControllerCreateAccountImplementation"
+- !private "+"
+- "ControllerDecantImplementation"
+- "String"
+- !private ">="
+- !private ">"
+- "ControllerEditAccountImplementation"
+- "ControllerROAccountInterface"
+- "ControllerAccountInterface"
+- !private "=="
+- !private "&&"
+- "EditAccountView"
+- "ModelInterface"
+- "Int"
+- !private "-"
+- !private "Dictionary"
+- !private "!"
+- "ControllerSlicesInterface"
+- !private "||"
 - "ControllerEditAccountInterface"
-- "NSDecimalNumber"
+- "ControllerAccountImplementation"
+- "NSDate"
 - !private "BooleanLiteralType"
+- "CreateAccountView"
 - "MainWindowView"
+- "SlicesView"
+- "ControllerSliceInterface"
+- "ControllerSlicesImplementation"
+- "ControllerInterface"
+- "ControllerImplementation"
+- "NSDecimalNumber"
+- "Bool"
+- !private "FloatLiteralType"
 depends-member:
 - !private ["Ps9AnyObject", "ControllerAccountImplementation"]
 - !private ["Ps9AnyObject", "ControllerCreateAccountImplementation"]
@@ -107,6 +107,7 @@ depends-member:
 - !private ["Ps9AnyObject", "index"]
 - !private ["Ps9AnyObject", "init"]
 - !private ["Ps9AnyObject", "isEmpty"]
+- ["Ps9AnyObject", "isNegative"]
 - !private ["Ps9AnyObject", "model"]
 - ["Ps9AnyObject", "name"]
 - ["Ps9AnyObject", "next"]
@@ -177,6 +178,7 @@ depends-member:
 - !private ["Ps10Comparable", "IntegerLiteralType"]
 - !private ["Ps10Comparable", "_DisabledRangeIndex"]
 - !private ["Ps10Comparable", "isEmpty"]
+- ["C6Estim831ControllerAccountImplementation", "Bool"]
 - !private ["C6Estim831ControllerAccountImplementation", "ControllerEditAccountImplementation"]
 - ["C6Estim831ControllerAccountImplementation", "ControllerImplementation"]
 - ["C6Estim831ControllerAccountImplementation", "Int"]
@@ -189,6 +191,7 @@ depends-member:
 - ["C6Estim831ControllerAccountImplementation", "edit"]
 - ["C6Estim831ControllerAccountImplementation", "index"]
 - ["C6Estim831ControllerAccountImplementation", "init"]
+- ["C6Estim831ControllerAccountImplementation", "isNegative"]
 - ["C6Estim831ControllerAccountImplementation", "model"]
 - ["C6Estim831ControllerAccountImplementation", "name"]
 - ["C6Estim831ControllerAccountImplementation", "parent"]
@@ -200,6 +203,7 @@ depends-member:
 - ["P6Estim826ControllerAccountInterface", "edit"]
 - !private ["P6Estim826ControllerAccountInterface", "index"]
 - !private ["P6Estim826ControllerAccountInterface", "init"]
+- ["P6Estim826ControllerAccountInterface", "isNegative"]
 - !private ["P6Estim826ControllerAccountInterface", "model"]
 - ["P6Estim826ControllerAccountInterface", "name"]
 - !private ["P6Estim826ControllerAccountInterface", "parent"]
@@ -296,6 +300,7 @@ depends-member:
 - ["C6Estim835ControllerEditAccountImplementation", "deinit"]
 - ["C6Estim835ControllerEditAccountImplementation", "index"]
 - ["C6Estim835ControllerEditAccountImplementation", "init"]
+- ["C6Estim835ControllerEditAccountImplementation", "isNegative"]
 - ["C6Estim835ControllerEditAccountImplementation", "model"]
 - ["C6Estim835ControllerEditAccountImplementation", "name"]
 - ["C6Estim835ControllerEditAccountImplementation", "parent"]
@@ -308,6 +313,7 @@ depends-member:
 - ["P6Estim830ControllerEditAccountInterface", "canSetValue"]
 - !private ["P6Estim830ControllerEditAccountInterface", "index"]
 - !private ["P6Estim830ControllerEditAccountInterface", "init"]
+- ["P6Estim830ControllerEditAccountInterface", "isNegative"]
 - !private ["P6Estim830ControllerEditAccountInterface", "model"]
 - ["P6Estim830ControllerEditAccountInterface", "name"]
 - !private ["P6Estim830ControllerEditAccountInterface", "parent"]
@@ -353,12 +359,14 @@ depends-member:
 - ["P6Estim819ControllerInterface", "showSlices"]
 - !private ["P6Estim819ControllerInterface", "view"]
 - ["P6Estim819ControllerInterface", ""]
+- ["C6Estim833ControllerROAccountImplementation", "Bool"]
 - ["C6Estim833ControllerROAccountImplementation", "Model"]
 - ["C6Estim833ControllerROAccountImplementation", "NSDecimalNumber"]
 - ["C6Estim833ControllerROAccountImplementation", "String"]
 - ["C6Estim833ControllerROAccountImplementation", "account"]
 - ["C6Estim833ControllerROAccountImplementation", "deinit"]
 - ["C6Estim833ControllerROAccountImplementation", "init"]
+- ["C6Estim833ControllerROAccountImplementation", "isNegative"]
 - ["C6Estim833ControllerROAccountImplementation", "model"]
 - ["C6Estim833ControllerROAccountImplementation", "name"]
 - ["C6Estim833ControllerROAccountImplementation", "value"]
@@ -368,6 +376,7 @@ depends-member:
 - ["P6Estim828ControllerROAccountInterface", "edit"]
 - !private ["P6Estim828ControllerROAccountInterface", "index"]
 - !private ["P6Estim828ControllerROAccountInterface", "init"]
+- ["P6Estim828ControllerROAccountInterface", "isNegative"]
 - !private ["P6Estim828ControllerROAccountInterface", "model"]
 - ["P6Estim828ControllerROAccountInterface", "name"]
 - !private ["P6Estim828ControllerROAccountInterface", "parent"]
@@ -453,11 +462,13 @@ depends-member:
 - ["P6Estim825ControllerSlicesInterface", "slice"]
 - !private ["P6Estim825ControllerSlicesInterface", "view"]
 - ["P6Estim825ControllerSlicesInterface", ""]
+- ["C6Estim825ControllerUpdateInterface", "Bool"]
 - ["C6Estim825ControllerUpdateInterface", "Model"]
 - ["C6Estim825ControllerUpdateInterface", "NSDecimalNumber"]
 - ["C6Estim825ControllerUpdateInterface", "String"]
 - ["C6Estim825ControllerUpdateInterface", "deinit"]
 - ["C6Estim825ControllerUpdateInterface", "init"]
+- ["C6Estim825ControllerUpdateInterface", "isNegative"]
 - ["C6Estim825ControllerUpdateInterface", "model"]
 - ["C6Estim825ControllerUpdateInterface", "name"]
 - ["C6Estim825ControllerUpdateInterface", "update"]
@@ -871,4 +882,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "37d9d10a5a0e18e2fc3a0e4806af2e12"
+interface-hash: "549fe201f5aec324955e4be41dfce515"

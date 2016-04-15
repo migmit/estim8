@@ -44,9 +44,9 @@ class DecantNumberOnlyText: NumberOnlyText {
         super.init()
     }
     
-    override func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldDiddBeginEditing(textField: UITextField) {
         parent?.pickler.hidden = true
-        return super.textFieldShouldBeginEditing(textField)
+        super.textFieldDidBeginEditing(textField)
     }
     
 }
@@ -69,7 +69,7 @@ class DecantChildViewController: UITableViewController {
         super.viewDidLoad()
         if let p = parent {
             amountTextDelegate = DecantNumberOnlyText(parent: p)
-            amountTextDelegate?.setTextField(amountText)
+            amountTextDelegate?.setTextField(amountText, showSign: false)
             parent?.setContainerHeightValue(settingsTable.rectForSection(0).height)
         }
     }

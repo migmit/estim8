@@ -100,6 +100,10 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
         return model.valueOfUpdate(update)
     }
     
+    func isNegative() -> Bool {
+        return model.accountIsNegative(account)
+    }
+    
     func edit() {
         let editController = ControllerEditAccountImplementation(parent: parent, model: model, account: account, index: index)
         let editView = view.editAccount(editController)
@@ -144,6 +148,10 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         let updates = model.updatesOfAccount(account)
         let update = updates[0]
         return model.valueOfUpdate(update)
+    }
+    
+    func isNegative() -> Bool {
+        return model.accountIsNegative(account)
     }
     
     func setValue(value: NSDecimalNumber) -> Bool {
@@ -307,6 +315,10 @@ class ControllerROAccountImplementation<Model: ModelInterface>: ControllerROAcco
         let updates = model.updatesOfAccount(account)
         let update = updates[0]
         return model.valueOfUpdate(update)
+    }
+    
+    func isNegative() -> Bool {
+        return model.accountIsNegative(account)
     }
 }
 
@@ -509,6 +521,11 @@ class ControllerUpdateInterface<Model: ModelInterface>: ControllerROAccountInter
     
     func value() -> NSDecimalNumber {
         return model.valueOfUpdate(update)
+    }
+    
+    func isNegative() -> Bool {
+        let account = model.accountOfUpdate(update)
+        return model.accountIsNegative(account)
     }
 
 }

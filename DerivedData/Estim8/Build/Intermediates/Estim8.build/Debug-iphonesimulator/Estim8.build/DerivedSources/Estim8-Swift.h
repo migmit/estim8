@@ -194,19 +194,18 @@ SWIFT_CLASS("_TtC6Estim825DecantChildViewController")
 SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
 @interface NumberOnlyText : NSObject <UITextFieldDelegate>
 @property (nonatomic) BOOL initialUsesGroupingSeparator;
-@property (nonatomic) BOOL isEditing;
 @property (nonatomic, readonly, strong) NSNumberFormatter * _Nonnull numberFormatter;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-- (void)setTextField:(UITextField * _Nonnull)textField;
-- (void)pmButtonClicked;
+- (void)setTextField:(UITextField * _Nonnull)textField showSign:(BOOL)showSign;
 - (NSString * _Nonnull)zeroRepresentation;
 - (void)setFieldText:(NSDecimalNumber * _Nonnull)value;
-- (BOOL)textFieldShouldBeginEditing:(UITextField * _Nonnull)textField;
-- (BOOL)textFieldShouldEndEditing:(UITextField * _Nonnull)textField;
+- (void)textFieldDidBeginEditing:(UITextField * _Nonnull)textField;
+- (void)textFieldDidEndEditing:(UITextField * _Nonnull)textField;
 - (NSDecimalNumber * _Nullable)textToNumber:(NSString * _Nonnull)from;
-- (void)setValue:(NSDecimalNumber * _Nonnull)value;
-- (NSDecimalNumber * _Nonnull)getValue;
 - (void)setIsNegative:(BOOL)isNegative;
+- (void)setValue:(NSDecimalNumber * _Nonnull)value isNegative:(BOOL)isNegative;
+- (NSDecimalNumber * _Nonnull)getValue;
+- (void)adjustLeftView;
 - (BOOL)textField:(UITextField * _Nonnull)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString * _Nonnull)string;
 @end
 
@@ -215,7 +214,7 @@ SWIFT_CLASS("_TtC6Estim820DecantNumberOnlyText")
 @interface DecantNumberOnlyText : NumberOnlyText
 @property (nonatomic, weak) DecantViewController * _Nullable parent;
 - (nonnull instancetype)initWithParent:(DecantViewController * _Nonnull)parent OBJC_DESIGNATED_INITIALIZER;
-- (BOOL)textFieldShouldBeginEditing:(UITextField * _Nonnull)textField;
+- (void)textFieldDiddBeginEditing:(UITextField * _Nonnull)textField;
 @end
 
 @class UIPickerView;
@@ -274,6 +273,25 @@ SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
 - (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC6Estim811NumberField")
+@interface NumberField : UITextField <UITextFieldDelegate>
+@property (nonatomic) BOOL initialUsesGroupingSeparator;
+@property (nonatomic, readonly, strong) NSNumberFormatter * _Nonnull numberFormatter;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)showSign:(BOOL)show;
+- (NSString * _Nonnull)zeroRepresentation;
+- (void)setFieldText:(NSDecimalNumber * _Nonnull)value;
+- (void)textFieldDidBeginEditing:(UITextField * _Nonnull)textField;
+- (void)textFieldDidEndEditing:(UITextField * _Nonnull)textField;
+- (NSDecimalNumber * _Nullable)textToNumber:(NSString * _Nonnull)from;
+- (void)setIsNegative:(BOOL)isNegative;
+- (void)setValue:(NSDecimalNumber * _Nonnull)value isNegative:(BOOL)isNegative;
+- (NSDecimalNumber * _Nonnull)getValue;
+- (void)adjustLeftView;
+- (BOOL)textField:(UITextField * _Nonnull)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString * _Nonnull)string;
 @end
 
 

@@ -54,9 +54,8 @@ class EditAccountViewController: SubViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
         if let controller = self.viewImplementation?.controller {
             accountNameLabel.text = controller.name()
-            accountValueTextDelegate.setValue(controller.value())
-            accountValueText.text = accountValueTextDelegate.numberFormatter.stringFromNumber(controller.value())
-            accountValueTextDelegate.setTextField(accountValueText)
+            accountValueTextDelegate.setTextField(accountValueText, showSign: true)
+            accountValueTextDelegate.setValue(controller.value(), isNegative: controller.isNegative())
         }
     }
 

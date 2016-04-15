@@ -60,7 +60,7 @@ class CreateAccountViewController: SubViewController {
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
         navigationItem.rightBarButtonItem = saveButton
         saveButton.enabled = false
-        accountValueTextDelegate.setTextField(accountValueText)
+        accountValueTextDelegate.setTextField(accountValueText, showSign: true)
     }
     
     override func viewWillAppear(animated: Bool) {
