@@ -41,9 +41,7 @@ class EditAccountViewController: SubViewController {
     
     @IBOutlet weak var accountNameLabel: UILabel!
 
-    @IBOutlet weak var accountValueText: UITextField!
-    
-    let accountValueTextDelegate: NumberOnlyText = NumberOnlyText()
+    @IBOutlet weak var accountValueText: NumberField!
     
     func setViewImplementation(viewImplementation: EditAccountImplementation) {
         self.viewImplementation = viewImplementation
@@ -54,8 +52,7 @@ class EditAccountViewController: SubViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
         if let controller = self.viewImplementation?.controller {
             accountNameLabel.text = controller.name()
-            accountValueTextDelegate.setTextField(accountValueText, showSign: true)
-            accountValueTextDelegate.setValue(controller.value(), isNegative: controller.isNegative())
+            accountValueText.setValue(controller.value(), isNegative: controller.isNegative())
         }
     }
 
@@ -96,7 +93,7 @@ class EditAccountViewController: SubViewController {
     }
     
     func buttonSaveClicked() {
-        let value = accountValueTextDelegate.getValue()
+        let value = accountValueText.getValue()
         if let controller = viewImplementation?.controller {
             if (!(controller.setValue(value) ?? false)) {
                 let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller.name() ?? "the account") to \(value)", preferredStyle: .Alert)
@@ -107,7 +104,7 @@ class EditAccountViewController: SubViewController {
     }
 
     func somethingChanged() {
-        let value = accountValueTextDelegate.getValue()
+        let value = accountValueText.getValue()
         if let controller = viewImplementation?.controller {
             navigationItem.rightBarButtonItem?.enabled = controller.canSetValue(value)
         } else {

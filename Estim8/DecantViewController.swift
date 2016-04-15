@@ -35,43 +35,23 @@ class DecantImplementation: DecantView {
     }
 }
 
-class DecantNumberOnlyText: NumberOnlyText {
-    
-    weak var parent: DecantViewController? = nil
-    
-    init(parent: DecantViewController) {
-        self.parent = parent
-        super.init()
-    }
-    
-    func textFieldDiddBeginEditing(textField: UITextField) {
-        parent?.pickler.hidden = true
-        super.textFieldDidBeginEditing(textField)
-    }
-    
-}
-
-class DecantChildViewController: UITableViewController {
+class DecantChildViewController: UITableViewController, NumberFieldDelegate {
     
     @IBOutlet weak var fromCell: UITableViewCell!
     
     @IBOutlet weak var toCell: UITableViewCell!
     
-    @IBOutlet weak var amountText: UITextField!
+    @IBOutlet weak var amountText: NumberField!
     
     @IBOutlet var settingsTable: UITableView!
-    
-    var amountTextDelegate: NumberOnlyText? = nil
     
     weak var parent: DecantViewController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let p = parent {
-            amountTextDelegate = DecantNumberOnlyText(parent: p)
-            amountTextDelegate?.setTextField(amountText, showSign: false)
-            parent?.setContainerHeightValue(settingsTable.rectForSection(0).height)
-        }
+        amountText.numberDelegate = self
+        amountText.showSign(false)
+        parent?.setContainerHeightValue(settingsTable.rectForSection(0).height)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -100,8 +80,12 @@ class DecantChildViewController: UITableViewController {
         }
     }
     
+    func numberFieldDidBeginEditing(numberField: NumberField) {
+        parent?.pickler.hidden = true
+    }
+    
     func getAmount() -> NSDecimalNumber? {
-        return amountTextDelegate?.getValue()
+        return amountText.getValue()
     }
     
     func setCellDetails(to: Bool, title: String, detail: String?) {

@@ -8,71 +8,58 @@
 
 import UIKit
 
-class NumberOnlyText: NSObject, UITextFieldDelegate {
-    
+protocol NumberFieldDelegate {
+    func numberFieldDidBeginEditing(numberField: NumberField)
+}
+
+class NumberField: UITextField, UITextFieldDelegate {
     var initialUsesGroupingSeparator: Bool = false
     
     private var isNegative: Bool = false
     
-    let numberFormatter: NSNumberFormatter
+    let numberFormatter: NSNumberFormatter = NSNumberFormatter()
     
-    private var textField: UITextField? = nil
+    private var leftLabel: UILabel? = nil
     
-    private var leftView: UILabel? = nil
+    var numberDelegate: NumberFieldDelegate? = nil
     
-    override init() {
-        numberFormatter = NSNumberFormatter()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialize()
+    }
+    
+    func initialize() {
         numberFormatter.numberStyle = .DecimalStyle
-        super.init()
+        delegate = self
+        let h = bounds.height
+        let leftLabel: UILabel = UILabel(frame: CGRectMake(0, 0, h, h))
+        leftLabel.textAlignment = .Center
+        leftView = leftLabel
+        leftViewMode = .Always
+        self.leftLabel = leftLabel
+        adjustLeftView()
+        borderStyle = .RoundedRect
+        textAlignment = .Left
+        autocorrectionType = .No
+        keyboardType = .DecimalPad
     }
     
-    func setTextField(textField: UITextField, showSign: Bool) {
-        self.textField = textField
-        textField.delegate = self
-//        let keyboardToolbar = UIToolbar()
-//        let pmButton = UIBarButtonItem(title: "+/-", style: .Plain, target: self, action: #selector(pmButtonClicked))
-//        let leftFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-//        let rightFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-//        keyboardToolbar.items = [leftFlexibleSpace, pmButton, rightFlexibleSpace]
-//        keyboardToolbar.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-//        textField.inputAccessoryView = keyboardToolbar
-        if (showSign) {
-            let h = textField.bounds.height
-            let leftView: UILabel = UILabel(frame: CGRectMake(0, 0, h, h))
-            leftView.textAlignment = .Center
-            textField.leftView = leftView
-            textField.leftViewMode = .Always
-            self.leftView = leftView
-            adjustLeftView()
-        }
-        textField.borderStyle = .RoundedRect
-        textField.textAlignment = .Left
-        textField.autocorrectionType = .No
-        textField.keyboardType = .DecimalPad
+    func showSign(show: Bool) {
+        self.leftViewMode = show ? .Always : .Never
     }
     
-//    func pmButtonClicked() {
-//        isNegative = !isNegative
-//        setFieldText(getValue().decimalNumberByMultiplyingBy(-1))
-//        NSNotificationCenter.defaultCenter().postNotificationName(UITextFieldTextDidChangeNotification, object: textField)
-//    }
-//    
     func zeroRepresentation() -> String {
-        if let isEditing = textField?.editing {
-            return isEditing ? "" : "0"
-        } else {
-            return "0"
-        }
+        return editing ? "" : "0"
     }
     
     func setFieldText(value: NSDecimalNumber) {
         switch value.compare(0) {
         case .OrderedAscending:
-            textField?.text = numberFormatter.stringFromNumber(value.decimalNumberByMultiplyingBy(-1))
+            text = numberFormatter.stringFromNumber(value.decimalNumberByMultiplyingBy(-1))
         case .OrderedSame:
-            textField?.text = zeroRepresentation()
+            text = zeroRepresentation()
         case .OrderedDescending:
-            textField?.text = numberFormatter.stringFromNumber(value)
+            text = numberFormatter.stringFromNumber(value)
         }
     }
     
@@ -81,6 +68,7 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
         initialUsesGroupingSeparator = numberFormatter.usesGroupingSeparator
         numberFormatter.usesGroupingSeparator = false
         setFieldText(value)
+        numberDelegate?.numberFieldDidBeginEditing(self)
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
@@ -114,16 +102,17 @@ class NumberOnlyText: NSObject, UITextFieldDelegate {
     }
     
     func getValue() -> NSDecimalNumber {
-        return (textToNumber(textField?.text ?? "") ?? 0).decimalNumberByMultiplyingBy(isNegative ? -1 : 1)
+        return (textToNumber(text ?? "") ?? 0).decimalNumberByMultiplyingBy(isNegative ? -1 : 1)
     }
     
     func adjustLeftView() {
-        leftView?.text = isNegative ? "-" : "+"
+        leftLabel?.text = isNegative ? "-" : "+"
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let text = ((textField.text ?? "") as NSString).stringByReplacingCharactersInRange(range, withString: string)
         return textToNumber(text) != nil
     }
-
+    
+    
 }

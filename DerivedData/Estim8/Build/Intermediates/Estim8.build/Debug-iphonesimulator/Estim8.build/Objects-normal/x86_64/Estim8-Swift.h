@@ -93,9 +93,8 @@ typedef int swift_int4  __attribute__((__ext_vector_type__(4)));
 #endif
 #if defined(__has_feature) && __has_feature(modules)
 @import UIKit;
-@import ObjectiveC;
-@import Foundation;
 @import CoreGraphics;
+@import Foundation;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -139,20 +138,19 @@ SWIFT_CLASS("_TtC6Estim817SubViewController")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class NumberOnlyText;
 @class UITableView;
 @class NSIndexPath;
 @class NSNotification;
 @class UITextField;
+@class NumberField;
 @class UITableViewCell;
 
 SWIFT_CLASS("_TtC6Estim827CreateAccountViewController")
 @interface CreateAccountViewController : SubViewController
 @property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountTitleText;
-@property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountValueText;
+@property (nonatomic, weak) IBOutlet NumberField * _Null_unspecified accountValueText;
 @property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified positiveCell;
 @property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified negativeCell;
-@property (nonatomic, readonly, strong) NumberOnlyText * _Nonnull accountValueTextDelegate;
 @property (nonatomic) BOOL isNegative;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
@@ -175,13 +173,13 @@ SWIFT_CLASS("_TtC6Estim825DecantChildViewController")
 @interface DecantChildViewController : UITableViewController
 @property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified fromCell;
 @property (nonatomic, weak) IBOutlet UITableViewCell * _Null_unspecified toCell;
-@property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified amountText;
+@property (nonatomic, weak) IBOutlet NumberField * _Null_unspecified amountText;
 @property (nonatomic, strong) IBOutlet UITableView * _Null_unspecified settingsTable;
-@property (nonatomic, strong) NumberOnlyText * _Nullable amountTextDelegate;
 @property (nonatomic, weak) DecantViewController * _Nullable parent;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)numberFieldDidBeginEditing:(NumberField * _Nonnull)numberField;
 - (NSDecimalNumber * _Nullable)getAmount;
 - (void)setCellDetails:(BOOL)to title:(NSString * _Nonnull)title detail:(NSString * _Nullable)detail;
 - (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
@@ -190,33 +188,6 @@ SWIFT_CLASS("_TtC6Estim825DecantChildViewController")
 @end
 
 @class NSNumberFormatter;
-
-SWIFT_CLASS("_TtC6Estim814NumberOnlyText")
-@interface NumberOnlyText : NSObject <UITextFieldDelegate>
-@property (nonatomic) BOOL initialUsesGroupingSeparator;
-@property (nonatomic, readonly, strong) NSNumberFormatter * _Nonnull numberFormatter;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-- (void)setTextField:(UITextField * _Nonnull)textField showSign:(BOOL)showSign;
-- (NSString * _Nonnull)zeroRepresentation;
-- (void)setFieldText:(NSDecimalNumber * _Nonnull)value;
-- (void)textFieldDidBeginEditing:(UITextField * _Nonnull)textField;
-- (void)textFieldDidEndEditing:(UITextField * _Nonnull)textField;
-- (NSDecimalNumber * _Nullable)textToNumber:(NSString * _Nonnull)from;
-- (void)setIsNegative:(BOOL)isNegative;
-- (void)setValue:(NSDecimalNumber * _Nonnull)value isNegative:(BOOL)isNegative;
-- (NSDecimalNumber * _Nonnull)getValue;
-- (void)adjustLeftView;
-- (BOOL)textField:(UITextField * _Nonnull)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString * _Nonnull)string;
-@end
-
-
-SWIFT_CLASS("_TtC6Estim820DecantNumberOnlyText")
-@interface DecantNumberOnlyText : NumberOnlyText
-@property (nonatomic, weak) DecantViewController * _Nullable parent;
-- (nonnull instancetype)initWithParent:(DecantViewController * _Nonnull)parent OBJC_DESIGNATED_INITIALIZER;
-- (void)textFieldDiddBeginEditing:(UITextField * _Nonnull)textField;
-@end
-
 @class UIPickerView;
 @class UIScrollView;
 @class UIStoryboardSegue;
@@ -259,8 +230,7 @@ SWIFT_CLASS("_TtC6Estim820DecantViewController")
 SWIFT_CLASS("_TtC6Estim825EditAccountViewController")
 @interface EditAccountViewController : SubViewController
 @property (nonatomic, weak) IBOutlet UILabel * _Null_unspecified accountNameLabel;
-@property (nonatomic, weak) IBOutlet UITextField * _Null_unspecified accountValueText;
-@property (nonatomic, readonly, strong) NumberOnlyText * _Nonnull accountValueTextDelegate;
+@property (nonatomic, weak) IBOutlet NumberField * _Null_unspecified accountValueText;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
@@ -281,6 +251,7 @@ SWIFT_CLASS("_TtC6Estim811NumberField")
 @property (nonatomic) BOOL initialUsesGroupingSeparator;
 @property (nonatomic, readonly, strong) NSNumberFormatter * _Nonnull numberFormatter;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)initialize;
 - (void)showSign:(BOOL)show;
 - (NSString * _Nonnull)zeroRepresentation;
 - (void)setFieldText:(NSDecimalNumber * _Nonnull)value;
@@ -293,7 +264,6 @@ SWIFT_CLASS("_TtC6Estim811NumberField")
 - (void)adjustLeftView;
 - (BOOL)textField:(UITextField * _Nonnull)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString * _Nonnull)string;
 @end
-
 
 @class NSDateFormatter;
 @class UIGestureRecognizer;

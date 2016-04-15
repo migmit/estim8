@@ -41,13 +41,11 @@ class CreateAccountViewController: SubViewController {
     
     @IBOutlet weak var accountTitleText: UITextField!
     
-    @IBOutlet weak var accountValueText: UITextField!
+    @IBOutlet weak var accountValueText: NumberField!
     
     @IBOutlet weak var positiveCell: UITableViewCell!
     
     @IBOutlet weak var negativeCell: UITableViewCell!
-    
-    let accountValueTextDelegate: NumberOnlyText = NumberOnlyText()
     
     var isNegative: Bool = false
     
@@ -60,7 +58,6 @@ class CreateAccountViewController: SubViewController {
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
         navigationItem.rightBarButtonItem = saveButton
         saveButton.enabled = false
-        accountValueTextDelegate.setTextField(accountValueText, showSign: true)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -98,13 +95,13 @@ class CreateAccountViewController: SubViewController {
                 isNegative = true
                 positiveCell.accessoryType = .None
                 negativeCell.accessoryType = .Checkmark
-                accountValueTextDelegate.setIsNegative(true)
+                accountValueText.setIsNegative(true)
                 somethingChanged()
             } else {
                 isNegative = false
                 positiveCell.accessoryType = .Checkmark
                 negativeCell.accessoryType = .None
-                accountValueTextDelegate.setIsNegative(false)
+                accountValueText.setIsNegative(false)
                 somethingChanged()
             }
         default:
@@ -116,7 +113,7 @@ class CreateAccountViewController: SubViewController {
     func buttonSaveClicked() {
         accountValueText.resignFirstResponder()
         let title = accountTitleText.text ?? ""
-        let value = accountValueTextDelegate.getValue()
+        let value = accountValueText.getValue()
         if let controller = viewImplementation?.controller {
             if (!(controller.create(title, initialValue: value, isNegative: isNegative) ?? false)) {
                 let alert = UIAlertController(title: "Error", message: "Can't create \(isNegative ? "negative" : "positive") account \"\(title)\" with value \(value)", preferredStyle: .Alert)
@@ -128,7 +125,7 @@ class CreateAccountViewController: SubViewController {
     
     func somethingChanged() {
         let title = accountTitleText.text ?? ""
-        let value = accountValueTextDelegate.getValue()
+        let value = accountValueText.getValue()
         if let controller = viewImplementation?.controller {
             navigationItem.rightBarButtonItem?.enabled = controller.canCreate(title, initialValue: value, isNegative: isNegative)
         } else {
