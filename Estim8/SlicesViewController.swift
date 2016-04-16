@@ -45,15 +45,18 @@ class SlicesImplementation: SlicesView {
 
 class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     
+    struct Panning {
+        let oldSliceNumber: Int
+        let scrollingHorizontally: Bool
+    }
+    
     let panPointsCount = 24
     
     var viewImplementation: SlicesImplementation? = nil
     
     var currentSlice: ControllerSliceInterface? = nil
     
-    var oldSliceNumber: Int? = nil
-    
-    var scrollingHorizontally: Bool? = nil
+    var panning: Panning? = nil
     
     let dateFormatter: NSDateFormatter = NSDateFormatter()
     
@@ -103,8 +106,8 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if (gestureRecognizer is UIPanGestureRecognizer) {
-            if let sH = scrollingHorizontally {
-                return !sH
+            if let p = panning {
+                return !p.scrollingHorizontally
             } else {
                 return true
             }
@@ -158,33 +161,50 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func transitionOffset(transition: (Int, Bool)) -> CGFloat {
+        let (rowNumber, isVisible) = transition
+        if (isVisible) {
+            return updatesTable.rectForRowAtIndexPath(NSIndexPath(forRow: rowNumber, inSection: 0)).minY
+        } else {
+            if (rowNumber == 0) {
+                return 0
+            } else {
+                return updatesTable.rectForRowAtIndexPath(NSIndexPath(forRow: rowNumber-1, inSection: 0)).maxY
+            }
+        }
+    }
+    
     func panEvent(recogniser: UIGestureRecognizer) {
         if let pan = recogniser as? UIPanGestureRecognizer {
             switch pan.state {
             case .Changed:
                 let shiftX = pan.translationInView(updatesTable).x
                 let shiftY = pan.translationInView(updatesTable).y
-                if (scrollingHorizontally == nil) {
-                    scrollingHorizontally = fabs(shiftY) < fabs(shiftX)
-                }
-                if (scrollingHorizontally == true) {
-                    if (oldSliceNumber == nil) {
-                        oldSliceNumber = currentSlice?.sliceIndex()
+                if let cs = currentSlice {
+                    if (panning == nil) {
+                        panning = Panning(
+                            oldSliceNumber: cs.sliceIndex(),
+                            scrollingHorizontally: fabs(shiftY) < fabs(shiftX)
+                        )
                     }
-                    let shiftPoints = Int(shiftX * CGFloat(panPointsCount) / updatesTable.bounds.width)
-                    if let sliceCount = viewImplementation?.controller.numberOfSlices() {
-                        let newSliceNumber = oldSliceNumber! + shiftPoints // shifting backwards
-                        let sliceNumber = newSliceNumber < 0 ? 0 : newSliceNumber >= sliceCount ? sliceCount-1 : newSliceNumber
-                        if (sliceNumber != currentSlice?.sliceIndex()) {
-                            if let slice = viewImplementation?.controller.slice(sliceNumber) {
-                                refreshCurrentSlice(slice)
+                }
+                if let p = panning {
+                    if (p.scrollingHorizontally) {
+                        let shiftPoints = Int(shiftX * CGFloat(panPointsCount) / updatesTable.bounds.width)
+                        if let sliceCount = viewImplementation?.controller.numberOfSlices() {
+                            let newSliceNumber = p.oldSliceNumber + shiftPoints // shifting backwards
+                            let sliceNumber = newSliceNumber < 0 ? 0 : newSliceNumber >= sliceCount ? sliceCount-1 : newSliceNumber
+                            if (sliceNumber != currentSlice?.sliceIndex()) {
+                                if let slice = viewImplementation?.controller.slice(sliceNumber) {
+                                    refreshCurrentSlice(slice)
+                                }
                             }
                         }
                     }
+                    
                 }
             default:
-                oldSliceNumber = nil
-                scrollingHorizontally = nil
+                panning = nil
             }
         }
     }
