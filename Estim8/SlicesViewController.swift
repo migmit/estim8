@@ -46,8 +46,56 @@ class SlicesImplementation: SlicesView {
 class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     
     struct Panning {
+        
+        class Row {
+            
+            let transitionAccount: ControllerTransitionInterface
+            
+            let rowOffset: CGFloat
+            
+            let pointOffset: CGFloat
+            
+            init?(slice: ControllerSliceInterface?, updatesTable: UITableView, touchPoint: CGPoint) {
+                if let indexPath = updatesTable.indexPathForRowAtPoint(touchPoint) {
+                    let cellTop = updatesTable.rectForRowAtIndexPath(indexPath).minY
+                    if let transitionAccount = slice?.account(indexPath.row)?.transition() {
+                        self.transitionAccount = transitionAccount
+                        self.rowOffset = touchPoint.y - cellTop
+                        self.pointOffset = touchPoint.y - updatesTable.contentOffset.y
+                    } else {
+                        return nil
+                    }
+                } else {
+                    return nil
+                }
+            }
+            
+            func translate(slice: ControllerSliceInterface, updatesTable: UITableView) {
+                if let transition = slice.whereToMove(transitionAccount) {
+                    let (rowNumber, isVisible) = transition
+                    let pointY: CGFloat
+                    if (isVisible) {
+                        pointY = updatesTable.rectForRowAtIndexPath(NSIndexPath(forRow: rowNumber, inSection: 0)).minY + rowOffset
+                    } else {
+                        if (rowNumber == 0) {
+                            pointY = 0
+                        } else {
+                            pointY = updatesTable.rectForRowAtIndexPath(NSIndexPath(forRow: rowNumber-1, inSection: 0)).maxY
+                        }
+                    }
+                    let contentOffset = pointY - pointOffset
+                    updatesTable.contentOffset = CGPointMake(updatesTable.contentOffset.x, contentOffset)
+                }
+            }
+            
+        }
+        
         let oldSliceNumber: Int
+        
         let scrollingHorizontally: Bool
+        
+        let row: Row?
+        
     }
     
     let panPointsCount = 24
@@ -161,19 +209,6 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func transitionOffset(transition: (Int, Bool)) -> CGFloat {
-        let (rowNumber, isVisible) = transition
-        if (isVisible) {
-            return updatesTable.rectForRowAtIndexPath(NSIndexPath(forRow: rowNumber, inSection: 0)).minY
-        } else {
-            if (rowNumber == 0) {
-                return 0
-            } else {
-                return updatesTable.rectForRowAtIndexPath(NSIndexPath(forRow: rowNumber-1, inSection: 0)).maxY
-            }
-        }
-    }
-    
     func panEvent(recogniser: UIGestureRecognizer) {
         if let pan = recogniser as? UIPanGestureRecognizer {
             switch pan.state {
@@ -184,7 +219,8 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     if (panning == nil) {
                         panning = Panning(
                             oldSliceNumber: cs.sliceIndex(),
-                            scrollingHorizontally: fabs(shiftY) < fabs(shiftX)
+                            scrollingHorizontally: fabs(shiftY) < fabs(shiftX),
+                            row: Panning.Row(slice: currentSlice, updatesTable: updatesTable, touchPoint: pan.locationInView(updatesTable))
                         )
                     }
                 }
@@ -197,6 +233,7 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             if (sliceNumber != currentSlice?.sliceIndex()) {
                                 if let slice = viewImplementation?.controller.slice(sliceNumber) {
                                     refreshCurrentSlice(slice)
+                                    p.row?.translate(slice, updatesTable: updatesTable)
                                 }
                             }
                         }

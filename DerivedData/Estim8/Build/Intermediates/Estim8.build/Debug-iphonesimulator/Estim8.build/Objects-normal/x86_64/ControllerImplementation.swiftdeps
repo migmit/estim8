@@ -40,53 +40,53 @@ provides-member:
 - ["C6Estim825ControllerUpdateInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "MainWindowView"
-- !private "+="
-- "ControllerCreateAccountImplementation"
-- "ControllerDecantImplementation"
-- "ControllerTransitionAccountInterface"
-- "ControllerCreateAccountInterface"
-- "ControllerImplementation"
-- "CreateAccountView"
-- "ControllerInterface"
+- "Bool"
+- "ControllerEditAccountInterface"
+- "Int"
+- !private "!="
+- "SlicesView"
+- "ControllerTransitionInterface"
+- "String"
+- !private "-"
+- "ControllerTransitionAccountImplementation"
 - "DecantView"
+- "ControllerAccountInterface"
+- "ControllerTransitionImplementation"
+- "EditAccountView"
+- "ControllerSlicesInterface"
+- "ControllerROAccountInterface"
+- "ControllerCurrentStatePseudoSliceImplementation"
+- "ControllerSlicesImplementation"
+- "NSDate"
+- "ControllerUpdateInterface"
+- "NSDecimalNumber"
+- "ControllerCreateAccountInterface"
+- "ControllerEditAccountImplementation"
+- "ControllerSliceImplementation"
+- "ControllerImplementation"
+- "ControllerInterface"
+- "ControllerCreateAccountImplementation"
+- !private "=="
+- "ControllerSliceInterface"
+- !private ">="
+- !private "IntegerLiteralType"
+- !private "FloatLiteralType"
+- !private "BooleanLiteralType"
+- !private "||"
+- "ControllerDecantImplementation"
+- "MainWindowView"
+- "ModelInterface"
+- !private "+"
+- "ControllerAccountImplementation"
+- "ControllerROAccountImplementation"
+- "CreateAccountView"
 - !private ">"
 - !private "Dictionary"
-- "ControllerROAccountInterface"
-- "ControllerROAccountImplementation"
-- !private ">="
-- "NSDecimalNumber"
-- "ControllerSliceInterface"
-- "NSDate"
-- !private "+"
-- !private "&&"
-- "Bool"
-- "ControllerEditAccountImplementation"
-- !private "IntegerLiteralType"
-- "ControllerTransitionAccountImplementation"
-- !private "FloatLiteralType"
+- "ControllerTransitionAccountInterface"
 - !private "!"
-- "ControllerAccountInterface"
-- "ControllerEditAccountInterface"
-- !private "!="
-- "ControllerSlicesInterface"
-- !private "-"
-- "String"
-- "ModelInterface"
-- !private "BooleanLiteralType"
-- "ControllerCurrentStatePseudoSliceImplementation"
-- !private "||"
-- "EditAccountView"
-- "Int"
-- "ControllerTransitionInteface"
-- "ControllerTransitionImplementation"
-- "ControllerSliceImplementation"
 - "ControllerDecantInterface"
-- "SlicesView"
-- "ControllerAccountImplementation"
-- "ControllerSlicesImplementation"
-- !private "=="
-- "ControllerUpdateInterface"
+- !private "&&"
+- !private "+="
 depends-member:
 - !private ["Ps9AnyObject", "ControllerAccountImplementation"]
 - !private ["Ps9AnyObject", "ControllerCreateAccountImplementation"]
@@ -259,7 +259,7 @@ depends-member:
 - !private ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "ControllerTransitionAccountImplementation"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "ControllerTransitionAccountInterface"]
 - !private ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "ControllerTransitionImplementation"]
-- ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "ControllerTransitionInteface"]
+- ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "ControllerTransitionInterface"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "Int"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "Model"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "NSDate"]
@@ -419,7 +419,7 @@ depends-member:
 - ["C6Estim829ControllerSliceImplementation", "ControllerSlicesImplementation"]
 - ["C6Estim829ControllerSliceImplementation", "ControllerTransitionAccountInterface"]
 - !private ["C6Estim829ControllerSliceImplementation", "ControllerTransitionImplementation"]
-- ["C6Estim829ControllerSliceImplementation", "ControllerTransitionInteface"]
+- ["C6Estim829ControllerSliceImplementation", "ControllerTransitionInterface"]
 - !private ["C6Estim829ControllerSliceImplementation", "ControllerUpdateInterface"]
 - ["C6Estim829ControllerSliceImplementation", "Int"]
 - ["C6Estim829ControllerSliceImplementation", "Model"]
@@ -493,7 +493,7 @@ depends-member:
 - ["P6Estim825ControllerSlicesInterface", ""]
 - ["C6Estim841ControllerTransitionAccountImplementation", "Bool"]
 - !private ["C6Estim841ControllerTransitionAccountImplementation", "ControllerTransitionImplementation"]
-- ["C6Estim841ControllerTransitionAccountImplementation", "ControllerTransitionInteface"]
+- ["C6Estim841ControllerTransitionAccountImplementation", "ControllerTransitionInterface"]
 - ["C6Estim841ControllerTransitionAccountImplementation", "Model"]
 - ["C6Estim841ControllerTransitionAccountImplementation", "NSDecimalNumber"]
 - ["C6Estim841ControllerTransitionAccountImplementation", "String"]
@@ -519,12 +519,12 @@ depends-member:
 - ["C6Estim834ControllerTransitionImplementation", "account"]
 - ["C6Estim834ControllerTransitionImplementation", "deinit"]
 - ["C6Estim834ControllerTransitionImplementation", "init"]
-- !private ["P6Estim828ControllerTransitionInteface", "account"]
-- !private ["P6Estim828ControllerTransitionInteface", "init"]
-- ["P6Estim828ControllerTransitionInteface", ""]
+- !private ["P6Estim829ControllerTransitionInterface", "account"]
+- !private ["P6Estim829ControllerTransitionInterface", "init"]
+- ["P6Estim829ControllerTransitionInterface", ""]
 - ["C6Estim825ControllerUpdateInterface", "Bool"]
 - !private ["C6Estim825ControllerUpdateInterface", "ControllerTransitionImplementation"]
-- ["C6Estim825ControllerUpdateInterface", "ControllerTransitionInteface"]
+- ["C6Estim825ControllerUpdateInterface", "ControllerTransitionInterface"]
 - ["C6Estim825ControllerUpdateInterface", "Model"]
 - ["C6Estim825ControllerUpdateInterface", "NSDecimalNumber"]
 - ["C6Estim825ControllerUpdateInterface", "String"]
@@ -878,7 +878,7 @@ depends-nominal:
 - "C6Estim841ControllerTransitionAccountImplementation"
 - "P6Estim836ControllerTransitionAccountInterface"
 - "C6Estim834ControllerTransitionImplementation"
-- "P6Estim828ControllerTransitionInteface"
+- "P6Estim829ControllerTransitionInterface"
 - "C6Estim825ControllerUpdateInterface"
 - !private "P6Estim817CreateAccountView"
 - "Ps28CustomDebugStringConvertible"
@@ -961,4 +961,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "8870e91edcbbda604c2c34e404ee8fee"
+interface-hash: "071af1d1f5e92bf921064e01a3f89c8e"

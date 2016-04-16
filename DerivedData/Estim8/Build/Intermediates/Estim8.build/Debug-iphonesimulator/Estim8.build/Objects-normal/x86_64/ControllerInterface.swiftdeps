@@ -7,7 +7,7 @@ provides-top-level:
 - "ControllerCreateAccountInterface"
 - "ControllerDecantInterface"
 - "ControllerSlicesInterface"
-- "ControllerTransitionInteface"
+- "ControllerTransitionInterface"
 - "ControllerTransitionAccountInterface"
 - "ControllerSliceInterface"
 provides-nominal:
@@ -18,7 +18,7 @@ provides-nominal:
 - "P6Estim832ControllerCreateAccountInterface"
 - "P6Estim825ControllerDecantInterface"
 - "P6Estim825ControllerSlicesInterface"
-- "P6Estim828ControllerTransitionInteface"
+- "P6Estim829ControllerTransitionInterface"
 - "P6Estim836ControllerTransitionAccountInterface"
 - "P6Estim824ControllerSliceInterface"
 provides-member:
@@ -29,26 +29,26 @@ provides-member:
 - ["P6Estim832ControllerCreateAccountInterface", ""]
 - ["P6Estim825ControllerDecantInterface", ""]
 - ["P6Estim825ControllerSlicesInterface", ""]
-- ["P6Estim828ControllerTransitionInteface", ""]
+- ["P6Estim829ControllerTransitionInterface", ""]
 - ["P6Estim836ControllerTransitionAccountInterface", ""]
 - ["P6Estim824ControllerSliceInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "String"
 - "ControllerTransitionAccountInterface"
-- "ControllerROAccountInterface"
-- "Int"
-- "ControllerEditAccountInterface"
-- "ControllerSliceInterface"
-- "ControllerSlicesInterface"
-- "Bool"
-- "ControllerAccountInterface"
-- "ControllerInterface"
-- "ControllerCreateAccountInterface"
-- "ControllerDecantInterface"
-- "NSDecimalNumber"
 - "NSDate"
-- "ControllerTransitionInteface"
+- "ControllerInterface"
+- "ControllerROAccountInterface"
+- "String"
+- "ControllerSliceInterface"
+- "Bool"
+- "ControllerCreateAccountInterface"
+- "NSDecimalNumber"
+- "Int"
+- "ControllerAccountInterface"
+- "ControllerTransitionInterface"
+- "ControllerSlicesInterface"
+- "ControllerDecantInterface"
+- "ControllerEditAccountInterface"
 depends-member:
 - ["P6Estim826ControllerAccountInterface", "edit"]
 - ["P6Estim826ControllerAccountInterface", "remove"]
@@ -78,7 +78,7 @@ depends-member:
 - ["P6Estim819ControllerInterface", "numberOfAccounts"]
 - ["P6Estim819ControllerInterface", "showSlices"]
 - ["P6Estim828ControllerROAccountInterface", "Bool"]
-- ["P6Estim828ControllerROAccountInterface", "ControllerTransitionInteface"]
+- ["P6Estim828ControllerROAccountInterface", "ControllerTransitionInterface"]
 - ["P6Estim828ControllerROAccountInterface", "NSDecimalNumber"]
 - ["P6Estim828ControllerROAccountInterface", "String"]
 - ["P6Estim828ControllerROAccountInterface", "isNegative"]
@@ -88,7 +88,7 @@ depends-member:
 - ["P6Estim824ControllerSliceInterface", "Bool"]
 - ["P6Estim824ControllerSliceInterface", "ControllerSliceInterface"]
 - ["P6Estim824ControllerSliceInterface", "ControllerTransitionAccountInterface"]
-- ["P6Estim824ControllerSliceInterface", "ControllerTransitionInteface"]
+- ["P6Estim824ControllerSliceInterface", "ControllerTransitionInterface"]
 - ["P6Estim824ControllerSliceInterface", "Int"]
 - ["P6Estim824ControllerSliceInterface", "NSDate"]
 - ["P6Estim824ControllerSliceInterface", "account"]
@@ -104,7 +104,7 @@ depends-member:
 - ["P6Estim825ControllerSlicesInterface", "Int"]
 - ["P6Estim825ControllerSlicesInterface", "numberOfSlices"]
 - ["P6Estim825ControllerSlicesInterface", "slice"]
-- ["P6Estim836ControllerTransitionAccountInterface", "ControllerTransitionInteface"]
+- ["P6Estim836ControllerTransitionAccountInterface", "ControllerTransitionInterface"]
 - ["P6Estim836ControllerTransitionAccountInterface", "transition"]
 depends-nominal:
 - "P6Estim826ControllerAccountInterface"
@@ -127,4 +127,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "ad9d0f243cb585edd4677d8a48c69b69"
+interface-hash: "5c814603831d7352c68d9d9fd81aaff5"

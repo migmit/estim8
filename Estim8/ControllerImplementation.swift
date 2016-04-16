@@ -410,7 +410,7 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         }
     }
     
-    func whereToMove(account: ControllerTransitionInteface) -> (Int, Bool)? {
+    func whereToMove(account: ControllerTransitionInterface) -> (Int, Bool)? {
         if let t = account as? ControllerTransitionImplementation<Model> {
             return numbers[t.account]
         } else {
@@ -466,13 +466,13 @@ class ControllerTransitionAccountImplementation<Model: ModelInterface>: Controll
         return model.accountIsNegative(account)
     }
     
-    func transition() -> ControllerTransitionInteface {
+    func transition() -> ControllerTransitionInterface {
         return ControllerTransitionImplementation<Model>(account: account)
     }
     
 }
 
-class ControllerTransitionImplementation<Model: ModelInterface>: ControllerTransitionInteface {
+class ControllerTransitionImplementation<Model: ModelInterface>: ControllerTransitionInterface {
     
     let account: Model.Account
     
@@ -550,7 +550,7 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         }
     }
     
-    func whereToMove(account: ControllerTransitionInteface) -> (Int, Bool)? {
+    func whereToMove(account: ControllerTransitionInterface) -> (Int, Bool)? {
         if let t = account as? ControllerTransitionImplementation<Model> {
             return numbers[t.account]
         } else {
@@ -614,7 +614,7 @@ class ControllerUpdateInterface<Model: ModelInterface>: ControllerTransitionAcco
         return model.accountIsNegative(account)
     }
     
-    func transition() -> ControllerTransitionInteface {
+    func transition() -> ControllerTransitionInterface {
         return ControllerTransitionImplementation<Model>(account: model.accountOfUpdate(update))
     }
 
