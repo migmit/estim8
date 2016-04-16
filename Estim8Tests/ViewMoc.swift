@@ -268,7 +268,7 @@ class SlicesMoc: SlicesView {
         init(controller: ControllerSlicesInterface, slice: ControllerSliceInterface) {
             self.slice = slice
             var display: [(String, NSDecimalNumber)?] = []
-            let n = controller.numberOfAccounts()
+            let n = slice.numberOfAccounts()
             if (n > 0) {
                 for i in 0...(n-1) {
                     if let account = slice.account(i) {
@@ -309,8 +309,6 @@ class SlicesMoc: SlicesView {
     
     var numberOfSlices: Int
     
-    let numberOfAccounts: Int
-    
     var state: State
     
     init(parent: MainWindowMoc, controller: ControllerSlicesInterface, view: MocView) {
@@ -318,7 +316,6 @@ class SlicesMoc: SlicesView {
         self.controller = controller
         self.view = view
         self.numberOfSlices = controller.numberOfSlices()
-        self.numberOfAccounts = controller.numberOfAccounts()
         state = State(controller: controller, number: 0)!
     }
     

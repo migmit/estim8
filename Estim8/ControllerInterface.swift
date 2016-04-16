@@ -73,8 +73,6 @@ protocol ControllerSlicesInterface {
     
     func numberOfSlices() -> Int
     
-    func numberOfAccounts() -> Int
-    
     func slice(n: Int) -> ControllerSliceInterface?
     
 }
@@ -84,6 +82,8 @@ protocol ControllerSliceInterface {
     func sliceIndex() -> Int
     
     func buttonCalledCreate() -> Bool
+    
+    func numberOfAccounts() -> Int
     
     func account(n: Int) -> ControllerROAccountInterface?
     

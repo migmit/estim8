@@ -248,11 +248,11 @@ class ControllerTests: XCTestCase {
         deleteAccount(1)
         view?.mainWindow()?.expect([("QQQ", 16), ("SSS", 18)])
         view?.mainWindow()?.tapHistoryButton()
-        view?.slices()?.expect([("QQQ", 16), ("SSS", 18), nil], buttonTitle: "Create", prevEnabled: false, nextEnabled: true)
+        view?.slices()?.expect([("QQQ", 16), ("SSS", 18)], buttonTitle: "Create", prevEnabled: false, nextEnabled: true)
         view?.slices()?.tapNextButton()
         view?.slices()?.expect([("QQQ", 16), nil, ("RRR", 17)], buttonTitle: "Delete", prevEnabled: true, nextEnabled: true)
         view?.slices()?.tapNextButton()
-        view?.slices()?.expect([("QQQ", 16), nil, nil], buttonTitle: "Delete", prevEnabled: true, nextEnabled: false)
+        view?.slices()?.expect([("QQQ", 16), nil], buttonTitle: "Delete", prevEnabled: true, nextEnabled: false)
     }
     
     func testDecant() {

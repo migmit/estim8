@@ -343,18 +343,14 @@ class ControllerSlicesImplementation<Model: ModelInterface>: ControllerSlicesInt
         return model.slices().count + 1
     }
     
-    func numberOfAccounts() -> Int {
-        return accounts.count
-    }
-    
     func slice(n: Int) -> ControllerSliceInterface? {
         let slices = model.slices()
         if (n == 0) {
-            return ControllerCurrentStatePseudoSliceImplementation(parent: self, model: model, accounts: accounts)
+            return ControllerCurrentStatePseudoSliceImplementation(parent: self, model: model)
         } else if (n > slices.count) {
             return nil
         } else {
-            return ControllerSliceImplementation(parent: self, model: model, accounts: accounts, slice: slices[n-1], index: n-1)
+            return ControllerSliceImplementation(parent: self, model: model, slice: slices[n-1], index: n-1)
         }
     }
     
@@ -373,15 +369,12 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
     
     let model: Model
     
-    let accounts: [Model.Account]
+    let liveAccounts: [Model.Account]
     
-    let allAccounts: [Model.Account]
-    
-    init(parent: ControllerSlicesImplementation<Model>, model: Model, accounts: [Model.Account]) {
+    init(parent: ControllerSlicesImplementation<Model>, model: Model) {
         self.parent = parent
         self.model = model
-        self.accounts = model.liveAccounts()
-        self.allAccounts = accounts
+        self.liveAccounts = model.liveAccounts()
     }
     
     func sliceIndex() -> Int {
@@ -392,11 +385,15 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         return true
     }
     
+    func numberOfAccounts() -> Int {
+        return liveAccounts.count
+    }
+    
     func account(n: Int) -> ControllerROAccountInterface? {
-        if (n >= accounts.count) {
+        if (n >= liveAccounts.count) {
             return nil
         } else {
-            return ControllerROAccountImplementation(model: model, account: accounts[n])
+            return ControllerROAccountImplementation(model: model, account: liveAccounts[n])
         }
     }
 
@@ -405,7 +402,7 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         if (slices.isEmpty) {
             return nil
         } else {
-            return ControllerSliceImplementation(parent: parent, model: model, accounts: allAccounts, slice: slices[0], index: 0)
+            return ControllerSliceImplementation(parent: parent, model: model, slice: slices[0], index: 0)
         }
     }
     
@@ -415,7 +412,7 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
     
     func createOrRemove() {
         let slice = model.createSlice()
-        parent.createSlice(ControllerSliceImplementation(parent: parent, model: model, accounts: allAccounts, slice: slice, index: 0))
+        parent.createSlice(ControllerSliceImplementation(parent: parent, model: model, slice: slice, index: 0))
     }
     
     func sliceDate() -> NSDate? {
@@ -429,26 +426,32 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
     
     let model: Model
     
-    let accounts: [Model.Account]
-    
     let slice: Model.Slice
     
     let index: Int
     
-    let updates: [Model.Account: Model.Update]
+    let updates: [Model.Update?]
     
-    init(parent: ControllerSlicesImplementation<Model>, model: Model, accounts: [Model.Account], slice: Model.Slice, index: Int) {
+    init(parent: ControllerSlicesImplementation<Model>, model: Model, slice: Model.Slice, index: Int) {
         self.parent = parent
         self.model = model
-        self.accounts = accounts
         self.slice = slice
         self.index = index
-        let updates = model.lastUpdatesOfSlice(slice)
+        let lastUpdates = model.lastUpdatesOfSlice(slice)
         var updateAccounts: [Model.Account: Model.Update] = [:]
-        for update in updates {
+        for update in lastUpdates {
             updateAccounts.updateValue(update, forKey: model.accountOfUpdate(update))
         }
-        self.updates = updateAccounts
+        var updates: [Model.Update?] = []
+        for account in model.liveAccounts() {
+            updates.append(updateAccounts[account])
+        }
+        for account in model.deadAccounts() {
+            if let update = updateAccounts[account] {
+                updates.append(update)
+            }
+        }
+        self.updates = updates
     }
     
     func sliceIndex() -> Int {
@@ -459,12 +462,15 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         return false
     }
     
+    func numberOfAccounts() -> Int {
+        return updates.count
+    }
+    
     func account(n: Int) -> ControllerROAccountInterface? {
-        if (n >= accounts.count) {
+        if (n >= updates.count) {
             return nil
         } else {
-            let account = accounts[n]
-            if let update = updates[account] {
+            if let update = updates[n] {
                 return ControllerUpdateInterface(model: model, update: update)
             } else {
                 return nil
@@ -478,17 +484,17 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         if (n >= slices.count) {
             return nil
         } else {
-            return ControllerSliceImplementation(parent: parent, model: model, accounts: accounts, slice: slices[n], index: n)
+            return ControllerSliceImplementation(parent: parent, model: model, slice: slices[n], index: n)
         }
     }
     
     func prev() -> ControllerSliceInterface? {
         if (index == 0) {
-            return ControllerCurrentStatePseudoSliceImplementation(parent: parent, model: model, accounts: accounts)
+            return ControllerCurrentStatePseudoSliceImplementation(parent: parent, model: model)
         } else {
             let slices = model.slices()
             let n = index - 1
-            return ControllerSliceImplementation(parent: parent, model: model, accounts: accounts, slice: slices[n], index: n)
+            return ControllerSliceImplementation(parent: parent, model: model, slice: slices[n], index: n)
         }
     }
     

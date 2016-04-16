@@ -34,48 +34,48 @@ provides-member:
 - ["C6Estim825ControllerUpdateInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "ControllerEditAccountImplementation"
 - "ControllerCurrentStatePseudoSliceImplementation"
-- "ControllerEditAccountInterface"
-- "Bool"
-- "CreateAccountView"
-- "ControllerDecantImplementation"
-- "ControllerCreateAccountImplementation"
-- !private "||"
-- !private "IntegerLiteralType"
-- !private "!="
-- !private "+"
-- !private "!"
-- "ControllerSlicesInterface"
-- "ControllerSlicesImplementation"
-- "ControllerROAccountImplementation"
+- !private ">="
+- "SlicesView"
 - "EditAccountView"
 - "ControllerROAccountInterface"
 - "ControllerSliceImplementation"
-- !private "-"
-- !private "=="
-- "ControllerDecantInterface"
-- "ControllerImplementation"
-- "ControllerUpdateInterface"
-- !private ">="
-- "SlicesView"
-- "Int"
-- "ControllerInterface"
-- !private "Dictionary"
-- !private "&&"
-- "String"
-- "ControllerAccountInterface"
-- !private ">"
 - "DecantView"
-- "MainWindowView"
-- !private "BooleanLiteralType"
-- "ControllerSliceInterface"
 - "NSDate"
+- !private "&&"
+- "ControllerUpdateInterface"
+- "ControllerImplementation"
+- !private "BooleanLiteralType"
+- "ControllerSlicesInterface"
+- "ControllerSliceInterface"
+- "ControllerEditAccountInterface"
 - !private "FloatLiteralType"
+- "CreateAccountView"
+- "ControllerInterface"
+- "ControllerAccountInterface"
+- "Bool"
 - "ModelInterface"
-- "NSDecimalNumber"
 - "ControllerAccountImplementation"
+- !private "IntegerLiteralType"
 - "ControllerCreateAccountInterface"
+- "ControllerROAccountImplementation"
+- "ControllerEditAccountImplementation"
+- !private "+"
+- !private "!"
+- "ControllerCreateAccountImplementation"
+- "MainWindowView"
+- !private "=="
+- !private "||"
+- "String"
+- "NSDecimalNumber"
+- !private ">"
+- "ControllerSlicesImplementation"
+- !private "!="
+- "ControllerDecantImplementation"
+- "Int"
+- !private "Dictionary"
+- !private "-"
+- "ControllerDecantInterface"
 depends-member:
 - !private ["Ps9AnyObject", "ControllerAccountImplementation"]
 - !private ["Ps9AnyObject", "ControllerCreateAccountImplementation"]
@@ -89,7 +89,6 @@ depends-member:
 - ["Ps9AnyObject", "account"]
 - !private ["Ps9AnyObject", "accounts"]
 - !private ["Ps9AnyObject", "addAccount"]
-- !private ["Ps9AnyObject", "allAccounts"]
 - ["Ps9AnyObject", "buttonCalledCreate"]
 - ["Ps9AnyObject", "canCreate"]
 - ["Ps9AnyObject", "canDecant"]
@@ -108,6 +107,7 @@ depends-member:
 - !private ["Ps9AnyObject", "init"]
 - !private ["Ps9AnyObject", "isEmpty"]
 - ["Ps9AnyObject", "isNegative"]
+- !private ["Ps9AnyObject", "liveAccounts"]
 - !private ["Ps9AnyObject", "model"]
 - ["Ps9AnyObject", "name"]
 - ["Ps9AnyObject", "next"]
@@ -135,6 +135,7 @@ depends-member:
 - !private ["Sa", "Index"]
 - !private ["Sa", "SubSequence"]
 - !private ["Sa", "_Element"]
+- !private ["Sa", "append"]
 - !private ["Sa", "count"]
 - !private ["Sa", "deinit"]
 - !private ["Sa", "isEmpty"]
@@ -143,6 +144,7 @@ depends-member:
 - !private ["Ps23ArrayLiteralConvertible", "Index"]
 - !private ["Ps23ArrayLiteralConvertible", "SubSequence"]
 - !private ["Ps23ArrayLiteralConvertible", "_Element"]
+- !private ["Ps23ArrayLiteralConvertible", "append"]
 - !private ["Ps23ArrayLiteralConvertible", "count"]
 - !private ["Ps23ArrayLiteralConvertible", "isEmpty"]
 - !private ["Ps23ArrayLiteralConvertible", "subscript"]
@@ -170,13 +172,13 @@ depends-member:
 - !private ["Ps14CollectionType", "SubSequence"]
 - !private ["Ps14CollectionType", "Value"]
 - !private ["Ps14CollectionType", "_Element"]
+- !private ["Ps14CollectionType", "append"]
 - !private ["Ps14CollectionType", "count"]
 - !private ["Ps14CollectionType", "isEmpty"]
 - !private ["Ps14CollectionType", "subscript"]
 - !private ["Ps14CollectionType", "updateValue"]
 - !private ["Ps10Comparable", "Distance"]
 - !private ["Ps10Comparable", "IntegerLiteralType"]
-- !private ["Ps10Comparable", "_DisabledRangeIndex"]
 - !private ["Ps10Comparable", "isEmpty"]
 - ["C6Estim831ControllerAccountImplementation", "Bool"]
 - !private ["C6Estim831ControllerAccountImplementation", "ControllerEditAccountImplementation"]
@@ -243,14 +245,14 @@ depends-member:
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "Model"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "NSDate"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "account"]
-- ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "accounts"]
-- ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "allAccounts"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "buttonCalledCreate"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "createOrRemove"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "deinit"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "init"]
+- ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "liveAccounts"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "model"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "next"]
+- ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "numberOfAccounts"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "parent"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "prev"]
 - ["C6Estim847ControllerCurrentStatePseudoSliceImplementation", "sliceDate"]
@@ -398,7 +400,6 @@ depends-member:
 - ["C6Estim829ControllerSliceImplementation", "Model"]
 - ["C6Estim829ControllerSliceImplementation", "NSDate"]
 - ["C6Estim829ControllerSliceImplementation", "account"]
-- ["C6Estim829ControllerSliceImplementation", "accounts"]
 - ["C6Estim829ControllerSliceImplementation", "buttonCalledCreate"]
 - ["C6Estim829ControllerSliceImplementation", "createOrRemove"]
 - ["C6Estim829ControllerSliceImplementation", "deinit"]
@@ -406,6 +407,7 @@ depends-member:
 - ["C6Estim829ControllerSliceImplementation", "init"]
 - ["C6Estim829ControllerSliceImplementation", "model"]
 - ["C6Estim829ControllerSliceImplementation", "next"]
+- ["C6Estim829ControllerSliceImplementation", "numberOfAccounts"]
 - ["C6Estim829ControllerSliceImplementation", "parent"]
 - ["C6Estim829ControllerSliceImplementation", "prev"]
 - ["C6Estim829ControllerSliceImplementation", "slice"]
@@ -417,14 +419,14 @@ depends-member:
 - !private ["P6Estim824ControllerSliceInterface", "ControllerSliceImplementation"]
 - !private ["P6Estim824ControllerSliceInterface", "ControllerUpdateInterface"]
 - ["P6Estim824ControllerSliceInterface", "account"]
-- !private ["P6Estim824ControllerSliceInterface", "accounts"]
-- !private ["P6Estim824ControllerSliceInterface", "allAccounts"]
 - ["P6Estim824ControllerSliceInterface", "buttonCalledCreate"]
 - ["P6Estim824ControllerSliceInterface", "createOrRemove"]
 - !private ["P6Estim824ControllerSliceInterface", "index"]
 - !private ["P6Estim824ControllerSliceInterface", "init"]
+- !private ["P6Estim824ControllerSliceInterface", "liveAccounts"]
 - !private ["P6Estim824ControllerSliceInterface", "model"]
 - ["P6Estim824ControllerSliceInterface", "next"]
+- ["P6Estim824ControllerSliceInterface", "numberOfAccounts"]
 - !private ["P6Estim824ControllerSliceInterface", "parent"]
 - ["P6Estim824ControllerSliceInterface", "prev"]
 - !private ["P6Estim824ControllerSliceInterface", "slice"]
@@ -443,7 +445,6 @@ depends-member:
 - ["C6Estim830ControllerSlicesImplementation", "deinit"]
 - ["C6Estim830ControllerSlicesImplementation", "init"]
 - ["C6Estim830ControllerSlicesImplementation", "model"]
-- ["C6Estim830ControllerSlicesImplementation", "numberOfAccounts"]
 - ["C6Estim830ControllerSlicesImplementation", "numberOfSlices"]
 - ["C6Estim830ControllerSlicesImplementation", "removeSlice"]
 - ["C6Estim830ControllerSlicesImplementation", "setView"]
@@ -455,7 +456,6 @@ depends-member:
 - !private ["P6Estim825ControllerSlicesInterface", "createSlice"]
 - !private ["P6Estim825ControllerSlicesInterface", "init"]
 - !private ["P6Estim825ControllerSlicesInterface", "model"]
-- ["P6Estim825ControllerSlicesInterface", "numberOfAccounts"]
 - ["P6Estim825ControllerSlicesInterface", "numberOfSlices"]
 - !private ["P6Estim825ControllerSlicesInterface", "removeSlice"]
 - !private ["P6Estim825ControllerSlicesInterface", "setView"]
@@ -482,6 +482,7 @@ depends-member:
 - !private ["Ps28CustomDebugStringConvertible", "SubSequence"]
 - !private ["Ps28CustomDebugStringConvertible", "Value"]
 - !private ["Ps28CustomDebugStringConvertible", "_Element"]
+- !private ["Ps28CustomDebugStringConvertible", "append"]
 - !private ["Ps28CustomDebugStringConvertible", "compare"]
 - !private ["Ps28CustomDebugStringConvertible", "count"]
 - !private ["Ps28CustomDebugStringConvertible", "decimalNumberByAdding"]
@@ -498,6 +499,7 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "Value"]
 - !private ["Ps23CustomStringConvertible", "_Element"]
 - !private ["Ps23CustomStringConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps23CustomStringConvertible", "append"]
 - !private ["Ps23CustomStringConvertible", "compare"]
 - !private ["Ps23CustomStringConvertible", "count"]
 - !private ["Ps23CustomStringConvertible", "decimalNumberByAdding"]
@@ -507,23 +509,12 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "updateValue"]
 - !private ["P6Estim810DecantView", "hideSubView"]
 - !private ["P6Estim810DecantView", "showSubView"]
-- !private ["Vs10Dictionary", "Generator"]
-- !private ["Vs10Dictionary", "Index"]
 - !private ["Vs10Dictionary", "Key"]
-- !private ["Vs10Dictionary", "SubSequence"]
 - !private ["Vs10Dictionary", "Value"]
-- !private ["Vs10Dictionary", "_Element"]
-- !private ["Vs10Dictionary", "deinit"]
 - !private ["Vs10Dictionary", "subscript"]
 - !private ["Vs10Dictionary", "updateValue"]
-- !private ["Vs15DictionaryIndex", "Distance"]
-- !private ["Vs15DictionaryIndex", "_DisabledRangeIndex"]
-- !private ["Ps28DictionaryLiteralConvertible", "Generator"]
-- !private ["Ps28DictionaryLiteralConvertible", "Index"]
 - !private ["Ps28DictionaryLiteralConvertible", "Key"]
-- !private ["Ps28DictionaryLiteralConvertible", "SubSequence"]
 - !private ["Ps28DictionaryLiteralConvertible", "Value"]
-- !private ["Ps28DictionaryLiteralConvertible", "_Element"]
 - !private ["Ps28DictionaryLiteralConvertible", "subscript"]
 - !private ["Ps28DictionaryLiteralConvertible", "updateValue"]
 - !private ["P6Estim815EditAccountView", "hideSubView"]
@@ -532,7 +523,6 @@ depends-member:
 - !private ["Ps9Equatable", "IntegerLiteralType"]
 - !private ["Ps9Equatable", "OrderedAscending"]
 - !private ["Ps9Equatable", "RawValue"]
-- !private ["Ps9Equatable", "_DisabledRangeIndex"]
 - !private ["Ps9Equatable", "_getBuiltinLogicValue"]
 - !private ["Ps9Equatable", "compare"]
 - !private ["Ps9Equatable", "decimalNumberByAdding"]
@@ -544,7 +534,6 @@ depends-member:
 - !private ["Ps23FloatLiteralConvertible", "decimalNumberByMultiplyingBy"]
 - !private ["Ps16ForwardIndexType", "Distance"]
 - !private ["Ps16ForwardIndexType", "IntegerLiteralType"]
-- !private ["Ps16ForwardIndexType", "_DisabledRangeIndex"]
 - !private ["Ps13GeneratorType", "Element"]
 - !private ["Ps8Hashable", "Distance"]
 - !private ["Ps8Hashable", "IntegerLiteralType"]
@@ -561,6 +550,7 @@ depends-member:
 - !private ["Ps9Indexable", "SubSequence"]
 - !private ["Ps9Indexable", "Value"]
 - !private ["Ps9Indexable", "_Element"]
+- !private ["Ps9Indexable", "append"]
 - !private ["Ps9Indexable", "count"]
 - !private ["Ps9Indexable", "isEmpty"]
 - !private ["Ps9Indexable", "subscript"]
@@ -609,6 +599,7 @@ depends-member:
 - !private ["Ps21MutableCollectionType", "Index"]
 - !private ["Ps21MutableCollectionType", "SubSequence"]
 - !private ["Ps21MutableCollectionType", "_Element"]
+- !private ["Ps21MutableCollectionType", "append"]
 - !private ["Ps21MutableCollectionType", "count"]
 - !private ["Ps21MutableCollectionType", "isEmpty"]
 - !private ["Ps21MutableCollectionType", "subscript"]
@@ -616,6 +607,7 @@ depends-member:
 - !private ["Ps16MutableIndexable", "Index"]
 - !private ["Ps16MutableIndexable", "SubSequence"]
 - !private ["Ps16MutableIndexable", "_Element"]
+- !private ["Ps16MutableIndexable", "append"]
 - !private ["Ps16MutableIndexable", "count"]
 - !private ["Ps16MutableIndexable", "isEmpty"]
 - !private ["Ps16MutableIndexable", "subscript"]
@@ -623,6 +615,7 @@ depends-member:
 - !private ["Ps16MutableSliceable", "Index"]
 - !private ["Ps16MutableSliceable", "SubSequence"]
 - !private ["Ps16MutableSliceable", "_Element"]
+- !private ["Ps16MutableSliceable", "append"]
 - !private ["Ps16MutableSliceable", "count"]
 - !private ["Ps16MutableSliceable", "isEmpty"]
 - !private ["Ps16MutableSliceable", "subscript"]
@@ -673,6 +666,7 @@ depends-member:
 - !private ["Ps30RangeReplaceableCollectionType", "Index"]
 - !private ["Ps30RangeReplaceableCollectionType", "SubSequence"]
 - !private ["Ps30RangeReplaceableCollectionType", "_Element"]
+- !private ["Ps30RangeReplaceableCollectionType", "append"]
 - !private ["Ps30RangeReplaceableCollectionType", "count"]
 - !private ["Ps30RangeReplaceableCollectionType", "isEmpty"]
 - !private ["Ps30RangeReplaceableCollectionType", "subscript"]
@@ -685,6 +679,7 @@ depends-member:
 - !private ["Ps12SequenceType", "SubSequence"]
 - !private ["Ps12SequenceType", "Value"]
 - !private ["Ps12SequenceType", "_Element"]
+- !private ["Ps12SequenceType", "append"]
 - !private ["Ps12SequenceType", "count"]
 - !private ["Ps12SequenceType", "isEmpty"]
 - !private ["Ps12SequenceType", "subscript"]
@@ -715,6 +710,7 @@ depends-member:
 - !private ["Ps10_ArrayType", "Index"]
 - !private ["Ps10_ArrayType", "SubSequence"]
 - !private ["Ps10_ArrayType", "_Element"]
+- !private ["Ps10_ArrayType", "append"]
 - !private ["Ps10_ArrayType", "count"]
 - !private ["Ps10_ArrayType", "isEmpty"]
 - !private ["Ps10_ArrayType", "subscript"]
@@ -729,12 +725,12 @@ depends-member:
 - !private ["Ps24_DestructorSafeContainer", "Index"]
 - !private ["Ps24_DestructorSafeContainer", "SubSequence"]
 - !private ["Ps24_DestructorSafeContainer", "_Element"]
+- !private ["Ps24_DestructorSafeContainer", "append"]
 - !private ["Ps24_DestructorSafeContainer", "count"]
 - !private ["Ps24_DestructorSafeContainer", "isEmpty"]
 - !private ["Ps24_DestructorSafeContainer", "subscript"]
 - !private ["Ps14_Incrementable", "Distance"]
 - !private ["Ps14_Incrementable", "IntegerLiteralType"]
-- !private ["Ps14_Incrementable", "_DisabledRangeIndex"]
 - !private ["Ps22_IntegerArithmeticType", "Distance"]
 - !private ["Ps22_IntegerArithmeticType", "IntegerLiteralType"]
 - !private ["Ps12_IntegerType", "Distance"]
@@ -748,6 +744,7 @@ depends-member:
 - !private ["Ps21_ObjectiveCBridgeable", "Value"]
 - !private ["Ps21_ObjectiveCBridgeable", "_Element"]
 - !private ["Ps21_ObjectiveCBridgeable", "_getBuiltinLogicValue"]
+- !private ["Ps21_ObjectiveCBridgeable", "append"]
 - !private ["Ps21_ObjectiveCBridgeable", "count"]
 - !private ["Ps21_ObjectiveCBridgeable", "isEmpty"]
 - !private ["Ps21_ObjectiveCBridgeable", "subscript"]
@@ -764,6 +761,7 @@ depends-member:
 - !private ["Ps12_Reflectable", "Value"]
 - !private ["Ps12_Reflectable", "_Element"]
 - !private ["Ps12_Reflectable", "_getBuiltinLogicValue"]
+- !private ["Ps12_Reflectable", "append"]
 - !private ["Ps12_Reflectable", "count"]
 - !private ["Ps12_Reflectable", "isEmpty"]
 - !private ["Ps12_Reflectable", "subscript"]
@@ -806,7 +804,6 @@ depends-nominal:
 - !private "Ps23CustomStringConvertible"
 - !private "P6Estim810DecantView"
 - !private "Vs10Dictionary"
-- !private "Vs15DictionaryIndex"
 - !private "Ps28DictionaryLiteralConvertible"
 - !private "P6Estim815EditAccountView"
 - !private "Ps9Equatable"
@@ -882,4 +879,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "549fe201f5aec324955e4be41dfce515"
+interface-hash: "56cea84c7297469d6f723e9cb30045bf"

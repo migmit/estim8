@@ -84,7 +84,7 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewImplementation?.controller.numberOfAccounts() ?? 0
+        return currentSlice?.numberOfAccounts() ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

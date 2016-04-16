@@ -29,18 +29,18 @@ provides-member:
 provides-dynamic-lookup:
 depends-top-level:
 - "NSDate"
-- "Int"
-- "ControllerCreateAccountInterface"
-- "String"
-- "NSDecimalNumber"
-- "ControllerEditAccountInterface"
-- "ControllerSlicesInterface"
-- "Bool"
-- "ControllerSliceInterface"
 - "ControllerDecantInterface"
+- "NSDecimalNumber"
+- "ControllerCreateAccountInterface"
+- "ControllerSliceInterface"
 - "ControllerROAccountInterface"
-- "ControllerInterface"
+- "Bool"
+- "ControllerSlicesInterface"
 - "ControllerAccountInterface"
+- "ControllerEditAccountInterface"
+- "String"
+- "Int"
+- "ControllerInterface"
 depends-member:
 - ["P6Estim826ControllerAccountInterface", "edit"]
 - ["P6Estim826ControllerAccountInterface", "remove"]
@@ -85,12 +85,12 @@ depends-member:
 - ["P6Estim824ControllerSliceInterface", "buttonCalledCreate"]
 - ["P6Estim824ControllerSliceInterface", "createOrRemove"]
 - ["P6Estim824ControllerSliceInterface", "next"]
+- ["P6Estim824ControllerSliceInterface", "numberOfAccounts"]
 - ["P6Estim824ControllerSliceInterface", "prev"]
 - ["P6Estim824ControllerSliceInterface", "sliceDate"]
 - ["P6Estim824ControllerSliceInterface", "sliceIndex"]
 - ["P6Estim825ControllerSlicesInterface", "ControllerSliceInterface"]
 - ["P6Estim825ControllerSlicesInterface", "Int"]
-- ["P6Estim825ControllerSlicesInterface", "numberOfAccounts"]
 - ["P6Estim825ControllerSlicesInterface", "numberOfSlices"]
 - ["P6Estim825ControllerSlicesInterface", "slice"]
 depends-nominal:
@@ -113,4 +113,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "cfd2ec4b3e5db7d2fe153c65b137f5fe"
+interface-hash: "b324180984d0bcd562baefaa8ea5f743"
