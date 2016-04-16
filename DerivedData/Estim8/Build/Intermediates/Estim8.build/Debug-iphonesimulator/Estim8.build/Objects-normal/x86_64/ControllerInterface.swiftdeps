@@ -34,21 +34,21 @@ provides-member:
 - ["P6Estim824ControllerSliceInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "ControllerTransitionAccountInterface"
-- "NSDate"
 - "ControllerInterface"
-- "ControllerROAccountInterface"
-- "String"
-- "ControllerSliceInterface"
 - "Bool"
-- "ControllerCreateAccountInterface"
-- "NSDecimalNumber"
 - "Int"
+- "ControllerDecantInterface"
+- "ControllerROAccountInterface"
+- "ControllerEditAccountInterface"
+- "ControllerSliceInterface"
+- "ControllerTransitionAccountInterface"
+- "NSDecimalNumber"
+- "NSDate"
+- "ControllerSlicesInterface"
+- "ControllerCreateAccountInterface"
+- "String"
 - "ControllerAccountInterface"
 - "ControllerTransitionInterface"
-- "ControllerSlicesInterface"
-- "ControllerDecantInterface"
-- "ControllerEditAccountInterface"
 depends-member:
 - ["P6Estim826ControllerAccountInterface", "edit"]
 - ["P6Estim826ControllerAccountInterface", "remove"]

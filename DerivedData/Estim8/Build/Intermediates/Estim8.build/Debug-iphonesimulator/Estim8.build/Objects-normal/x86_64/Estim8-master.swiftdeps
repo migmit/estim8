@@ -1,13 +1,13 @@
 version: "Apple Swift version 2.2 (swiftlang-703.0.18.1 clang-703.0.29)"
 options: "4dad9238aa2a46cda7fb73df4ec5a592"
-build_time: [514142397, 375336000]
+build_time: [514143400, 191978000]
 inputs:
   "/Users/MigMit/Documents/Estim8/Estim8/CreateAccountViewController.swift": [514074741, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/DecantViewController.swift": [514074741, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ViewController.swift": [513707268, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ControllerInterface.swift": [514136004, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ModelInterface.swift": [514121958, 0]
-  "/Users/MigMit/Documents/Estim8/Estim8/NumberOnlyText.swift": [514074741, 0]
+  "/Users/MigMit/Documents/Estim8/Estim8/NumberField.swift": [514074741, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ModelImplementation.swift": [514121958, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ViewInterface.swift": [513710774, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/SubViewController.swift": [513804207, 0]
