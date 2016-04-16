@@ -70,6 +70,15 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
             }
             
+            func bounceBack(updatesTable: UITableView) {
+                let maximumOffset = updatesTable.contentSize.height - updatesTable.bounds.height
+                if (updatesTable.contentOffset.y < 0) {
+                    updatesTable.setContentOffset(CGPointMake(updatesTable.contentOffset.x, 0), animated: true)
+                } else if (updatesTable.contentOffset.y > maximumOffset) {
+                    updatesTable.setContentOffset(CGPointMake(updatesTable.contentOffset.x, maximumOffset), animated: true)
+                }
+            }
+            
             func translate(slice: ControllerSliceInterface, updatesTable: UITableView) {
                 if let transition = slice.whereToMove(transitionAccount) {
                     let (rowNumber, isVisible) = transition
@@ -241,6 +250,7 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     
                 }
             default:
+                panning?.row?.bounceBack(updatesTable)
                 panning = nil
             }
         }
