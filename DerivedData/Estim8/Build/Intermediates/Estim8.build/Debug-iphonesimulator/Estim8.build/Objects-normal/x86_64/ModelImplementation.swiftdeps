@@ -7,27 +7,27 @@ provides-member:
 - ["C6Estim819ModelImplementation", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- !private "NSError"
-- "String"
-- "NSDate"
-- !private "BooleanLiteralType"
-- !private "NSEntityDescription"
-- "Bool"
-- !private "Set"
-- !private "??"
-- !private "StringLiteralType"
 - "NSManagedObjectContext"
-- "ModelImplementation"
-- "ModelInterface"
-- !private "Int"
-- !private "NSComparisonResult"
-- !private "NSSortDescriptor"
+- !private "=="
 - "NSManagedObject"
-- "NSDecimalNumber"
+- !private "NSComparisonResult"
+- "NSDate"
+- !private "Int"
+- "ModelInterface"
 - !private "Array"
 - !private "NSFetchRequest"
-- !private "=="
+- "Bool"
+- !private "StringLiteralType"
+- !private "Set"
+- "ModelImplementation"
+- "NSDecimalNumber"
+- !private "NSSortDescriptor"
+- !private "BooleanLiteralType"
 - !private "NSPredicate"
+- !private "NSEntityDescription"
+- !private "NSError"
+- !private "??"
+- "String"
 depends-member:
 - ["Ps9AnyObject", "Account"]
 - !private ["Ps9AnyObject", "Array"]
@@ -45,7 +45,7 @@ depends-member:
 - ["Ps9AnyObject", "accountIsNegative"]
 - ["Ps9AnyObject", "accountOfUpdate"]
 - ["Ps9AnyObject", "accountOpenDate"]
-- ["Ps9AnyObject", "addAccountAnUpdate"]
+- ["Ps9AnyObject", "addAccountAndUpdate"]
 - !private ["Ps9AnyObject", "compare"]
 - !private ["Ps9AnyObject", "countForFetchRequest"]
 - ["Ps9AnyObject", "createSlice"]
@@ -242,7 +242,7 @@ depends-member:
 - ["C6Estim819ModelImplementation", "accountIsNegative"]
 - ["C6Estim819ModelImplementation", "accountOfUpdate"]
 - ["C6Estim819ModelImplementation", "accountOpenDate"]
-- ["C6Estim819ModelImplementation", "addAccountAnUpdate"]
+- ["C6Estim819ModelImplementation", "addAccountAndUpdate"]
 - ["C6Estim819ModelImplementation", "createSlice"]
 - ["C6Estim819ModelImplementation", "dateOfSlice"]
 - ["C6Estim819ModelImplementation", "dateOfUpdate"]
@@ -275,7 +275,7 @@ depends-member:
 - ["P6Estim814ModelInterface", "accountIsNegative"]
 - ["P6Estim814ModelInterface", "accountOfUpdate"]
 - ["P6Estim814ModelInterface", "accountOpenDate"]
-- ["P6Estim814ModelInterface", "addAccountAnUpdate"]
+- ["P6Estim814ModelInterface", "addAccountAndUpdate"]
 - ["P6Estim814ModelInterface", "createSlice"]
 - ["P6Estim814ModelInterface", "dateOfSlice"]
 - ["P6Estim814ModelInterface", "dateOfUpdate"]
@@ -547,4 +547,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "7bf28f10bd2549bc621165f322585c4b"
+interface-hash: "a3ddea6ffb20eb73901f4baf15ca20eb"

@@ -121,7 +121,7 @@ class ModelImplementation: ModelInterface {
         do {try managedObjectContext.save()} catch {}
     }
     
-    func addAccountAnUpdate(title: String, value: NSDecimalNumber, isNegative: Bool) -> Account {
+    func addAccountAndUpdate(title: String, value: NSDecimalNumber, isNegative: Bool) -> Account {
         let countRequest = NSFetchRequest(entityName: "Account")
         var error: NSError?
         let count: Int = managedObjectContext.countForFetchRequest(countRequest, error: &error)

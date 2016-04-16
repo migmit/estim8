@@ -199,7 +199,7 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
     func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
         if (canCreate(title, initialValue: initialValue, isNegative: isNegative)) {
             view?.hideSubView()
-            model.addAccountAnUpdate(title, value: initialValue, isNegative: isNegative)
+            model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative)
             parent.addAccount()
             return true
         } else {

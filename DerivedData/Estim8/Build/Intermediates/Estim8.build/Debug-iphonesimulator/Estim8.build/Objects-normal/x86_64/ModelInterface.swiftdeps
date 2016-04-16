@@ -7,12 +7,12 @@ provides-member:
 - ["P6Estim814ModelInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "ModelInterface"
 - "Bool"
 - "NSDecimalNumber"
 - "Hashable"
-- "NSDate"
 - "String"
+- "NSDate"
+- "ModelInterface"
 depends-member:
 - ["P6Estim814ModelInterface", "Account"]
 - ["P6Estim814ModelInterface", "Bool"]
@@ -26,7 +26,7 @@ depends-member:
 - ["P6Estim814ModelInterface", "accountIsNegative"]
 - ["P6Estim814ModelInterface", "accountOfUpdate"]
 - ["P6Estim814ModelInterface", "accountOpenDate"]
-- ["P6Estim814ModelInterface", "addAccountAnUpdate"]
+- ["P6Estim814ModelInterface", "addAccountAndUpdate"]
 - ["P6Estim814ModelInterface", "createSlice"]
 - ["P6Estim814ModelInterface", "dateOfSlice"]
 - ["P6Estim814ModelInterface", "dateOfUpdate"]
@@ -53,4 +53,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "ee787f7e586c5a9c776c1a6622efe027"
+interface-hash: "07cb8690c7246086bbf270cea185d547"

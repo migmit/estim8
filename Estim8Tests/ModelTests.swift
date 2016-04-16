@@ -43,7 +43,7 @@ class ModelTests: XCTestCase {
     }
     
     func testAddAccount() {
-        model!.addAccountAnUpdate("AAA", value: -5, isNegative: true)
+        model!.addAccountAndUpdate("AAA", value: -5, isNegative: true)
         let accounts = model!.liveAccounts()
         XCTAssertEqual(accounts.count, 1)
         let account = accounts[0]
@@ -61,7 +61,7 @@ class ModelTests: XCTestCase {
     }
     
     func testUpdateAccount() {
-        let account = model!.addAccountAnUpdate("BBB", value: 3, isNegative: true)
+        let account = model!.addAccountAndUpdate("BBB", value: 3, isNegative: true)
         XCTAssertEqual(model!.liveAccounts().count, 1)
         XCTAssertEqual(model!.updatesOfAccount(account).count, 1)
         model!.updateAccount(account, value: 13)
@@ -74,8 +74,8 @@ class ModelTests: XCTestCase {
     }
     
     func testMultipleAccounts() {
-        let account1 = model!.addAccountAnUpdate("CCC", value: 7, isNegative: false)
-        let account2 = model!.addAccountAnUpdate("DDD", value: 8, isNegative: true)
+        let account1 = model!.addAccountAndUpdate("CCC", value: 7, isNegative: false)
+        let account2 = model!.addAccountAndUpdate("DDD", value: 8, isNegative: true)
         XCTAssertEqual(model!.nameOfAccount(account1), "CCC")
         XCTAssertEqual(model!.nameOfAccount(account2), "DDD")
         XCTAssertEqual(model!.accountIsNegative(account1), false)
@@ -91,7 +91,7 @@ class ModelTests: XCTestCase {
     }
     
     func testCreateSlice() {
-        let account = model!.addAccountAnUpdate("EEE", value: 9, isNegative: false)
+        let account = model!.addAccountAndUpdate("EEE", value: 9, isNegative: false)
         let slice = model!.createSlice()
         XCTAssertEqual(model!.slices(),[slice])
         model!.updateAccount(account, value: 19)
@@ -101,7 +101,7 @@ class ModelTests: XCTestCase {
     }
     
     func testMultipleSlices() {
-        let account = model!.addAccountAnUpdate("FFF", value: 2, isNegative: false)
+        let account = model!.addAccountAndUpdate("FFF", value: 2, isNegative: false)
         let slice1 = model!.createSlice()
         model!.updateAccount(account, value: 12)
         let slice2 = model!.createSlice()
@@ -127,7 +127,7 @@ class ModelTests: XCTestCase {
     
     func testDates() {
         let t1 = NSDate()
-        let account = model!.addAccountAnUpdate("GGG", value: 4, isNegative: false)
+        let account = model!.addAccountAndUpdate("GGG", value: 4, isNegative: false)
         let t2 = model!.dateOfUpdate(model!.updatesOfAccount(account)[0])
         let t2_ = model!.accountOpenDate(account)
         let tnil = model!.accountClosingDate(account)

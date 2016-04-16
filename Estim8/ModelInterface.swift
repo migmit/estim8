@@ -42,7 +42,7 @@ protocol ModelInterface {
     
     func dateOfSlice(s: Slice) -> NSDate
     
-    func addAccountAnUpdate(name: String, value: NSDecimalNumber, isNegative: Bool) -> Account
+    func addAccountAndUpdate(name: String, value: NSDecimalNumber, isNegative: Bool) -> Account
     
     func createSlice() -> Slice
     
