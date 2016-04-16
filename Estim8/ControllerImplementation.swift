@@ -371,10 +371,23 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
     
     let liveAccounts: [Model.Account]
     
+    let numbers: [Model.Account: (Int, Bool)]
+    
     init(parent: ControllerSlicesImplementation<Model>, model: Model) {
         self.parent = parent
         self.model = model
-        self.liveAccounts = model.liveAccounts()
+        let liveAccounts = model.liveAccounts()
+        self.liveAccounts = liveAccounts
+        var numbers: [Model.Account: (Int, Bool)] = [:]
+        var i: Int = 0
+        for account in liveAccounts {
+            numbers.updateValue((i, true), forKey: account)
+            i += 1
+        }
+        for account in model.deadAccounts() {
+            numbers.updateValue((i, false), forKey: account)
+        }
+        self.numbers = numbers
     }
     
     func sliceIndex() -> Int {
@@ -389,11 +402,19 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         return liveAccounts.count
     }
     
-    func account(n: Int) -> ControllerROAccountInterface? {
+    func account(n: Int) -> ControllerTransitionAccountInterface? {
         if (n >= liveAccounts.count) {
             return nil
         } else {
-            return ControllerROAccountImplementation(model: model, account: liveAccounts[n])
+            return ControllerTransitionAccountImplementation(model: model, account: liveAccounts[n])
+        }
+    }
+    
+    func whereToMove(account: ControllerTransitionInteface) -> (Int, Bool)? {
+        if let t = account as? ControllerTransitionImplementation<Model> {
+            return numbers[t.account]
+        } else {
+            return nil
         }
     }
 
@@ -420,6 +441,46 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
     }
 }
 
+class ControllerTransitionAccountImplementation<Model: ModelInterface>: ControllerTransitionAccountInterface {
+    
+    let model: Model
+    
+    let account: Model.Account
+    
+    init(model: Model, account: Model.Account) {
+        self.model = model
+        self.account = account
+    }
+
+    func name() -> String {
+        return model.nameOfAccount(account)
+    }
+    
+    func value() -> NSDecimalNumber {
+        let updates = model.updatesOfAccount(account)
+        let update = updates[0]
+        return model.valueOfUpdate(update)
+    }
+    
+    func isNegative() -> Bool {
+        return model.accountIsNegative(account)
+    }
+    
+    func transition() -> ControllerTransitionInteface {
+        return ControllerTransitionImplementation<Model>(account: account)
+    }
+    
+}
+
+class ControllerTransitionImplementation<Model: ModelInterface>: ControllerTransitionInteface {
+    
+    let account: Model.Account
+    
+    init(account: Model.Account) {
+        self.account = account
+    }
+}
+
 class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInterface {
     
     let parent: ControllerSlicesImplementation<Model>
@@ -432,6 +493,8 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
     
     let updates: [Model.Update?]
     
+    let numbers: [Model.Account: (Int, Bool)]
+    
     init(parent: ControllerSlicesImplementation<Model>, model: Model, slice: Model.Slice, index: Int) {
         self.parent = parent
         self.model = model
@@ -443,15 +506,24 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
             updateAccounts.updateValue(update, forKey: model.accountOfUpdate(update))
         }
         var updates: [Model.Update?] = []
+        var i = 0
+        var numbers: [Model.Account: (Int, Bool)] = [:]
         for account in model.liveAccounts() {
             updates.append(updateAccounts[account])
+            numbers.updateValue((i, true), forKey: account)
+            i += 1
         }
         for account in model.deadAccounts() {
             if let update = updateAccounts[account] {
                 updates.append(update)
+                numbers.updateValue((i, true), forKey: account)
+                i += 1
+            } else {
+                numbers.updateValue((i, false), forKey: account)
             }
         }
         self.updates = updates
+        self.numbers = numbers
     }
     
     func sliceIndex() -> Int {
@@ -466,7 +538,7 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         return updates.count
     }
     
-    func account(n: Int) -> ControllerROAccountInterface? {
+    func account(n: Int) -> ControllerTransitionAccountInterface? {
         if (n >= updates.count) {
             return nil
         } else {
@@ -475,6 +547,14 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
             } else {
                 return nil
             }
+        }
+    }
+    
+    func whereToMove(account: ControllerTransitionInteface) -> (Int, Bool)? {
+        if let t = account as? ControllerTransitionImplementation<Model> {
+            return numbers[t.account]
+        } else {
+            return nil
         }
     }
     
@@ -509,7 +589,7 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
     }
 }
 
-class ControllerUpdateInterface<Model: ModelInterface>: ControllerROAccountInterface {
+class ControllerUpdateInterface<Model: ModelInterface>: ControllerTransitionAccountInterface {
     
     let model: Model
     
@@ -532,6 +612,10 @@ class ControllerUpdateInterface<Model: ModelInterface>: ControllerROAccountInter
     func isNegative() -> Bool {
         let account = model.accountOfUpdate(update)
         return model.accountIsNegative(account)
+    }
+    
+    func transition() -> ControllerTransitionInteface {
+        return ControllerTransitionImplementation<Model>(account: model.accountOfUpdate(update))
     }
 
 }

@@ -77,6 +77,16 @@ protocol ControllerSlicesInterface {
     
 }
 
+protocol ControllerTransitionInteface {
+    
+}
+
+protocol ControllerTransitionAccountInterface: ControllerROAccountInterface {
+    
+    func transition() -> ControllerTransitionInteface
+    
+}
+
 protocol ControllerSliceInterface {
     
     func sliceIndex() -> Int
@@ -85,7 +95,9 @@ protocol ControllerSliceInterface {
     
     func numberOfAccounts() -> Int
     
-    func account(n: Int) -> ControllerROAccountInterface?
+    func account(n: Int) -> ControllerTransitionAccountInterface?
+    
+    func whereToMove(account: ControllerTransitionInteface) -> (Int, Bool)?
     
     func next() -> ControllerSliceInterface?
     

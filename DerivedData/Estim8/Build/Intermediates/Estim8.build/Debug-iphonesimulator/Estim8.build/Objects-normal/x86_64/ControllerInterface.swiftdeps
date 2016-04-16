@@ -7,6 +7,8 @@ provides-top-level:
 - "ControllerCreateAccountInterface"
 - "ControllerDecantInterface"
 - "ControllerSlicesInterface"
+- "ControllerTransitionInteface"
+- "ControllerTransitionAccountInterface"
 - "ControllerSliceInterface"
 provides-nominal:
 - "P6Estim819ControllerInterface"
@@ -16,6 +18,8 @@ provides-nominal:
 - "P6Estim832ControllerCreateAccountInterface"
 - "P6Estim825ControllerDecantInterface"
 - "P6Estim825ControllerSlicesInterface"
+- "P6Estim828ControllerTransitionInteface"
+- "P6Estim836ControllerTransitionAccountInterface"
 - "P6Estim824ControllerSliceInterface"
 provides-member:
 - ["P6Estim819ControllerInterface", ""]
@@ -25,22 +29,26 @@ provides-member:
 - ["P6Estim832ControllerCreateAccountInterface", ""]
 - ["P6Estim825ControllerDecantInterface", ""]
 - ["P6Estim825ControllerSlicesInterface", ""]
+- ["P6Estim828ControllerTransitionInteface", ""]
+- ["P6Estim836ControllerTransitionAccountInterface", ""]
 - ["P6Estim824ControllerSliceInterface", ""]
 provides-dynamic-lookup:
 depends-top-level:
-- "NSDate"
+- "String"
+- "ControllerTransitionAccountInterface"
+- "ControllerROAccountInterface"
+- "Int"
+- "ControllerEditAccountInterface"
+- "ControllerSliceInterface"
+- "ControllerSlicesInterface"
+- "Bool"
+- "ControllerAccountInterface"
+- "ControllerInterface"
+- "ControllerCreateAccountInterface"
 - "ControllerDecantInterface"
 - "NSDecimalNumber"
-- "ControllerCreateAccountInterface"
-- "ControllerSliceInterface"
-- "ControllerROAccountInterface"
-- "Bool"
-- "ControllerSlicesInterface"
-- "ControllerAccountInterface"
-- "ControllerEditAccountInterface"
-- "String"
-- "Int"
-- "ControllerInterface"
+- "NSDate"
+- "ControllerTransitionInteface"
 depends-member:
 - ["P6Estim826ControllerAccountInterface", "edit"]
 - ["P6Estim826ControllerAccountInterface", "remove"]
@@ -70,6 +78,7 @@ depends-member:
 - ["P6Estim819ControllerInterface", "numberOfAccounts"]
 - ["P6Estim819ControllerInterface", "showSlices"]
 - ["P6Estim828ControllerROAccountInterface", "Bool"]
+- ["P6Estim828ControllerROAccountInterface", "ControllerTransitionInteface"]
 - ["P6Estim828ControllerROAccountInterface", "NSDecimalNumber"]
 - ["P6Estim828ControllerROAccountInterface", "String"]
 - ["P6Estim828ControllerROAccountInterface", "isNegative"]
@@ -77,8 +86,9 @@ depends-member:
 - ["P6Estim828ControllerROAccountInterface", "value"]
 - ["P6Estim828ControllerROAccountInterface", ""]
 - ["P6Estim824ControllerSliceInterface", "Bool"]
-- ["P6Estim824ControllerSliceInterface", "ControllerROAccountInterface"]
 - ["P6Estim824ControllerSliceInterface", "ControllerSliceInterface"]
+- ["P6Estim824ControllerSliceInterface", "ControllerTransitionAccountInterface"]
+- ["P6Estim824ControllerSliceInterface", "ControllerTransitionInteface"]
 - ["P6Estim824ControllerSliceInterface", "Int"]
 - ["P6Estim824ControllerSliceInterface", "NSDate"]
 - ["P6Estim824ControllerSliceInterface", "account"]
@@ -89,10 +99,13 @@ depends-member:
 - ["P6Estim824ControllerSliceInterface", "prev"]
 - ["P6Estim824ControllerSliceInterface", "sliceDate"]
 - ["P6Estim824ControllerSliceInterface", "sliceIndex"]
+- ["P6Estim824ControllerSliceInterface", "whereToMove"]
 - ["P6Estim825ControllerSlicesInterface", "ControllerSliceInterface"]
 - ["P6Estim825ControllerSlicesInterface", "Int"]
 - ["P6Estim825ControllerSlicesInterface", "numberOfSlices"]
 - ["P6Estim825ControllerSlicesInterface", "slice"]
+- ["P6Estim836ControllerTransitionAccountInterface", "ControllerTransitionInteface"]
+- ["P6Estim836ControllerTransitionAccountInterface", "transition"]
 depends-nominal:
 - "P6Estim826ControllerAccountInterface"
 - "P6Estim832ControllerCreateAccountInterface"
@@ -102,6 +115,7 @@ depends-nominal:
 - "P6Estim828ControllerROAccountInterface"
 - "P6Estim824ControllerSliceInterface"
 - "P6Estim825ControllerSlicesInterface"
+- "P6Estim836ControllerTransitionAccountInterface"
 depends-dynamic-lookup:
 depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
@@ -113,4 +127,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "b324180984d0bcd562baefaa8ea5f743"
+interface-hash: "ad9d0f243cb585edd4677d8a48c69b69"
