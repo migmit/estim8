@@ -93,6 +93,7 @@ typedef int swift_int4  __attribute__((__ext_vector_type__(4)));
 #endif
 #if defined(__has_feature) && __has_feature(modules)
 @import UIKit;
+@import CoreData;
 @import CoreGraphics;
 @import Foundation;
 #endif
@@ -164,6 +165,17 @@ SWIFT_CLASS("_TtC6Estim827CreateAccountViewController")
 - (nonnull instancetype)initWithStyle:(UITableViewStyle)style OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class NSManagedObject;
+@class NSEntityMapping;
+@class NSMigrationManager;
+
+SWIFT_CLASS("_TtC6Estim824CurrenciesUpdateToUpdate")
+@interface CurrenciesUpdateToUpdate : NSEntityMigrationPolicy
+@property (nonatomic, strong) NSManagedObject * _Nullable currencyUpdate;
+- (BOOL)createDestinationInstancesForSourceInstance:(NSManagedObject * _Nonnull)sInstance entityMapping:(NSEntityMapping * _Nonnull)mapping manager:(NSMigrationManager * _Nonnull)manager error:(NSError * _Nullable * _Null_unspecified)error;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class NSDecimalNumber;

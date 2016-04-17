@@ -6,54 +6,59 @@ provides-nominal:
 provides-member:
 - ["C6Estim811AppDelegate", ""]
 provides-dynamic-lookup:
-- "applicationWillResignActive"
-- "applicationDidBecomeActive"
-- "applicationDocumentsDirectory"
-- "managedObjectModel"
-- "managedObjectContext"
-- "applicationWillTerminate"
-- "application"
 - "window"
-- "persistentStoreCoordinator"
-- "applicationDidEnterBackground"
-- "saveContext"
 - "applicationWillEnterForeground"
+- "persistentStoreCoordinator"
+- "saveContext"
+- "applicationDidBecomeActive"
+- "applicationWillResignActive"
+- "managedObjectModel"
+- "applicationDocumentsDirectory"
+- "applicationWillTerminate"
+- "managedObjectContext"
+- "applicationDidEnterBackground"
+- "application"
 depends-top-level:
-- !private "-"
+- "UIApplicationDelegate"
+- !private "NSFileManager"
+- !private "NSLocalizedDescriptionKey"
+- !private "NSError"
 - "NSObject"
 - "NSManagedObjectModel"
-- !private "NSLocalizedFailureReasonErrorKey"
-- "UIResponder"
-- !private "NSFileManager"
-- !private "NSError"
-- !private "abort"
-- "UIWindow"
-- !private "NSSQLiteStoreType"
-- "AppDelegate"
+- !private "NSInferMappingModelAutomaticallyOption"
+- "NSManagedObjectContext"
+- !private "-"
+- !private "NSMigratePersistentStoresAutomaticallyOption"
 - !private "String"
+- !private "NSBundle"
+- "AppDelegate"
 - !private "NSUnderlyingErrorKey"
 - "StringLiteralType"
+- "NSPersistentStoreCoordinator"
 - !private "NSLog"
 - "Bool"
-- "NSURL"
-- "UIApplication"
+- !private "abort"
 - "AnyObject"
-- !private "NSBundle"
-- "NSPersistentStoreCoordinator"
-- !private "BooleanLiteralType"
-- !private "NSLocalizedDescriptionKey"
-- "NSManagedObjectContext"
-- "UIApplicationDelegate"
+- "UIWindow"
+- "Dictionary"
+- !private "NSSQLiteStoreType"
+- "BooleanLiteralType"
+- "UIResponder"
+- "UIApplication"
+- "NSURL"
+- !private "NSLocalizedFailureReasonErrorKey"
 depends-member:
 - !private ["Ps9AnyObject", "AnyObject"]
 - !private ["Ps9AnyObject", "NSBundle"]
 - !private ["Ps9AnyObject", "NSError"]
 - !private ["Ps9AnyObject", "NSFileManager"]
+- !private ["Ps9AnyObject", "NSInferMappingModelAutomaticallyOption"]
 - !private ["Ps9AnyObject", "NSLocalizedDescriptionKey"]
 - !private ["Ps9AnyObject", "NSLocalizedFailureReasonErrorKey"]
 - !private ["Ps9AnyObject", "NSLog"]
 - !private ["Ps9AnyObject", "NSManagedObjectContext"]
 - !private ["Ps9AnyObject", "NSManagedObjectModel"]
+- !private ["Ps9AnyObject", "NSMigratePersistentStoresAutomaticallyOption"]
 - !private ["Ps9AnyObject", "NSPersistentStoreCoordinator"]
 - !private ["Ps9AnyObject", "NSSQLiteStoreType"]
 - !private ["Ps9AnyObject", "NSUnderlyingErrorKey"]
@@ -98,11 +103,13 @@ depends-member:
 - !private ["C6Estim811AppDelegate", "NSBundle"]
 - !private ["C6Estim811AppDelegate", "NSError"]
 - !private ["C6Estim811AppDelegate", "NSFileManager"]
+- !private ["C6Estim811AppDelegate", "NSInferMappingModelAutomaticallyOption"]
 - !private ["C6Estim811AppDelegate", "NSLocalizedDescriptionKey"]
 - !private ["C6Estim811AppDelegate", "NSLocalizedFailureReasonErrorKey"]
 - !private ["C6Estim811AppDelegate", "NSLog"]
 - ["C6Estim811AppDelegate", "NSManagedObjectContext"]
 - ["C6Estim811AppDelegate", "NSManagedObjectModel"]
+- !private ["C6Estim811AppDelegate", "NSMigratePersistentStoresAutomaticallyOption"]
 - ["C6Estim811AppDelegate", "NSObject"]
 - ["C6Estim811AppDelegate", "NSPersistentStoreCoordinator"]
 - !private ["C6Estim811AppDelegate", "NSSQLiteStoreType"]
@@ -164,11 +171,13 @@ depends-member:
 - !private ["Ps11CVarArgType", "NSBundle"]
 - !private ["Ps11CVarArgType", "NSError"]
 - !private ["Ps11CVarArgType", "NSFileManager"]
+- !private ["Ps11CVarArgType", "NSInferMappingModelAutomaticallyOption"]
 - !private ["Ps11CVarArgType", "NSLocalizedDescriptionKey"]
 - !private ["Ps11CVarArgType", "NSLocalizedFailureReasonErrorKey"]
 - !private ["Ps11CVarArgType", "NSLog"]
 - !private ["Ps11CVarArgType", "NSManagedObjectContext"]
 - !private ["Ps11CVarArgType", "NSManagedObjectModel"]
+- !private ["Ps11CVarArgType", "NSMigratePersistentStoresAutomaticallyOption"]
 - !private ["Ps11CVarArgType", "NSPersistentStoreCoordinator"]
 - !private ["Ps11CVarArgType", "NSSQLiteStoreType"]
 - !private ["Ps11CVarArgType", "NSUnderlyingErrorKey"]
@@ -210,7 +219,9 @@ depends-member:
 - !private ["Vs9Character", "deinit"]
 - !private ["Ps14CollectionType", "Generator"]
 - !private ["Ps14CollectionType", "Index"]
+- !private ["Ps14CollectionType", "Key"]
 - !private ["Ps14CollectionType", "SubSequence"]
+- !private ["Ps14CollectionType", "Value"]
 - !private ["Ps14CollectionType", "_Element"]
 - !private ["Ps14CollectionType", "count"]
 - !private ["Ps14CollectionType", "init"]
@@ -221,14 +232,17 @@ depends-member:
 - !private ["Ps28CustomDebugStringConvertible", "AnyObject"]
 - !private ["Ps28CustomDebugStringConvertible", "Generator"]
 - !private ["Ps28CustomDebugStringConvertible", "Index"]
+- !private ["Ps28CustomDebugStringConvertible", "Key"]
 - !private ["Ps28CustomDebugStringConvertible", "NSBundle"]
 - !private ["Ps28CustomDebugStringConvertible", "NSError"]
 - !private ["Ps28CustomDebugStringConvertible", "NSFileManager"]
+- !private ["Ps28CustomDebugStringConvertible", "NSInferMappingModelAutomaticallyOption"]
 - !private ["Ps28CustomDebugStringConvertible", "NSLocalizedDescriptionKey"]
 - !private ["Ps28CustomDebugStringConvertible", "NSLocalizedFailureReasonErrorKey"]
 - !private ["Ps28CustomDebugStringConvertible", "NSLog"]
 - !private ["Ps28CustomDebugStringConvertible", "NSManagedObjectContext"]
 - !private ["Ps28CustomDebugStringConvertible", "NSManagedObjectModel"]
+- !private ["Ps28CustomDebugStringConvertible", "NSMigratePersistentStoresAutomaticallyOption"]
 - !private ["Ps28CustomDebugStringConvertible", "NSPersistentStoreCoordinator"]
 - !private ["Ps28CustomDebugStringConvertible", "NSSQLiteStoreType"]
 - !private ["Ps28CustomDebugStringConvertible", "NSUnderlyingErrorKey"]
@@ -237,6 +251,7 @@ depends-member:
 - !private ["Ps28CustomDebugStringConvertible", "URLByAppendingPathComponent"]
 - !private ["Ps28CustomDebugStringConvertible", "URLForResource"]
 - !private ["Ps28CustomDebugStringConvertible", "URLsForDirectory"]
+- !private ["Ps28CustomDebugStringConvertible", "Value"]
 - !private ["Ps28CustomDebugStringConvertible", "abort"]
 - !private ["Ps28CustomDebugStringConvertible", "addPersistentStoreWithType"]
 - ["Ps28CustomDebugStringConvertible", "application"]
@@ -275,14 +290,17 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "Generator"]
 - !private ["Ps23CustomStringConvertible", "Index"]
 - !private ["Ps23CustomStringConvertible", "IntegerLiteralType"]
+- !private ["Ps23CustomStringConvertible", "Key"]
 - !private ["Ps23CustomStringConvertible", "NSBundle"]
 - !private ["Ps23CustomStringConvertible", "NSError"]
 - !private ["Ps23CustomStringConvertible", "NSFileManager"]
+- !private ["Ps23CustomStringConvertible", "NSInferMappingModelAutomaticallyOption"]
 - !private ["Ps23CustomStringConvertible", "NSLocalizedDescriptionKey"]
 - !private ["Ps23CustomStringConvertible", "NSLocalizedFailureReasonErrorKey"]
 - !private ["Ps23CustomStringConvertible", "NSLog"]
 - !private ["Ps23CustomStringConvertible", "NSManagedObjectContext"]
 - !private ["Ps23CustomStringConvertible", "NSManagedObjectModel"]
+- !private ["Ps23CustomStringConvertible", "NSMigratePersistentStoresAutomaticallyOption"]
 - !private ["Ps23CustomStringConvertible", "NSPersistentStoreCoordinator"]
 - !private ["Ps23CustomStringConvertible", "NSSQLiteStoreType"]
 - !private ["Ps23CustomStringConvertible", "NSUnderlyingErrorKey"]
@@ -291,6 +309,7 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "URLByAppendingPathComponent"]
 - !private ["Ps23CustomStringConvertible", "URLForResource"]
 - !private ["Ps23CustomStringConvertible", "URLsForDirectory"]
+- !private ["Ps23CustomStringConvertible", "Value"]
 - !private ["Ps23CustomStringConvertible", "_getBuiltinLogicValue"]
 - !private ["Ps23CustomStringConvertible", "abort"]
 - !private ["Ps23CustomStringConvertible", "addPersistentStoreWithType"]
@@ -325,8 +344,12 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "userInfo"]
 - ["Ps23CustomStringConvertible", "window"]
 - ["Ps23CustomStringConvertible", ""]
+- !private ["Vs10Dictionary", "Key"]
+- !private ["Vs10Dictionary", "Value"]
 - !private ["Vs10Dictionary", "init"]
 - !private ["Vs10Dictionary", "subscript"]
+- !private ["Ps28DictionaryLiteralConvertible", "Key"]
+- !private ["Ps28DictionaryLiteralConvertible", "Value"]
 - !private ["Ps28DictionaryLiteralConvertible", "init"]
 - !private ["Ps28DictionaryLiteralConvertible", "subscript"]
 - !private ["Sd", "deinit"]
@@ -338,11 +361,13 @@ depends-member:
 - !private ["Ps9Equatable", "NSBundle"]
 - !private ["Ps9Equatable", "NSError"]
 - !private ["Ps9Equatable", "NSFileManager"]
+- !private ["Ps9Equatable", "NSInferMappingModelAutomaticallyOption"]
 - !private ["Ps9Equatable", "NSLocalizedDescriptionKey"]
 - !private ["Ps9Equatable", "NSLocalizedFailureReasonErrorKey"]
 - !private ["Ps9Equatable", "NSLog"]
 - !private ["Ps9Equatable", "NSManagedObjectContext"]
 - !private ["Ps9Equatable", "NSManagedObjectModel"]
+- !private ["Ps9Equatable", "NSMigratePersistentStoresAutomaticallyOption"]
 - !private ["Ps9Equatable", "NSPersistentStoreCoordinator"]
 - !private ["Ps9Equatable", "NSSQLiteStoreType"]
 - !private ["Ps9Equatable", "NSUnderlyingErrorKey"]
@@ -398,11 +423,13 @@ depends-member:
 - !private ["Ps8Hashable", "NSBundle"]
 - !private ["Ps8Hashable", "NSError"]
 - !private ["Ps8Hashable", "NSFileManager"]
+- !private ["Ps8Hashable", "NSInferMappingModelAutomaticallyOption"]
 - !private ["Ps8Hashable", "NSLocalizedDescriptionKey"]
 - !private ["Ps8Hashable", "NSLocalizedFailureReasonErrorKey"]
 - !private ["Ps8Hashable", "NSLog"]
 - !private ["Ps8Hashable", "NSManagedObjectContext"]
 - !private ["Ps8Hashable", "NSManagedObjectModel"]
+- !private ["Ps8Hashable", "NSMigratePersistentStoresAutomaticallyOption"]
 - !private ["Ps8Hashable", "NSPersistentStoreCoordinator"]
 - !private ["Ps8Hashable", "NSSQLiteStoreType"]
 - !private ["Ps8Hashable", "NSUnderlyingErrorKey"]
@@ -444,7 +471,9 @@ depends-member:
 - ["Ps8Hashable", ""]
 - !private ["Ps9Indexable", "Generator"]
 - !private ["Ps9Indexable", "Index"]
+- !private ["Ps9Indexable", "Key"]
 - !private ["Ps9Indexable", "SubSequence"]
+- !private ["Ps9Indexable", "Value"]
 - !private ["Ps9Indexable", "_Element"]
 - !private ["Ps9Indexable", "count"]
 - !private ["Ps9Indexable", "init"]
@@ -514,11 +543,13 @@ depends-member:
 - !private ["CSo8NSObject", "NSBundle"]
 - !private ["CSo8NSObject", "NSError"]
 - !private ["CSo8NSObject", "NSFileManager"]
+- !private ["CSo8NSObject", "NSInferMappingModelAutomaticallyOption"]
 - !private ["CSo8NSObject", "NSLocalizedDescriptionKey"]
 - !private ["CSo8NSObject", "NSLocalizedFailureReasonErrorKey"]
 - !private ["CSo8NSObject", "NSLog"]
 - ["CSo8NSObject", "NSManagedObjectContext"]
 - ["CSo8NSObject", "NSManagedObjectModel"]
+- !private ["CSo8NSObject", "NSMigratePersistentStoresAutomaticallyOption"]
 - ["CSo8NSObject", "NSObject"]
 - ["CSo8NSObject", "NSPersistentStoreCoordinator"]
 - !private ["CSo8NSObject", "NSSQLiteStoreType"]
@@ -564,11 +595,13 @@ depends-member:
 - !private ["PSo16NSObjectProtocol", "NSBundle"]
 - !private ["PSo16NSObjectProtocol", "NSError"]
 - !private ["PSo16NSObjectProtocol", "NSFileManager"]
+- !private ["PSo16NSObjectProtocol", "NSInferMappingModelAutomaticallyOption"]
 - !private ["PSo16NSObjectProtocol", "NSLocalizedDescriptionKey"]
 - !private ["PSo16NSObjectProtocol", "NSLocalizedFailureReasonErrorKey"]
 - !private ["PSo16NSObjectProtocol", "NSLog"]
 - !private ["PSo16NSObjectProtocol", "NSManagedObjectContext"]
 - !private ["PSo16NSObjectProtocol", "NSManagedObjectModel"]
+- !private ["PSo16NSObjectProtocol", "NSMigratePersistentStoresAutomaticallyOption"]
 - !private ["PSo16NSObjectProtocol", "NSPersistentStoreCoordinator"]
 - !private ["PSo16NSObjectProtocol", "NSSQLiteStoreType"]
 - !private ["PSo16NSObjectProtocol", "NSUnderlyingErrorKey"]
@@ -632,7 +665,9 @@ depends-member:
 - !private ["Ps12SequenceType", "Element"]
 - !private ["Ps12SequenceType", "Generator"]
 - !private ["Ps12SequenceType", "Index"]
+- !private ["Ps12SequenceType", "Key"]
 - !private ["Ps12SequenceType", "SubSequence"]
+- !private ["Ps12SequenceType", "Value"]
 - !private ["Ps12SequenceType", "_Element"]
 - !private ["Ps12SequenceType", "count"]
 - !private ["Ps12SequenceType", "init"]
@@ -657,11 +692,13 @@ depends-member:
 - !private ["PSo21UIApplicationDelegate", "NSBundle"]
 - !private ["PSo21UIApplicationDelegate", "NSError"]
 - !private ["PSo21UIApplicationDelegate", "NSFileManager"]
+- !private ["PSo21UIApplicationDelegate", "NSInferMappingModelAutomaticallyOption"]
 - !private ["PSo21UIApplicationDelegate", "NSLocalizedDescriptionKey"]
 - !private ["PSo21UIApplicationDelegate", "NSLocalizedFailureReasonErrorKey"]
 - !private ["PSo21UIApplicationDelegate", "NSLog"]
 - !private ["PSo21UIApplicationDelegate", "NSManagedObjectContext"]
 - !private ["PSo21UIApplicationDelegate", "NSManagedObjectModel"]
+- !private ["PSo21UIApplicationDelegate", "NSMigratePersistentStoresAutomaticallyOption"]
 - !private ["PSo21UIApplicationDelegate", "NSPersistentStoreCoordinator"]
 - !private ["PSo21UIApplicationDelegate", "NSSQLiteStoreType"]
 - !private ["PSo21UIApplicationDelegate", "NSUnderlyingErrorKey"]
@@ -691,11 +728,13 @@ depends-member:
 - !private ["CSo11UIResponder", "NSBundle"]
 - !private ["CSo11UIResponder", "NSError"]
 - !private ["CSo11UIResponder", "NSFileManager"]
+- !private ["CSo11UIResponder", "NSInferMappingModelAutomaticallyOption"]
 - !private ["CSo11UIResponder", "NSLocalizedDescriptionKey"]
 - !private ["CSo11UIResponder", "NSLocalizedFailureReasonErrorKey"]
 - !private ["CSo11UIResponder", "NSLog"]
 - ["CSo11UIResponder", "NSManagedObjectContext"]
 - ["CSo11UIResponder", "NSManagedObjectModel"]
+- !private ["CSo11UIResponder", "NSMigratePersistentStoresAutomaticallyOption"]
 - ["CSo11UIResponder", "NSObject"]
 - ["CSo11UIResponder", "NSPersistentStoreCoordinator"]
 - !private ["CSo11UIResponder", "NSSQLiteStoreType"]
@@ -764,7 +803,9 @@ depends-member:
 - !private ["Ps21_ObjectiveCBridgeable", "Generator"]
 - !private ["Ps21_ObjectiveCBridgeable", "Index"]
 - !private ["Ps21_ObjectiveCBridgeable", "IntegerLiteralType"]
+- !private ["Ps21_ObjectiveCBridgeable", "Key"]
 - !private ["Ps21_ObjectiveCBridgeable", "SubSequence"]
+- !private ["Ps21_ObjectiveCBridgeable", "Value"]
 - !private ["Ps21_ObjectiveCBridgeable", "_getBuiltinLogicValue"]
 - !private ["Ps21_ObjectiveCBridgeable", "count"]
 - !private ["Ps21_ObjectiveCBridgeable", "init"]
@@ -775,8 +816,10 @@ depends-member:
 - !private ["Ps12_Reflectable", "Generator"]
 - !private ["Ps12_Reflectable", "Index"]
 - !private ["Ps12_Reflectable", "IntegerLiteralType"]
+- !private ["Ps12_Reflectable", "Key"]
 - !private ["Ps12_Reflectable", "SubSequence"]
 - !private ["Ps12_Reflectable", "URLByAppendingPathComponent"]
+- !private ["Ps12_Reflectable", "Value"]
 - !private ["Ps12_Reflectable", "_getBuiltinLogicValue"]
 - !private ["Ps12_Reflectable", "count"]
 - !private ["Ps12_Reflectable", "init"]
@@ -895,4 +938,4 @@ depends-external:
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
 - "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreData.swiftmodule"
-interface-hash: "c771bfdf70e30679fa375cfa36f1ddd9"
+interface-hash: "3294cce4d0e3bbbe850bb1e75082bc7c"
