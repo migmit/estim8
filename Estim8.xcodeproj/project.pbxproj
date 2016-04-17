@@ -33,7 +33,7 @@
 		B51DE5B21CB931060060960A /* SlicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5B11CB931060060960A /* SlicesViewController.swift */; };
 		B51DE5B41CB9315B0060960A /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */; };
 		B5A39D0A1CBA9D2700079E5F /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A39D091CBA9D2700079E5F /* NumberField.swift */; };
-		B5B6A6CE1CC406FB00C53F8F /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A6CD1CC406FB00C53F8F /* Model.xcmappingmodel */; };
+		B5A6840F1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = B5A6840E1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel */; };
 		B5B6A6D21CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A6D11CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,8 +82,8 @@
 		B51DE5B11CB931060060960A /* SlicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlicesViewController.swift; sourceTree = "<group>"; };
 		B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		B5A39D091CBA9D2700079E5F /* NumberField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
+		B5A6840E1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MinimalToCurrencies.xcmappingmodel; sourceTree = "<group>"; };
 		B5B6A6CC1CC405FB00C53F8F /* Currencies.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Currencies.xcdatamodel; sourceTree = "<group>"; };
-		B5B6A6CD1CC406FB00C53F8F /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = Model.xcmappingmodel; path = ../Model.xcmappingmodel; sourceTree = "<group>"; };
 		B5B6A6D11CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrenciesUpdateToUpdate.swift; path = ../CurrenciesUpdateToUpdate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,8 +173,8 @@
 				B51DE5851CB2D88B0060960A /* ModelInterface.swift */,
 				B51DE5871CB2DEEE0060960A /* ModelImplementation.swift */,
 				B51DE5571CAF401E0060960A /* Estim8.xcdatamodeld */,
-				B5B6A6CD1CC406FB00C53F8F /* Model.xcmappingmodel */,
 				B5B6A6D11CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift */,
+				B5A6840E1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -344,7 +344,7 @@
 				B5A39D0A1CBA9D2700079E5F /* NumberField.swift in Sources */,
 				B51DE5591CAF401E0060960A /* Estim8.xcdatamodeld in Sources */,
 				B51DE5881CB2DEEE0060960A /* ModelImplementation.swift in Sources */,
-				B5B6A6CE1CC406FB00C53F8F /* Model.xcmappingmodel in Sources */,
+				B5A6840F1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel in Sources */,
 				B51DE59D1CB57B2A0060960A /* ViewInterface.swift in Sources */,
 				B51DE5AC1CB92ADF0060960A /* SubViewController.swift in Sources */,
 				B51DE5511CAF401E0060960A /* AppDelegate.swift in Sources */,
