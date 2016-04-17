@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
+    <entity name="Account" syncable="YES">
+        <attribute name="closingDate" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="negative" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="openDate" attributeType="Date" syncable="YES"/>
+        <attribute name="removed" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="sortingIndex" attributeType="Integer 16" indexed="YES" syncable="YES"/>
+        <attribute name="title" attributeType="String" minValueString="1" syncable="YES"/>
+        <relationship name="updates" toMany="YES" minCount="1" deletionRule="Deny" destinationEntity="Update" inverseName="account" inverseEntity="Update" syncable="YES"/>
+    </entity>
+    <entity name="Currency" syncable="YES">
+        <attribute name="addDate" attributeType="Date" syncable="YES"/>
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="removed" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="removeDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="sortingIndex" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="symbol" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="based" toMany="YES" deletionRule="Deny" destinationEntity="CurrencyUpdate" inverseName="base" inverseEntity="CurrencyUpdate" syncable="YES"/>
+        <relationship name="updates" toMany="YES" minCount="1" deletionRule="Deny" destinationEntity="CurrencyUpdate" inverseName="currency" inverseEntity="CurrencyUpdate" syncable="YES"/>
+    </entity>
+    <entity name="CurrencyUpdate" syncable="YES">
+        <attribute name="date" attributeType="Date" syncable="YES"/>
+        <attribute name="inverseRate" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="manual" attributeType="Boolean" syncable="YES"/>
+        <attribute name="rate" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="base" maxCount="1" deletionRule="Deny" destinationEntity="Currency" inverseName="based" inverseEntity="Currency" syncable="YES"/>
+        <relationship name="currency" maxCount="1" deletionRule="Deny" destinationEntity="Currency" inverseName="updates" inverseEntity="Currency" syncable="YES"/>
+        <relationship name="updates" toMany="YES" deletionRule="Deny" destinationEntity="Update" inverseName="currencyUpdate" inverseEntity="Update" syncable="YES"/>
+    </entity>
+    <entity name="Slice" syncable="YES">
+        <attribute name="date" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="removed" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="lastUpdates" toMany="YES" deletionRule="Deny" destinationEntity="Update" inverseName="slices" inverseEntity="Update" syncable="YES"/>
+    </entity>
+    <entity name="Update" syncable="YES">
+        <attribute name="date" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="value" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="account" maxCount="1" deletionRule="Deny" destinationEntity="Account" inverseName="updates" inverseEntity="Account" syncable="YES"/>
+        <relationship name="currencyUpdate" maxCount="1" deletionRule="Nullify" destinationEntity="CurrencyUpdate" inverseName="updates" inverseEntity="CurrencyUpdate" syncable="YES"/>
+        <relationship name="slices" toMany="YES" deletionRule="Deny" destinationEntity="Slice" inverseName="lastUpdates" inverseEntity="Slice" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Account" positionX="-657" positionY="48" width="128" height="148"/>
+        <element name="Currency" positionX="-450" positionY="126" width="128" height="180"/>
+        <element name="CurrencyUpdate" positionX="-441" positionY="135" width="128" height="150"/>
+        <element name="Slice" positionX="-101" positionY="162" width="128" height="88"/>
+        <element name="Update" positionX="-378" positionY="30" width="128" height="120"/>
+    </elements>
+</model>
