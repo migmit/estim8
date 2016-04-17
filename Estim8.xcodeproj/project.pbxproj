@@ -80,6 +80,7 @@
 		B51DE5B11CB931060060960A /* SlicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlicesViewController.swift; sourceTree = "<group>"; };
 		B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		B5A39D091CBA9D2700079E5F /* NumberField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
+		B5B6A6CC1CC405FB00C53F8F /* Currencies.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Currencies.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -607,9 +608,10 @@
 		B51DE5571CAF401E0060960A /* Estim8.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				B5B6A6CC1CC405FB00C53F8F /* Currencies.xcdatamodel */,
 				B51DE5581CAF401E0060960A /* Estim8.xcdatamodel */,
 			);
-			currentVersion = B51DE5581CAF401E0060960A /* Estim8.xcdatamodel */;
+			currentVersion = B5B6A6CC1CC405FB00C53F8F /* Currencies.xcdatamodel */;
 			path = Estim8.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
