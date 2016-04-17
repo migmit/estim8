@@ -174,6 +174,7 @@ SWIFT_CLASS("_TtC6Estim827CreateAccountViewController")
 SWIFT_CLASS("_TtC6Estim824CurrenciesUpdateToUpdate")
 @interface CurrenciesUpdateToUpdate : NSEntityMigrationPolicy
 @property (nonatomic, strong) NSManagedObject * _Nullable currencyUpdate;
+- (BOOL)beginEntityMapping:(NSEntityMapping * _Nonnull)mapping manager:(NSMigrationManager * _Nonnull)manager error:(NSError * _Nullable * _Null_unspecified)error;
 - (BOOL)createDestinationInstancesForSourceInstance:(NSManagedObject * _Nonnull)sInstance entityMapping:(NSEntityMapping * _Nonnull)mapping manager:(NSMigrationManager * _Nonnull)manager error:(NSError * _Nullable * _Null_unspecified)error;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end

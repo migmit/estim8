@@ -1,18 +1,18 @@
 version: "Apple Swift version 2.2 (swiftlang-703.0.18.1 clang-703.0.29)"
 options: "4dad9238aa2a46cda7fb73df4ec5a592"
-build_time: [514238287, 392084000]
+build_time: [514243404, 992653000]
 inputs:
   "/Users/MigMit/Documents/Estim8/Estim8/CreateAccountViewController.swift": [514074741, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/DecantViewController.swift": [514074741, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ViewController.swift": [514238171, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ControllerInterface.swift": [514136004, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ModelInterface.swift": [514121958, 0]
-  "/Users/MigMit/Documents/Estim8/CurrenciesUpdateToUpdate.swift": [514238286, 0]
+  "/Users/MigMit/Documents/Estim8/CurrenciesUpdateToUpdate.swift": [514243392, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/NumberField.swift": [514074741, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ModelImplementation.swift": [514121958, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ViewInterface.swift": [513710774, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/SubViewController.swift": [513804207, 0]
-  "/Users/MigMit/Documents/Estim8/Estim8/AppDelegate.swift": [514234211, 0]
+  "/Users/MigMit/Documents/Estim8/Estim8/AppDelegate.swift": [514240630, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/ControllerImplementation.swift": [514136004, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/SlicesViewController.swift": [514142396, 0]
   "/Users/MigMit/Documents/Estim8/Estim8/EditAccountViewController.swift": [514074741, 0]

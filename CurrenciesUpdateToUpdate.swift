@@ -13,6 +13,27 @@ class CurrenciesUpdateToUpdate: NSEntityMigrationPolicy {
     
     var currencyUpdate: NSManagedObject? = nil
     
+    override func beginEntityMapping(mapping: NSEntityMapping, manager: NSMigrationManager) throws {
+        let destinationContext: NSManagedObjectContext = manager.destinationContext
+        let currency: NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Currency", inManagedObjectContext: destinationContext)
+        currencyUpdate = NSEntityDescription.insertNewObjectForEntityForName("CurrencyUpdate", inManagedObjectContext: destinationContext)
+        currency.setValue("USD", forKey: "code")
+        currency.setValue("United States Dollar", forKey: "name")
+        currency.setValue("$", forKey: "symbol")
+        currency.setValue(0, forKey: "sortingIndex")
+        currency.setValue(NSDate(), forKey: "addDate")
+        currency.setValue(false, forKey: "removed")
+        currency.setValue(Set<NSManagedObject>(), forKey: "updates")
+        currency.setValue(Set<NSManagedObject>(), forKey: "based")
+        currencyUpdate!.setValue(NSDate(), forKey: "date")
+        currencyUpdate!.setValue(1, forKey: "rate")
+        currencyUpdate!.setValue(1, forKey: "inverseRate")
+        currencyUpdate!.setValue(true, forKey: "manual")
+        currencyUpdate!.setValue(currency, forKey: "base")
+        currencyUpdate!.setValue(currency, forKey: "currency")
+        currencyUpdate!.setValue(Set<NSManagedObject>(), forKey: "updates")
+    }
+    
     override func createDestinationInstancesForSourceInstance(sInstance: NSManagedObject, entityMapping mapping: NSEntityMapping, manager: NSMigrationManager) throws {
         let destinationContext: NSManagedObjectContext = manager.destinationContext
         if let dName = mapping.destinationEntityName {
@@ -24,27 +45,7 @@ class CurrenciesUpdateToUpdate: NSEntityMigrationPolicy {
             let sourceSlices: Set<NSManagedObject> = sInstance.valueForKey("slices") as! Set<NSManagedObject>
             let migratedSlices = manager.destinationInstancesForEntityMappingNamed("SliceToSlice", sourceInstances: Array(sourceSlices))
             dInstance.setValue(Set(migratedSlices), forKey: "slices")
-            let currencyUpdate: NSManagedObject
-            if let cU = self.currencyUpdate {
-                currencyUpdate = cU
-            } else {
-                let currency: NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Currency", inManagedObjectContext: destinationContext)
-                currencyUpdate = NSEntityDescription.insertNewObjectForEntityForName("CurrencyUpdate", inManagedObjectContext: destinationContext)
-                currency.setValue("USD", forKey: "code")
-                currency.setValue("United States Dollar", forKey: "name")
-                currency.setValue("$", forKey: "symbol")
-                currency.setValue(Set<NSManagedObject>(), forKey: "updates")
-                currency.setValue(Set<NSManagedObject>(), forKey: "based")
-                currencyUpdate.setValue(NSDate(), forKey: "date")
-                currencyUpdate.setValue(1, forKey: "rate")
-                currencyUpdate.setValue(1, forKey: "inverseRate")
-                currencyUpdate.setValue(true, forKey: "manual")
-                currencyUpdate.setValue(currency, forKey: "base")
-                currencyUpdate.setValue(currency, forKey: "currency")
-                currencyUpdate.setValue(Set<NSManagedObject>(), forKey: "updates")
-                self.currencyUpdate = currencyUpdate
-            }
-            dInstance.setValue(currencyUpdate, forKey: "currencyUpdate")
+            dInstance.setValue(currencyUpdate!, forKey: "currencyUpdate")
             manager.associateSourceInstance(sInstance, withDestinationInstance: dInstance, forEntityMapping: mapping)
         }
     }
