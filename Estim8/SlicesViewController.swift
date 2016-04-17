@@ -74,7 +74,7 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let maximumOffset = updatesTable.contentSize.height - updatesTable.bounds.height
                 if (updatesTable.contentOffset.y < 0) {
                     updatesTable.setContentOffset(CGPointMake(updatesTable.contentOffset.x, 0), animated: true)
-                } else if (updatesTable.contentOffset.y > maximumOffset) {
+                } else if (updatesTable.contentOffset.y > maximumOffset && maximumOffset > 0) {
                     updatesTable.setContentOffset(CGPointMake(updatesTable.contentOffset.x, maximumOffset), animated: true)
                 }
             }
