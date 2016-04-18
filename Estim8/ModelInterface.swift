@@ -16,6 +16,10 @@ protocol ModelInterface {
     
     associatedtype Update
     
+    associatedtype Currency
+    
+    associatedtype CurrencyUpdate
+    
     func liveAccounts() -> [Account] //ordered by index
     
     func deadAccounts() -> [Account] //ordered by date, descending
@@ -42,14 +46,48 @@ protocol ModelInterface {
     
     func dateOfSlice(s: Slice) -> NSDate
     
-    func addAccountAndUpdate(name: String, value: NSDecimalNumber, isNegative: Bool) -> Account
+    func addAccountAndUpdate(name: String, value: NSDecimalNumber, isNegative: Bool, currency: Currency) -> Account
     
     func createSlice() -> Slice
     
-    func updateAccount(a: Account, value: NSDecimalNumber)
+    func updateAccount(a: Account, value: NSDecimalNumber, currency: Currency)
     
     func removeAccount(a: Account)
     
     func removeSlice(s: Slice)
+    
+    //==================================
+    
+    func usdTempTempTemp() -> Currency
+    
+    func currencyOfUpdate(update: Update) -> Currency
+    
+    func codeOfCurrency(currency: Currency) -> String // "USD", "HUF"
+    
+    func nameOfCurrency(currency: Currency) -> String // "US dollar", "Hungarian forint"
+    
+    func symbolOfCurrency(currency: Currency) -> String // "$", "Ft"
+    
+    func currencyAddDate(currency: Currency) -> NSDate
+    
+    func currencyRemoveDate(currency: Currency) -> NSDate?
+    
+    func updatesOfCurrency(currency: Currency) -> [CurrencyUpdate] // ordered backwards, non-empty
+    
+    func currencyUpdateIsManual(cUpdate: CurrencyUpdate) -> Bool
+    
+    func dateOfCurrencyUpdate(cUpdate: CurrencyUpdate) -> NSDate
+    
+    func rateOfCurrencyUpdate(cUpdate: CurrencyUpdate) -> (NSDecimalNumber, NSDecimalNumber) // rate, inverse rate
+    
+    func currenciesOfUpdate(cUpdate: CurrencyUpdate) -> (Currency, Currency) // currency, based on
+    
+    func updateCurrency(currency: Currency, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool)
+    
+    func addCurrencyAndUpdate(name: String, code: String, symbol: String, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency
+    
+    func removeCurrency(currency: Currency)
+    
+    func liveCurrencies() -> [Currency]
     
 }
