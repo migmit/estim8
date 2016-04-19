@@ -17,12 +17,32 @@ class ModelTests: XCTestCase {
         super.setUp()
         
         do {
-            if let objectModel: NSManagedObjectModel = NSManagedObjectModel.mergedModelFromBundles(NSBundle.allBundles()){
+            if let objectModel: NSManagedObjectModel = NSManagedObjectModel.mergedModelFromBundles(nil){
                 if let coordinator: NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel){
                     try coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
                     let context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
                     context.persistentStoreCoordinator = coordinator
                     
+                    let currency: NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Currency", inManagedObjectContext: context)
+                    let currencyUpdate = NSEntityDescription.insertNewObjectForEntityForName("CurrencyUpdate", inManagedObjectContext: context)
+                    currency.setValue("USD", forKey: "code")
+                    currency.setValue("United States Dollar", forKey: "name")
+                    currency.setValue("$", forKey: "symbol")
+                    currency.setValue(0, forKey: "sortingIndex")
+                    currency.setValue(NSDate(), forKey: "addDate")
+                    currency.setValue(false, forKey: "removed")
+                    currency.setValue(Set<NSManagedObject>(), forKey: "updates")
+                    currency.setValue(Set<NSManagedObject>(), forKey: "based")
+                    currencyUpdate.setValue(NSDate(), forKey: "date")
+                    currencyUpdate.setValue(1, forKey: "rate")
+                    currencyUpdate.setValue(1, forKey: "inverseRate")
+                    currencyUpdate.setValue(true, forKey: "manual")
+                    currencyUpdate.setValue(currency, forKey: "base")
+                    currencyUpdate.setValue(currency, forKey: "currency")
+                    currencyUpdate.setValue(Set<NSManagedObject>(), forKey: "updates")
+                    
+                    do {try context.save()} catch {}
+
                     model = ModelImplementation(managedObjectContext: context)
                 }
             }
@@ -43,7 +63,7 @@ class ModelTests: XCTestCase {
     }
     
     func testAddAccount() {
-        model!.addAccountAndUpdate("AAA", value: -5, isNegative: true)
+        model!.addAccountAndUpdate("AAA", value: -5, isNegative: true, currency: model!.usdTempTempTemp())
         let accounts = model!.liveAccounts()
         XCTAssertEqual(accounts.count, 1)
         let account = accounts[0]
@@ -61,10 +81,10 @@ class ModelTests: XCTestCase {
     }
     
     func testUpdateAccount() {
-        let account = model!.addAccountAndUpdate("BBB", value: 3, isNegative: true)
+        let account = model!.addAccountAndUpdate("BBB", value: 3, isNegative: true, currency: model!.usdTempTempTemp())
         XCTAssertEqual(model!.liveAccounts().count, 1)
         XCTAssertEqual(model!.updatesOfAccount(account).count, 1)
-        model!.updateAccount(account, value: 13)
+        model!.updateAccount(account, value: 13, currency: model!.usdTempTempTemp())
         let updates = model!.updatesOfAccount(account)
         XCTAssertEqual(updates.count, 2)
         XCTAssertEqual(model!.valueOfUpdate(updates[0]), 13)
@@ -74,8 +94,8 @@ class ModelTests: XCTestCase {
     }
     
     func testMultipleAccounts() {
-        let account1 = model!.addAccountAndUpdate("CCC", value: 7, isNegative: false)
-        let account2 = model!.addAccountAndUpdate("DDD", value: 8, isNegative: true)
+        let account1 = model!.addAccountAndUpdate("CCC", value: 7, isNegative: false, currency: model!.usdTempTempTemp())
+        let account2 = model!.addAccountAndUpdate("DDD", value: 8, isNegative: true, currency: model!.usdTempTempTemp())
         XCTAssertEqual(model!.nameOfAccount(account1), "CCC")
         XCTAssertEqual(model!.nameOfAccount(account2), "DDD")
         XCTAssertEqual(model!.accountIsNegative(account1), false)
@@ -91,21 +111,21 @@ class ModelTests: XCTestCase {
     }
     
     func testCreateSlice() {
-        let account = model!.addAccountAndUpdate("EEE", value: 9, isNegative: false)
+        let account = model!.addAccountAndUpdate("EEE", value: 9, isNegative: false, currency: model!.usdTempTempTemp())
         let slice = model!.createSlice()
         XCTAssertEqual(model!.slices(),[slice])
-        model!.updateAccount(account, value: 19)
+        model!.updateAccount(account, value: 19, currency: model!.usdTempTempTemp())
         let updates = model!.lastUpdatesOfSlice(slice)
         XCTAssertEqual(updates.count, 1)
         XCTAssertEqual(model!.valueOfUpdate(updates[0]), 9)
     }
     
     func testMultipleSlices() {
-        let account = model!.addAccountAndUpdate("FFF", value: 2, isNegative: false)
+        let account = model!.addAccountAndUpdate("FFF", value: 2, isNegative: false, currency: model!.usdTempTempTemp())
         let slice1 = model!.createSlice()
-        model!.updateAccount(account, value: 12)
+        model!.updateAccount(account, value: 12, currency: model!.usdTempTempTemp())
         let slice2 = model!.createSlice()
-        model!.updateAccount(account, value: 22)
+        model!.updateAccount(account, value: 22, currency: model!.usdTempTempTemp())
         XCTAssertEqual(model!.slices(), [slice2, slice1])
         XCTAssertNotEqual(slice1, slice2)
         let updates1 = model!.lastUpdatesOfSlice(slice1)
@@ -127,12 +147,12 @@ class ModelTests: XCTestCase {
     
     func testDates() {
         let t1 = NSDate()
-        let account = model!.addAccountAndUpdate("GGG", value: 4, isNegative: false)
+        let account = model!.addAccountAndUpdate("GGG", value: 4, isNegative: false, currency: model!.usdTempTempTemp())
         let t2 = model!.dateOfUpdate(model!.updatesOfAccount(account)[0])
         let t2_ = model!.accountOpenDate(account)
         let tnil = model!.accountClosingDate(account)
         let t3 = NSDate()
-        model!.updateAccount(account, value: 14)
+        model!.updateAccount(account, value: 14, currency: model!.usdTempTempTemp())
         let t4 = model!.dateOfUpdate(model!.updatesOfAccount(account)[0])
         let t5 = NSDate()
         let slice = model!.createSlice()
