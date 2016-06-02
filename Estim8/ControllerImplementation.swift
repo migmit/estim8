@@ -157,7 +157,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     func setValue(value: NSDecimalNumber) -> Bool {
         if (canSetValue(value)) {
             view?.hideSubView()
-            model.updateAccount(account, value: value, currency: model.usdTempTempTemp())
+            model.updateAccount(account, value: value, currency: model.baseCurrency())
             parent.refreshAccount(index)
             return true
         } else {
@@ -199,7 +199,7 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
     func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
         if (canCreate(title, initialValue: initialValue, isNegative: isNegative)) {
             view?.hideSubView()
-            model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: model.usdTempTempTemp())
+            model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: model.baseCurrency())
             parent.addAccount()
             return true
         } else {
@@ -249,8 +249,8 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
             let accountFrom = accounts[from]
             let accountTo = accounts[to]
             view?.hideSubView()
-            model.updateAccount(accountFrom, value: amountFrom, currency: model.usdTempTempTemp())
-            model.updateAccount(accountTo, value: amountTo, currency: model.usdTempTempTemp())
+            model.updateAccount(accountFrom, value: amountFrom, currency: model.baseCurrency())
+            model.updateAccount(accountTo, value: amountTo, currency: model.baseCurrency())
             parent.refreshAccount(from)
             parent.refreshAccount(to)
             return true

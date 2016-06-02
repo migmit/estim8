@@ -58,7 +58,7 @@ protocol ModelInterface {
     
     //==================================
     
-    func usdTempTempTemp() -> Currency
+    func baseCurrency() -> Currency
     
     func currencyOfUpdate(update: Update) -> Currency
     

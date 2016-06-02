@@ -157,7 +157,7 @@ class ModelImplementation: ModelInterface {
     
     //==================================
     
-    func usdTempTempTemp() -> Currency {
+    func baseCurrency() -> Currency {
         let fetchRequest = NSFetchRequest(entityName: "Currency")
         fetchRequest.predicate = NSPredicate(format: "code == 'USD'")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sortingIndex", ascending: true)]
@@ -165,7 +165,7 @@ class ModelImplementation: ModelInterface {
             let results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Currency]
             return results![0]
         } catch {
-            return usdTempTempTemp()
+            return baseCurrency()
         }
     }
     
