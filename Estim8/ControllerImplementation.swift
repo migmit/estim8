@@ -70,6 +70,54 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
     
 }
 
+class ControllerCurrencyHolderImplementation<Model: ModelInterface>: ControllerCurrencyHolderInterface {
+    
+    let currency: Model.Currency
+    
+    init(currency: Model.Currency) {
+        self.currency = currency
+    }
+    
+}
+
+class ControllerROCurrencyImplementation<Model: ModelInterface>: ControllerCurrencyHolderImplementation<Model>, ControllerROCurrencyInterface {
+    
+    let model: Model
+    
+    init(model: Model, currency: Model.Currency) {
+        self.model = model
+        super.init(currency: currency)
+    }
+    
+    func symbol() -> String {
+        return model.symbolOfCurrency(self.currency)
+    }
+    
+}
+
+class ControllerROCurrenciesImplementation<Model: ModelInterface>: ControllerROCurrenciesInterface {
+    
+    let model: Model
+    
+    init(model: Model) {
+        self.model = model
+    }
+    
+    func numberOfCurrencies() -> Int {
+        return model.liveCurrencies().count
+    }
+    
+    func currency(n: Int) -> ControllerROCurrencyInterface? {
+        let currencies = model.liveCurrencies()
+        if (n >= currencies.count) {
+            return nil
+        } else {
+            return ControllerROCurrencyImplementation<Model>(model: model, currency: currencies[n])
+        }
+    }
+    
+}
+
 class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountInterface {
     
     let parent: ControllerImplementation<Model>
@@ -115,6 +163,11 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
         model.removeAccount(account)
         parent.removeAccount(index)
     }
+    
+    func currency() -> ControllerROCurrencyInterface {
+        let lastUpdate = model.updatesOfAccount(account)[0]
+        return ControllerROCurrencyImplementation(model: model, currency: model.currencyOfUpdate(lastUpdate))
+    }
 }
 
 class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEditAccountInterface {
@@ -154,18 +207,27 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         return model.accountIsNegative(account)
     }
     
-    func setValue(value: NSDecimalNumber) -> Bool {
-        if (canSetValue(value)) {
-            view?.hideSubView()
-            model.updateAccount(account, value: value, currency: model.baseCurrency())
-            parent.refreshAccount(index)
-            return true
+    func currency() -> ControllerROCurrencyInterface {
+        let lastUpdate = model.updatesOfAccount(account)[0]
+        return ControllerROCurrencyImplementation(model: model, currency: model.currencyOfUpdate(lastUpdate))
+    }
+    
+    func setValue(value: NSDecimalNumber, currency: ControllerCurrencyHolderInterface) -> Bool {
+        if (canSetValue(value, currency: currency)) {
+            if let currencyImpl = currency as? ControllerCurrencyHolderImplementation<Model> {
+                view?.hideSubView()
+                model.updateAccount(account, value: value, currency: currencyImpl.currency)
+                parent.refreshAccount(index)
+                return true
+            } else {
+                return false
+            }
         } else {
             return false
         }
     }
     
-    func canSetValue(value: NSDecimalNumber) -> Bool {
+    func canSetValue(value: NSDecimalNumber, currency: ControllerCurrencyHolderInterface) -> Bool {
         let isNegative = model.accountIsNegative(account)
         let verifyValue = isNegative ? value.decimalNumberByMultiplyingBy(-1) : value
         return verifyValue.compare(0) != .OrderedAscending
@@ -196,21 +258,30 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         self.view = view
     }
     
-    func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
-        if (canCreate(title, initialValue: initialValue, isNegative: isNegative)) {
-            view?.hideSubView()
-            model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: model.baseCurrency())
-            parent.addAccount()
-            return true
+    func create(title: String, initialValue: NSDecimalNumber, currency: ControllerCurrencyHolderInterface, isNegative: Bool) -> Bool {
+        if (canCreate(title, initialValue: initialValue, currency: currency, isNegative: isNegative)) {
+            if let currencyImpl = currency as? ControllerCurrencyHolderImplementation<Model> {
+                view?.hideSubView()
+                model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: currencyImpl.currency)
+                parent.addAccount()
+                return true
+            } else {
+                return false
+            }
         } else {
             return false
         }
     }
     
-    func canCreate(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
+    func canCreate(title: String, initialValue: NSDecimalNumber, currency:ControllerCurrencyHolderInterface, isNegative: Bool) -> Bool {
         let verifyValue = isNegative ? initialValue.decimalNumberByMultiplyingBy(-1) : initialValue
         return verifyValue.compare(0) != .OrderedAscending && !title.isEmpty
     }
+    
+    func currencies() -> ControllerROCurrenciesInterface {
+        return ControllerROCurrenciesImplementation(model: model)
+    }
+    
 }
 
 class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInterface {
@@ -319,6 +390,11 @@ class ControllerROAccountImplementation<Model: ModelInterface>: ControllerROAcco
     
     func isNegative() -> Bool {
         return model.accountIsNegative(account)
+    }
+    
+    func currency() -> ControllerROCurrencyInterface {
+        let lastUpdate = model.updatesOfAccount(account)[0]
+        return ControllerROCurrencyImplementation(model: model, currency: model.currencyOfUpdate(lastUpdate))
     }
 }
 
@@ -464,6 +540,11 @@ class ControllerTransitionAccountImplementation<Model: ModelInterface>: Controll
     
     func isNegative() -> Bool {
         return model.accountIsNegative(account)
+    }
+    
+    func currency() -> ControllerROCurrencyInterface {
+        let lastUpdate = model.updatesOfAccount(account)[0]
+        return ControllerROCurrencyImplementation(model: model, currency: model.currencyOfUpdate(lastUpdate))
     }
     
     func transition() -> ControllerTransitionInterface {
@@ -612,6 +693,10 @@ class ControllerUpdateInterface<Model: ModelInterface>: ControllerTransitionAcco
     func isNegative() -> Bool {
         let account = model.accountOfUpdate(update)
         return model.accountIsNegative(account)
+    }
+    
+    func currency() -> ControllerROCurrencyInterface {
+        return ControllerROCurrencyImplementation(model: model, currency: model.currencyOfUpdate(update))
     }
     
     func transition() -> ControllerTransitionInterface {

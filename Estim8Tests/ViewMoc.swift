@@ -194,7 +194,9 @@ class CreateAccountMoc: CreateAccountView {
     
     func tapOk() {
         if (!title.isEmpty) {
-            controller.create(title, initialValue: value, isNegative: isNegative)
+            if let currency = controller.currencies().currency(0) {
+                controller.create(title, initialValue: value, currency: currency, isNegative: isNegative)
+            }
         }
     }
 }
@@ -418,7 +420,7 @@ class EditAccountMoc: EditAccountView {
     }
     
     func tapOk() {
-        controller.setValue(value)
+        controller.setValue(value, currency: controller.currency())
     }
     
     func tapDeleteButton() {

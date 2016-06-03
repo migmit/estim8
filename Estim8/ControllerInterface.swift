@@ -29,6 +29,26 @@ protocol ControllerROAccountInterface {
     
     func isNegative() -> Bool
     
+    func currency() -> ControllerROCurrencyInterface
+    
+}
+
+protocol ControllerCurrencyHolderInterface {
+    
+}
+
+protocol ControllerROCurrencyInterface: ControllerCurrencyHolderInterface {
+    
+    func symbol() -> String
+    
+}
+
+protocol ControllerROCurrenciesInterface {
+    
+    func numberOfCurrencies() -> Int
+    
+    func currency(n: Int) -> ControllerROCurrencyInterface?
+    
 }
 
 protocol ControllerAccountInterface: ControllerROAccountInterface {
@@ -41,9 +61,9 @@ protocol ControllerAccountInterface: ControllerROAccountInterface {
 
 protocol ControllerEditAccountInterface: ControllerROAccountInterface {
     
-    func setValue(value: NSDecimalNumber) -> Bool
+    func setValue(value: NSDecimalNumber, currency: ControllerCurrencyHolderInterface) -> Bool
     
-    func canSetValue(value: NSDecimalNumber) -> Bool
+    func canSetValue(value: NSDecimalNumber, currency: ControllerCurrencyHolderInterface) -> Bool
     
     func remove()
     
@@ -51,10 +71,12 @@ protocol ControllerEditAccountInterface: ControllerROAccountInterface {
 
 protocol ControllerCreateAccountInterface {
     
-    func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
+    func create(title: String, initialValue: NSDecimalNumber, currency: ControllerCurrencyHolderInterface, isNegative: Bool) -> Bool
     
-    func canCreate(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
-
+    func canCreate(title: String, initialValue: NSDecimalNumber, currency: ControllerCurrencyHolderInterface, isNegative: Bool) -> Bool
+    
+    func currencies() -> ControllerROCurrenciesInterface
+    
 }
 
 protocol ControllerDecantInterface {
