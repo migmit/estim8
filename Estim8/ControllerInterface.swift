@@ -39,6 +39,8 @@ protocol ControllerCurrencyHolderInterface {
 
 protocol ControllerROCurrencyInterface: ControllerCurrencyHolderInterface {
     
+    func name() -> String
+    
     func symbol() -> String
     
 }
@@ -85,9 +87,9 @@ protocol ControllerDecantInterface {
     
     func account(n: Int) -> ControllerROAccountInterface?
     
-    func decant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool
+    func decant(from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool
     
-    func canDecant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool
+    func canDecant(from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool
     
 }
 

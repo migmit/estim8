@@ -168,16 +168,29 @@ class CreateAccountMoc: CreateAccountView {
     
     let view: MocView
     
+    let currencies: [String]
+    
     var title: String = ""
     
     var value: NSDecimalNumber = 0
     
     var isNegative: Bool = false
     
+    var selectedCurrency: Int = 0
+    
     init(parent: MainWindowMoc, controller: ControllerCreateAccountInterface, view: MocView) {
         self.parent = parent
         self.controller = controller
         self.view = view
+        var currencyNames: [String] = []
+        let currenciesList = controller.currencies()
+        let n = currenciesList.numberOfCurrencies()
+        for i in 0...(n-1) {
+            if let currency = currenciesList.currency(i) {
+                currencyNames.append(currency.name())
+            }
+        }
+        self.currencies = currencyNames
     }
     
     func showSubView() {
@@ -194,9 +207,16 @@ class CreateAccountMoc: CreateAccountView {
     
     func tapOk() {
         if (!title.isEmpty) {
-            if let currency = controller.currencies().currency(0) {
+            if let currency = controller.currencies().currency(selectedCurrency) {
                 controller.create(title, initialValue: value, currency: currency, isNegative: isNegative)
             }
+        }
+    }
+    
+    func expectCurrencies(expected: [String?]) {
+        XCTAssert(expected.count == currencies.count)
+        for i in 0...(currencies.count - 1) {
+            XCTAssert(expected[i] == nil || expected[i] == currencies[i])
         }
     }
 }
@@ -218,6 +238,8 @@ class DecantMoc: DecantView {
     var toSelected: Int = 0
     
     var value: NSDecimalNumber = 0
+    
+    var useFromCurrency: Bool = true
     
     init(parent: MainWindowMoc, controller: ControllerDecantInterface, view: MocView) {
         self.parent = parent
@@ -249,7 +271,7 @@ class DecantMoc: DecantView {
     }
     
     func tapOk() {
-        controller.decant(fromSelected, to: toSelected, amount: value)
+        controller.decant(fromSelected, to: toSelected, amount: value, useFromCurrency: useFromCurrency)
     }
 }
 

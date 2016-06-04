@@ -186,7 +186,7 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     func somethingChanged() {
         if let amount = child?.getAmount(), let controller = viewImplementation?.controller {
-            navigationItem.rightBarButtonItem?.enabled = controller.canDecant(fromSelected, to: toSelected, amount: amount)
+            navigationItem.rightBarButtonItem?.enabled = controller.canDecant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true)
         }
     }
     
@@ -209,7 +209,7 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func buttonDoneClicked() {
         if let amount = child?.getAmount() {
             if let controller = viewImplementation?.controller {
-                if (!(controller.decant(fromSelected, to: toSelected, amount: amount))) {
+                if (!(controller.decant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true))) {
                     let fromAccountName = controller.account(fromSelected)?.name() ?? "<unknown>"
                     let toAccountName = controller.account(toSelected)?.name() ?? "<unknown>"
                     let alert = UIAlertController(title: "Error", message: "Can't decant \(amount) from \"\(fromAccountName)\" to \"\(toAccountName)\"", preferredStyle: .Alert)

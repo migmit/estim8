@@ -16,7 +16,7 @@ protocol ModelInterface {
     
     associatedtype Update
     
-    associatedtype Currency
+    associatedtype Currency: Equatable
     
     associatedtype CurrencyUpdate
     

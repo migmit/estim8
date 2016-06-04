@@ -89,6 +89,10 @@ class ControllerROCurrencyImplementation<Model: ModelInterface>: ControllerCurre
         super.init(currency: currency)
     }
     
+    func name() -> String {
+        return model.nameOfCurrency(self.currency)
+    }
+    
     func symbol() -> String {
         return model.symbolOfCurrency(self.currency)
     }
@@ -314,8 +318,8 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         }
     }
     
-    func decant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool {
-        if let (amountFrom, amountTo) = decantData(from, to: to, amount: amount) {
+    func decant(from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool {
+        if let (amountFrom, amountTo) = decantData(from, to: to, amount: amount, useFromCurrency: useFromCurrency) {
             let accounts = model.liveAccounts()
             let accountFrom = accounts[from]
             let accountTo = accounts[to]
@@ -330,20 +334,25 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         }
     }
     
-    func canDecant(from: Int, to: Int, amount: NSDecimalNumber) -> Bool {
-        return decantData(from, to: to, amount: amount) != nil
+    func canDecant(from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool {
+        return decantData(from, to: to, amount: amount, useFromCurrency: useFromCurrency) != nil
     }
     
-    func decantData(from: Int, to: Int, amount: NSDecimalNumber) -> (NSDecimalNumber, NSDecimalNumber)? {
+    func decantData(from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> (NSDecimalNumber, NSDecimalNumber)? {
         let accounts = model.liveAccounts()
         if (from >= accounts.count || to >= accounts.count || from == to || amount == 0) {
             return nil
         } else {
             let accountFrom = accounts[from]
             let accountTo = accounts[to]
+            let currencyFrom = model.currencyOfUpdate(model.updatesOfAccount(accountFrom)[0])
+            let currencyTo = model.currencyOfUpdate(model.updatesOfAccount(accountTo)[0])
+            let rate = exchangeRate(currencyFrom, to: currencyTo)
+            let addAmountFrom = useFromCurrency ? amount : amount.decimalNumberByMultiplyingBy(rate.0)
+            let addAmountTo = useFromCurrency ? amount.decimalNumberByMultiplyingBy(rate.1) : amount
             if
-                let amountFrom = tryAddToAccount(accountFrom, add: amount.decimalNumberByMultiplyingBy(-1)),
-                let amountTo = tryAddToAccount(accountTo, add: amount) {
+                let amountFrom = tryAddToAccount(accountFrom, add: addAmountFrom.decimalNumberByMultiplyingBy(-1)),
+                let amountTo = tryAddToAccount(accountTo, add: addAmountTo) {
                 return (amountFrom, amountTo)
             } else {
                 return nil
@@ -363,6 +372,29 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         } else {
             return newValue
         }
+    }
+    
+    private func exchangeRate(from: Model.Currency, to: Model.Currency) -> (NSDecimalNumber, NSDecimalNumber) { // from->to, to->from
+        var fa = from
+        let base = model.baseCurrency()
+        var fRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
+        var allFromAncestors = [(fa, fRate.0, fRate.1)]
+        while (fa != base) {
+            let lastUpdate = model.updatesOfCurrency(fa)[0]
+            fa = model.currenciesOfUpdate(lastUpdate).1
+            let rate = model.rateOfCurrencyUpdate(lastUpdate)
+            fRate = (fRate.0.decimalNumberByMultiplyingBy(rate.0), fRate.1.decimalNumberByMultiplyingBy(rate.1))
+            allFromAncestors.append((fa, fRate.0, fRate.1))
+        }
+        var tRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
+        var ta = to
+        while (!allFromAncestors.contains({triple in return triple.0 == ta})) {
+            let lastUpdate = model.updatesOfCurrency(ta)[0]
+            ta = model.currenciesOfUpdate(lastUpdate).1
+            let rate = model.rateOfCurrencyUpdate(lastUpdate)
+            tRate = (tRate.0.decimalNumberByMultiplyingBy(rate.0), tRate.1.decimalNumberByMultiplyingBy(rate.1))
+        }
+        return (tRate.0.decimalNumberByMultiplyingBy(fRate.1),tRate.1.decimalNumberByMultiplyingBy(fRate.0))
     }
     
 }
