@@ -117,7 +117,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell?.textLabel?.text = account.name()
             let numberFormatter = NSNumberFormatter()
             numberFormatter.numberStyle = .DecimalStyle
-            cell?.detailTextLabel?.text = numberFormatter.stringFromNumber(account.value())
+            let valueText = numberFormatter.stringFromNumber(account.value())
+            cell?.detailTextLabel?.text = valueText.map{$0 + account.currency().symbol()}
         }
         return cell!
     }
