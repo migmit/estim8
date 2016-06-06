@@ -8,15 +8,25 @@
 
 import Foundation
 
-protocol ControllerCurrencyHolderInterface {
-    
-}
-
-protocol ControllerROCurrencyInterface: ControllerCurrencyHolderInterface {
+protocol ControllerROCurrencyInterface {
     
     func name() -> String
     
+    func code() -> String
+    
     func symbol() -> String
+    
+    func rate() -> (NSDecimalNumber, NSDecimalNumber)
+    
+    func relative() -> ControllerROCurrencyInterface
+    
+}
+
+protocol ControllerCurrencyInterface: ControllerROCurrencyInterface {
+    
+    func edit()
+    
+    func remove()
     
 }
 

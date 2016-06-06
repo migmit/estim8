@@ -33,10 +33,14 @@ protocol SubView: class {
 }
 
 protocol EditAccountView: SubView {
+    
+    func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView
 
 }
 
 protocol CreateAccountView: SubView {
+    
+    func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView
     
 }
 
@@ -49,4 +53,34 @@ protocol SlicesView: SubView {
     func createSlice(slice: ControllerSliceInterface)
     
     func removeSlice(slice: ControllerSliceInterface)
+}
+
+protocol SelectCurrencyView: SubView {
+    
+}
+
+protocol ListCurrenciesView: SubView {
+    
+    func createCurrency(controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView
+    
+    func editCurrency(controller: ControllerEditCurrencyInterface) -> EditCurrencyView
+    
+    func refreshCurrency(n: Int)
+    
+    func removeCurrency(n: Int)
+    
+    func addCurrency()
+    
+}
+
+protocol EditCurrencyView: SubView {
+    
+    func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView
+    
+}
+
+protocol CreateCurrencyView: SubView {
+    
+    func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView
+    
 }

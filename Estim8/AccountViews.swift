@@ -21,23 +21,27 @@ protocol ControllerInterface {
     func showSlices()
 }
 
-protocol ControllerEditAccountInterface: ControllerROAccountInterface {
+protocol ControllerEditAccountInterface: ControllerROAccountInterface, ControllerCurrencySelectedProtocol {
     
-    func setValue(value: NSDecimalNumber, currency: ControllerCurrencyHolderInterface) -> Bool
+    func setValue(value: NSDecimalNumber, currency: ControllerROCurrencyInterface) -> Bool
     
-    func canSetValue(value: NSDecimalNumber, currency: ControllerCurrencyHolderInterface) -> Bool
+    func canSetValue(value: NSDecimalNumber, currency: ControllerROCurrencyInterface) -> Bool
     
     func remove()
     
+    func selectCurrency()
+    
 }
 
-protocol ControllerCreateAccountInterface {
+protocol ControllerCreateAccountInterface: ControllerCurrencySelectedProtocol {
     
-    func create(title: String, initialValue: NSDecimalNumber, currency: ControllerCurrencyHolderInterface, isNegative: Bool) -> Bool
+    func create(title: String, initialValue: NSDecimalNumber, currency: ControllerROCurrencyInterface, isNegative: Bool) -> Bool
     
-    func canCreate(title: String, initialValue: NSDecimalNumber, currency: ControllerCurrencyHolderInterface, isNegative: Bool) -> Bool
+    func canCreate(title: String, initialValue: NSDecimalNumber, currency: ControllerROCurrencyInterface, isNegative: Bool) -> Bool
     
-    func currencies() -> ControllerROCurrenciesInterface
+    func selectCurrency()
+    
+    func currencies() -> ControllerROCurrenciesInterface //SUBJECT TO REMOVAL
     
 }
 

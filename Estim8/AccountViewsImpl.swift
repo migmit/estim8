@@ -112,9 +112,9 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         return ControllerROCurrencyImplementation(model: model, currency: model.currencyOfUpdate(lastUpdate))
     }
     
-    func setValue(value: NSDecimalNumber, currency: ControllerCurrencyHolderInterface) -> Bool {
+    func setValue(value: NSDecimalNumber, currency: ControllerROCurrencyInterface) -> Bool {
         if (canSetValue(value, currency: currency)) {
-            if let currencyImpl = currency as? ControllerCurrencyHolderImplementation<Model> {
+            if let currencyImpl = currency as? ControllerROCurrencyImplementation<Model> {
                 view?.hideSubView()
                 model.updateAccount(account, value: value, currency: currencyImpl.currency)
                 parent.refreshAccount(index)
@@ -127,7 +127,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         }
     }
     
-    func canSetValue(value: NSDecimalNumber, currency: ControllerCurrencyHolderInterface) -> Bool {
+    func canSetValue(value: NSDecimalNumber, currency: ControllerROCurrencyInterface) -> Bool {
         let isNegative = model.accountIsNegative(account)
         let verifyValue = isNegative ? value.decimalNumberByMultiplyingBy(-1) : value
         return verifyValue.compare(0) != .OrderedAscending
@@ -137,6 +137,14 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         view?.hideSubView()
         model.removeAccount(account)
         parent.removeAccount(index)
+    }
+    
+    func selectCurrency() {
+        //TODO
+    }
+    
+    func currencySelected(currency: ControllerROCurrencyInterface) {
+        //TODO
     }
     
 }
@@ -158,9 +166,9 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         self.view = view
     }
     
-    func create(title: String, initialValue: NSDecimalNumber, currency: ControllerCurrencyHolderInterface, isNegative: Bool) -> Bool {
+    func create(title: String, initialValue: NSDecimalNumber, currency: ControllerROCurrencyInterface, isNegative: Bool) -> Bool {
         if (canCreate(title, initialValue: initialValue, currency: currency, isNegative: isNegative)) {
-            if let currencyImpl = currency as? ControllerCurrencyHolderImplementation<Model> {
+            if let currencyImpl = currency as? ControllerROCurrencyImplementation<Model> {
                 view?.hideSubView()
                 model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: currencyImpl.currency)
                 parent.addAccount()
@@ -173,13 +181,21 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         }
     }
     
-    func canCreate(title: String, initialValue: NSDecimalNumber, currency:ControllerCurrencyHolderInterface, isNegative: Bool) -> Bool {
+    func canCreate(title: String, initialValue: NSDecimalNumber, currency: ControllerROCurrencyInterface, isNegative: Bool) -> Bool {
         let verifyValue = isNegative ? initialValue.decimalNumberByMultiplyingBy(-1) : initialValue
         return verifyValue.compare(0) != .OrderedAscending && !title.isEmpty
     }
     
-    func currencies() -> ControllerROCurrenciesInterface {
+    func currencies() -> ControllerROCurrenciesInterface { // SUBJECT TO REMOVAL
         return ControllerROCurrenciesImplementation(model: model)
+    }
+    
+    func selectCurrency() {
+        //TODO
+    }
+    
+    func currencySelected(currency: ControllerROCurrencyInterface) {
+        //TODO
     }
     
 }

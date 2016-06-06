@@ -33,6 +33,12 @@ class CreateAccountImplementation: CreateAccountView {
     func hideSubView() {
         view?.navigationController?.popViewControllerAnimated(true)
     }
+    
+    func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
+        //TODO
+        return ListCurrenciesImplementation()
+    }
+    
 }
 
 class CreateAccountViewController: SubViewController {

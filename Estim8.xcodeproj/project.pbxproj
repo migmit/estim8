@@ -44,9 +44,16 @@
 		B59CB3C01D06073C001642F8 /* CurrencyItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3AD1D06038B001642F8 /* CurrencyItems.swift */; };
 		B59CB3C11D06073C001642F8 /* SliceItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3B71D060629001642F8 /* SliceItems.swift */; };
 		B59CB3C21D06073C001642F8 /* AccountViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3A61D0600F8001642F8 /* AccountViews.swift */; };
+		B59CB3C41D06082A001642F8 /* CurrencyViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3C31D06082A001642F8 /* CurrencyViews.swift */; };
+		B59CB3C61D06083C001642F8 /* CurrencyViewsImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3C51D06083C001642F8 /* CurrencyViewsImpl.swift */; };
+		B59CB3C81D061B1A001642F8 /* ListCurrenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3C71D061B1A001642F8 /* ListCurrenciesViewController.swift */; };
+		B59CB3CA1D061C19001642F8 /* CreateCurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3C91D061C19001642F8 /* CreateCurrencyViewController.swift */; };
+		B59CB3CC1D061C8E001642F8 /* EditCurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3CB1D061C8E001642F8 /* EditCurrencyViewController.swift */; };
+		B59CB3CE1D061CED001642F8 /* SelectCurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3CD1D061CED001642F8 /* SelectCurrencyViewController.swift */; };
 		B5A39D0A1CBA9D2700079E5F /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A39D091CBA9D2700079E5F /* NumberField.swift */; };
 		B5A6840F1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = B5A6840E1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel */; };
 		B5B6A6D21CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A6D11CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift */; };
+		B5E41ABF1D061FA5004CAF7C /* CurrencyViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3C31D06082A001642F8 /* CurrencyViews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +106,12 @@
 		B59CB3B51D0605B0001642F8 /* CurrencyItemsImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyItemsImpl.swift; sourceTree = "<group>"; };
 		B59CB3B71D060629001642F8 /* SliceItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceItems.swift; sourceTree = "<group>"; };
 		B59CB3B91D060653001642F8 /* SliceItemsImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceItemsImpl.swift; sourceTree = "<group>"; };
+		B59CB3C31D06082A001642F8 /* CurrencyViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViews.swift; sourceTree = "<group>"; };
+		B59CB3C51D06083C001642F8 /* CurrencyViewsImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViewsImpl.swift; sourceTree = "<group>"; };
+		B59CB3C71D061B1A001642F8 /* ListCurrenciesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCurrenciesViewController.swift; sourceTree = "<group>"; };
+		B59CB3C91D061C19001642F8 /* CreateCurrencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCurrencyViewController.swift; sourceTree = "<group>"; };
+		B59CB3CB1D061C8E001642F8 /* EditCurrencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCurrencyViewController.swift; sourceTree = "<group>"; };
+		B59CB3CD1D061CED001642F8 /* SelectCurrencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCurrencyViewController.swift; sourceTree = "<group>"; };
 		B5A39D091CBA9D2700079E5F /* NumberField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
 		B5A6840E1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MinimalToCurrencies.xcmappingmodel; sourceTree = "<group>"; };
 		B5B6A6CC1CC405FB00C53F8F /* Currencies.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Currencies.xcdatamodel; sourceTree = "<group>"; };
@@ -208,6 +221,10 @@
 				B51DE5B11CB931060060960A /* SlicesViewController.swift */,
 				B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */,
 				B5A39D091CBA9D2700079E5F /* NumberField.swift */,
+				B59CB3C71D061B1A001642F8 /* ListCurrenciesViewController.swift */,
+				B59CB3C91D061C19001642F8 /* CreateCurrencyViewController.swift */,
+				B59CB3CB1D061C8E001642F8 /* EditCurrencyViewController.swift */,
+				B59CB3CD1D061CED001642F8 /* SelectCurrencyViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -243,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				B59CB3A61D0600F8001642F8 /* AccountViews.swift */,
+				B59CB3C31D06082A001642F8 /* CurrencyViews.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -261,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				B59CB3B01D0603D0001642F8 /* AccountViewsImpl.swift */,
+				B59CB3C51D06083C001642F8 /* CurrencyViewsImpl.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -407,6 +426,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B59CB3C81D061B1A001642F8 /* ListCurrenciesViewController.swift in Sources */,
+				B59CB3CC1D061C8E001642F8 /* EditCurrencyViewController.swift in Sources */,
 				B51DE5AE1CB92F910060960A /* CreateAccountViewController.swift in Sources */,
 				B51DE5B01CB930840060960A /* DecantViewController.swift in Sources */,
 				B51DE5531CAF401E0060960A /* ViewController.swift in Sources */,
@@ -416,17 +437,21 @@
 				B59CB3B81D060629001642F8 /* SliceItems.swift in Sources */,
 				B5B6A6D21CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift in Sources */,
 				B5A39D0A1CBA9D2700079E5F /* NumberField.swift in Sources */,
+				B59CB3CE1D061CED001642F8 /* SelectCurrencyViewController.swift in Sources */,
 				B59CB3BA1D060653001642F8 /* SliceItemsImpl.swift in Sources */,
 				B51DE5591CAF401E0060960A /* Estim8.xcdatamodeld in Sources */,
 				B59CB3B11D0603D0001642F8 /* AccountViewsImpl.swift in Sources */,
+				B59CB3C41D06082A001642F8 /* CurrencyViews.swift in Sources */,
 				B51DE5881CB2DEEE0060960A /* ModelImplementation.swift in Sources */,
 				B5A6840F1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel in Sources */,
 				B59CB3AE1D06038B001642F8 /* CurrencyItems.swift in Sources */,
 				B51DE59D1CB57B2A0060960A /* ViewInterface.swift in Sources */,
 				B59CB3B41D0604C7001642F8 /* AccountItemsImpl.swift in Sources */,
+				B59CB3CA1D061C19001642F8 /* CreateCurrencyViewController.swift in Sources */,
 				B51DE5AC1CB92ADF0060960A /* SubViewController.swift in Sources */,
 				B51DE5511CAF401E0060960A /* AppDelegate.swift in Sources */,
 				B51DE5B21CB931060060960A /* SlicesViewController.swift in Sources */,
+				B59CB3C61D06083C001642F8 /* CurrencyViewsImpl.swift in Sources */,
 				B51DE5B41CB9315B0060960A /* EditAccountViewController.swift in Sources */,
 				B59CB3B61D0605B0001642F8 /* CurrencyItemsImpl.swift in Sources */,
 			);
@@ -447,6 +472,7 @@
 				B59CB3C01D06073C001642F8 /* CurrencyItems.swift in Sources */,
 				B51DE5A51CB6C27D0060960A /* ViewInterface.swift in Sources */,
 				B59CB3C21D06073C001642F8 /* AccountViews.swift in Sources */,
+				B5E41ABF1D061FA5004CAF7C /* CurrencyViews.swift in Sources */,
 				B59CB3BF1D06073C001642F8 /* AccountItems.swift in Sources */,
 				B51DE59B1CB449E90060960A /* ModelImplementation.swift in Sources */,
 				B51DE5A81CB6C36F0060960A /* ControllerTests.swift in Sources */,
