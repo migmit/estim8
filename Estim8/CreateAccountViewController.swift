@@ -38,6 +38,10 @@ class CreateAccountImplementation: CreateAccountView {
         return ListCurrenciesImplementation(controller: controller, parent: view!)
     }
     
+    func currencySelected(selected: ControllerROCurrencyInterface) {
+        //TODO
+    }
+    
 }
 
 class CreateAccountViewController: SubViewController, ListCurrenciesViewControllerInterface {

@@ -37,6 +37,10 @@ class EditAccountImplementation: EditAccountView {
     func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
         return ListCurrenciesImplementation(controller: controller, parent: view!)
     }
+    
+    func currencySelected(selected: ControllerROCurrencyInterface) {
+        //TODO
+    }
 }
 
 class EditAccountViewController: SubViewController, ListCurrenciesViewControllerInterface {

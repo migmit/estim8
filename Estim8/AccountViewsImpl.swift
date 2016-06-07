@@ -153,6 +153,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         if let c = currency as? ControllerROCurrencyImplementation<Model> {
             selectedCurrency = c.currency
         }
+        view?.currencySelected(currency)
     }
     
 }
@@ -207,6 +208,7 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         if let c = currency as? ControllerROCurrencyImplementation<Model> {
             selectedCurrency = c.currency
         }
+        view?.currencySelected(currency)
     }
     
 }

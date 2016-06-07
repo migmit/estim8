@@ -242,6 +242,7 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
     
     func currencySelected(currency: ControllerROCurrencyInterface) {
         baseCurrency = currency
+        view?.relativeSelected(currency)
     }
     
 }
@@ -293,6 +294,7 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerC
     
     func currencySelected(currency: ControllerROCurrencyInterface) {
         baseCurrency = currency
+        view?.relativeSelected(currency)
     }
     
 }
