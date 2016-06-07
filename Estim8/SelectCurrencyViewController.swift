@@ -10,21 +10,39 @@ import UIKit
 
 class SelectCurrencyImplementation: SelectCurrencyView {
     
-    init() {
-        
+    let controller: ControllerSelectCurrencyInterface
+    
+    let parent: SelectCurrencyViewControllerInterface
+    
+    weak var view: SelectCurrencyViewController? = nil
+    
+    init(controller: ControllerSelectCurrencyInterface, parent: SelectCurrencyViewControllerInterface) {
+        self.controller = controller
+        self.parent = parent
+    }
+    
+    func setView(view: SelectCurrencyViewController) {
+        self.view = view
+        view.setViewImplementation(self)
     }
     
     func showSubView() {
-        //TODO
+        parent.showSelectCurrencyView(self)
     }
     
     func hideSubView() {
-        //TODO
+        view?.navigationController?.popViewControllerAnimated(true)
     }
     
 }
 
 class SelectCurrencyViewController: SubViewController {
+    
+    var viewImplementation: SelectCurrencyImplementation? = nil
+    
+    func setViewImplementation(viewImplementation: SelectCurrencyImplementation) {
+        self.viewImplementation = viewImplementation
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -10,26 +10,36 @@ import UIKit
 
 class ListCurrenciesImplementation: ListCurrenciesView {
     
-    init() {
-        
+    let controller: ControllerListCurrenciesInterface
+    
+    let parent: ListCurrenciesViewControllerInterface
+    
+    weak var view: ListCurrenciesViewController? = nil
+    
+    init(controller: ControllerListCurrenciesInterface, parent: ListCurrenciesViewControllerInterface) {
+        self.controller = controller
+        self.parent = parent
+    }
+    
+    func setView(view: ListCurrenciesViewController) {
+        self.view = view
+        view.setViewImplementation(self)
     }
 
     func showSubView() {
-        
+        parent.showListCurrenciesView(self)
     }
     
     func hideSubView() {
-        
+        view?.navigationController?.popViewControllerAnimated(true)
     }
     
     func createCurrency(controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView {
-        //TODO
-        return CreateCurrencyImplementation()
+        return CreateCurrencyImplementation(controller: controller, parent: view!)
     }
     
     func editCurrency(controller: ControllerEditCurrencyInterface) -> EditCurrencyView {
-        //TODO
-        return EditCurrencyImplementation()
+        return EditCurrencyImplementation(controller: controller, parent: view!)
     }
     
     func refreshCurrency(n: Int) {
@@ -47,6 +57,12 @@ class ListCurrenciesImplementation: ListCurrenciesView {
 }
 
 class ListCurrenciesViewController: SubViewController {
+    
+    var viewImplementation: ListCurrenciesView? = nil
+    
+    func setViewImplementation(viewImplementation: ListCurrenciesImplementation) {
+        self.viewImplementation = viewImplementation
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

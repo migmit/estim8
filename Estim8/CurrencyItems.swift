@@ -29,11 +29,3 @@ protocol ControllerCurrencyInterface: ControllerROCurrencyInterface {
     func remove()
     
 }
-
-protocol ControllerROCurrenciesInterface { // SUBJECT TO REMOVAL!
-    
-    func numberOfCurrencies() -> Int
-    
-    func currency(n: Int) -> ControllerROCurrencyInterface?
-
-}

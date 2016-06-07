@@ -44,25 +44,46 @@ class ControllerROCurrencyImplementation<Model: ModelInterface>: ControllerROCur
     
 }
 
-class ControllerROCurrenciesImplementation<Model: ModelInterface>: ControllerROCurrenciesInterface { // SUBJECT TO REMOVAL!
+class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerCurrencyInterface {
+    
+    let currency: Model.Currency
     
     let model: Model
     
-    init(model: Model) {
+    init(model: Model, currency: Model.Currency) {
+        self.currency = currency
         self.model = model
     }
     
-    func numberOfCurrencies() -> Int {
-        return model.liveCurrencies().count
+    func name() -> String {
+        return model.nameOfCurrency(currency)
     }
     
-    func currency(n: Int) -> ControllerROCurrencyInterface? {
-        let currencies = model.liveCurrencies()
-        if (n >= currencies.count) {
-            return nil
-        } else {
-            return ControllerROCurrencyImplementation<Model>(model: model, currency: currencies[n])
-        }
+    func code() -> String {
+        return model.codeOfCurrency(currency)
+    }
+    
+    func symbol() -> String {
+        return model.symbolOfCurrency(currency)
+    }
+    
+    func rate() -> (NSDecimalNumber, NSDecimalNumber) {
+        let lastUpdate = model.updatesOfCurrency(currency)[0]
+        return model.rateOfCurrencyUpdate(lastUpdate)
+    }
+    
+    func relative() -> ControllerROCurrencyInterface {
+        let lastUpdate = model.updatesOfCurrency(currency)[0]
+        let rel = model.currenciesOfUpdate(lastUpdate).1
+        return ControllerROCurrencyImplementation<Model>(model: model, currency: rel)
+    }
+
+    func edit() {
+        //TODO
+    }
+    
+    func remove() {
+        //TODO
     }
     
 }

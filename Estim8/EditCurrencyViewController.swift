@@ -10,25 +10,46 @@ import UIKit
 
 class EditCurrencyImplementation: EditCurrencyView {
     
-    init() {
-        
+    let controller: ControllerEditCurrencyInterface
+    
+    let parent: ListCurrenciesViewController
+    
+    weak var view: EditCurrencyViewController? = nil
+    
+    init(controller: ControllerEditCurrencyInterface, parent: ListCurrenciesViewController) {
+        self.controller = controller
+        self.parent = parent
+    }
+    
+    func setView(view: EditCurrencyViewController) {
+        self.view = view
+        view.setViewImplementation(self)
     }
     
     func showSubView() {
-        //TODO
+        parent.performSegueWithIdentifier("EditCurrency", sender: self)
     }
     
     func hideSubView() {
-        //TODO
+        view?.navigationController?.popViewControllerAnimated(true)
     }
     
     func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {
-        //TODO
-        return SelectCurrencyImplementation()
+        return SelectCurrencyImplementation(controller: controller, parent: view!)
     }
 }
 
-class EditCurrencyViewController: SubViewController {
+class EditCurrencyViewController: SubViewController, SelectCurrencyViewControllerInterface {
+    
+    var viewImplementation: EditCurrencyImplementation? = nil
+    
+    func setViewImplementation(viewImplementation: EditCurrencyImplementation) {
+        self.viewImplementation = viewImplementation
+    }
+    
+    func showSelectCurrencyView(sender: SelectCurrencyView) {
+        performSegueWithIdentifier("SelectCurrency", sender: sender)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

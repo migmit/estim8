@@ -35,13 +35,12 @@ class CreateAccountImplementation: CreateAccountView {
     }
     
     func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
-        //TODO
-        return ListCurrenciesImplementation()
+        return ListCurrenciesImplementation(controller: controller, parent: view!)
     }
     
 }
 
-class CreateAccountViewController: SubViewController {
+class CreateAccountViewController: SubViewController, ListCurrenciesViewControllerInterface {
 
     var viewImplementation: CreateAccountImplementation? = nil
     
@@ -54,6 +53,10 @@ class CreateAccountViewController: SubViewController {
     @IBOutlet weak var negativeCell: UITableViewCell!
     
     var isNegative: Bool = false
+    
+    func showListCurrenciesView(sender: ListCurrenciesView) {
+        performSegueWithIdentifier("ListCurrencies", sender: sender)
+    }
     
     func setViewImplementation(viewImplementation: CreateAccountImplementation) {
         self.viewImplementation = viewImplementation
@@ -120,8 +123,8 @@ class CreateAccountViewController: SubViewController {
         accountValueText.resignFirstResponder()
         let title = accountTitleText.text ?? ""
         let value = accountValueText.getValue()
-        if let controller = viewImplementation?.controller, let currency = controller.currencies().currency(0) {
-            if (!(controller.create(title, initialValue: value, currency: currency, isNegative: isNegative) ?? false)) {
+        if let controller = viewImplementation?.controller {
+            if (!(controller.create(title, initialValue: value, isNegative: isNegative) ?? false)) {
                 let alert = UIAlertController(title: "Error", message: "Can't create \(isNegative ? "negative" : "positive") account \"\(title)\" with value \(value)", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -132,8 +135,8 @@ class CreateAccountViewController: SubViewController {
     func somethingChanged() {
         let title = accountTitleText.text ?? ""
         let value = accountValueText.getValue()
-        if let controller = viewImplementation?.controller, let currency = controller.currencies().currency(0) {
-            navigationItem.rightBarButtonItem?.enabled = controller.canCreate(title, initialValue: value, currency: currency, isNegative: isNegative)
+        if let controller = viewImplementation?.controller {
+            navigationItem.rightBarButtonItem?.enabled = controller.canCreate(title, initialValue: value, isNegative: isNegative)
         } else {
             navigationItem.rightBarButtonItem?.enabled = false
         }

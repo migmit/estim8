@@ -82,11 +82,15 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     
     let index: Int
     
+    var selectedCurrency: ControllerROCurrencyInterface
+    
     init(parent: ControllerImplementation<Model>, model: Model, account: Model.Account, index: Int) {
         self.parent = parent
         self.model = model
         self.account = account
         self.index = index
+        let lastUpdate = model.updatesOfAccount(account)[0]
+        selectedCurrency = ControllerROCurrencyImplementation(model: model, currency: model.currencyOfUpdate(lastUpdate))
     }
     
     func setView(view: EditAccountView) {
@@ -108,8 +112,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     }
     
     func currency() -> ControllerROCurrencyInterface {
-        let lastUpdate = model.updatesOfAccount(account)[0]
-        return ControllerROCurrencyImplementation(model: model, currency: model.currencyOfUpdate(lastUpdate))
+        return selectedCurrency
     }
     
     func setValue(value: NSDecimalNumber, currency: ControllerROCurrencyInterface) -> Bool {
@@ -140,11 +143,14 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     }
     
     func selectCurrency() {
-        //TODO
+        let listCurrenciesController = ControllerListCurrenciesImplementation<Model>(parent: self, model: model)
+        let listCurrenciesView = view!.selectCurrency(listCurrenciesController)
+        listCurrenciesController.setView(listCurrenciesView)
+        listCurrenciesView.showSubView()
     }
     
     func currencySelected(currency: ControllerROCurrencyInterface) {
-        //TODO
+        selectedCurrency = currency
     }
     
 }
@@ -157,18 +163,21 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
     
     weak var view: CreateAccountView? = nil
     
+    var selectedCurrency: ControllerROCurrencyInterface
+    
     init(parent: ControllerImplementation<Model>, model: Model) {
         self.parent = parent
         self.model = model
+        self.selectedCurrency = ControllerROCurrencyImplementation<Model>(model: model, currency: model.baseCurrency())
     }
     
     func setView(view: CreateAccountView) {
         self.view = view
     }
     
-    func create(title: String, initialValue: NSDecimalNumber, currency: ControllerROCurrencyInterface, isNegative: Bool) -> Bool {
-        if (canCreate(title, initialValue: initialValue, currency: currency, isNegative: isNegative)) {
-            if let currencyImpl = currency as? ControllerROCurrencyImplementation<Model> {
+    func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
+        if (canCreate(title, initialValue: initialValue, isNegative: isNegative)) {
+            if let currencyImpl = selectedCurrency as? ControllerROCurrencyImplementation<Model> {
                 view?.hideSubView()
                 model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: currencyImpl.currency)
                 parent.addAccount()
@@ -181,21 +190,20 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         }
     }
     
-    func canCreate(title: String, initialValue: NSDecimalNumber, currency: ControllerROCurrencyInterface, isNegative: Bool) -> Bool {
+    func canCreate(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
         let verifyValue = isNegative ? initialValue.decimalNumberByMultiplyingBy(-1) : initialValue
         return verifyValue.compare(0) != .OrderedAscending && !title.isEmpty
     }
     
-    func currencies() -> ControllerROCurrenciesInterface { // SUBJECT TO REMOVAL
-        return ControllerROCurrenciesImplementation(model: model)
-    }
-    
     func selectCurrency() {
-        //TODO
+        let listCurrenciesController = ControllerListCurrenciesImplementation<Model>(parent: self, model: model)
+        let listCurrenciesView = view!.selectCurrency(listCurrenciesController)
+        listCurrenciesController.setView(listCurrenciesView)
+        listCurrenciesView.showSubView()
     }
     
     func currencySelected(currency: ControllerROCurrencyInterface) {
-        //TODO
+        selectedCurrency = currency
     }
     
 }

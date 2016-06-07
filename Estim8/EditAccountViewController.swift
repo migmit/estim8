@@ -35,12 +35,11 @@ class EditAccountImplementation: EditAccountView {
     }
     
     func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
-        //TODO
-        return ListCurrenciesImplementation()
+        return ListCurrenciesImplementation(controller: controller, parent: view!)
     }
 }
 
-class EditAccountViewController: SubViewController {
+class EditAccountViewController: SubViewController, ListCurrenciesViewControllerInterface {
     
     var viewImplementation: EditAccountImplementation? = nil
     
@@ -53,6 +52,10 @@ class EditAccountViewController: SubViewController {
     func setViewImplementation(viewImplementation: EditAccountImplementation) {
         self.viewImplementation = viewImplementation
         self.currency = viewImplementation.controller.currency()
+    }
+    
+    func showListCurrenciesView(sender: ListCurrenciesView) {
+        performSegueWithIdentifier("ListCurrencies", sender: sender)
     }
 
     override func viewDidLoad() {

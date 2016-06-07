@@ -35,13 +35,11 @@ protocol ControllerEditAccountInterface: ControllerROAccountInterface, Controlle
 
 protocol ControllerCreateAccountInterface: ControllerCurrencySelectedProtocol {
     
-    func create(title: String, initialValue: NSDecimalNumber, currency: ControllerROCurrencyInterface, isNegative: Bool) -> Bool
+    func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
     
-    func canCreate(title: String, initialValue: NSDecimalNumber, currency: ControllerROCurrencyInterface, isNegative: Bool) -> Bool
+    func canCreate(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
     
     func selectCurrency()
-    
-    func currencies() -> ControllerROCurrenciesInterface //SUBJECT TO REMOVAL
     
 }
 

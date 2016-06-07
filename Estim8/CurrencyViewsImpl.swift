@@ -8,16 +8,34 @@
 
 import Foundation
 
-class ControllerSelectCurrencyImplementation: ControllerSelectCurrencyInterface {
+class ControllerSelectCurrencyImplementation<Model: ModelInterface>: ControllerSelectCurrencyInterface {
+    
+    let parent: ControllerCurrencySelectedProtocol
+    
+    let model: Model
+    
+    weak var view: SelectCurrencyView? = nil
+    
+    init(parent: ControllerCurrencySelectedProtocol, model: Model) {
+        self.parent = parent
+        self.model = model
+    }
+    
+    func setView(view: SelectCurrencyView) {
+        self.view = view
+    }
     
     func numberOfCurrencies() -> Int {
-        //TODO
-        return 0
+        return model.liveCurrencies().count
     }
     
     func currency(n: Int) -> ControllerROCurrencyInterface? {
-        //TODO
-        return nil
+        let currencies = model.liveCurrencies()
+        if (n >= currencies.count) {
+            return nil
+        } else {
+            return ControllerROCurrencyImplementation<Model>(model: model, currency: currencies[n])
+        }
     }
     
     func select(n: Int) -> Bool {
@@ -32,16 +50,34 @@ class ControllerSelectCurrencyImplementation: ControllerSelectCurrencyInterface 
     
 }
 
-class ControllerListCurrenciesImplementation: ControllerListCurrenciesInterface {
+class ControllerListCurrenciesImplementation<Model: ModelInterface>: ControllerListCurrenciesInterface {
+    
+    let parent: ControllerCurrencySelectedProtocol
+    
+    let model: Model
+    
+    weak var view: ListCurrenciesView? = nil
+    
+    init(parent: ControllerCurrencySelectedProtocol, model: Model) {
+        self.parent = parent
+        self.model = model
+    }
+    
+    func setView(view: ListCurrenciesView) {
+        self.view = view
+    }
     
     func numberOfCurrencies() -> Int {
-        //TODO
-        return 0
+        return model.liveCurrencies().count
     }
     
     func currency(n: Int) -> ControllerCurrencyInterface? {
-        //TODO
-        return nil
+        let currencies = model.liveCurrencies()
+        if (n >= currencies.count) {
+            return nil
+        } else {
+            return ControllerCurrencyImplementation(model: model, currency: currencies[n])
+        }
     }
     
     func select(n: Int) -> Bool {
@@ -56,7 +92,22 @@ class ControllerListCurrenciesImplementation: ControllerListCurrenciesInterface 
     
 }
 
-class ControllerEditCurrencyImplementation: ControllerEditCurrencyInterface {
+class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEditCurrencyInterface {
+    
+    let parent: ControllerListCurrenciesImplementation<Model>
+    
+    let model: Model
+    
+    weak var view: EditCurrencyView? = nil
+    
+    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model) {
+        self.parent = parent
+        self.model = model
+    }
+    
+    func setView(view: EditCurrencyView) {
+        self.view = view
+    }
     
     func name() -> String {
         //TODO
@@ -107,7 +158,22 @@ class ControllerEditCurrencyImplementation: ControllerEditCurrencyInterface {
     
 }
 
-class ControllerCreateCurrencyImplementation: ControllerCreateCurrencyInterface {
+class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerCreateCurrencyInterface {
+    
+    let parent: ControllerListCurrenciesImplementation<Model>
+    
+    let model: Model
+    
+    weak var view: CreateCurrencyView? = nil
+    
+    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model) {
+        self.parent = parent
+        self.model = model
+    }
+    
+    func setView(view: CreateCurrencyView) {
+        self.view = view
+    }
     
     func create(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber), relative: ControllerROCurrencyInterface) -> Bool {
         //TODO

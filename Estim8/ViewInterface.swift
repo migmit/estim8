@@ -84,3 +84,15 @@ protocol CreateCurrencyView: SubView {
     func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView
     
 }
+
+protocol ListCurrenciesViewControllerInterface {
+    
+    func showListCurrenciesView(sender: ListCurrenciesView)
+    
+}
+
+protocol SelectCurrencyViewControllerInterface {
+    
+    func showSelectCurrencyView(sender: SelectCurrencyView)
+    
+}
