@@ -262,4 +262,9 @@ class ModelImplementation: ModelInterface {
         }
     }
     
+    func currenciesBasedOn(currency: Currency) -> [Currency] {
+        let currencyUpdates = currency.valueForKey("based") as! [CurrencyUpdate]
+        return currencyUpdates.map{currenciesOfUpdate($0).0}.filter{!($0.valueForKey("removed") as! Bool)}
+    }
+    
 }

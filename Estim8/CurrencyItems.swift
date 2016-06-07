@@ -26,6 +26,8 @@ protocol ControllerCurrencyInterface: ControllerROCurrencyInterface {
     
     func edit()
     
-    func remove()
+    func remove() -> Bool
+    
+    func canRemove() -> Bool
     
 }

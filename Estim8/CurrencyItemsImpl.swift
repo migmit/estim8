@@ -44,46 +44,40 @@ class ControllerROCurrencyImplementation<Model: ModelInterface>: ControllerROCur
     
 }
 
-class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerCurrencyInterface {
+class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerROCurrencyImplementation<Model>, ControllerCurrencyInterface {
     
-    let currency: Model.Currency
+    let parent: ControllerListCurrenciesImplementation<Model>
     
-    let model: Model
+    let view: ListCurrenciesView
     
-    init(model: Model, currency: Model.Currency) {
-        self.currency = currency
-        self.model = model
+    let index: Int
+    
+    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, view: ListCurrenciesView, currency: Model.Currency, index: Int) {
+        self.parent = parent
+        self.view = view
+        self.index = index
+        super.init(model: model, currency: currency)
     }
     
-    func name() -> String {
-        return model.nameOfCurrency(currency)
-    }
-    
-    func code() -> String {
-        return model.codeOfCurrency(currency)
-    }
-    
-    func symbol() -> String {
-        return model.symbolOfCurrency(currency)
-    }
-    
-    func rate() -> (NSDecimalNumber, NSDecimalNumber) {
-        let lastUpdate = model.updatesOfCurrency(currency)[0]
-        return model.rateOfCurrencyUpdate(lastUpdate)
-    }
-    
-    func relative() -> ControllerROCurrencyInterface {
-        let lastUpdate = model.updatesOfCurrency(currency)[0]
-        let rel = model.currenciesOfUpdate(lastUpdate).1
-        return ControllerROCurrencyImplementation<Model>(model: model, currency: rel)
-    }
-
     func edit() {
-        //TODO
+        let editController = ControllerEditCurrencyImplementation<Model>(parent: parent, model: model, currency: currency, index: index)
+        let editView = view.editCurrency(editController)
+        editController.setView(editView)
+        editView.showSubView()
     }
     
-    func remove() {
-        //TODO
+    func remove() -> Bool {
+        if (canRemove()) {
+            model.removeCurrency(currency)
+            parent.removeCurrency(index)
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func canRemove() -> Bool {
+        return model.currenciesBasedOn(currency).isEmpty
     }
     
 }

@@ -26,6 +26,8 @@ protocol ControllerListCurrenciesInterface {
     
     func currency(n: Int) -> ControllerCurrencyInterface?
     
+    func marked(n: Int) -> Bool
+    
     func select(n: Int) -> Bool
     
     func canSelect(n: Int) -> Bool
@@ -40,11 +42,13 @@ protocol ControllerCurrencySelectedProtocol {
 
 protocol ControllerEditCurrencyInterface: ControllerROCurrencyInterface, ControllerCurrencySelectedProtocol {
     
-    func setCurrency(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber), relative: ControllerROCurrencyInterface) -> Bool
+    func setCurrency(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
     
-    func canSetCurrency(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber), relative: ControllerROCurrencyInterface) -> Bool
+    func canSetCurrency(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
     
-    func remove()
+    func remove() -> Bool
+    
+    func canRemove() -> Bool
     
     func selectCurrency()
     
@@ -52,9 +56,9 @@ protocol ControllerEditCurrencyInterface: ControllerROCurrencyInterface, Control
 
 protocol ControllerCreateCurrencyInterface: ControllerCurrencySelectedProtocol {
     
-    func create(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber), relative: ControllerROCurrencyInterface) -> Bool
+    func create(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
     
-    func canCreate(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber), relative: ControllerROCurrencyInterface) -> Bool
+    func canCreate(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
     
     func selectCurrency()
     

@@ -82,7 +82,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     
     let index: Int
     
-    var selectedCurrency: ControllerROCurrencyInterface
+    var selectedCurrency: Model.Currency
     
     init(parent: ControllerImplementation<Model>, model: Model, account: Model.Account, index: Int) {
         self.parent = parent
@@ -90,7 +90,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         self.account = account
         self.index = index
         let lastUpdate = model.updatesOfAccount(account)[0]
-        selectedCurrency = ControllerROCurrencyImplementation(model: model, currency: model.currencyOfUpdate(lastUpdate))
+        selectedCurrency = model.currencyOfUpdate(lastUpdate)
     }
     
     func setView(view: EditAccountView) {
@@ -112,7 +112,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     }
     
     func currency() -> ControllerROCurrencyInterface {
-        return selectedCurrency
+        return ControllerROCurrencyImplementation<Model>(model: model, currency: selectedCurrency)
     }
     
     func setValue(value: NSDecimalNumber, currency: ControllerROCurrencyInterface) -> Bool {
@@ -143,14 +143,16 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     }
     
     func selectCurrency() {
-        let listCurrenciesController = ControllerListCurrenciesImplementation<Model>(parent: self, model: model)
+        let listCurrenciesController = ControllerListCurrenciesImplementation<Model>(parent: self, model: model, selected: selectedCurrency)
         let listCurrenciesView = view!.selectCurrency(listCurrenciesController)
         listCurrenciesController.setView(listCurrenciesView)
         listCurrenciesView.showSubView()
     }
     
     func currencySelected(currency: ControllerROCurrencyInterface) {
-        selectedCurrency = currency
+        if let c = currency as? ControllerROCurrencyImplementation<Model> {
+            selectedCurrency = c.currency
+        }
     }
     
 }
@@ -163,12 +165,11 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
     
     weak var view: CreateAccountView? = nil
     
-    var selectedCurrency: ControllerROCurrencyInterface
+    var selectedCurrency: Model.Currency? = nil
     
     init(parent: ControllerImplementation<Model>, model: Model) {
         self.parent = parent
         self.model = model
-        self.selectedCurrency = ControllerROCurrencyImplementation<Model>(model: model, currency: model.baseCurrency())
     }
     
     func setView(view: CreateAccountView) {
@@ -196,14 +197,16 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
     }
     
     func selectCurrency() {
-        let listCurrenciesController = ControllerListCurrenciesImplementation<Model>(parent: self, model: model)
+        let listCurrenciesController = ControllerListCurrenciesImplementation<Model>(parent: self, model: model, selected: selectedCurrency)
         let listCurrenciesView = view!.selectCurrency(listCurrenciesController)
         listCurrenciesController.setView(listCurrenciesView)
         listCurrenciesView.showSubView()
     }
     
     func currencySelected(currency: ControllerROCurrencyInterface) {
-        selectedCurrency = currency
+        if let c = currency as? ControllerROCurrencyImplementation<Model> {
+            selectedCurrency = c.currency
+        }
     }
     
 }
