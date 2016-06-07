@@ -12,7 +12,7 @@ protocol ControllerSelectCurrencyInterface {
     
     func numberOfCurrencies() -> Int
     
-    func currency(n: Int) -> ControllerROCurrencyInterface
+    func currency(n: Int) -> ControllerROCurrencyInterface?
     
     func select(n: Int) -> Bool
     
@@ -24,7 +24,7 @@ protocol ControllerListCurrenciesInterface {
     
     func numberOfCurrencies() -> Int
     
-    func currency(n: Int) -> ControllerCurrencyInterface
+    func currency(n: Int) -> ControllerCurrencyInterface?
     
     func select(n: Int) -> Bool
     
