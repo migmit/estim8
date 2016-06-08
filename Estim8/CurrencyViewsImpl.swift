@@ -56,7 +56,7 @@ class ControllerSelectCurrencyImplementation<Model: ModelInterface>: ControllerS
     
     func canSelect(n: Int) -> Bool {
         let currencies = model.liveCurrencies()
-        if (n >= currencies.count) {
+        if (n >= currencies.count || baseFor == model.baseCurrency()) {
             return false
         } else {
             if let bf = baseFor {
