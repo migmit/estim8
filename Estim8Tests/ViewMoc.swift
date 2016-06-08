@@ -15,6 +15,10 @@ enum MocViewState {
     case Decant(DecantMoc)
     case Slices(SlicesMoc)
     case EditAccount(EditAccountMoc)
+    case ListCurrencies(ListCurrenciesMoc)
+    case CreateCurrency(CreateCurrencyMoc)
+    case EditCurrency(EditCurrencyMoc)
+    case SelectCurrency(SelectCurrencyMoc)
 }
 
 class MocView {
@@ -69,6 +73,46 @@ class MocView {
         switch state {
         case .EditAccount(let editAccount):
             return editAccount
+        default:
+            XCTFail()
+            return nil
+        }
+    }
+    
+    func listCurrencies() -> ListCurrenciesMoc? {
+        switch state {
+        case .ListCurrencies(let listCurrencies):
+            return listCurrencies
+        default:
+            XCTFail()
+            return nil
+        }
+    }
+    
+    func createCurrency() -> CreateCurrencyMoc? {
+        switch state {
+        case .CreateCurrency(let createCurrency):
+            return createCurrency
+        default:
+            XCTFail()
+            return nil
+        }
+    }
+    
+    func editCurrency() -> EditCurrencyMoc? {
+        switch state {
+        case .EditCurrency(let editCurrency):
+            return editCurrency
+        default:
+            XCTFail()
+            return nil
+        }
+    }
+    
+    func selectCurrency() -> SelectCurrencyMoc? {
+        switch state {
+        case .SelectCurrency(let selectCurrency):
+            return selectCurrency
         default:
             XCTFail()
             return nil
@@ -168,29 +212,16 @@ class CreateAccountMoc: CreateAccountView {
     
     let view: MocView
     
-    let currencies: [String]
-    
     var title: String = ""
     
     var value: NSDecimalNumber = 0
     
     var isNegative: Bool = false
     
-    var selectedCurrency: Int = 0
-    
     init(parent: MainWindowMoc, controller: ControllerCreateAccountInterface, view: MocView) {
         self.parent = parent
         self.controller = controller
         self.view = view
-        var currencyNames: [String] = []
-        let currenciesList = controller.currencies()
-        let n = currenciesList.numberOfCurrencies()
-        for i in 0...(n-1) {
-            if let currency = currenciesList.currency(i) {
-                currencyNames.append(currency.name())
-            }
-        }
-        self.currencies = currencyNames
     }
     
     func showSubView() {
@@ -207,17 +238,16 @@ class CreateAccountMoc: CreateAccountView {
     
     func tapOk() {
         if (!title.isEmpty) {
-            if let currency = controller.currencies().currency(selectedCurrency) {
-                controller.create(title, initialValue: value, currency: currency, isNegative: isNegative)
-            }
+            controller.create(title, initialValue: value, isNegative: isNegative)
         }
     }
     
-    func expectCurrencies(expected: [String?]) {
-        XCTAssert(expected.count == currencies.count)
-        for i in 0...(currencies.count - 1) {
-            XCTAssert(expected[i] == nil || expected[i] == currencies[i])
-        }
+    func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
+        return ListCurrenciesMoc(parent: .CreateAccount(self), view: view)
+    }
+    
+    func currencySelected(selected: ControllerROCurrencyInterface) {
+        controller.currencySelected(selected)
     }
 }
 
@@ -448,4 +478,151 @@ class EditAccountMoc: EditAccountView {
     func tapDeleteButton() {
         controller.remove()
     }
+    
+    func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
+        return ListCurrenciesMoc(parent: .EditAccount(self), view: view)
+    }
+    
+    func currencySelected(selected: ControllerROCurrencyInterface) {
+        controller.currencySelected(selected)
+    }
+}
+
+enum ListCurrenciesParent {
+    case EditAccount(EditAccountMoc)
+    case CreateAccount(CreateAccountMoc)
+}
+
+class ListCurrenciesMoc: ListCurrenciesView {
+    
+    let parent: ListCurrenciesParent
+    
+    let view: MocView
+    
+    init(parent: ListCurrenciesParent, view: MocView) {
+        self.parent = parent
+        self.view = view
+    }
+    
+    func showSubView() {
+        view.state = .ListCurrencies(self)
+    }
+    
+    func hideSubView() {
+        switch parent {
+        case .EditAccount(let editAccount):
+            view.state = .EditAccount(editAccount)
+        case .CreateAccount(let createAccount):
+            view.state = .CreateAccount(createAccount)
+        }
+    }
+    
+    func createCurrency(controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView {
+        return CreateCurrencyMoc(parent: self, view: view)
+    }
+    
+    func editCurrency(controller: ControllerEditCurrencyInterface) -> EditCurrencyView {
+        return EditCurrencyMoc(parent: self, view: view)
+    }
+    
+    func refreshCurrency(n: Int) {
+        //TODO
+    }
+    
+    func removeCurrency(n: Int) {
+        //TODO
+    }
+    
+    func addCurrency() {
+        //TODO
+    }
+}
+
+class CreateCurrencyMoc: CreateCurrencyView {
+    
+    let parent: ListCurrenciesMoc
+    
+    let view: MocView
+    
+    init(parent: ListCurrenciesMoc, view: MocView) {
+        self.parent = parent
+        self.view = view
+    }
+    
+    func showSubView() {
+        view.state = .CreateCurrency(self)
+    }
+    
+    func hideSubView() {
+        view.state = .ListCurrencies(parent)
+    }
+    
+    func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {
+        return SelectCurrencyMoc(parent: .CreateCurrency(self), view: view)
+    }
+    
+    func relativeSelected(selected: ControllerROCurrencyInterface) {
+        //TODO
+    }
+    
+}
+
+class EditCurrencyMoc: EditCurrencyView {
+    
+    let parent: ListCurrenciesMoc
+    
+    let view: MocView
+    
+    init(parent: ListCurrenciesMoc, view: MocView) {
+        self.parent = parent
+        self.view = view
+    }
+    
+    func showSubView() {
+        view.state = .EditCurrency(self)
+    }
+    
+    func hideSubView() {
+        view.state = .ListCurrencies(parent)
+    }
+    
+    func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {
+        return SelectCurrencyMoc(parent: .EditCurrency(self), view: view)
+    }
+    
+    func relativeSelected(selected: ControllerROCurrencyInterface) {
+        //TODO
+    }
+    
+}
+
+enum SelectCurrencyParent {
+    case CreateCurrency(CreateCurrencyMoc)
+    case EditCurrency(EditCurrencyMoc)
+}
+
+class SelectCurrencyMoc: SelectCurrencyView {
+    
+    let parent: SelectCurrencyParent
+    
+    let view: MocView
+    
+    init(parent: SelectCurrencyParent, view: MocView) {
+        self.parent = parent
+        self.view = view
+    }
+    
+    func showSubView() {
+        view.state = .SelectCurrency(self)
+    }
+    
+    func hideSubView() {
+        switch parent {
+        case .CreateCurrency(let createCurrency):
+            view.state = .CreateCurrency(createCurrency)
+        case .EditCurrency(let editCurrency):
+            view.state = .EditCurrency(editCurrency)
+        }
+    }
+    
 }

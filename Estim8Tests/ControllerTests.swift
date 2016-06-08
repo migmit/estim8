@@ -61,11 +61,8 @@ class ControllerTests: XCTestCase {
         super.tearDown()
     }
     
-    func createAccount(title: String, value: NSDecimalNumber, isNegative: Bool, expected: [String?]? = nil) {
+    func createAccount(title: String, value: NSDecimalNumber, isNegative: Bool) {
         view?.mainWindow()?.tapPlusButton()
-        if let e = expected {
-            view?.createAccount()?.expectCurrencies(e)
-        }
         view?.createAccount()?.title = title
         view?.createAccount()?.value = value
         view?.createAccount()?.isNegative = isNegative
@@ -93,7 +90,7 @@ class ControllerTests: XCTestCase {
     
     func testCreateAccount() {
         view?.mainWindow()?.expect([])
-        createAccount("AAA", value: 1, isNegative: false, expected: [nil])
+        createAccount("AAA", value: 1, isNegative: false)
         view?.mainWindow()?.expect([("AAA", 1)])
     }
     

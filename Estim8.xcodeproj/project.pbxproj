@@ -54,6 +54,7 @@
 		B5A6840F1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = B5A6840E1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel */; };
 		B5B6A6D21CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A6D11CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift */; };
 		B5E41ABF1D061FA5004CAF7C /* CurrencyViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3C31D06082A001642F8 /* CurrencyViews.swift */; };
+		B5E41AC01D08C227004CAF7C /* CurrencyViewsImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3C51D06083C001642F8 /* CurrencyViewsImpl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -474,6 +475,7 @@
 				B59CB3C21D06073C001642F8 /* AccountViews.swift in Sources */,
 				B5E41ABF1D061FA5004CAF7C /* CurrencyViews.swift in Sources */,
 				B59CB3BF1D06073C001642F8 /* AccountItems.swift in Sources */,
+				B5E41AC01D08C227004CAF7C /* CurrencyViewsImpl.swift in Sources */,
 				B51DE59B1CB449E90060960A /* ModelImplementation.swift in Sources */,
 				B51DE5A81CB6C36F0060960A /* ControllerTests.swift in Sources */,
 			);
