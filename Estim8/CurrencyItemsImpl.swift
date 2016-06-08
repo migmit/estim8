@@ -23,7 +23,7 @@ class ControllerROCurrencyImplementation<Model: ModelInterface>: ControllerROCur
         return model.nameOfCurrency(currency)
     }
     
-    func code() -> String {
+    func code() -> String? {
         return model.codeOfCurrency(currency)
     }
     

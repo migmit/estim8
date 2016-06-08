@@ -173,8 +173,8 @@ class ModelImplementation: ModelInterface {
         return (update.valueForKey("currencyUpdate") as! CurrencyUpdate).valueForKey("currency") as! Currency
     }
     
-    func codeOfCurrency(currency: Currency) -> String {
-        return currency.valueForKey("code") as! String
+    func codeOfCurrency(currency: Currency) -> String? {
+        return currency.valueForKey("code") as? String
     }
     
     func nameOfCurrency(currency: Currency) -> String {

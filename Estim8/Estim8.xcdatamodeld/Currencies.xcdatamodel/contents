@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15F34" minimumToolsVersion="Automatic">
     <entity name="Account" syncable="YES">
         <attribute name="closingDate" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="negative" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
@@ -16,7 +16,7 @@
         <attribute name="removed" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <attribute name="removeDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="sortingIndex" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
-        <attribute name="symbol" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="symbol" attributeType="String" syncable="YES"/>
         <relationship name="based" toMany="YES" deletionRule="Deny" destinationEntity="CurrencyUpdate" inverseName="base" inverseEntity="CurrencyUpdate" syncable="YES"/>
         <relationship name="updates" toMany="YES" minCount="1" deletionRule="Deny" destinationEntity="CurrencyUpdate" inverseName="currency" inverseEntity="CurrencyUpdate" syncable="YES"/>
     </entity>

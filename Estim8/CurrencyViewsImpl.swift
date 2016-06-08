@@ -182,7 +182,7 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
         return model.nameOfCurrency(currency)
     }
     
-    func code() -> String {
+    func code() -> String? {
         return model.codeOfCurrency(currency)
     }
     

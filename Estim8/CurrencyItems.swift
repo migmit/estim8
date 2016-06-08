@@ -12,7 +12,7 @@ protocol ControllerROCurrencyInterface {
     
     func name() -> String
     
-    func code() -> String
+    func code() -> String?
     
     func symbol() -> String
     

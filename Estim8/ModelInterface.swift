@@ -62,7 +62,7 @@ protocol ModelInterface {
     
     func currencyOfUpdate(update: Update) -> Currency
     
-    func codeOfCurrency(currency: Currency) -> String // "USD", "HUF"
+    func codeOfCurrency(currency: Currency) -> String? // "USD", "HUF"
     
     func nameOfCurrency(currency: Currency) -> String // "US dollar", "Hungarian forint"
     
