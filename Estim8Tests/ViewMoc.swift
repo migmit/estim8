@@ -488,7 +488,7 @@ class EditAccountMoc: EditAccountView {
     }
     
     func currencySelected(selected: ControllerROCurrencyInterface) {
-        controller.currencySelected(selected)
+        //do nothing
     }
 }
 
@@ -525,11 +525,11 @@ class ListCurrenciesMoc: ListCurrenciesView {
     }
     
     func createCurrency(controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView {
-        return CreateCurrencyMoc(parent: self, view: view)
+        return CreateCurrencyMoc(parent: self, controller: controller, view: view)
     }
     
     func editCurrency(controller: ControllerEditCurrencyInterface) -> EditCurrencyView {
-        return EditCurrencyMoc(parent: self, view: view)
+        return EditCurrencyMoc(parent: self, controller: controller, view: view)
     }
     
     func refreshCurrency(n: Int) {
@@ -553,10 +553,13 @@ class CreateCurrencyMoc: CreateCurrencyView {
     
     let parent: ListCurrenciesMoc
     
+    let controller: ControllerCreateCurrencyInterface
+    
     let view: MocView
     
-    init(parent: ListCurrenciesMoc, view: MocView) {
+    init(parent: ListCurrenciesMoc, controller: ControllerCreateCurrencyInterface, view: MocView) {
         self.parent = parent
+        self.controller = controller
         self.view = view
     }
     
@@ -569,11 +572,11 @@ class CreateCurrencyMoc: CreateCurrencyView {
     }
     
     func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {
-        return SelectCurrencyMoc(parent: .CreateCurrency(self), view: view)
+        return SelectCurrencyMoc(parent: .CreateCurrency(self), controller: controller, view: view)
     }
     
     func relativeSelected(selected: ControllerROCurrencyInterface) {
-        //TODO
+        //do nothing
     }
     
 }
@@ -582,10 +585,13 @@ class EditCurrencyMoc: EditCurrencyView {
     
     let parent: ListCurrenciesMoc
     
+    let controller: ControllerEditCurrencyInterface
+    
     let view: MocView
     
-    init(parent: ListCurrenciesMoc, view: MocView) {
+    init(parent: ListCurrenciesMoc, controller: ControllerEditCurrencyInterface, view: MocView) {
         self.parent = parent
+        self.controller = controller
         self.view = view
     }
     
@@ -598,11 +604,11 @@ class EditCurrencyMoc: EditCurrencyView {
     }
     
     func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {
-        return SelectCurrencyMoc(parent: .EditCurrency(self), view: view)
+        return SelectCurrencyMoc(parent: .EditCurrency(self), controller: controller, view: view)
     }
     
     func relativeSelected(selected: ControllerROCurrencyInterface) {
-        //TODO
+        //do nothing
     }
     
 }
@@ -616,10 +622,13 @@ class SelectCurrencyMoc: SelectCurrencyView {
     
     let parent: SelectCurrencyParent
     
+    let controller: ControllerSelectCurrencyInterface
+    
     let view: MocView
     
-    init(parent: SelectCurrencyParent, view: MocView) {
+    init(parent: SelectCurrencyParent, controller: ControllerSelectCurrencyInterface, view: MocView) {
         self.parent = parent
+        self.controller = controller
         self.view = view
     }
     
