@@ -315,4 +315,12 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerC
         }
     }
     
+    func relative() -> ControllerROCurrencyInterface? {
+        if let b = baseCurrency {
+            return ControllerROCurrencyImplementation(model: model, currency: b)
+        } else {
+            return nil
+        }
+    }
+    
 }

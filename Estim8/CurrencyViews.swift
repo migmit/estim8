@@ -64,4 +64,6 @@ protocol ControllerCreateCurrencyInterface: ControllerCurrencySelectedProtocol {
     
     func selectCurrency()
     
+    func relative() -> ControllerROCurrencyInterface?
+    
 }

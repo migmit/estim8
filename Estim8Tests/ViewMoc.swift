@@ -585,6 +585,10 @@ class CreateCurrencyMoc: CreateCurrencyView {
         //do nothing
     }
     
+    func expectBaseCurrency(currencyCode: String?) {
+        XCTAssertEqual(currencyCode, controller.relative().flatMap{$0.code()})
+    }
+    
 }
 
 class EditCurrencyMoc: EditCurrencyView {
@@ -615,6 +619,10 @@ class EditCurrencyMoc: EditCurrencyView {
     
     func relativeSelected(selected: ControllerROCurrencyInterface) {
         //do nothing
+    }
+    
+    func expectBaseCurrency(currencyCode: String?) {
+        XCTAssertEqual(currencyCode, controller.relative().code())
     }
     
 }
