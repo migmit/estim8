@@ -207,6 +207,10 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         view?.currencySelected(currency)
     }
     
+    func currency() -> ControllerROCurrencyInterface? {
+        return selectedCurrency.map{ControllerROCurrencyImplementation<Model>(model: model, currency: $0)}
+    }
+    
 }
 
 class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInterface {

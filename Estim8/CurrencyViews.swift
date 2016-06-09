@@ -14,6 +14,8 @@ protocol ControllerSelectCurrencyInterface {
     
     func currency(n: Int) -> ControllerROCurrencyInterface?
     
+    func marked(n: Int) -> Bool
+    
     func select(n: Int) -> Bool
     
     func canSelect(n: Int) -> Bool

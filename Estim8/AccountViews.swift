@@ -41,6 +41,8 @@ protocol ControllerCreateAccountInterface: ControllerCurrencySelectedProtocol {
     
     func selectCurrency()
     
+    func currency() -> ControllerROCurrencyInterface?
+    
 }
 
 protocol ControllerDecantInterface {

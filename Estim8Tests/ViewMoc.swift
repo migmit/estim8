@@ -253,6 +253,10 @@ class CreateAccountMoc: CreateAccountView {
     func currencySelected(selected: ControllerROCurrencyInterface) {
         // do nothing
     }
+    
+    func expectCurrency(currencySymbol: String?) {
+        XCTAssertEqual(currencySymbol, controller.currency().map{$0.symbol()})
+    }
 }
 
 class DecantMoc: DecantView {
@@ -272,8 +276,6 @@ class DecantMoc: DecantView {
     var toSelected: Int = 0
     
     var value: NSDecimalNumber = 0
-    
-    var useFromCurrency: Bool = true
     
     init(parent: MainWindowMoc, controller: ControllerDecantInterface, view: MocView) {
         self.parent = parent
@@ -304,7 +306,7 @@ class DecantMoc: DecantView {
         hideSubView()
     }
     
-    func tapOk() {
+    func tapOk(useFromCurrency: Bool) {
         controller.decant(fromSelected, to: toSelected, amount: value, useFromCurrency: useFromCurrency)
     }
 }
@@ -489,6 +491,10 @@ class EditAccountMoc: EditAccountView {
     
     func currencySelected(selected: ControllerROCurrencyInterface) {
         //do nothing
+    }
+    
+    func expectCurrency(currencySymbol: String) {
+        XCTAssertEqual(currencySymbol, controller.currency().symbol())
     }
 }
 
