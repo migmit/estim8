@@ -47,15 +47,12 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
     
     var viewImplementation: EditAccountImplementation? = nil
     
-    var currency: ControllerROCurrencyInterface? = nil
-    
     @IBOutlet weak var accountNameLabel: UILabel!
 
     @IBOutlet weak var accountValueText: NumberField!
     
     func setViewImplementation(viewImplementation: EditAccountImplementation) {
         self.viewImplementation = viewImplementation
-        self.currency = viewImplementation.controller.currency()
     }
     
     func showListCurrenciesView(sender: ListCurrenciesView) {
@@ -109,8 +106,8 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
     
     func buttonSaveClicked() {
         let value = accountValueText.getValue()
-        if let controller = viewImplementation?.controller, let c = currency {
-            if (!(controller.setValue(value, currency: c) ?? false)) {
+        if let controller = viewImplementation?.controller{
+            if (!(controller.setValue(value) ?? false)) {
                 let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller.name() ?? "the account") to \(value)", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -120,8 +117,8 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
 
     func somethingChanged() {
         let value = accountValueText.getValue()
-        if let controller = viewImplementation?.controller, let c = currency {
-            navigationItem.rightBarButtonItem?.enabled = controller.canSetValue(value, currency: c)
+        if let controller = viewImplementation?.controller {
+            navigationItem.rightBarButtonItem?.enabled = controller.canSetValue(value)
         } else {
             navigationItem.rightBarButtonItem?.enabled = false
         }

@@ -115,22 +115,18 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         return ControllerROCurrencyImplementation<Model>(model: model, currency: selectedCurrency)
     }
     
-    func setValue(value: NSDecimalNumber, currency: ControllerROCurrencyInterface) -> Bool {
-        if (canSetValue(value, currency: currency)) {
-            if let currencyImpl = currency as? ControllerROCurrencyImplementation<Model> {
-                view?.hideSubView()
-                model.updateAccount(account, value: value, currency: currencyImpl.currency)
-                parent.refreshAccount(index)
-                return true
-            } else {
-                return false
-            }
+    func setValue(value: NSDecimalNumber) -> Bool {
+        if (canSetValue(value)) {
+            view?.hideSubView()
+            model.updateAccount(account, value: value, currency: selectedCurrency)
+            parent.refreshAccount(index)
+            return true
         } else {
             return false
         }
     }
     
-    func canSetValue(value: NSDecimalNumber, currency: ControllerROCurrencyInterface) -> Bool {
+    func canSetValue(value: NSDecimalNumber) -> Bool {
         let isNegative = model.accountIsNegative(account)
         let verifyValue = isNegative ? value.decimalNumberByMultiplyingBy(-1) : value
         return verifyValue.compare(0) != .OrderedAscending
@@ -179,9 +175,9 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
     
     func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
         if (canCreate(title, initialValue: initialValue, isNegative: isNegative)) {
-            if let currencyImpl = selectedCurrency as? ControllerROCurrencyImplementation<Model> {
+            if let c = selectedCurrency  {
                 view?.hideSubView()
-                model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: currencyImpl.currency)
+                model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: c)
                 parent.addAccount()
                 return true
             } else {

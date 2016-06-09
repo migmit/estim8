@@ -44,6 +44,7 @@ class ControllerSelectCurrencyImplementation<Model: ModelInterface>: ControllerS
     func select(n: Int) -> Bool {
         if (canSelect(n)) {
             if let c = currency(n) {
+                view?.hideSubView()
                 parent.currencySelected(c)
                 return true
             } else {
@@ -123,6 +124,7 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: ControllerL
     func select(n: Int) -> Bool {
         if (canSelect(n)) {
             if let c = currency(n) {
+                view?.hideSubView()
                 parent.currencySelected(c)
                 return true
             } else {

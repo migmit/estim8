@@ -23,9 +23,9 @@ protocol ControllerInterface {
 
 protocol ControllerEditAccountInterface: ControllerROAccountInterface, ControllerCurrencySelectedProtocol {
     
-    func setValue(value: NSDecimalNumber, currency: ControllerROCurrencyInterface) -> Bool
+    func setValue(value: NSDecimalNumber) -> Bool
     
-    func canSetValue(value: NSDecimalNumber, currency: ControllerROCurrencyInterface) -> Bool
+    func canSetValue(value: NSDecimalNumber) -> Bool
     
     func remove()
     

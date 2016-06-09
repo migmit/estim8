@@ -242,12 +242,16 @@ class CreateAccountMoc: CreateAccountView {
         }
     }
     
+    func tapCurrency() {
+        controller.selectCurrency()
+    }
+    
     func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
-        return ListCurrenciesMoc(parent: .CreateAccount(self), view: view)
+        return ListCurrenciesMoc(parent: .CreateAccount(self), controller: controller, view: view)
     }
     
     func currencySelected(selected: ControllerROCurrencyInterface) {
-        controller.currencySelected(selected)
+        // do nothing
     }
 }
 
@@ -472,7 +476,7 @@ class EditAccountMoc: EditAccountView {
     }
     
     func tapOk() {
-        controller.setValue(value, currency: controller.currency())
+        controller.setValue(value)
     }
     
     func tapDeleteButton() {
@@ -480,7 +484,7 @@ class EditAccountMoc: EditAccountView {
     }
     
     func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
-        return ListCurrenciesMoc(parent: .EditAccount(self), view: view)
+        return ListCurrenciesMoc(parent: .EditAccount(self), controller: controller, view: view)
     }
     
     func currencySelected(selected: ControllerROCurrencyInterface) {
@@ -497,10 +501,13 @@ class ListCurrenciesMoc: ListCurrenciesView {
     
     let parent: ListCurrenciesParent
     
+    let controller: ControllerListCurrenciesInterface
+    
     let view: MocView
     
-    init(parent: ListCurrenciesParent, view: MocView) {
+    init(parent: ListCurrenciesParent, controller: ControllerListCurrenciesInterface, view: MocView) {
         self.parent = parent
+        self.controller = controller
         self.view = view
     }
     
@@ -535,6 +542,10 @@ class ListCurrenciesMoc: ListCurrenciesView {
     
     func addCurrency() {
         //TODO
+    }
+    
+    func tapCurrency(n: Int) {
+        controller.select(n)
     }
 }
 
