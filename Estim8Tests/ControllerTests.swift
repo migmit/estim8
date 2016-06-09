@@ -66,8 +66,10 @@ class ControllerTests: XCTestCase {
         view?.createAccount()?.title = title
         view?.createAccount()?.value = value
         view?.createAccount()?.isNegative = isNegative
+        view?.createAccount()?.expectCurrency(nil)
         view?.createAccount()?.tapCurrency()
         view?.listCurrencies()?.tapCurrency(0)
+        view?.createAccount()?.expectCurrency("$")
         view?.createAccount()?.tapOk()
     }
     
