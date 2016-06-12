@@ -130,6 +130,10 @@ class MainWindowMoc: MainWindowView {
     
     init(controller: ControllerInterface) {
         self.controller = controller
+    }
+    
+    func setView(view: MocView) {
+        self.view = view
         let n = controller.numberOfAccounts()
         if (n > 0) {
             for i in 0...(n-1) {
@@ -138,10 +142,6 @@ class MainWindowMoc: MainWindowView {
                 }
             }
         }
-    }
-    
-    func setView(view: MocView) {
-        self.view = view
     }
     
     func createAccount(createAccount: ControllerCreateAccountInterface) -> CreateAccountView {
@@ -505,6 +505,8 @@ enum ListCurrenciesParent {
 
 class ListCurrenciesMoc: ListCurrenciesView {
     
+    private var display: [(String?, (NSDecimalNumber, NSDecimalNumber), String?, (Bool, Bool))] // Currency symbol, rate, relative symbol, (can select, marked)
+    
     let parent: ListCurrenciesParent
     
     let controller: ControllerListCurrenciesInterface
@@ -515,10 +517,17 @@ class ListCurrenciesMoc: ListCurrenciesView {
         self.parent = parent
         self.controller = controller
         self.view = view
+        self.display = []
     }
     
     func showSubView() {
         view.state = .ListCurrencies(self)
+        let n = controller.numberOfCurrencies()
+        for i in 0...(n-1) {
+            if let currency = controller.currency(i) {
+                self.display.append((currency.symbol(), currency.rate(), currency.relative().symbol(), (controller.canSelect(i), controller.marked(i))))
+            }
+        }
     }
     
     func hideSubView() {
@@ -539,15 +548,20 @@ class ListCurrenciesMoc: ListCurrenciesView {
     }
     
     func refreshCurrency(n: Int) {
-        //TODO
+        if let currency = controller.currency(n) {
+            display[n] = (currency.symbol(), currency.rate(), currency.relative().symbol(), (controller.canSelect(n), controller.marked(n)))
+        }
     }
     
     func removeCurrency(n: Int) {
-        //TODO
+        display.removeAtIndex(n)
     }
     
     func addCurrency() {
-        //TODO
+        let n = display.count
+        if let currency = controller.currency(n) {
+            display.append((currency.symbol(), currency.rate(), currency.relative().symbol(), (controller.canSelect(n), controller.marked(n))))
+        }
     }
     
     func tapCurrency(n: Int) {
