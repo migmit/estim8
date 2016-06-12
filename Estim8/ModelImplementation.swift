@@ -234,7 +234,14 @@ class ModelImplementation: ModelInterface {
         updateCurrencyDontBother(currency, base: base, rate: rate, invRate: invRate, manual: manual)
     }
     
-    func addCurrencyAndUpdate(name: String, code: String, symbol: String, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency {
+    func changeCurrency(currency: Currency, name: String, code: String?, symbol: String) {
+        currency.setValue(name, forKey: "name")
+        currency.setValue(code, forKey: "code")
+        currency.setValue(symbol, forKey: "symbol")
+        do {try managedObjectContext.save()} catch {}    
+    }
+    
+    func addCurrencyAndUpdate(name: String, code: String?, symbol: String, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency {
         let countRequest = NSFetchRequest(entityName: "Currency")
         var error: NSError?
         let count: Int = managedObjectContext.countForFetchRequest(countRequest, error: &error)

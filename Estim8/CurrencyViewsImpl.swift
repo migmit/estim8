@@ -222,14 +222,11 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
     
     func setCurrency(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
         if (canSetCurrency(name, code: code, symbol: symbol, rate: rate)) {
-            if let r = baseCurrency as? ControllerROCurrencyImplementation<Model> {
-                view?.hideSubView()
-                model.updateCurrency(currency, base: r.currency, rate: rate.0, invRate: rate.1, manual: true)
-                parent.refreshCurrency(index)
-                return true
-            } else {
-                return false
-            }
+            view?.hideSubView()
+            model.changeCurrency(currency, name: name, code: code, symbol: symbol)
+            model.updateCurrency(currency, base: baseCurrency, rate: rate.0, invRate: rate.1, manual: true)
+            parent.refreshCurrency(index)
+            return true
         } else {
             return false
         }
@@ -289,7 +286,7 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerC
         self.view = view
     }
     
-    func create(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
+    func create(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
         if (canCreate(name, code: code, symbol: symbol, rate: rate)) {
             if let b = baseCurrency {
                 view?.hideSubView()
@@ -304,7 +301,7 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerC
         }
     }
     
-    func canCreate(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
+    func canCreate(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
         return !name.isEmpty && baseCurrency != nil && rate.0.compare(0) == .OrderedDescending && rate.1.compare(0) == .OrderedDescending
     }
     

@@ -249,8 +249,10 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
             let accountFrom = accounts[from]
             let accountTo = accounts[to]
             view?.hideSubView()
-            model.updateAccount(accountFrom, value: amountFrom, currency: model.baseCurrency())
-            model.updateAccount(accountTo, value: amountTo, currency: model.baseCurrency())
+            let lastUpdateFrom = model.updatesOfAccount(accountFrom)[0]
+            let lastUpdateTo = model.updatesOfAccount(accountTo)[0]
+            model.updateAccount(accountFrom, value: amountFrom, currency: model.currencyOfUpdate(lastUpdateFrom))
+            model.updateAccount(accountTo, value: amountTo, currency: model.currencyOfUpdate(lastUpdateTo))
             parent.refreshAccount(from)
             parent.refreshAccount(to)
             return true

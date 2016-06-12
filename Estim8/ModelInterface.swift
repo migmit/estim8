@@ -84,7 +84,9 @@ protocol ModelInterface {
     
     func updateCurrency(currency: Currency, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool)
     
-    func addCurrencyAndUpdate(name: String, code: String, symbol: String, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency
+    func changeCurrency(currency: Currency, name: String, code: String?, symbol: String)
+    
+    func addCurrencyAndUpdate(name: String, code: String?, symbol: String, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency
     
     func removeCurrency(currency: Currency)
     

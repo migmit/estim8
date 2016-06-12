@@ -60,9 +60,9 @@ protocol ControllerEditCurrencyInterface: ControllerROCurrencyInterface, Control
 
 protocol ControllerCreateCurrencyInterface: ControllerCurrencySelectedProtocol {
     
-    func create(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
+    func create(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
     
-    func canCreate(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
+    func canCreate(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
     
     func selectCurrency()
     

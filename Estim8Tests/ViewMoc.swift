@@ -602,7 +602,7 @@ class CreateCurrencyMoc: CreateCurrencyView {
     
     var name: String = ""
     
-    var code: String = ""
+    var code: String? = ""
     
     var symbol: String = ""
     
@@ -727,7 +727,7 @@ enum SelectCurrencyParent {
 
 class SelectCurrencyMoc: SelectCurrencyView {
     
-    private let display: [(String, Bool)] // Symbol, marked
+    private let display: [(String, (Bool, Bool))] // Symbol, (canSelect, marked)
     
     let parent: SelectCurrencyParent
     
@@ -739,11 +739,11 @@ class SelectCurrencyMoc: SelectCurrencyView {
         self.parent = parent
         self.controller = controller
         self.view = view
-        var allCurrencies: [(String, Bool)] = []
+        var allCurrencies: [(String, (Bool, Bool))] = []
         let n = controller.numberOfCurrencies()
         for i in 0...(n-1) {
             if let c = controller.currency(i) {
-                allCurrencies.append((c.symbol(), controller.marked(i)))
+                allCurrencies.append((c.symbol(), (controller.canSelect(i), controller.marked(i))))
             }
         }
         self.display = allCurrencies
@@ -762,9 +762,10 @@ class SelectCurrencyMoc: SelectCurrencyView {
         }
     }
     
-    func expect(expected: [(String, Bool)]) {
+    func expect(expected: [(String, (Bool, Bool))]) {
         XCTAssertEqual(display.map{$0.0}, expected.map{$0.0})
-        XCTAssertEqual(display.map{$0.1}, expected.map{$0.1})
+        XCTAssertEqual(display.map{$0.1.0}, expected.map{$0.1.0})
+        XCTAssertEqual(display.map{$0.1.1}, expected.map{$0.1.1})
     }
     
     func tapCurrency(n: Int) {
