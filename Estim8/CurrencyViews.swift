@@ -34,6 +34,8 @@ protocol ControllerListCurrenciesInterface {
     
     func canSelect(n: Int) -> Bool
     
+    func createCurrency()
+    
 }
 
 protocol ControllerCurrencySelectedProtocol {

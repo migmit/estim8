@@ -151,6 +151,13 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: ControllerL
         return true
     }
     
+    func createCurrency() {
+        let createController = ControllerCreateCurrencyImplementation(parent: self, model: model)
+        let createView = view!.createCurrency(createController)
+        createController.setView(createView)
+        createView.showSubView()
+    }
+    
     func refreshCurrency(n: Int) {
         view?.refreshCurrency(n)
     }

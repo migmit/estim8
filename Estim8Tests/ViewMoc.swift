@@ -199,8 +199,8 @@ class MainWindowMoc: MainWindowView {
     }
     
     func expect(expected: [(String, NSDecimalNumber)]) {
-        XCTAssert(display.map{$0.0} == expected.map{$0.0})
-        XCTAssert(display.map{$0.1} == expected.map{$0.1})
+        XCTAssertEqual(display.map{$0.0}, expected.map{$0.0})
+        XCTAssertEqual(display.map{$0.1}, expected.map{$0.1})
     }
 }
 
@@ -485,6 +485,10 @@ class EditAccountMoc: EditAccountView {
         controller.remove()
     }
     
+    func tapCurrency() {
+        controller.selectCurrency()
+    }
+    
     func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
         return ListCurrenciesMoc(parent: .EditAccount(self), controller: controller, view: view)
     }
@@ -505,7 +509,7 @@ enum ListCurrenciesParent {
 
 class ListCurrenciesMoc: ListCurrenciesView {
     
-    private var display: [(String?, (NSDecimalNumber, NSDecimalNumber), String?, (Bool, Bool))] // Currency symbol, rate, relative symbol, (can select, marked)
+    private var display: [(String, (NSDecimalNumber, NSDecimalNumber), String, (Bool, Bool))] // Currency symbol, rate, relative symbol, (can select, marked)
     
     let parent: ListCurrenciesParent
     
@@ -567,9 +571,42 @@ class ListCurrenciesMoc: ListCurrenciesView {
     func tapCurrency(n: Int) {
         controller.select(n)
     }
+    
+    func strikeCurrency(n: Int, toEdit: Bool) {
+        if (toEdit) {
+            controller.currency(n)?.edit()
+        } else {
+            controller.currency(n)?.remove()
+        }
+    }
+    
+    func tapPlus() {
+        controller.createCurrency()
+    }
+    
+    func tapCancel() {
+        hideSubView()
+    }
+    
+    func expect(expected: [(String, (NSDecimalNumber, NSDecimalNumber), String, (Bool, Bool))]) {
+        XCTAssertEqual(display.map{$0.0}, expected.map{$0.0})
+        XCTAssertEqual(display.map{$0.1.0}, expected.map{$0.1.0})
+        XCTAssertEqual(display.map{$0.1.1}, expected.map{$0.1.1})
+        XCTAssertEqual(display.map{$0.2}, expected.map{$0.2})
+        XCTAssertEqual(display.map{$0.3.0}, expected.map{$0.3.0})
+        XCTAssertEqual(display.map{$0.3.1}, expected.map{$0.3.1})
+    }
 }
 
 class CreateCurrencyMoc: CreateCurrencyView {
+    
+    var name: String = ""
+    
+    var code: String = ""
+    
+    var symbol: String = ""
+    
+    var rate: NSDecimalNumber = 1
     
     let parent: ListCurrenciesMoc
     
@@ -599,13 +636,34 @@ class CreateCurrencyMoc: CreateCurrencyView {
         //do nothing
     }
     
-    func expectBaseCurrency(currencyCode: String?) {
-        XCTAssertEqual(currencyCode, controller.relative().flatMap{$0.code()})
+    func expectBaseCurrency(currencySymbol: String?) {
+        XCTAssertEqual(currencySymbol, controller.relative().flatMap{$0.symbol()})
+    }
+    
+    func tapOk() {
+        let one: NSDecimalNumber = 1
+        controller.create(name, code: code, symbol: symbol, rate: (rate, one.decimalNumberByDividingBy(rate)))
+    }
+    
+    func tapCancel() {
+        hideSubView()
+    }
+    
+    func tapBaseCurrency() {
+        controller.selectCurrency()
     }
     
 }
 
 class EditCurrencyMoc: EditCurrencyView {
+    
+    var name: String = ""
+    
+    var code: String = ""
+
+    var symbol: String = ""
+    
+    var rate: NSDecimalNumber = 1
     
     let parent: ListCurrenciesMoc
     
@@ -639,6 +697,23 @@ class EditCurrencyMoc: EditCurrencyView {
         XCTAssertEqual(currencyCode, controller.relative().code())
     }
     
+    func tapOk() {
+        let one: NSDecimalNumber = 1
+        controller.setCurrency(name, code: code, symbol: symbol, rate: (rate, one.decimalNumberByDividingBy(rate)))
+    }
+    
+    func tapCancel() {
+        hideSubView()
+    }
+    
+    func tapDelete() {
+        controller.remove()
+    }
+    
+    func tapBaseCurrency() {
+        controller.selectCurrency()
+    }
+    
 }
 
 enum SelectCurrencyParent {
@@ -647,6 +722,8 @@ enum SelectCurrencyParent {
 }
 
 class SelectCurrencyMoc: SelectCurrencyView {
+    
+    private let display: [(String, Bool)] // Symbol, marked
     
     let parent: SelectCurrencyParent
     
@@ -658,6 +735,14 @@ class SelectCurrencyMoc: SelectCurrencyView {
         self.parent = parent
         self.controller = controller
         self.view = view
+        var allCurrencies: [(String, Bool)] = []
+        let n = controller.numberOfCurrencies()
+        for i in 0...(n-1) {
+            if let c = controller.currency(i) {
+                allCurrencies.append((c.symbol(), controller.marked(i)))
+            }
+        }
+        self.display = allCurrencies
     }
     
     func showSubView() {
@@ -671,6 +756,19 @@ class SelectCurrencyMoc: SelectCurrencyView {
         case .EditCurrency(let editCurrency):
             view.state = .EditCurrency(editCurrency)
         }
+    }
+    
+    func expect(expected: [(String, Bool)]) {
+        XCTAssertEqual(display.map{$0.0}, expected.map{$0.0})
+        XCTAssertEqual(display.map{$0.1}, expected.map{$0.1})
+    }
+    
+    func tapCurrency(n: Int) {
+        controller.select(n)
+    }
+    
+    func tapCancel() {
+        hideSubView()
     }
     
 }

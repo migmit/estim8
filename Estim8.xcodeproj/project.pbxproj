@@ -21,7 +21,7 @@
 		B51DE59B1CB449E90060960A /* ModelImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5871CB2DEEE0060960A /* ModelImplementation.swift */; };
 		B51DE59D1CB57B2A0060960A /* ViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE59C1CB57B290060960A /* ViewInterface.swift */; };
 		B51DE5A51CB6C27D0060960A /* ViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE59C1CB57B290060960A /* ViewInterface.swift */; };
-		B51DE5A81CB6C36F0060960A /* ControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5A71CB6C36F0060960A /* ControllerTests.swift */; };
+		B51DE5A81CB6C36F0060960A /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5A71CB6C36F0060960A /* AccountTests.swift */; };
 		B51DE5AA1CB6C6BA0060960A /* ViewMoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5A91CB6C6BA0060960A /* ViewMoc.swift */; };
 		B51DE5AC1CB92ADF0060960A /* SubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5AB1CB92ADF0060960A /* SubViewController.swift */; };
 		B51DE5AE1CB92F910060960A /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5AD1CB92F910060960A /* CreateAccountViewController.swift */; };
@@ -55,6 +55,8 @@
 		B5B6A6D21CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B6A6D11CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift */; };
 		B5E41ABF1D061FA5004CAF7C /* CurrencyViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3C31D06082A001642F8 /* CurrencyViews.swift */; };
 		B5E41AC01D08C227004CAF7C /* CurrencyViewsImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3C51D06083C001642F8 /* CurrencyViewsImpl.swift */; };
+		B5E41AC31D0D8562004CAF7C /* CurrencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E41AC21D0D8562004CAF7C /* CurrencyTests.swift */; };
+		B5E41AC51D0D85C8004CAF7C /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E41AC41D0D85C8004CAF7C /* Setup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +94,7 @@
 		B51DE5871CB2DEEE0060960A /* ModelImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelImplementation.swift; sourceTree = "<group>"; };
 		B51DE5971CB4477B0060960A /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		B51DE59C1CB57B290060960A /* ViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewInterface.swift; sourceTree = "<group>"; };
-		B51DE5A71CB6C36F0060960A /* ControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerTests.swift; sourceTree = "<group>"; };
+		B51DE5A71CB6C36F0060960A /* AccountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
 		B51DE5A91CB6C6BA0060960A /* ViewMoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewMoc.swift; sourceTree = "<group>"; };
 		B51DE5AB1CB92ADF0060960A /* SubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubViewController.swift; sourceTree = "<group>"; };
 		B51DE5AD1CB92F910060960A /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,8 @@
 		B5A6840E1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MinimalToCurrencies.xcmappingmodel; sourceTree = "<group>"; };
 		B5B6A6CC1CC405FB00C53F8F /* Currencies.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Currencies.xcdatamodel; sourceTree = "<group>"; };
 		B5B6A6D11CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrenciesUpdateToUpdate.swift; path = ../CurrenciesUpdateToUpdate.swift; sourceTree = "<group>"; };
+		B5E41AC21D0D8562004CAF7C /* CurrencyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyTests.swift; sourceTree = "<group>"; };
+		B5E41AC41D0D85C8004CAF7C /* Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,7 +186,7 @@
 		B51DE5671CAF401F0060960A /* Estim8Tests */ = {
 			isa = PBXGroup;
 			children = (
-				B51DE5A71CB6C36F0060960A /* ControllerTests.swift */,
+				B5E41AC11D0D8524004CAF7C /* ControllerTests */,
 				B51DE5971CB4477B0060960A /* ModelTests.swift */,
 				B51DE56A1CAF401F0060960A /* Info.plist */,
 				B51DE5A91CB6C6BA0060960A /* ViewMoc.swift */,
@@ -293,6 +297,16 @@
 				B59CB3B91D060653001642F8 /* SliceItemsImpl.swift */,
 			);
 			name = Items;
+			sourceTree = "<group>";
+		};
+		B5E41AC11D0D8524004CAF7C /* ControllerTests */ = {
+			isa = PBXGroup;
+			children = (
+				B51DE5A71CB6C36F0060960A /* AccountTests.swift */,
+				B5E41AC21D0D8562004CAF7C /* CurrencyTests.swift */,
+				B5E41AC41D0D85C8004CAF7C /* Setup.swift */,
+			);
+			name = ControllerTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,8 +480,10 @@
 				B59CB3BC1D06073C001642F8 /* CurrencyItemsImpl.swift in Sources */,
 				B59CB3BB1D060732001642F8 /* AccountItemsImpl.swift in Sources */,
 				B59CB3BD1D06073C001642F8 /* SliceItemsImpl.swift in Sources */,
+				B5E41AC31D0D8562004CAF7C /* CurrencyTests.swift in Sources */,
 				B59CB3BE1D06073C001642F8 /* AccountViewsImpl.swift in Sources */,
 				B51DE5AA1CB6C6BA0060960A /* ViewMoc.swift in Sources */,
+				B5E41AC51D0D85C8004CAF7C /* Setup.swift in Sources */,
 				B51DE5991CB448970060960A /* ModelInterface.swift in Sources */,
 				B59CB3C11D06073C001642F8 /* SliceItems.swift in Sources */,
 				B59CB3C01D06073C001642F8 /* CurrencyItems.swift in Sources */,
@@ -477,7 +493,7 @@
 				B59CB3BF1D06073C001642F8 /* AccountItems.swift in Sources */,
 				B5E41AC01D08C227004CAF7C /* CurrencyViewsImpl.swift in Sources */,
 				B51DE59B1CB449E90060960A /* ModelImplementation.swift in Sources */,
-				B51DE5A81CB6C36F0060960A /* ControllerTests.swift in Sources */,
+				B51DE5A81CB6C36F0060960A /* AccountTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
