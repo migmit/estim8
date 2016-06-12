@@ -220,7 +220,7 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
         return ControllerROCurrencyImplementation(model: model, currency: baseCurrency)
     }
     
-    func setCurrency(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
+    func setCurrency(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
         if (canSetCurrency(name, code: code, symbol: symbol, rate: rate)) {
             if let r = baseCurrency as? ControllerROCurrencyImplementation<Model> {
                 view?.hideSubView()
@@ -235,7 +235,7 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
         }
     }
     
-    func canSetCurrency(name: String, code: String, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
+    func canSetCurrency(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
         return !name.isEmpty && rate.0.compare(0) == .OrderedDescending && rate.1.compare(0) == .OrderedDescending
     }
     

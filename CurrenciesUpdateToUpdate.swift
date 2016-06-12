@@ -30,6 +30,7 @@ class CurrenciesUpdateToUpdate: NSEntityMigrationPolicy {
         currencyUpdate!.setValue(1, forKey: "inverseRate")
         currencyUpdate!.setValue(true, forKey: "manual")
         currencyUpdate!.setValue(currency, forKey: "base")
+        currencyUpdate!.setValue(false, forKey: "obsolete")
         currencyUpdate!.setValue(currency, forKey: "currency")
         currencyUpdate!.setValue(Set<NSManagedObject>(), forKey: "updates")
     }

@@ -659,7 +659,7 @@ class EditCurrencyMoc: EditCurrencyView {
     
     var name: String = ""
     
-    var code: String = ""
+    var code: String? = ""
 
     var symbol: String = ""
     
@@ -679,6 +679,10 @@ class EditCurrencyMoc: EditCurrencyView {
     
     func showSubView() {
         view.state = .EditCurrency(self)
+        name = controller.name()
+        code = controller.code()
+        symbol = controller.symbol()
+        rate = controller.rate().0
     }
     
     func hideSubView() {
@@ -693,8 +697,8 @@ class EditCurrencyMoc: EditCurrencyView {
         //do nothing
     }
     
-    func expectBaseCurrency(currencyCode: String?) {
-        XCTAssertEqual(currencyCode, controller.relative().code())
+    func expectBaseCurrency(currencySymbol: String?) {
+        XCTAssertEqual(currencySymbol, controller.relative().symbol())
     }
     
     func tapOk() {

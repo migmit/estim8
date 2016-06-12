@@ -213,7 +213,7 @@ class ModelImplementation: ModelInterface {
         return (cUpdate.valueForKey("currency") as! Currency, cUpdate.valueForKey("base") as! Currency)
     }
     
-    func updateCurrency(currency: Currency, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) {
+    func updateCurrencyDontBother(currency: Currency, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) {
         let cUpdateDescr = NSEntityDescription.entityForName("CurrencyUpdate", inManagedObjectContext: managedObjectContext)!
         let cUpdate = NSManagedObject(entity: cUpdateDescr, insertIntoManagedObjectContext: managedObjectContext)
         cUpdate.setValue(NSDate(), forKey: "date")
@@ -224,6 +224,14 @@ class ModelImplementation: ModelInterface {
         cUpdate.setValue(currency, forKey: "currency")
         cUpdate.setValue(Set<Update>(), forKey: "updates")
         do {try managedObjectContext.save()} catch {}
+    }
+    
+    func updateCurrency(currency: Currency, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) {
+        let updates = updatesOfCurrency(currency)
+        if (updates.count > 0) {
+            updates[0].setValue(true, forKey: "obsolete")
+        }
+        updateCurrencyDontBother(currency, base: base, rate: rate, invRate: invRate, manual: manual)
     }
     
     func addCurrencyAndUpdate(name: String, code: String, symbol: String, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency {
@@ -240,7 +248,7 @@ class ModelImplementation: ModelInterface {
         currency.setValue(count, forKey: "sortingIndex")
         currency.setValue(Set<CurrencyUpdate>(), forKey: "based")
         currency.setValue(Set<CurrencyUpdate>(), forKey: "updates")
-        updateCurrency(currency, base: base, rate: rate, invRate: invRate, manual: manual)
+        updateCurrencyDontBother(currency, base: base, rate: rate, invRate: invRate, manual: manual)
         return currency
     }
     
@@ -263,8 +271,15 @@ class ModelImplementation: ModelInterface {
     }
     
     func currenciesBasedOn(currency: Currency) -> [Currency] {
-        let currencyUpdates = currency.valueForKey("based") as! [CurrencyUpdate]
-        return currencyUpdates.map{currenciesOfUpdate($0).0}.filter{!($0.valueForKey("removed") as! Bool)}
+        let fetchRequest = NSFetchRequest(entityName: "CurrencyUpdate")
+        fetchRequest.predicate = NSPredicate(format: "(obsolete == NO) AND (base == %@)", argumentArray: [currency])
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        do {
+            let currencyUpdates = try managedObjectContext.executeFetchRequest(fetchRequest) as? [CurrencyUpdate] ?? []
+            return currencyUpdates.map{currenciesOfUpdate($0).0}.filter{!($0.valueForKey("removed") as! Bool)}
+        } catch {
+            return []
+        }
     }
     
 }
