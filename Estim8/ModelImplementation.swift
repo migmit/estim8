@@ -157,18 +157,6 @@ class ModelImplementation: ModelInterface {
     
     //==================================
     
-    func baseCurrency() -> Currency {
-        let fetchRequest = NSFetchRequest(entityName: "Currency")
-        fetchRequest.predicate = NSPredicate(format: "code == 'USD'")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sortingIndex", ascending: true)]
-        do {
-            let results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Currency]
-            return results![0]
-        } catch {
-            return baseCurrency()
-        }
-    }
-    
     func currencyOfUpdate(update: Update) -> Currency {
         return (update.valueForKey("currencyUpdate") as! CurrencyUpdate).valueForKey("currency") as! Currency
     }
@@ -209,11 +197,11 @@ class ModelImplementation: ModelInterface {
         return (cUpdate.valueForKey("rate") as! NSDecimalNumber, cUpdate.valueForKey("inverseRate") as! NSDecimalNumber)
     }
     
-    func currenciesOfUpdate(cUpdate: CurrencyUpdate) -> (Currency, Currency) {
-        return (cUpdate.valueForKey("currency") as! Currency, cUpdate.valueForKey("base") as! Currency)
+    func currenciesOfUpdate(cUpdate: CurrencyUpdate) -> (Currency, Currency?) {
+        return (cUpdate.valueForKey("currency") as! Currency, cUpdate.valueForKey("base") as? Currency)
     }
     
-    func updateCurrencyDontBother(currency: Currency, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) {
+    func updateCurrencyDontBother(currency: Currency, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) {
         let cUpdateDescr = NSEntityDescription.entityForName("CurrencyUpdate", inManagedObjectContext: managedObjectContext)!
         let cUpdate = NSManagedObject(entity: cUpdateDescr, insertIntoManagedObjectContext: managedObjectContext)
         cUpdate.setValue(NSDate(), forKey: "date")
@@ -226,7 +214,7 @@ class ModelImplementation: ModelInterface {
         do {try managedObjectContext.save()} catch {}
     }
     
-    func updateCurrency(currency: Currency, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) {
+    func updateCurrency(currency: Currency, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) {
         let updates = updatesOfCurrency(currency)
         if (updates.count > 0) {
             updates[0].setValue(true, forKey: "obsolete")
@@ -241,7 +229,7 @@ class ModelImplementation: ModelInterface {
         do {try managedObjectContext.save()} catch {}    
     }
     
-    func addCurrencyAndUpdate(name: String, code: String?, symbol: String, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency {
+    func addCurrencyAndUpdate(name: String, code: String?, symbol: String, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency {
         let countRequest = NSFetchRequest(entityName: "Currency")
         var error: NSError?
         let count: Int = managedObjectContext.countForFetchRequest(countRequest, error: &error)

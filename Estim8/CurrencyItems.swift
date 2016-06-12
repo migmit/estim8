@@ -18,7 +18,7 @@ protocol ControllerROCurrencyInterface {
     
     func rate() -> (NSDecimalNumber, NSDecimalNumber)
     
-    func relative() -> ControllerROCurrencyInterface
+    func relative() -> ControllerROCurrencyInterface?
     
 }
 

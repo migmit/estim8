@@ -26,7 +26,7 @@
         <attribute name="manual" attributeType="Boolean" syncable="YES"/>
         <attribute name="obsolete" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <attribute name="rate" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="base" maxCount="1" deletionRule="Deny" destinationEntity="Currency" inverseName="based" inverseEntity="Currency" syncable="YES"/>
+        <relationship name="base" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Currency" inverseName="based" inverseEntity="Currency" syncable="YES"/>
         <relationship name="currency" maxCount="1" deletionRule="Deny" destinationEntity="Currency" inverseName="updates" inverseEntity="Currency" syncable="YES"/>
         <relationship name="updates" toMany="YES" deletionRule="Deny" destinationEntity="Update" inverseName="currencyUpdate" inverseEntity="Update" syncable="YES"/>
     </entity>

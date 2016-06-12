@@ -302,21 +302,20 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
     }
     
     private func exchangeRate(from: Model.Currency, to: Model.Currency) -> (NSDecimalNumber, NSDecimalNumber) { // from->to, to->from
-        var fa = from
-        let base = model.baseCurrency()
+        var fa: Model.Currency? = from
         var fRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
         var allFromAncestors = [(fa, fRate.0, fRate.1)]
-        while (fa != base) {
-            let lastUpdate = model.updatesOfCurrency(fa)[0]
+        while (fa != nil) {
+            let lastUpdate = model.updatesOfCurrency(fa!)[0]
             fa = model.currenciesOfUpdate(lastUpdate).1
             let rate = model.rateOfCurrencyUpdate(lastUpdate)
             fRate = (fRate.0.decimalNumberByMultiplyingBy(rate.0), fRate.1.decimalNumberByMultiplyingBy(rate.1))
             allFromAncestors.append((fa, fRate.0, fRate.1))
         }
         var tRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
-        var ta = to
+        var ta: Model.Currency? = to
         while (!allFromAncestors.contains({triple in return triple.0 == ta})) {
-            let lastUpdate = model.updatesOfCurrency(ta)[0]
+            let lastUpdate = model.updatesOfCurrency(ta!)[0]
             ta = model.currenciesOfUpdate(lastUpdate).1
             let rate = model.rateOfCurrencyUpdate(lastUpdate)
             tRate = (tRate.0.decimalNumberByMultiplyingBy(rate.0), tRate.1.decimalNumberByMultiplyingBy(rate.1))

@@ -23,24 +23,6 @@ class ModelTests: XCTestCase {
                     let context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
                     context.persistentStoreCoordinator = coordinator
                     
-                    let currency: NSManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Currency", inManagedObjectContext: context)
-                    let currencyUpdate = NSEntityDescription.insertNewObjectForEntityForName("CurrencyUpdate", inManagedObjectContext: context)
-                    currency.setValue("USD", forKey: "code")
-                    currency.setValue("United States Dollar", forKey: "name")
-                    currency.setValue("$", forKey: "symbol")
-                    currency.setValue(0, forKey: "sortingIndex")
-                    currency.setValue(NSDate(), forKey: "addDate")
-                    currency.setValue(false, forKey: "removed")
-                    currency.setValue(Set<NSManagedObject>(), forKey: "updates")
-                    currency.setValue(Set<NSManagedObject>(), forKey: "based")
-                    currencyUpdate.setValue(NSDate(), forKey: "date")
-                    currencyUpdate.setValue(1, forKey: "rate")
-                    currencyUpdate.setValue(1, forKey: "inverseRate")
-                    currencyUpdate.setValue(true, forKey: "manual")
-                    currencyUpdate.setValue(currency, forKey: "base")
-                    currencyUpdate.setValue(currency, forKey: "currency")
-                    currencyUpdate.setValue(Set<NSManagedObject>(), forKey: "updates")
-                    
                     do {try context.save()} catch {}
 
                     model = ModelImplementation(managedObjectContext: context)
@@ -63,7 +45,8 @@ class ModelTests: XCTestCase {
     }
     
     func testAddAccount() {
-        model!.addAccountAndUpdate("AAA", value: -5, isNegative: true, currency: model!.baseCurrency())
+        let accountCurrency = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
+        model!.addAccountAndUpdate("AAA", value: -5, isNegative: true, currency: accountCurrency)
         let accounts = model!.liveAccounts()
         XCTAssertEqual(accounts.count, 1)
         let account = accounts[0]
@@ -81,10 +64,11 @@ class ModelTests: XCTestCase {
     }
     
     func testUpdateAccount() {
-        let account = model!.addAccountAndUpdate("BBB", value: 3, isNegative: true, currency: model!.baseCurrency())
+        let accountCurrency = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
+        let account = model!.addAccountAndUpdate("BBB", value: 3, isNegative: true, currency: accountCurrency)
         XCTAssertEqual(model!.liveAccounts().count, 1)
         XCTAssertEqual(model!.updatesOfAccount(account).count, 1)
-        model!.updateAccount(account, value: 13, currency: model!.baseCurrency())
+        model!.updateAccount(account, value: 13, currency: accountCurrency)
         let updates = model!.updatesOfAccount(account)
         XCTAssertEqual(updates.count, 2)
         XCTAssertEqual(model!.valueOfUpdate(updates[0]), 13)
@@ -94,8 +78,9 @@ class ModelTests: XCTestCase {
     }
     
     func testMultipleAccounts() {
-        let account1 = model!.addAccountAndUpdate("CCC", value: 7, isNegative: false, currency: model!.baseCurrency())
-        let account2 = model!.addAccountAndUpdate("DDD", value: 8, isNegative: true, currency: model!.baseCurrency())
+        let accountCurrency = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
+        let account1 = model!.addAccountAndUpdate("CCC", value: 7, isNegative: false, currency: accountCurrency)
+        let account2 = model!.addAccountAndUpdate("DDD", value: 8, isNegative: true, currency: accountCurrency)
         XCTAssertEqual(model!.nameOfAccount(account1), "CCC")
         XCTAssertEqual(model!.nameOfAccount(account2), "DDD")
         XCTAssertEqual(model!.accountIsNegative(account1), false)
@@ -111,21 +96,23 @@ class ModelTests: XCTestCase {
     }
     
     func testCreateSlice() {
-        let account = model!.addAccountAndUpdate("EEE", value: 9, isNegative: false, currency: model!.baseCurrency())
+        let accountCurrency = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
+        let account = model!.addAccountAndUpdate("EEE", value: 9, isNegative: false, currency: accountCurrency)
         let slice = model!.createSlice()
         XCTAssertEqual(model!.slices(),[slice])
-        model!.updateAccount(account, value: 19, currency: model!.baseCurrency())
+        model!.updateAccount(account, value: 19, currency: accountCurrency)
         let updates = model!.lastUpdatesOfSlice(slice)
         XCTAssertEqual(updates.count, 1)
         XCTAssertEqual(model!.valueOfUpdate(updates[0]), 9)
     }
     
     func testMultipleSlices() {
-        let account = model!.addAccountAndUpdate("FFF", value: 2, isNegative: false, currency: model!.baseCurrency())
+        let accountCurrency = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
+        let account = model!.addAccountAndUpdate("FFF", value: 2, isNegative: false, currency: accountCurrency)
         let slice1 = model!.createSlice()
-        model!.updateAccount(account, value: 12, currency: model!.baseCurrency())
+        model!.updateAccount(account, value: 12, currency: accountCurrency)
         let slice2 = model!.createSlice()
-        model!.updateAccount(account, value: 22, currency: model!.baseCurrency())
+        model!.updateAccount(account, value: 22, currency: accountCurrency)
         XCTAssertEqual(model!.slices(), [slice2, slice1])
         XCTAssertNotEqual(slice1, slice2)
         let updates1 = model!.lastUpdatesOfSlice(slice1)
@@ -146,13 +133,14 @@ class ModelTests: XCTestCase {
     }
     
     func testDates() {
+        let accountCurrency = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
         let t1 = NSDate()
-        let account = model!.addAccountAndUpdate("GGG", value: 4, isNegative: false, currency: model!.baseCurrency())
+        let account = model!.addAccountAndUpdate("GGG", value: 4, isNegative: false, currency: accountCurrency)
         let t2 = model!.dateOfUpdate(model!.updatesOfAccount(account)[0])
         let t2_ = model!.accountOpenDate(account)
         let tnil = model!.accountClosingDate(account)
         let t3 = NSDate()
-        model!.updateAccount(account, value: 14, currency: model!.baseCurrency())
+        model!.updateAccount(account, value: 14, currency: accountCurrency)
         let t4 = model!.dateOfUpdate(model!.updatesOfAccount(account)[0])
         let t5 = NSDate()
         let slice = model!.createSlice()
@@ -175,25 +163,8 @@ class ModelTests: XCTestCase {
         XCTAssertNil(tnil)
     }
     
-    func testBaseCurrency() {
-        let c = model!.baseCurrency()
-        XCTAssertEqual(model!.codeOfCurrency(c), "USD")
-        XCTAssertEqual(model!.symbolOfCurrency(c), "$")
-        let us = model!.updatesOfCurrency(c)
-        XCTAssertEqual(us.count, 1)
-        let u = us[0]
-        XCTAssert(model!.currencyUpdateIsManual(u))
-        let rates = model!.rateOfCurrencyUpdate(u)
-        XCTAssertEqual(rates.0, 1)
-        XCTAssertEqual(rates.1, 1)
-        let currs = model!.currenciesOfUpdate(u)
-        XCTAssertEqual(currs.0, c)
-        XCTAssertEqual(currs.1, c)
-        XCTAssertEqual(model!.liveCurrencies(), [c])
-    }
-    
     func testAddCurrency() {
-        let c = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: model!.baseCurrency(), rate: 2, invRate: 0.5, manual: false)
+        let c = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
         XCTAssertEqual(model!.codeOfCurrency(c), "FCT")
         XCTAssertEqual(model!.symbolOfCurrency(c), "F")
         let us = model!.updatesOfCurrency(c)
@@ -205,13 +176,13 @@ class ModelTests: XCTestCase {
         XCTAssertEqual(rates.1, 0.5)
         let currs = model!.currenciesOfUpdate(u)
         XCTAssertEqual(currs.0, c)
-        XCTAssertEqual(currs.1, model!.baseCurrency())
-        XCTAssertEqual(model!.liveCurrencies(), [model!.baseCurrency(), c])
+        XCTAssertNil(currs.1)
+        XCTAssertEqual(model!.liveCurrencies(), [c])
     }
     
     func testUpdateCurrency() {
-        let c = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: model!.baseCurrency(), rate: 2, invRate: 0.5, manual: false)
-        model!.updateCurrency(c, base: model!.baseCurrency(), rate: 4, invRate: 0.25, manual: true)
+        let c = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
+        model!.updateCurrency(c, base: nil, rate: 4, invRate: 0.25, manual: true)
         XCTAssertEqual(model!.codeOfCurrency(c), "FCT")
         XCTAssertEqual(model!.symbolOfCurrency(c), "F")
         let us = model!.updatesOfCurrency(c)
@@ -223,13 +194,13 @@ class ModelTests: XCTestCase {
         XCTAssertEqual(rates.1, 0.25)
         let currs = model!.currenciesOfUpdate(u)
         XCTAssertEqual(currs.0, c)
-        XCTAssertEqual(currs.1, model!.baseCurrency())
-        XCTAssertEqual(model!.liveCurrencies(), [model!.baseCurrency(), c])
+        XCTAssertNil(currs.1)
+        XCTAssertEqual(model!.liveCurrencies(), [c])
     }
     
     func testMultipleCurrencies() {
-        let c1 = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: model!.baseCurrency(), rate: 2, invRate: 0.5, manual: false)
-        let c2 = model!.addCurrencyAndUpdate("Imaginary", code: "IMG", symbol: "I", base: model!.baseCurrency(), rate: 5, invRate: 0.2, manual: false)
+        let c1 = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
+        let c2 = model!.addCurrencyAndUpdate("Imaginary", code: "IMG", symbol: "I", base: nil, rate: 5, invRate: 0.2, manual: false)
         XCTAssertEqual(model!.codeOfCurrency(c2), "IMG")
         XCTAssertEqual(model!.symbolOfCurrency(c2), "I")
         let us = model!.updatesOfCurrency(c1)
@@ -241,8 +212,8 @@ class ModelTests: XCTestCase {
         XCTAssertEqual(rates.1, 0.5)
         let currs = model!.currenciesOfUpdate(u)
         XCTAssertEqual(currs.0, c1)
-        XCTAssertEqual(currs.1, model!.baseCurrency())
-        XCTAssertEqual(model!.liveCurrencies(), [model!.baseCurrency(), c1, c2])
+        XCTAssertEqual(currs.1, nil)
+        XCTAssertEqual(model!.liveCurrencies(), [c1, c2])
         model!.updateCurrency(c1, base: c2, rate: 10, invRate: 0.1, manual: true)
         XCTAssertEqual(model!.codeOfCurrency(c1), "FCT")
         XCTAssertEqual(model!.symbolOfCurrency(c1), "F")
@@ -256,18 +227,19 @@ class ModelTests: XCTestCase {
         let currs1 = model!.currenciesOfUpdate(u1)
         XCTAssertEqual(currs1.0, c1)
         XCTAssertEqual(currs1.1, c2)
-        XCTAssertEqual(model!.liveCurrencies(), [model!.baseCurrency(), c1, c2])
+        XCTAssertEqual(model!.liveCurrencies(), [c1, c2])
         model!.removeCurrency(c1)
-        XCTAssertEqual(model!.liveCurrencies(), [model!.baseCurrency(), c2])
+        XCTAssertEqual(model!.liveCurrencies(), [c2])
     }
     
     func testAccountCurrency() {
-        let a = model!.addAccountAndUpdate("AAA", value: 1, isNegative: false, currency: model!.baseCurrency())
+        let accountCurrency = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
+        let a = model!.addAccountAndUpdate("AAA", value: 1, isNegative: false, currency: accountCurrency)
         let us = model!.updatesOfAccount(a)
         XCTAssertEqual(us.count, 1)
         let u = us[0]
-        XCTAssertEqual(model!.currencyOfUpdate(u), model!.baseCurrency())
-        let c = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: model!.baseCurrency(), rate: 2, invRate: 0.5, manual: false)
+        XCTAssertEqual(model!.currencyOfUpdate(u), accountCurrency)
+        let c = model!.addCurrencyAndUpdate("Fig", code: "FIG", symbol: "G", base: accountCurrency, rate: 2, invRate: 0.5, manual: false)
         model?.updateAccount(a, value: 2, currency: c)
         let us1 = model!.updatesOfAccount(a)
         XCTAssertEqual(us1.count, 2)
@@ -276,9 +248,10 @@ class ModelTests: XCTestCase {
     }
     
     func testCurrenciesDates() {
-        let a = model!.addAccountAndUpdate("AAA", value: 1, isNegative: false, currency: model!.baseCurrency())
+        let accountCurrency = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: nil, rate: 2, invRate: 0.5, manual: false)
+        let a = model!.addAccountAndUpdate("AAA", value: 1, isNegative: false, currency: accountCurrency)
         let t1 = NSDate()
-        let c = model!.addCurrencyAndUpdate("Fictional", code: "FCT", symbol: "F", base: model!.baseCurrency(), rate: 2, invRate: 0.5, manual: true)
+        let c = model!.addCurrencyAndUpdate("Fig", code: "FIG", symbol: "G", base: accountCurrency, rate: 2, invRate: 0.5, manual: true)
         let t2 = model!.currencyAddDate(c)
         let us = model!.updatesOfCurrency(c)
         XCTAssertEqual(us.count, 1)
@@ -289,7 +262,7 @@ class ModelTests: XCTestCase {
         model!.updateAccount(a, value: 2, currency: c)
         let t4 = model!.dateOfUpdate(model!.updatesOfAccount(a)[0])
         let t5 = NSDate()
-        model!.updateCurrency(c, base: model!.baseCurrency(), rate: 4, invRate: 0.25, manual: false)
+        model!.updateCurrency(c, base: accountCurrency, rate: 4, invRate: 0.25, manual: false)
         let us1 = model!.updatesOfCurrency(c)
         XCTAssertEqual(us1.count, 2)
         let u1 = us1[0]

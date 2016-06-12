@@ -10,7 +10,7 @@ import Foundation
 
 class ControllerSelectCurrencyImplementation<Model: ModelInterface>: ControllerSelectCurrencyInterface {
     
-    let parent: ControllerCurrencySelectedProtocol
+    let parent: ControllerBaseCurrencySelectedProtocol
     
     let model: Model
     
@@ -20,7 +20,7 @@ class ControllerSelectCurrencyImplementation<Model: ModelInterface>: ControllerS
     
     weak var view: SelectCurrencyView? = nil
     
-    init(parent: ControllerCurrencySelectedProtocol, model: Model, baseFor: Model.Currency?, selected: Model.Currency?) {
+    init(parent: ControllerBaseCurrencySelectedProtocol, model: Model, baseFor: Model.Currency?, selected: Model.Currency?) {
         self.parent = parent
         self.model = model
         self.baseFor = baseFor
@@ -32,36 +32,34 @@ class ControllerSelectCurrencyImplementation<Model: ModelInterface>: ControllerS
     }
     
     func numberOfCurrencies() -> Int {
-        return model.liveCurrencies().count
+        return model.liveCurrencies().count + 1
     }
     
     func currency(n: Int) -> ControllerROCurrencyInterface? {
         let currencies = model.liveCurrencies()
-        if (n >= currencies.count) {
+        if (n == 0 || n > currencies.count) {
             return nil
         } else {
-            return ControllerROCurrencyImplementation<Model>(model: model, currency: currencies[n])
+            return ControllerROCurrencyImplementation<Model>(model: model, currency: currencies[n-1])
         }
     }
     
     func marked(n: Int) -> Bool {
         let currencies = model.liveCurrencies()
-        if (n >= currencies.count) {
+        if (n == 0) {
+            return selected == nil
+        } else if (n > currencies.count) {
             return false
         } else {
-            return selected == currencies[n]
+            return selected == currencies[n-1]
         }
     }
     
     func select(n: Int) -> Bool {
         if (canSelect(n)) {
-            if let c = currency(n) {
-                view?.hideSubView()
-                parent.currencySelected(c)
-                return true
-            } else {
-                return false
-            }
+            view?.hideSubView()
+            parent.currencySelected(currency(n))
+            return true
         } else {
             return false
         }
@@ -69,17 +67,20 @@ class ControllerSelectCurrencyImplementation<Model: ModelInterface>: ControllerS
     
     func canSelect(n: Int) -> Bool {
         let currencies = model.liveCurrencies()
-        if (n >= currencies.count || baseFor == model.baseCurrency()) {
+        if (n == 0) {
+            return true
+        } else if (n > currencies.count) {
             return false
         } else {
             if let bf = baseFor {
                 var r = true
-                var c = currencies[n]
-                while (c != model.baseCurrency()) {
+                var c: Model.Currency? = currencies[n-1]
+                while (c != nil) {
                     if (c == bf) {
                         r = false
+                        break
                     }
-                    let lastUpdate = model.updatesOfCurrency(c)[0]
+                    let lastUpdate = model.updatesOfCurrency(c!)[0]
                     c = model.currenciesOfUpdate(lastUpdate).1
                 }
                 return r
@@ -182,7 +183,7 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
     
     let index: Int
     
-    var baseCurrency: Model.Currency
+    var baseCurrency: Model.Currency?
     
     weak var view: EditCurrencyView? = nil
     
@@ -216,8 +217,8 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
         return model.rateOfCurrencyUpdate(lastUpdate)
     }
     
-    func relative() -> ControllerROCurrencyInterface {
-        return ControllerROCurrencyImplementation(model: model, currency: baseCurrency)
+    func relative() -> ControllerROCurrencyInterface? {
+        return baseCurrency.map{ControllerROCurrencyImplementation(model: model, currency: $0)}
     }
     
     func setCurrency(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
@@ -258,11 +259,13 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
         selectCurrencyView.showSubView()
     }
     
-    func currencySelected(currency: ControllerROCurrencyInterface) {
+    func currencySelected(currency: ControllerROCurrencyInterface?) {
         if let c = currency as? ControllerROCurrencyImplementation<Model> {
             baseCurrency = c.currency
-            view?.relativeSelected(currency)
+        } else {
+            baseCurrency = nil
         }
+        view?.relativeSelected(currency)
     }
     
 }
@@ -288,21 +291,17 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerC
     
     func create(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
         if (canCreate(name, code: code, symbol: symbol, rate: rate)) {
-            if let b = baseCurrency {
-                view?.hideSubView()
-                model.addCurrencyAndUpdate(name, code: code, symbol: symbol, base: b, rate: rate.0, invRate: rate.1, manual: true)
-                parent.addCurrency()
-                return true
-            } else {
-                return false
-            }
+            view?.hideSubView()
+            model.addCurrencyAndUpdate(name, code: code, symbol: symbol, base: baseCurrency, rate: rate.0, invRate: rate.1, manual: true)
+            parent.addCurrency()
+            return true
         } else {
             return false
         }
     }
     
     func canCreate(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
-        return !name.isEmpty && baseCurrency != nil && rate.0.compare(0) == .OrderedDescending && rate.1.compare(0) == .OrderedDescending
+        return !name.isEmpty && rate.0.compare(0) == .OrderedDescending && rate.1.compare(0) == .OrderedDescending
     }
     
     func selectCurrency() {
@@ -312,11 +311,13 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerC
         selectCurrencyView.showSubView()
     }
     
-    func currencySelected(currency: ControllerROCurrencyInterface) {
+    func currencySelected(currency: ControllerROCurrencyInterface?) {
         if let c = currency as? ControllerROCurrencyImplementation<Model> {
             baseCurrency = c.currency
-            view?.relativeSelected(currency)
+        } else {
+            baseCurrency = nil
         }
+        view?.relativeSelected(currency)
     }
     
     func relative() -> ControllerROCurrencyInterface? {

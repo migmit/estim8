@@ -81,7 +81,7 @@ protocol EditCurrencyView: SubView {
     
     func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView
     
-    func relativeSelected(selected: ControllerROCurrencyInterface)
+    func relativeSelected(selected: ControllerROCurrencyInterface?)
     
 }
 
@@ -89,7 +89,7 @@ protocol CreateCurrencyView: SubView {
     
     func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView
     
-    func relativeSelected(selected: ControllerROCurrencyInterface)
+    func relativeSelected(selected: ControllerROCurrencyInterface?)
     
 }
 

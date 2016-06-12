@@ -58,8 +58,6 @@ protocol ModelInterface {
     
     //==================================
     
-    func baseCurrency() -> Currency
-    
     func currencyOfUpdate(update: Update) -> Currency
     
     func codeOfCurrency(currency: Currency) -> String? // "USD", "HUF"
@@ -80,13 +78,13 @@ protocol ModelInterface {
     
     func rateOfCurrencyUpdate(cUpdate: CurrencyUpdate) -> (NSDecimalNumber, NSDecimalNumber) // rate, inverse rate
     
-    func currenciesOfUpdate(cUpdate: CurrencyUpdate) -> (Currency, Currency) // currency, based on
+    func currenciesOfUpdate(cUpdate: CurrencyUpdate) -> (Currency, Currency?) // currency, based on
     
-    func updateCurrency(currency: Currency, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool)
+    func updateCurrency(currency: Currency, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool)
     
     func changeCurrency(currency: Currency, name: String, code: String?, symbol: String)
     
-    func addCurrencyAndUpdate(name: String, code: String?, symbol: String, base: Currency, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency
+    func addCurrencyAndUpdate(name: String, code: String?, symbol: String, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency
     
     func removeCurrency(currency: Currency)
     

@@ -36,10 +36,10 @@ class ControllerROCurrencyImplementation<Model: ModelInterface>: ControllerROCur
         return model.rateOfCurrencyUpdate(lastUpdate)
     }
     
-    func relative() -> ControllerROCurrencyInterface {
+    func relative() -> ControllerROCurrencyInterface? {
         let lastUpdate = model.updatesOfCurrency(currency)[0]
         let rel = model.currenciesOfUpdate(lastUpdate).1
-        return ControllerROCurrencyImplementation<Model>(model: model, currency: rel)
+        return rel.map{ControllerROCurrencyImplementation<Model>(model: model, currency: $0)}
     }
     
 }

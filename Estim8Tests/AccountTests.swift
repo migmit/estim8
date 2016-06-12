@@ -17,7 +17,7 @@ class AccountTests: XCTestCase {
         super.setUp()
 
         do {
-            view = try setupTestCoreData()
+            view = try setupTestCoreData(true)
         } catch {
             XCTFail()
         }

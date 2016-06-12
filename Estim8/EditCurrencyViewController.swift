@@ -38,7 +38,7 @@ class EditCurrencyImplementation: EditCurrencyView {
         return SelectCurrencyImplementation(controller: controller, parent: view!)
     }
     
-    func relativeSelected(selected: ControllerROCurrencyInterface) {
+    func relativeSelected(selected: ControllerROCurrencyInterface?) {
         //TODO
     }
 }
