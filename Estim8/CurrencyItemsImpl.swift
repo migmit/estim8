@@ -77,7 +77,8 @@ class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerROCurre
     }
     
     func canRemove() -> Bool {
-        return model.currenciesBasedOn(currency).isEmpty
+        //TODO
+        return true
     }
     
 }

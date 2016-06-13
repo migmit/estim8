@@ -249,7 +249,8 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
     }
     
     func canRemove() -> Bool {
-        return model.currenciesBasedOn(currency).isEmpty
+        //TODO
+        return true
     }
     
     func selectCurrency() {

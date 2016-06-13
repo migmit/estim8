@@ -90,6 +90,4 @@ protocol ModelInterface {
     
     func liveCurrencies() -> [Currency]
     
-    func currenciesBasedOn(currency: Currency) -> [Currency]
-    
 }
