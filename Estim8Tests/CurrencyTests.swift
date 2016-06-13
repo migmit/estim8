@@ -259,13 +259,15 @@ class CurrencyTests: XCTestCase {
         view?.decant()?.fromSelected = 0
         view?.decant()?.toSelected = 1
         view?.decant()?.value = 75
-        view?.decant()?.tapOk(true)
+        view?.decant()?.useFromCurrency = true
+        view?.decant()?.tapOk()
         view?.mainWindow()?.expect([("AAA", 25), ("BBB", 150)])
         view?.mainWindow()?.tapDecantButton()
         view?.decant()?.fromSelected = 0
         view?.decant()?.toSelected = 1
         view?.decant()?.value = 24
-        view?.decant()?.tapOk(false)
+        view?.decant()?.useFromCurrency = false
+        view?.decant()?.tapOk()
         view?.mainWindow()?.expect([("AAA", 13), ("BBB", 174)])
     }
     
@@ -292,13 +294,15 @@ class CurrencyTests: XCTestCase {
         view?.decant()?.fromSelected = 0
         view?.decant()?.toSelected = 1
         view?.decant()?.value = 50
-        view?.decant()?.tapOk(true)
+        view?.decant()?.useFromCurrency = true
+        view?.decant()?.tapOk()
         view?.mainWindow()?.expect([("AAA", 50), ("BBB", 0)])
         view?.mainWindow()?.tapDecantButton()
         view?.decant()?.fromSelected = 1
         view?.decant()?.toSelected = 0
         view?.decant()?.value = 50
-        view?.decant()?.tapOk(true)
+        view?.decant()?.useFromCurrency = true
+        view?.decant()?.tapOk()
         view?.mainWindow()?.expect([("AAA", 75), ("BBB", -50)])
     }
     

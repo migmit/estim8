@@ -277,6 +277,8 @@ class DecantMoc: DecantView {
     
     var value: NSDecimalNumber = 0
     
+    var useFromCurrency: Bool = true
+    
     init(parent: MainWindowMoc, controller: ControllerDecantInterface, view: MocView) {
         self.parent = parent
         self.controller = controller
@@ -306,7 +308,7 @@ class DecantMoc: DecantView {
         hideSubView()
     }
     
-    func tapOk(useFromCurrency: Bool) {
+    func tapOk() {
         controller.decant(fromSelected, to: toSelected, amount: value, useFromCurrency: useFromCurrency)
     }
 }

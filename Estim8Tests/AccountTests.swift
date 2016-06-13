@@ -56,7 +56,8 @@ class AccountTests: XCTestCase {
         view?.decant()?.fromSelected = from
         view?.decant()?.toSelected = to
         view?.decant()?.value = amount
-        view?.decant()?.tapOk(true)
+        view?.decant()?.useFromCurrency = true
+        view?.decant()?.tapOk()
     }
     
     func testCreateAccount() {
@@ -263,7 +264,8 @@ class AccountTests: XCTestCase {
         view?.mainWindow()?.expect([("TTT", 4), ("UUU", 10), ("VVV", -5)])
         decant(1, to: 2, amount: 7)
         view?.decant()?.value = 5
-        view?.decant()?.tapOk(true)
+        view?.decant()?.useFromCurrency = true
+        view?.decant()?.tapOk()
         view?.mainWindow()?.expect([("TTT", 4), ("UUU", 5), ("VVV", 0)])
     }
     
