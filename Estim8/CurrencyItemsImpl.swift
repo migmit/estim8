@@ -52,15 +52,22 @@ class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerROCurre
     
     let index: Int
     
-    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, view: ListCurrenciesView, currency: Model.Currency, index: Int) {
+    let dependentCurrencies: [Model.Currency]
+    
+    let accounts: [Model.Account]
+    
+    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, view: ListCurrenciesView, currency: Model.Currency, index: Int, dependentCurrencies: [Model.Currency], accounts: [Model.Account]) {
         self.parent = parent
         self.view = view
         self.index = index
+        self.dependentCurrencies = dependentCurrencies
+        self.accounts = accounts
         super.init(model: model, currency: currency)
     }
     
     func edit() {
-        let editController = ControllerEditCurrencyImplementation<Model>(parent: parent, model: model, currency: currency, index: index)
+        let editController =
+            ControllerEditCurrencyImplementation<Model>(parent: parent, model: model, currency: currency, index: index, dependentCurrencies: dependentCurrencies, accounts: accounts)
         let editView = view.editCurrency(editController)
         editController.setView(editView)
         editView.showSubView()
@@ -77,8 +84,7 @@ class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerROCurre
     }
     
     func canRemove() -> Bool {
-        //TODO
-        return true
+        return accounts.isEmpty
     }
     
 }

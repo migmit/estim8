@@ -100,12 +100,17 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: ControllerL
     
     let selected: Model.Currency?
     
+    var currencies: [Model.Currency] = []
+    
+    var currencyData: [Model.Currency : ([Model.Currency], [Model.Account])] = [:]//based on
+    
     weak var view: ListCurrenciesView? = nil
     
     init(parent: ControllerCurrencySelectedProtocol, model: Model, selected: Model.Currency?) {
         self.parent = parent
         self.model = model
         self.selected = selected
+        refreshData()
     }
     
     func setView(view: ListCurrenciesView) {
@@ -113,20 +118,23 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: ControllerL
     }
     
     func numberOfCurrencies() -> Int {
-        return model.liveCurrencies().count
+        return currencyData.count
     }
     
     func currency(n: Int) -> ControllerCurrencyInterface? {
-        let currencies = model.liveCurrencies()
         if (n >= currencies.count) {
             return nil
         } else {
-            return ControllerCurrencyImplementation(parent: self, model: model, view: view!, currency: currencies[n], index: n)
+            let c = currencies[n]
+            if let data = currencyData[c] {
+                return ControllerCurrencyImplementation(parent: self, model: model, view: view!, currency: c, index: n, dependentCurrencies: data.0, accounts: data.1)
+            } else {
+                return nil
+            }
         }
     }
     
     func marked(n: Int) -> Bool {
-        let currencies = model.liveCurrencies()
         if (n >= currencies.count) {
             return false
         } else {
@@ -160,15 +168,49 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: ControllerL
     }
     
     func refreshCurrency(n: Int) {
+        refreshData()
         view?.refreshCurrency(n)
     }
     
     func removeCurrency(n: Int) {
+        refreshData()
         view?.removeCurrency(n)
     }
     
     func addCurrency() {
+        refreshData()
         view?.addCurrency()
+    }
+    
+    func refreshData() {
+        currencies = model.liveCurrencies()
+        let accounts = model.liveAccounts()
+        currencyData = [:]
+        if (currencies.count > 0) {
+            for n in 0...(currencies.count - 1) {
+                currencyData[currencies[n]] = ([], [])
+            }
+        }
+        if (currencies.count > 0) {
+            for n in 0...(currencies.count - 1) {
+                let c = currencies[n]
+                if
+                    let d = model.currenciesOfUpdate(model.updatesOfCurrency(c)[0]).1,
+                    let oldData = currencyData[d]
+                {
+                    currencyData[d] = (oldData.0 + [c], oldData.1)
+                }
+            }
+        }
+        if (accounts.count > 0) {
+            for n in 0...(accounts.count - 1) {
+                let a = accounts[n]
+                let c = model.currencyOfUpdate(model.updatesOfAccount(a)[0])
+                if let oldData = currencyData[c] {
+                    currencyData[c] = (oldData.0, oldData.1 + [a])
+                }
+            }
+        }
     }
     
 }
@@ -185,15 +227,21 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
     
     var baseCurrency: Model.Currency?
     
+    let dependentCurrencies: [Model.Currency]
+    
+    let accounts: [Model.Account]
+    
     weak var view: EditCurrencyView? = nil
     
-    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, currency: Model.Currency, index: Int) {
+    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, currency: Model.Currency, index: Int, dependentCurrencies: [Model.Currency], accounts: [Model.Account]) {
         self.parent = parent
         self.model = model
         self.currency = currency
         self.index = index
         let lastUpdate = model.updatesOfCurrency(currency)[0]
         self.baseCurrency = model.currenciesOfUpdate(lastUpdate).1
+        self.dependentCurrencies = dependentCurrencies
+        self.accounts = accounts
     }
     
     func setView(view: EditCurrencyView) {
@@ -249,8 +297,7 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
     }
     
     func canRemove() -> Bool {
-        //TODO
-        return true
+        return accounts.isEmpty
     }
     
     func selectCurrency() {
