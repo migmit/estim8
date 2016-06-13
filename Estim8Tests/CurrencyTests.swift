@@ -306,4 +306,26 @@ class CurrencyTests: XCTestCase {
         view?.mainWindow()?.expect([("AAA", 75), ("BBB", -50)])
     }
     
+    func testRemoveCurrencyNotAccount() {
+        openList()
+        createCurrency("C1", code: nil, symbol: "CC1", rate: 2, index: 0)
+        view?.listCurrencies()?.tapCurrency(0)
+        view?.createAccount()?.title = "AAA"
+        view?.createAccount()?.value = 100
+        view?.createAccount()?.isNegative = false
+        view?.createAccount()?.expectCurrency("CC1")
+        view?.createAccount()?.tapOk()
+        view?.mainWindow()?.expect([("AAA", 100)])
+        openList()
+        view?.listCurrencies()?.strikeCurrency(0, toEdit: false)
+        view?.listCurrencies()?.expect([("CC1", (2, 0.5), nil, (true, false))])
+        view?.listCurrencies()?.tapCancel()
+        view?.createAccount()?.tapCancel()
+        view?.mainWindow()?.strikeOverAccount(0)
+        openList()
+        view?.listCurrencies()?.expect([("CC1", (2, 0.5), nil, (true, false))])
+        view?.listCurrencies()?.strikeCurrency(0, toEdit: false)
+        view?.listCurrencies()?.expect([])
+    }
+    
 }
