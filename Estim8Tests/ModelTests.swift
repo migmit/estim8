@@ -284,4 +284,12 @@ class ModelTests: XCTestCase {
         XCTAssertNotEqual(t7.compare(t8!), NSComparisonResult.OrderedDescending)
         XCTAssertNotEqual(t8!.compare(t9), NSComparisonResult.OrderedDescending)
     }
+    
+    func testBasedCurrencies() {
+        let c1 = model!.addCurrencyAndUpdate("C1", code: "CC1", symbol: "1C", base: nil, rate: 2, invRate: 0.5, manual: true)
+        let c2 = model?.addCurrencyAndUpdate("C2", code: "CC2", symbol: "2C", base: c1, rate: 4, invRate: 0.25, manual: true)
+        XCTAssertEqual(model!.currenciesBasedOn(c1), [c2!])
+        model!.updateCurrency(c2!, base: nil, rate: 0.5, invRate: 2, manual: true)
+        XCTAssertEqual(model!.currenciesBasedOn(c1), [])
+    }
 }
