@@ -31,6 +31,8 @@ protocol ControllerEditAccountInterface: ControllerROAccountInterface, Controlle
     
     func selectCurrency()
     
+    func recalculate(value: NSDecimalNumber) -> NSDecimalNumber // from previously selected currency to the new one
+    
 }
 
 protocol ControllerCreateAccountInterface: ControllerCurrencySelectedProtocol {

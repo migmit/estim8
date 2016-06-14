@@ -502,6 +502,10 @@ class EditAccountMoc: EditAccountView {
     func expectCurrency(currencySymbol: String) {
         XCTAssertEqual(currencySymbol, controller.currency().symbol())
     }
+    
+    func recalculate() -> NSDecimalNumber {
+        return controller.recalculate(controller.value())
+    }
 }
 
 enum ListCurrenciesParent {

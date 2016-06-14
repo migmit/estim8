@@ -82,6 +82,8 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     
     let index: Int
     
+    var oldCurrency: Model.Currency
+    
     var selectedCurrency: Model.Currency
     
     init(parent: ControllerImplementation<Model>, model: Model, account: Model.Account, index: Int) {
@@ -91,6 +93,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         self.index = index
         let lastUpdate = model.updatesOfAccount(account)[0]
         selectedCurrency = model.currencyOfUpdate(lastUpdate)
+        oldCurrency = selectedCurrency
     }
     
     func setView(view: EditAccountView) {
@@ -147,9 +150,19 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
     
     func currencySelected(currency: ControllerROCurrencyInterface) {
         if let c = currency as? ControllerROCurrencyImplementation<Model> {
+            oldCurrency = selectedCurrency
             selectedCurrency = c.currency
         }
         view?.currencySelected(currency)
+    }
+    
+    func recalculate(value: NSDecimalNumber) -> NSDecimalNumber {
+        if (oldCurrency == selectedCurrency) {
+            return value
+        } else {
+            let rate = model.exchangeRate(selectedCurrency, to: oldCurrency)
+            return value.decimalNumberByMultiplyingBy(rate.0)
+        }
     }
     
 }
@@ -274,7 +287,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
             let accountTo = accounts[to]
             let currencyFrom = model.currencyOfUpdate(model.updatesOfAccount(accountFrom)[0])
             let currencyTo = model.currencyOfUpdate(model.updatesOfAccount(accountTo)[0])
-            let rate = exchangeRate(currencyFrom, to: currencyTo)
+            let rate = model.exchangeRate(currencyFrom, to: currencyTo)
             let addAmountFrom = useFromCurrency ? amount : amount.decimalNumberByMultiplyingBy(rate.0)
             let addAmountTo = useFromCurrency ? amount.decimalNumberByMultiplyingBy(rate.1) : amount
             if
@@ -299,28 +312,6 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         } else {
             return newValue
         }
-    }
-    
-    private func exchangeRate(from: Model.Currency, to: Model.Currency) -> (NSDecimalNumber, NSDecimalNumber) { // from->to, to->from
-        var fa: Model.Currency? = from
-        var fRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
-        var allFromAncestors = [(fa, fRate.0, fRate.1)]
-        while (fa != nil) {
-            let lastUpdate = model.updatesOfCurrency(fa!)[0]
-            fa = model.currenciesOfUpdate(lastUpdate).1
-            let rate = model.rateOfCurrencyUpdate(lastUpdate)
-            fRate = (fRate.0.decimalNumberByMultiplyingBy(rate.0), fRate.1.decimalNumberByMultiplyingBy(rate.1))
-            allFromAncestors.append((fa, fRate.0, fRate.1))
-        }
-        var tRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
-        var ta: Model.Currency? = to
-        while (!allFromAncestors.contains({triple in return triple.0 == ta})) {
-            let lastUpdate = model.updatesOfCurrency(ta!)[0]
-            ta = model.currenciesOfUpdate(lastUpdate).1
-            let rate = model.rateOfCurrencyUpdate(lastUpdate)
-            tRate = (tRate.0.decimalNumberByMultiplyingBy(rate.0), tRate.1.decimalNumberByMultiplyingBy(rate.1))
-        }
-        return (tRate.0.decimalNumberByMultiplyingBy(fRate.1),tRate.1.decimalNumberByMultiplyingBy(fRate.0))
     }
     
 }

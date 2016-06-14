@@ -91,3 +91,29 @@ protocol ModelInterface {
     func liveCurrencies() -> [Currency]
     
 }
+
+extension ModelInterface {
+
+    final func exchangeRate(from: Currency, to: Currency) -> (NSDecimalNumber, NSDecimalNumber) { // from->to, to->from
+        var fa: Currency? = from
+        var fRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
+        var allFromAncestors = [(fa, fRate.0, fRate.1)]
+        while (fa != nil) {
+            let lastUpdate = updatesOfCurrency(fa!)[0]
+            fa = currenciesOfUpdate(lastUpdate).1
+            let rate = rateOfCurrencyUpdate(lastUpdate)
+            fRate = (fRate.0.decimalNumberByMultiplyingBy(rate.0), fRate.1.decimalNumberByMultiplyingBy(rate.1))
+            allFromAncestors.append((fa, fRate.0, fRate.1))
+        }
+        var tRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
+        var ta: Currency? = to
+        while (!allFromAncestors.contains({triple in return triple.0 == ta})) {
+            let lastUpdate = updatesOfCurrency(ta!)[0]
+            ta = currenciesOfUpdate(lastUpdate).1
+            let rate = rateOfCurrencyUpdate(lastUpdate)
+            tRate = (tRate.0.decimalNumberByMultiplyingBy(rate.0), tRate.1.decimalNumberByMultiplyingBy(rate.1))
+        }
+        return (tRate.0.decimalNumberByMultiplyingBy(fRate.1),tRate.1.decimalNumberByMultiplyingBy(fRate.0))
+    }
+
+}

@@ -351,4 +351,22 @@ class CurrencyTests: XCTestCase {
         view?.listCurrencies()?.expect([("1C", (2, 0.5), nil, (true, false)), ("2C", (5, 0.2), "1C", (true, false)), ("3C", (1.25, 0.8), "1C", (true, false))])
     }
     
+    func testRecalculate() {
+        openList()
+        createCurrency("C1", code: nil, symbol: "1C", rate: 2, index: 0)
+        createCurrency("C2", code: nil, symbol: "2C", rate: 4, index: 0)
+        view?.listCurrencies()?.tapCurrency(0)
+        view?.createAccount()?.title = "AAA"
+        view?.createAccount()?.value = 10
+        view?.createAccount()?.isNegative = false
+        view?.createAccount()?.expectCurrency("1C")
+        view?.createAccount()?.tapOk()
+        view?.mainWindow()?.expect([("AAA", 10)])
+        view?.mainWindow()?.tapAccount(0)
+        XCTAssertEqual(view?.editAccount()?.recalculate(), 10)
+        view?.editAccount()?.tapCurrency()
+        view?.listCurrencies()?.tapCurrency(1)
+        XCTAssertEqual(view?.editAccount()?.recalculate(), 5)
+    }
+    
 }
