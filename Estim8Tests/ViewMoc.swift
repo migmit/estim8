@@ -653,8 +653,7 @@ class CreateCurrencyMoc: CreateCurrencyView {
     }
     
     func tapOk() {
-        let one: NSDecimalNumber = 1
-        controller.create(name, code: code, symbol: symbol, rate: (rate, one.decimalNumberByDividingBy(rate)))
+        controller.create(name, code: code, symbol: symbol, rate: (rate, NSDecimalNumber.one().decimalNumberByDividingBy(rate)))
     }
     
     func tapCancel() {
@@ -714,8 +713,7 @@ class EditCurrencyMoc: EditCurrencyView {
     }
     
     func tapOk() {
-        let one: NSDecimalNumber = 1
-        controller.setCurrency(name, code: code, symbol: symbol, rate: (rate, one.decimalNumberByDividingBy(rate)))
+        controller.setCurrency(name, code: code, symbol: symbol, rate: (rate, NSDecimalNumber.one().decimalNumberByDividingBy(rate)))
     }
     
     func tapCancel() {
