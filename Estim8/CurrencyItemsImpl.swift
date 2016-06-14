@@ -52,11 +52,11 @@ class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerROCurre
     
     let index: Int
     
-    let dependentCurrencies: [Model.Currency]
+    let dependentCurrencies: [(Model.Currency, Int)]
     
     let accounts: [Model.Account]
     
-    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, view: ListCurrenciesView, currency: Model.Currency, index: Int, dependentCurrencies: [Model.Currency], accounts: [Model.Account]) {
+    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, view: ListCurrenciesView, currency: Model.Currency, index: Int, dependentCurrencies: [(Model.Currency, Int)], accounts: [Model.Account]) {
         self.parent = parent
         self.view = view
         self.index = index

@@ -328,4 +328,27 @@ class CurrencyTests: XCTestCase {
         view?.listCurrencies()?.expect([])
     }
     
+    func testRebaseDependentCurrencies() {
+        openList()
+        createCurrency("C1", code: nil, symbol: "1C", rate: 2, index: 0)
+        createCurrency("C2", code: nil, symbol: "2C", rate: 4, index: 0)
+        createCurrency("C3", code: nil, symbol: "3C", rate: 10, index: 2)
+        view?.listCurrencies()?.expect([("1C", (2, 0.5), nil, (true, false)), ("2C", (4, 0.25), nil, (true, false)), ("3C", (10, 0.1), "2C", (true, false))])
+        view?.listCurrencies()?.strikeCurrency(1, toEdit: true)
+        view?.editCurrency()?.tapBaseCurrency()
+        view?.selectCurrency()?.tapCurrency(1)
+        view?.editCurrency()?.rate = 5
+        view?.editCurrency()?.tapOk()
+        view?.listCurrencies()?.expect([("1C", (2, 0.5), nil, (true, false)), ("2C", (5, 0.2), "1C", (true, false)), ("3C", (50, 0.02), "1C", (true, false))])
+    }
+    
+    func testCreateThirdLevelCurrency() {
+        openList()
+        createCurrency("C1", code: nil, symbol: "1C", rate: 2, index: 0)
+        createCurrency("C2", code: nil, symbol: "2C", rate: 5, index: 1)
+        view?.listCurrencies()?.expect([("1C", (2, 0.5), nil, (true, false)), ("2C", (5, 0.2), "1C", (true, false))])
+        createCurrency("C3", code: nil, symbol: "3C", rate: 0.25, index: 2)
+        view?.listCurrencies()?.expect([("1C", (2, 0.5), nil, (true, false)), ("2C", (5, 0.2), "1C", (true, false)), ("3C", (1.25, 0.8), "1C", (true, false))])
+    }
+    
 }

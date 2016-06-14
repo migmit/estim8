@@ -102,7 +102,7 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: ControllerL
     
     var currencies: [Model.Currency] = []
     
-    var currencyData: [Model.Currency : ([Model.Currency], [Model.Account])] = [:]//based on
+    var currencyData: [Model.Currency : ([(Model.Currency, Int)], [Model.Account])] = [:]//based on
     
     weak var view: ListCurrenciesView? = nil
     
@@ -198,7 +198,7 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: ControllerL
                     let d = model.currenciesOfUpdate(model.updatesOfCurrency(c)[0]).1,
                     let oldData = currencyData[d]
                 {
-                    currencyData[d] = (oldData.0 + [c], oldData.1)
+                    currencyData[d] = (oldData.0 + [(c, n)], oldData.1)
                 }
             }
         }
@@ -227,13 +227,13 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
     
     var baseCurrency: Model.Currency?
     
-    let dependentCurrencies: [Model.Currency]
+    let dependentCurrencies: [(Model.Currency, Int)]
     
     let accounts: [Model.Account]
     
     weak var view: EditCurrencyView? = nil
     
-    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, currency: Model.Currency, index: Int, dependentCurrencies: [Model.Currency], accounts: [Model.Account]) {
+    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, currency: Model.Currency, index: Int, dependentCurrencies: [(Model.Currency, Int)], accounts: [Model.Account]) {
         self.parent = parent
         self.model = model
         self.currency = currency
@@ -275,6 +275,17 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
             model.changeCurrency(currency, name: name, code: code, symbol: symbol)
             model.updateCurrency(currency, base: baseCurrency, rate: rate.0, invRate: rate.1, manual: true)
             parent.refreshCurrency(index)
+            if (baseCurrency != nil) {
+                for c in dependentCurrencies {
+                    let lastUpdate = model.updatesOfCurrency(c.0)[0]
+                    if (model.currenciesOfUpdate(lastUpdate).1 == currency) { //SAFEGUARD
+                        let dRate = model.rateOfCurrencyUpdate(lastUpdate)
+                        let newRate = (rate.0.decimalNumberByMultiplyingBy(dRate.0), rate.1.decimalNumberByMultiplyingBy(dRate.1))
+                        model.updateCurrency(c.0, base: baseCurrency, rate: newRate.0, invRate: newRate.1, manual: false)
+                        parent.refreshCurrency(c.1)
+                    }
+                }
+            }
             return true
         } else {
             return false
@@ -326,6 +337,8 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerC
     
     var baseCurrency: Model.Currency? = nil
     
+    var rateMultiplier: (NSDecimalNumber, NSDecimalNumber) = (1,1)
+    
     weak var view: CreateCurrencyView? = nil
     
     init(parent: ControllerListCurrenciesImplementation<Model>, model: Model) {
@@ -340,7 +353,8 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerC
     func create(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
         if (canCreate(name, code: code, symbol: symbol, rate: rate)) {
             view?.hideSubView()
-            model.addCurrencyAndUpdate(name, code: code, symbol: symbol, base: baseCurrency, rate: rate.0, invRate: rate.1, manual: true)
+            let newRate = (rate.0.decimalNumberByMultiplyingBy(rateMultiplier.0), rate.1.decimalNumberByMultiplyingBy(rateMultiplier.1))
+            model.addCurrencyAndUpdate(name, code: code, symbol: symbol, base: baseCurrency, rate: newRate.0, invRate: newRate.1, manual: true)
             parent.addCurrency()
             return true
         } else {
@@ -361,7 +375,13 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerC
     
     func currencySelected(currency: ControllerROCurrencyInterface?) {
         if let c = currency as? ControllerROCurrencyImplementation<Model> {
-            baseCurrency = c.currency
+            if let b = currency?.relative() as? ControllerROCurrencyImplementation<Model> {
+                baseCurrency = b.currency
+                rateMultiplier = c.rate()
+            } else {
+                baseCurrency = c.currency
+                rateMultiplier = (1,1)
+            }
         } else {
             baseCurrency = nil
         }
