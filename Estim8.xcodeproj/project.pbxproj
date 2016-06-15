@@ -31,6 +31,9 @@
 		B538498D1D10978A006BB230 /* UpdaterBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538498C1D109789006BB230 /* UpdaterBackend.swift */; };
 		B538498E1D1097C1006BB230 /* UpdaterBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538498C1D109789006BB230 /* UpdaterBackend.swift */; };
 		B53849911D10AAA3006BB230 /* UpdaterBackendMoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53849901D10AAA3006BB230 /* UpdaterBackendMoc.swift */; };
+		B53849931D11DFE9006BB230 /* UpdaterBackendECBImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53849921D11DFE8006BB230 /* UpdaterBackendECBImpl.swift */; };
+		B53849951D11E788006BB230 /* UpdaterImplementationDump.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53849941D11E788006BB230 /* UpdaterImplementationDump.swift */; };
+		B53849961D11E79E006BB230 /* UpdaterBackendECBImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53849921D11DFE8006BB230 /* UpdaterBackendECBImpl.swift */; };
 		B59CB3A71D0600F8001642F8 /* AccountViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3A61D0600F8001642F8 /* AccountViews.swift */; };
 		B59CB3AC1D0601E6001642F8 /* AccountItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3AB1D0601E6001642F8 /* AccountItems.swift */; };
 		B59CB3AE1D06038B001642F8 /* CurrencyItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59CB3AD1D06038B001642F8 /* CurrencyItems.swift */; };
@@ -106,6 +109,8 @@
 		B51DE5B31CB9315B0060960A /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		B538498C1D109789006BB230 /* UpdaterBackend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdaterBackend.swift; sourceTree = "<group>"; };
 		B53849901D10AAA3006BB230 /* UpdaterBackendMoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdaterBackendMoc.swift; sourceTree = "<group>"; };
+		B53849921D11DFE8006BB230 /* UpdaterBackendECBImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdaterBackendECBImpl.swift; sourceTree = "<group>"; };
+		B53849941D11E788006BB230 /* UpdaterImplementationDump.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdaterImplementationDump.swift; sourceTree = "<group>"; };
 		B59CB3A61D0600F8001642F8 /* AccountViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViews.swift; sourceTree = "<group>"; };
 		B59CB3AB1D0601E6001642F8 /* AccountItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountItems.swift; sourceTree = "<group>"; };
 		B59CB3AD1D06038B001642F8 /* CurrencyItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyItems.swift; sourceTree = "<group>"; };
@@ -253,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				B538498C1D109789006BB230 /* UpdaterBackend.swift */,
+				B53849921D11DFE8006BB230 /* UpdaterBackendECBImpl.swift */,
 			);
 			name = Background;
 			sourceTree = "<group>";
@@ -261,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				B53849901D10AAA3006BB230 /* UpdaterBackendMoc.swift */,
+				B53849941D11E788006BB230 /* UpdaterImplementationDump.swift */,
 			);
 			name = BackgroundTests;
 			sourceTree = "<group>";
@@ -487,6 +494,7 @@
 				B51DE59D1CB57B2A0060960A /* ViewInterface.swift in Sources */,
 				B59CB3B41D0604C7001642F8 /* AccountItemsImpl.swift in Sources */,
 				B59CB3CA1D061C19001642F8 /* CreateCurrencyViewController.swift in Sources */,
+				B53849931D11DFE9006BB230 /* UpdaterBackendECBImpl.swift in Sources */,
 				B51DE5AC1CB92ADF0060960A /* SubViewController.swift in Sources */,
 				B51DE5511CAF401E0060960A /* AppDelegate.swift in Sources */,
 				B51DE5B21CB931060060960A /* SlicesViewController.swift in Sources */,
@@ -508,6 +516,8 @@
 				B5E41AC31D0D8562004CAF7C /* CurrencyTests.swift in Sources */,
 				B59CB3BE1D06073C001642F8 /* AccountViewsImpl.swift in Sources */,
 				B51DE5AA1CB6C6BA0060960A /* ViewMoc.swift in Sources */,
+				B53849951D11E788006BB230 /* UpdaterImplementationDump.swift in Sources */,
+				B53849961D11E79E006BB230 /* UpdaterBackendECBImpl.swift in Sources */,
 				B5E41AC51D0D85C8004CAF7C /* Setup.swift in Sources */,
 				B51DE5991CB448970060960A /* ModelInterface.swift in Sources */,
 				B53849911D10AAA3006BB230 /* UpdaterBackendMoc.swift in Sources */,
