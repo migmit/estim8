@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B511718E1D148E7C00995749 /* UpdaterFrontend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B511718D1D148E7C00995749 /* UpdaterFrontend.swift */; };
 		B51DE5511CAF401E0060960A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5501CAF401E0060960A /* AppDelegate.swift */; };
 		B51DE5531CAF401E0060960A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5521CAF401E0060960A /* ViewController.swift */; };
 		B51DE5561CAF401E0060960A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51DE5541CAF401E0060960A /* Main.storyboard */; };
@@ -83,6 +84,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B511718D1D148E7C00995749 /* UpdaterFrontend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdaterFrontend.swift; sourceTree = "<group>"; };
 		B51DE54D1CAF401E0060960A /* Estim8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Estim8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B51DE5501CAF401E0060960A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B51DE5521CAF401E0060960A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 			children = (
 				B538498C1D109789006BB230 /* UpdaterBackend.swift */,
 				B53849921D11DFE8006BB230 /* UpdaterBackendECBImpl.swift */,
+				B511718D1D148E7C00995749 /* UpdaterFrontend.swift */,
 			);
 			name = Background;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				B59CB3CC1D061C8E001642F8 /* EditCurrencyViewController.swift in Sources */,
 				B51DE5AE1CB92F910060960A /* CreateAccountViewController.swift in Sources */,
 				B51DE5B01CB930840060960A /* DecantViewController.swift in Sources */,
+				B511718E1D148E7C00995749 /* UpdaterFrontend.swift in Sources */,
 				B51DE5531CAF401E0060960A /* ViewController.swift in Sources */,
 				B59CB3A71D0600F8001642F8 /* AccountViews.swift in Sources */,
 				B59CB3AC1D0601E6001642F8 /* AccountItems.swift in Sources */,
