@@ -21,6 +21,8 @@ class UpdaterFrontend<Model: ModelInterface> {
     
     let lastUpdateKey = "updater.lastUpdate"
     
+    var timer: NSTimer?
+    
     init(model: Model, updateInterval: NSTimeInterval, sinceLastUpdate: NSTimeInterval, backend: UpdaterBackendProtocol) { // updateInterval > sinceLastUpdate
         self.model = model
         self.backend = backend
@@ -56,7 +58,14 @@ class UpdaterFrontend<Model: ModelInterface> {
     
     func setTimer() {
         let timer = NSTimer(fireDate: NSDate().dateByAddingTimeInterval(updateInterval), interval: 0, target: self, selector: #selector(startUpdating), userInfo: nil, repeats: false)
+        self.timer = timer
         NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+    }
+    
+    func stopUpdating() {
+        if let t = timer {
+            t.invalidate()
+        }
     }
     
 }
