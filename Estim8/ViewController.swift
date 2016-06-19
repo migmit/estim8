@@ -50,7 +50,13 @@ class MainWindowImplementation: MainWindowView {
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let updateInterval: NSTimeInterval = 24*60*60
+    
+    let sinceLastUpdate: NSTimeInterval = 12*60*60
+    
     var viewImplementation: MainWindowImplementation? = nil
+    
+    var updater: UpdaterFrontend? = nil
 
     @IBOutlet weak var accountsTable: UITableView!
     
@@ -60,10 +66,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         let model = ModelImplementation(managedObjectContext: managedObjectContext)
+        let updater = UpdaterFrontendImpl(model: model, updateInterval: updateInterval, sinceLastUpdate: sinceLastUpdate, backend: UpdaterBackendECBImpl())
         let controller = ControllerImplementation(model: model)
         let mainWindow = MainWindowImplementation(controller: controller, view: self)
+        updater.startUpdating()
         controller.setView(mainWindow)
         self.viewImplementation = mainWindow
+        self.updater = updater
     }
 
     override func didReceiveMemoryWarning() {

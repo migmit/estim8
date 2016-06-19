@@ -23,8 +23,14 @@ class UpdaterImplementationDump: XCTestCase {
     func testDump() {
         let updater = UpdaterBackendECBImpl()
         let dict = updater.getExchangeRates()
-        for (key, value) in dict {
-            print("Currency: \(key); rate: (\(value.0), \(value.1))")
+        XCTAssertNotNil(dict["EUR"])
+        if let rate = dict["EUR"] {
+            XCTAssertEqual(rate.0, 1)
+            XCTAssertEqual(rate.1, 1)
+        }
+        XCTAssertNotNil(dict["USD"])
+        if let rate = dict["USD"] {
+            XCTAssertEqual(rate.0, NSDecimalNumber.one().decimalNumberByDividingBy(rate.1))
         }
     }
 

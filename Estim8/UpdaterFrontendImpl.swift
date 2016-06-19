@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class UpdaterFrontend<Model: ModelInterface> {
+class UpdaterFrontendImpl<Model: ModelInterface>: UpdaterFrontend {
     
     let backend: UpdaterBackendProtocol
     
