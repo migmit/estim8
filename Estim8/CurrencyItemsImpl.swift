@@ -42,6 +42,12 @@ class ControllerROCurrencyImplementation<Model: ModelInterface>: ControllerROCur
         return rel.map{ControllerROCurrencyImplementation<Model>(model: model, currency: $0)}
     }
     
+    func onBase() -> (ControllerROCurrencyInterface, (NSDecimalNumber, NSDecimalNumber))? {
+        return model.preferredBaseOfCurrency(currency).map {(preferredBase: Model.Currency) in
+            (ControllerROCurrencyImplementation<Model>(model: model, currency: preferredBase), (model.exchangeRate(preferredBase, to: currency)))
+        }
+    }
+    
 }
 
 class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerROCurrencyImplementation<Model>, ControllerCurrencyInterface {

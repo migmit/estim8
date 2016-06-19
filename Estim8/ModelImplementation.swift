@@ -257,4 +257,8 @@ class ModelImplementation: ModelInterface {
         }
     }
     
+    func preferredBaseOfCurrency(currency: Currency) -> Currency? {
+        return currency.valueForKey("preferredBase") as? Currency
+    }
+    
 }

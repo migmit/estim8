@@ -90,6 +90,8 @@ protocol ModelInterface {
     
     func liveCurrencies() -> [Currency]
     
+    func preferredBaseOfCurrency(currency: Currency) -> Currency?
+    
 }
 
 extension ModelInterface {

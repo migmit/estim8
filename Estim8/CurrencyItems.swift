@@ -20,6 +20,7 @@ protocol ControllerROCurrencyInterface {
     
     func relative() -> ControllerROCurrencyInterface?
     
+    func onBase() -> (ControllerROCurrencyInterface, (NSDecimalNumber, NSDecimalNumber))?
 }
 
 protocol ControllerCurrencyInterface: ControllerROCurrencyInterface {

@@ -269,6 +269,12 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: ControllerEdi
         return baseCurrency.map{ControllerROCurrencyImplementation(model: model, currency: $0)}
     }
     
+    func onBase() -> (ControllerROCurrencyInterface, (NSDecimalNumber, NSDecimalNumber))? {
+        return model.preferredBaseOfCurrency(currency).map {(preferredBase: Model.Currency) in
+            (ControllerROCurrencyImplementation<Model>(model: model, currency: preferredBase), (model.exchangeRate(preferredBase, to: currency)))
+        }
+    }
+    
     func setCurrency(name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
         if (canSetCurrency(name, code: code, symbol: symbol, rate: rate)) {
             view?.hideSubView()
