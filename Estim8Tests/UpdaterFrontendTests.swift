@@ -24,7 +24,7 @@ class UpdaterFrontendTests: XCTestCase {
         
         do {
             if let objectModel: NSManagedObjectModel = NSManagedObjectModel.mergedModel(from: nil){
-                if let coordinator: NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel){
+                let coordinator: NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel)
                     try coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
                     let context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
                     context.persistentStoreCoordinator = coordinator
@@ -33,7 +33,6 @@ class UpdaterFrontendTests: XCTestCase {
                     
                     model = ModelImplementation(managedObjectContext: context)
                 }
-            }
         } catch {
             XCTFail()
         }
@@ -46,7 +45,7 @@ class UpdaterFrontendTests: XCTestCase {
     
     func testUpdatingOnce() {
         XCTAssertNil(UserDefaults.standard.object(forKey: "updater.lastUpdate"))
-        let euroCurrency = model!.addCurrencyAndUpdate("Euro", code: "EUR", symbol: "€", base: nil, rate: 1, invRate: 1, manual: true)
+        if let euroCurrency = model!.addCurrencyAndUpdate("Euro", code: "EUR", symbol: "€", base: nil, rate: 1, invRate: 1, manual: true){
         let backend = UpdaterBackendMoc()
         backend.exchangeRates = ["EUR" : (2,0.5), "USD" : (0.5, 2)]
         let updater = UpdaterFrontendImpl(model: model!, updateInterval: 60*60, sinceLastUpdate: 60*60, backend: backend)
@@ -59,11 +58,14 @@ class UpdaterFrontendTests: XCTestCase {
         let rate = model!.rateOfCurrencyUpdate(updates[0])
         XCTAssertEqual(rate.0, 2)
         XCTAssertEqual(rate.1, 0.5)
+        } else {
+            XCTFail()
+        }
     }
     
     func testUpdatingDependent() {
-        let euroCurrency = model!.addCurrencyAndUpdate("Euro", code: "EUR", symbol: "€", base: nil, rate: 1, invRate: 1, manual: true)
-        let dollarCurrency = model!.addCurrencyAndUpdate("US Dollar", code: "USD", symbol: "$", base: euroCurrency, rate: 0.5, invRate: 2, manual: true)
+        if let euroCurrency = model!.addCurrencyAndUpdate("Euro", code: "EUR", symbol: "€", base: nil, rate: 1, invRate: 1, manual: true),
+            let dollarCurrency = model!.addCurrencyAndUpdate("US Dollar", code: "USD", symbol: "$", base: euroCurrency, rate: 0.5, invRate: 2, manual: true) {
         let backend = UpdaterBackendMoc()
         backend.exchangeRates = ["EUR" : (1.6, 0.625), "USD" : (0.8, 1.25)]
         let updater = UpdaterFrontendImpl(model: model!, updateInterval: 60*60, sinceLastUpdate: 60*60, backend: backend)
@@ -80,10 +82,13 @@ class UpdaterFrontendTests: XCTestCase {
         let dollarRate = model!.rateOfCurrencyUpdate(dollarUpdates[0])
         XCTAssertEqual(dollarRate.0, 0.8)
         XCTAssertNil(model!.currenciesOfUpdate(dollarUpdates[0]).1)
+        } else {
+            XCTFail()
+        }
     }
     
     func testUpdateTwice() {
-        let euroCurrency = model!.addCurrencyAndUpdate("Euro", code: "EUR", symbol: "€", base: nil, rate: 1, invRate: 1, manual: true)
+        if let euroCurrency = model!.addCurrencyAndUpdate("Euro", code: "EUR", symbol: "€", base: nil, rate: 1, invRate: 1, manual: true) {
         let backend = UpdaterBackendMoc()
         backend.exchangeRates = ["EUR": (2.5, 0.4)]
         let updater = UpdaterFrontendImpl(model: model!, updateInterval: 1, sinceLastUpdate: 0.5, backend: backend)
@@ -101,6 +106,9 @@ class UpdaterFrontendTests: XCTestCase {
         XCTAssertEqual(newUpdates.count, 3)
         let newRate = model!.rateOfCurrencyUpdate(newUpdates[0])
         XCTAssertEqual(newRate.0, 5)
+        } else {
+            XCTFail()
+        }
     }
     
 }

@@ -238,7 +238,7 @@ class CreateAccountMoc: CreateAccountView {
     
     func tapOk() {
         if (!title.isEmpty) {
-            controller.create(title, initialValue: value, isNegative: isNegative)
+            _ = controller.create(title, initialValue: value, isNegative: isNegative)
         }
     }
     
@@ -309,7 +309,7 @@ class DecantMoc: DecantView {
     }
     
     func tapOk() {
-        controller.decant(fromSelected, to: toSelected, amount: value, useFromCurrency: useFromCurrency)
+        _ = controller.decant(fromSelected, to: toSelected, amount: value, useFromCurrency: useFromCurrency)
     }
 }
 
@@ -425,7 +425,7 @@ class SlicesMoc: SlicesView {
         state.slice.createOrRemove()
     }
     
-    func expect(_ expect: [(String, Float)?], buttonTitle: String, prevEnabled: Bool, nextEnabled: Bool) {
+    func expect(_ expect: [(String, NSDecimalNumber)?], buttonTitle: String, prevEnabled: Bool, nextEnabled: Bool) {
         if (state.display.count == expect.count) {
             if (expect.count > 0) {
                 for i in 0...(expect.count-1) {
@@ -480,7 +480,7 @@ class EditAccountMoc: EditAccountView {
     }
     
     func tapOk() {
-        controller.setValue(value)
+        _ = controller.setValue(value)
     }
     
     func tapDeleteButton() {
@@ -577,14 +577,14 @@ class ListCurrenciesMoc: ListCurrenciesView {
     }
     
     func tapCurrency(_ n: Int) {
-        controller.select(n)
+        _ = controller.select(n)
     }
     
     func strikeCurrency(_ n: Int, toEdit: Bool) {
         if (toEdit) {
             controller.currency(n)?.edit()
         } else {
-            controller.currency(n)?.remove()
+            _ = controller.currency(n)?.remove()
         }
     }
     
@@ -653,7 +653,7 @@ class CreateCurrencyMoc: CreateCurrencyView {
     }
     
     func tapOk() {
-        controller.create(name, code: code, symbol: symbol, rate: (rate, NSDecimalNumber.one.dividing(by: rate)))
+        _ = controller.create(name, code: code, symbol: symbol, rate: (rate, NSDecimalNumber.one.dividing(by: rate)))
     }
     
     func tapCancel() {
@@ -713,7 +713,7 @@ class EditCurrencyMoc: EditCurrencyView {
     }
     
     func tapOk() {
-        controller.setCurrency(name, code: code, symbol: symbol, rate: (rate, NSDecimalNumber.one.dividing(by: rate)))
+        _ = controller.setCurrency(name, code: code, symbol: symbol, rate: (rate, NSDecimalNumber.one.dividing(by: rate)))
     }
     
     func tapCancel() {
@@ -721,7 +721,7 @@ class EditCurrencyMoc: EditCurrencyView {
     }
     
     func tapDelete() {
-        controller.remove()
+        _ = controller.remove()
     }
     
     func tapBaseCurrency() {
@@ -793,7 +793,7 @@ class SelectCurrencyMoc: SelectCurrencyView {
     }
     
     func tapCurrency(_ n: Int) {
-        controller.select(n)
+        _ = controller.select(n)
     }
     
     func tapCancel() {

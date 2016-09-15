@@ -91,7 +91,7 @@ class AccountTests: XCTestCase {
             createAccount.value = 4
             createAccount.isNegative = true
             createAccount.tapOk()
-            view?.createAccount()
+            _ = view?.createAccount()
             createAccount.tapCancel()
         }
         view?.mainWindow()?.expect([])
@@ -101,7 +101,7 @@ class AccountTests: XCTestCase {
             createAccount.value = -5
             createAccount.isNegative = false
             createAccount.tapOk()
-            view?.createAccount()
+            _ = view?.createAccount()
             createAccount.tapCancel()
         }
         view?.mainWindow()?.expect([])
@@ -117,7 +117,7 @@ class AccountTests: XCTestCase {
             createAccount.value = -7
             createAccount.isNegative = false
             createAccount.tapOk()
-            view?.createAccount()
+            _ = view?.createAccount()
             createAccount.tapCancel()
         }
         view?.mainWindow()?.expect([("FFF", 6)])
