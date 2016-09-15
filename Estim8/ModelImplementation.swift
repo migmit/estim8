@@ -43,7 +43,6 @@ class ModelImplementation: ModelInterface {
         let fetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "Account")
         fetchRequest.predicate = NSPredicate(format: "removed == YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "closingDate", ascending: false)]
-            [NSSortDescriptor(key: "sortingIndex", ascending: true)]
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
             return results 

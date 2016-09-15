@@ -360,7 +360,7 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: ControllerC
         if (canCreate(name, code: code, symbol: symbol, rate: rate)) {
             view?.hideSubView()
             let newRate = (rate.0.multiplying(by: rateMultiplier.0), rate.1.multiplying(by: rateMultiplier.1))
-            model.addCurrencyAndUpdate(name, code: code, symbol: symbol, base: baseCurrency, rate: newRate.0, invRate: newRate.1, manual: true)
+            _ = model.addCurrencyAndUpdate(name, code: code, symbol: symbol, base: baseCurrency, rate: newRate.0, invRate: newRate.1, manual: true)
             parent.addCurrency()
             return true
         } else {

@@ -31,7 +31,7 @@ class EditAccountImplementation: EditAccountView {
     }
     
     func hideSubView() {
-        view?.navigationController?.popViewController(animated: true)
+        _ = view?.navigationController?.popViewController(animated: true)
     }
     
     func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {

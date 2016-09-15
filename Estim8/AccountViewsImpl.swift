@@ -190,7 +190,7 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         if (canCreate(title, initialValue: initialValue, isNegative: isNegative)) {
             if let c = selectedCurrency  {
                 view?.hideSubView()
-                model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: c)
+                _ = model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: c)
                 parent.addAccount()
                 return true
             } else {

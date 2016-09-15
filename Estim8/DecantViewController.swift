@@ -31,7 +31,7 @@ class DecantImplementation: DecantView {
     }
     
     func hideSubView() {
-        view?.navigationController?.popViewController(animated: true)
+        _ = view?.navigationController?.popViewController(animated: true)
     }
 }
 
