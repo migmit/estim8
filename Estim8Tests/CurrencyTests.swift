@@ -26,7 +26,7 @@ class CurrencyTests: XCTestCase {
         view = nil
         super.tearDown()
     }
-
+    
     func openList() {
         view?.mainWindow()?.tapPlusButton()
         view?.createAccount()?.expectCurrency(nil)
@@ -43,7 +43,7 @@ class CurrencyTests: XCTestCase {
         view?.createCurrency()?.tapBaseCurrency()
         view?.selectCurrency()?.tapCurrency(index)
         view?.createCurrency()?.tapOk()
-
+        
     }
     
     func testListCurrencies() {

@@ -57,7 +57,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var viewImplementation: MainWindowImplementation? = nil
     
     var updater: UpdaterFrontend? = nil
-
+    
     @IBOutlet weak var accountsTable: UITableView!
     
     override func viewDidLoad() {
@@ -74,7 +74,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.viewImplementation = mainWindow
         self.updater = updater
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

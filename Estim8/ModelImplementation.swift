@@ -16,7 +16,7 @@ class ModelImplementation: ModelInterface {
     init(managedObjectContext: NSManagedObjectContext) {
         self.managedObjectContext = managedObjectContext
     }
-
+    
     typealias Account = NSManagedObject
     
     typealias Slice = NSManagedObject
@@ -33,7 +33,7 @@ class ModelImplementation: ModelInterface {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sortingIndex", ascending: true)]
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
-            return results 
+            return results
         } catch {
             return []
         }
@@ -45,7 +45,7 @@ class ModelImplementation: ModelInterface {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "closingDate", ascending: false)]
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
-            return results 
+            return results
         } catch {
             return []
         }
@@ -57,7 +57,7 @@ class ModelImplementation: ModelInterface {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
-            return results 
+            return results
         } catch {
             return []
         }
@@ -130,16 +130,16 @@ class ModelImplementation: ModelInterface {
         let countRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "Account")
         do {
             let count: Int = try managedObjectContext.count(for: countRequest)
-        let accountDescr = NSEntityDescription.entity(forEntityName: "Account", in: managedObjectContext)!
-        let account = NSManagedObject(entity: accountDescr, insertInto: managedObjectContext)
-        account.setValue(isNegative, forKey: "negative")
-        account.setValue(Date(), forKey: "openDate")
-        account.setValue(false, forKey: "removed")
-        account.setValue(title, forKey: "title")
-        account.setValue(count, forKey: "sortingIndex")
-        account.setValue(Set<Update>(), forKey: "updates")
-        updateAccount(account, value: value, currency: currency)
-        return account
+            let accountDescr = NSEntityDescription.entity(forEntityName: "Account", in: managedObjectContext)!
+            let account = NSManagedObject(entity: accountDescr, insertInto: managedObjectContext)
+            account.setValue(isNegative, forKey: "negative")
+            account.setValue(Date(), forKey: "openDate")
+            account.setValue(false, forKey: "removed")
+            account.setValue(title, forKey: "title")
+            account.setValue(count, forKey: "sortingIndex")
+            account.setValue(Set<Update>(), forKey: "updates")
+            updateAccount(account, value: value, currency: currency)
+            return account
         } catch {
             return nil
         }
@@ -220,25 +220,25 @@ class ModelImplementation: ModelInterface {
         currency.setValue(name, forKey: "name")
         currency.setValue(code, forKey: "code")
         currency.setValue(symbol, forKey: "symbol")
-        do {try managedObjectContext.save()} catch {}    
+        do {try managedObjectContext.save()} catch {}
     }
     
     func addCurrencyAndUpdate(_ name: String, code: String?, symbol: String, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency? {
         let countRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "Currency")
         do {
-        let count: Int = try managedObjectContext.count(for: countRequest)
-        let currencyDescr = NSEntityDescription.entity(forEntityName: "Currency", in: managedObjectContext)!
-        let currency = NSManagedObject(entity: currencyDescr, insertInto: managedObjectContext)
-        currency.setValue(name, forKey: "name")
-        currency.setValue(code, forKey: "code")
-        currency.setValue(symbol, forKey: "symbol")
-        currency.setValue(Date(), forKey: "addDate")
-        currency.setValue(false, forKey: "removed")
-        currency.setValue(count, forKey: "sortingIndex")
-        currency.setValue(Set<CurrencyUpdate>(), forKey: "based")
-        currency.setValue(Set<CurrencyUpdate>(), forKey: "updates")
-        updateCurrency(currency, base: base, rate: rate, invRate: invRate, manual: manual)
-        return currency
+            let count: Int = try managedObjectContext.count(for: countRequest)
+            let currencyDescr = NSEntityDescription.entity(forEntityName: "Currency", in: managedObjectContext)!
+            let currency = NSManagedObject(entity: currencyDescr, insertInto: managedObjectContext)
+            currency.setValue(name, forKey: "name")
+            currency.setValue(code, forKey: "code")
+            currency.setValue(symbol, forKey: "symbol")
+            currency.setValue(Date(), forKey: "addDate")
+            currency.setValue(false, forKey: "removed")
+            currency.setValue(count, forKey: "sortingIndex")
+            currency.setValue(Set<CurrencyUpdate>(), forKey: "based")
+            currency.setValue(Set<CurrencyUpdate>(), forKey: "updates")
+            updateCurrency(currency, base: base, rate: rate, invRate: invRate, manual: manual)
+            return currency
         } catch {
             return nil
         }
@@ -256,7 +256,7 @@ class ModelImplementation: ModelInterface {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sortingIndex", ascending: true)]
         do {
             let results = try managedObjectContext.fetch(fetchRequest)
-            return results 
+            return results
         } catch {
             return []
         }

@@ -48,7 +48,7 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
     var viewImplementation: EditAccountImplementation? = nil
     
     @IBOutlet weak var accountNameLabel: UILabel!
-
+    
     @IBOutlet weak var accountValueText: NumberField!
     
     func setViewImplementation(_ viewImplementation: EditAccountImplementation) {
@@ -58,7 +58,7 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
     func showListCurrenciesView(_ sender: ListCurrenciesView) {
         performSegue(withIdentifier: "ListCurrencies", sender: sender)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(buttonSaveClicked))
@@ -67,7 +67,7 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
             accountValueText.setValue(controller.value(), isNegative: controller.isNegative())
         }
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         let center = NotificationCenter.default
         center.addObserver(self, selector: #selector(notificationValueChanged), name: NSNotification.Name.UITextFieldTextDidChange, object: accountValueText)
@@ -94,7 +94,7 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
             break;
         }
     }
-
+    
     @IBAction func buttonDeleteClicked(_ sender: UIButton) {
         if let controller = viewImplementation?.controller {
             let alert = UIAlertController(title: controller.name() , message: "Delete?", preferredStyle: .actionSheet)
@@ -114,7 +114,7 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
             }
         }
     }
-
+    
     func somethingChanged() {
         let value = accountValueText.getValue()
         if let controller = viewImplementation?.controller {
@@ -128,13 +128,13 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
         somethingChanged()
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

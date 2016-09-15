@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ModelInterface {
-
+    
     associatedtype Account: Hashable
     
     associatedtype Slice
@@ -95,7 +95,7 @@ protocol ModelInterface {
 }
 
 extension ModelInterface {
-
+    
     final func exchangeRate(_ from: Currency, to: Currency) -> (NSDecimalNumber, NSDecimalNumber) { // from->to, to->from
         var fa: Currency? = from
         var fRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
@@ -117,5 +117,5 @@ extension ModelInterface {
         }
         return (tRate.0.multiplying(by: fRate.1),tRate.1.multiplying(by: fRate.0))
     }
-
+    
 }

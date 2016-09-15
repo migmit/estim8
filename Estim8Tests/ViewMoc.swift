@@ -671,7 +671,7 @@ class EditCurrencyMoc: EditCurrencyView {
     var name: String = ""
     
     var code: String? = ""
-
+    
     var symbol: String = ""
     
     var rate: NSDecimalNumber = 1

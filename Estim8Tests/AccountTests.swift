@@ -15,7 +15,7 @@ class AccountTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-
+        
         do {
             view = try setupTestCoreData(true)
         } catch {

@@ -33,7 +33,7 @@ class SlicesImplementation: SlicesView {
     func hideSubView() {
         view?.dismiss(animated: true, completion: nil)
     }
-
+    
     func createSlice(_ slice: ControllerSliceInterface) {
         view?.refreshCurrentSlice(slice)
     }
@@ -137,7 +137,7 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -258,13 +258,13 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

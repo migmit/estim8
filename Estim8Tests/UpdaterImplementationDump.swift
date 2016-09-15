@@ -9,7 +9,7 @@
 import XCTest
 
 class UpdaterImplementationDump: XCTestCase {
-
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -33,5 +33,5 @@ class UpdaterImplementationDump: XCTestCase {
             XCTAssertEqual(rate.0, NSDecimalNumber.one.dividing(by: rate.1))
         }
     }
-
+    
 }

@@ -143,9 +143,9 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(parentNavigationBarHidden, animated: animated)
         NotificationCenter.default.removeObserver(self)
-        super.viewWillDisappear(animated)        
+        super.viewWillDisappear(animated)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -245,5 +245,5 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func setContainerHeightValue(_ height: CGFloat) {
         containerHeight.constant = height
     }
-
+    
 }

@@ -22,7 +22,7 @@ protocol MainWindowView: class {
     
     func removeAccount(_ n: Int)
     
-    func addAccount()    
+    func addAccount()
 }
 
 protocol SubView: class {
@@ -37,7 +37,7 @@ protocol EditAccountView: SubView {
     func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView
     
     func currencySelected(_ selected: ControllerROCurrencyInterface)
-
+    
 }
 
 protocol CreateAccountView: SubView {
