@@ -30,7 +30,7 @@ class UpdaterImplementationDump: XCTestCase {
         }
         XCTAssertNotNil(dict["USD"])
         if let rate = dict["USD"] {
-            XCTAssertEqual(rate.0, NSDecimalNumber.one().decimalNumberByDividingBy(rate.1))
+            XCTAssertEqual(rate.0, NSDecimalNumber.one.dividing(by: rate.1))
         }
     }
 

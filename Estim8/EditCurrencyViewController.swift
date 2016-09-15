@@ -21,24 +21,24 @@ class EditCurrencyImplementation: EditCurrencyView {
         self.parent = parent
     }
     
-    func setView(view: EditCurrencyViewController) {
+    func setView(_ view: EditCurrencyViewController) {
         self.view = view
         view.setViewImplementation(self)
     }
     
     func showSubView() {
-        parent.performSegueWithIdentifier("EditCurrency", sender: self)
+        parent.performSegue(withIdentifier: "EditCurrency", sender: self)
     }
     
     func hideSubView() {
-        view?.navigationController?.popViewControllerAnimated(true)
+        view?.navigationController?.popViewController(animated: true)
     }
     
-    func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {
+    func selectRelative(_ controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {
         return SelectCurrencyImplementation(controller: controller, parent: view!)
     }
     
-    func relativeSelected(selected: ControllerROCurrencyInterface?) {
+    func relativeSelected(_ selected: ControllerROCurrencyInterface?) {
         //TODO
     }
 }
@@ -47,12 +47,12 @@ class EditCurrencyViewController: SubViewController, SelectCurrencyViewControlle
     
     var viewImplementation: EditCurrencyImplementation? = nil
     
-    func setViewImplementation(viewImplementation: EditCurrencyImplementation) {
+    func setViewImplementation(_ viewImplementation: EditCurrencyImplementation) {
         self.viewImplementation = viewImplementation
     }
     
-    func showSelectCurrencyView(sender: SelectCurrencyView) {
-        performSegueWithIdentifier("SelectCurrency", sender: sender)
+    func showSelectCurrencyView(_ sender: SelectCurrencyView) {
+        performSegue(withIdentifier: "SelectCurrency", sender: sender)
     }
 
     override func viewDidLoad() {

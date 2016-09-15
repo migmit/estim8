@@ -21,7 +21,7 @@ class ListCurrenciesImplementation: ListCurrenciesView {
         self.parent = parent
     }
     
-    func setView(view: ListCurrenciesViewController) {
+    func setView(_ view: ListCurrenciesViewController) {
         self.view = view
         view.setViewImplementation(self)
     }
@@ -31,22 +31,22 @@ class ListCurrenciesImplementation: ListCurrenciesView {
     }
     
     func hideSubView() {
-        view?.navigationController?.popViewControllerAnimated(true)
+        view?.navigationController?.popViewController(animated: true)
     }
     
-    func createCurrency(controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView {
+    func createCurrency(_ controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView {
         return CreateCurrencyImplementation(controller: controller, parent: view!)
     }
     
-    func editCurrency(controller: ControllerEditCurrencyInterface) -> EditCurrencyView {
+    func editCurrency(_ controller: ControllerEditCurrencyInterface) -> EditCurrencyView {
         return EditCurrencyImplementation(controller: controller, parent: view!)
     }
     
-    func refreshCurrency(n: Int) {
+    func refreshCurrency(_ n: Int) {
         //TODO
     }
     
-    func removeCurrency(n: Int) {
+    func removeCurrency(_ n: Int) {
         //TODO
     }
     
@@ -60,7 +60,7 @@ class ListCurrenciesViewController: SubViewController {
     
     var viewImplementation: ListCurrenciesView? = nil
     
-    func setViewImplementation(viewImplementation: ListCurrenciesImplementation) {
+    func setViewImplementation(_ viewImplementation: ListCurrenciesImplementation) {
         self.viewImplementation = viewImplementation
     }
 

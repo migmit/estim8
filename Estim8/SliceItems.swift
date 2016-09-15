@@ -16,9 +16,9 @@ protocol ControllerSliceInterface {
     
     func numberOfAccounts() -> Int
     
-    func account(n: Int) -> ControllerTransitionAccountInterface?
+    func account(_ n: Int) -> ControllerTransitionAccountInterface?
     
-    func whereToMove(account: ControllerTransitionInterface) -> (Int, Bool)?
+    func whereToMove(_ account: ControllerTransitionInterface) -> (Int, Bool)?
     
     func next() -> ControllerSliceInterface?
     
@@ -26,5 +26,5 @@ protocol ControllerSliceInterface {
     
     func createOrRemove()
     
-    func sliceDate() -> NSDate?
+    func sliceDate() -> Date?
 }

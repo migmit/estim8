@@ -21,24 +21,24 @@ class SlicesImplementation: SlicesView {
         self.parent = parent
     }
     
-    func setView(view: SlicesViewController) {
+    func setView(_ view: SlicesViewController) {
         self.view = view
         view.setViewImplementation(self)
     }
     
     func showSubView() {
-        parent.performSegueWithIdentifier("Slices", sender: self)
+        parent.performSegue(withIdentifier: "Slices", sender: self)
     }
     
     func hideSubView() {
-        view?.dismissViewControllerAnimated(true, completion: nil)
+        view?.dismiss(animated: true, completion: nil)
     }
 
-    func createSlice(slice: ControllerSliceInterface) {
+    func createSlice(_ slice: ControllerSliceInterface) {
         view?.refreshCurrentSlice(slice)
     }
     
-    func removeSlice(slice: ControllerSliceInterface) {
+    func removeSlice(_ slice: ControllerSliceInterface) {
         view?.refreshCurrentSlice(slice)
     }
 }
@@ -56,9 +56,9 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let pointOffset: CGFloat
             
             init?(slice: ControllerSliceInterface?, updatesTable: UITableView, touchPoint: CGPoint) {
-                if let indexPath = updatesTable.indexPathForRowAtPoint(touchPoint) {
-                    let cellTop = updatesTable.rectForRowAtIndexPath(indexPath).minY
-                    if let transitionAccount = slice?.account(indexPath.row)?.transition() {
+                if let indexPath = updatesTable.indexPathForRow(at: touchPoint) {
+                    let cellTop = updatesTable.rectForRow(at: indexPath).minY
+                    if let transitionAccount = slice?.account((indexPath as NSIndexPath).row)?.transition() {
                         self.transitionAccount = transitionAccount
                         self.rowOffset = touchPoint.y - cellTop
                         self.pointOffset = touchPoint.y - updatesTable.contentOffset.y
@@ -70,30 +70,30 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
             }
             
-            func bounceBack(updatesTable: UITableView) {
+            func bounceBack(_ updatesTable: UITableView) {
                 let maximumOffset = updatesTable.contentSize.height - updatesTable.bounds.height
                 if (updatesTable.contentOffset.y < 0) {
-                    updatesTable.setContentOffset(CGPointMake(updatesTable.contentOffset.x, 0), animated: true)
+                    updatesTable.setContentOffset(CGPoint(x: updatesTable.contentOffset.x, y: 0), animated: true)
                 } else if (updatesTable.contentOffset.y > maximumOffset && maximumOffset > 0) {
-                    updatesTable.setContentOffset(CGPointMake(updatesTable.contentOffset.x, maximumOffset), animated: true)
+                    updatesTable.setContentOffset(CGPoint(x: updatesTable.contentOffset.x, y: maximumOffset), animated: true)
                 }
             }
             
-            func translate(slice: ControllerSliceInterface, updatesTable: UITableView) {
+            func translate(_ slice: ControllerSliceInterface, updatesTable: UITableView) {
                 if let transition = slice.whereToMove(transitionAccount) {
                     let (rowNumber, isVisible) = transition
                     let pointY: CGFloat
                     if (isVisible) {
-                        pointY = updatesTable.rectForRowAtIndexPath(NSIndexPath(forRow: rowNumber, inSection: 0)).minY + rowOffset
+                        pointY = updatesTable.rectForRow(at: IndexPath(row: rowNumber, section: 0)).minY + rowOffset
                     } else {
                         if (rowNumber == 0) {
                             pointY = 0
                         } else {
-                            pointY = updatesTable.rectForRowAtIndexPath(NSIndexPath(forRow: rowNumber-1, inSection: 0)).maxY
+                            pointY = updatesTable.rectForRow(at: IndexPath(row: rowNumber-1, section: 0)).maxY
                         }
                     }
                     let contentOffset = pointY - pointOffset
-                    updatesTable.contentOffset = CGPointMake(updatesTable.contentOffset.x, contentOffset)
+                    updatesTable.contentOffset = CGPoint(x: updatesTable.contentOffset.x, y: contentOffset)
                 }
             }
             
@@ -115,14 +115,14 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var panning: Panning? = nil
     
-    let dateFormatter: NSDateFormatter = NSDateFormatter()
+    let dateFormatter: DateFormatter = DateFormatter()
     
     @IBOutlet weak var updatesTable: UITableView!
     
     @IBOutlet weak var toolbar: UIToolbar!
     
     @IBOutlet weak var titleBar: UINavigationBar!
-    func setViewImplementation(viewImplementation: SlicesImplementation) {
+    func setViewImplementation(_ viewImplementation: SlicesImplementation) {
         self.viewImplementation = viewImplementation
     }
     
@@ -134,8 +134,8 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let slice = viewImplementation?.controller.slice(0) {
             refreshCurrentSlice(slice)
         }
-        dateFormatter.dateStyle = .MediumStyle
-        dateFormatter.timeStyle = .ShortStyle
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
     }
 
     override func didReceiveMemoryWarning() {
@@ -143,17 +143,17 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentSlice?.numberOfAccounts() ?? 0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("UpdateCell")
-        if let account = currentSlice?.account(indexPath.row) {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UpdateCell")
+        if let account = currentSlice?.account((indexPath as NSIndexPath).row) {
             cell?.textLabel?.text = account.name()
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = .DecimalStyle
-            let valueText = numberFormatter.stringFromNumber(account.value())
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            let valueText = numberFormatter.string(from: account.value())
             cell?.detailTextLabel?.text = valueText.map{$0 + account.currency().symbol()}
         } else {
             cell?.textLabel?.text = ""
@@ -162,7 +162,7 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell!
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if (gestureRecognizer is UIPanGestureRecognizer) {
             if let p = panning {
                 return !p.scrollingHorizontally
@@ -174,26 +174,26 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    func refreshCurrentSlice(slice: ControllerSliceInterface) {
+    func refreshCurrentSlice(_ slice: ControllerSliceInterface) {
         var toolbarItems = toolbar.items ?? []
         currentSlice = slice
         let isCreateButton = slice.buttonCalledCreate()
-        toolbarItems[0] = UIBarButtonItem(barButtonSystemItem: isCreateButton ? .Compose : .Trash, target: self, action: #selector(createDeleteButtonClicked))
-        toolbarItems[2].enabled = slice.next() != nil
+        toolbarItems[0] = UIBarButtonItem(barButtonSystemItem: isCreateButton ? .compose : .trash, target: self, action: #selector(createDeleteButtonClicked))
+        toolbarItems[2].isEnabled = slice.next() != nil
         if let _ = slice.next() {
-            toolbarItems[2].enabled = true
+            toolbarItems[2].isEnabled = true
         } else {
-            toolbarItems[2].enabled = false
+            toolbarItems[2].isEnabled = false
         }
         if let _ = slice.prev() {
-            toolbarItems[4].enabled = true
+            toolbarItems[4].isEnabled = true
         } else {
-            toolbarItems[4].enabled = false
+            toolbarItems[4].isEnabled = false
         }
         toolbar.items = toolbarItems
         updatesTable.reloadData()
         if let date = slice.sliceDate() {
-            titleBar.topItem?.title = dateFormatter.stringFromDate(date)
+            titleBar.topItem?.title = dateFormatter.string(from: date as Date)
         } else {
             titleBar.topItem?.title = "Current state"
         }
@@ -203,34 +203,34 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         currentSlice?.createOrRemove()
     }
     
-    @IBAction func leftButtonClicked(sender: UIBarButtonItem) {
+    @IBAction func leftButtonClicked(_ sender: UIBarButtonItem) {
         if let slice = currentSlice?.next() {
             refreshCurrentSlice(slice)
         }
     }
     
-    @IBAction func rightButtonClicked(sender: UIBarButtonItem) {
+    @IBAction func rightButtonClicked(_ sender: UIBarButtonItem) {
         if let slice = currentSlice?.prev() {
             refreshCurrentSlice(slice)
         }
     }
     
-    @IBAction func closeButtonClicked(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func closeButtonClicked(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func panEvent(recogniser: UIGestureRecognizer) {
+    func panEvent(_ recogniser: UIGestureRecognizer) {
         if let pan = recogniser as? UIPanGestureRecognizer {
             switch pan.state {
-            case .Changed:
-                let shiftX = pan.translationInView(updatesTable).x
-                let shiftY = pan.translationInView(updatesTable).y
+            case .changed:
+                let shiftX = pan.translation(in: updatesTable).x
+                let shiftY = pan.translation(in: updatesTable).y
                 if let cs = currentSlice {
                     if (panning == nil) {
                         panning = Panning(
                             oldSliceNumber: cs.sliceIndex(),
                             scrollingHorizontally: fabs(shiftY) < fabs(shiftX),
-                            row: Panning.Row(slice: currentSlice, updatesTable: updatesTable, touchPoint: pan.locationInView(updatesTable))
+                            row: Panning.Row(slice: currentSlice, updatesTable: updatesTable, touchPoint: pan.location(in: updatesTable))
                         )
                     }
                 }

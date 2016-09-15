@@ -47,7 +47,7 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         return liveAccounts.count
     }
     
-    func account(n: Int) -> ControllerTransitionAccountInterface? {
+    func account(_ n: Int) -> ControllerTransitionAccountInterface? {
         if (n >= liveAccounts.count) {
             return nil
         } else {
@@ -55,7 +55,7 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         }
     }
     
-    func whereToMove(account: ControllerTransitionInterface) -> (Int, Bool)? {
+    func whereToMove(_ account: ControllerTransitionInterface) -> (Int, Bool)? {
         if let t = account as? ControllerTransitionImplementation<Model> {
             return numbers[t.account]
         } else {
@@ -81,7 +81,7 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         parent.createSlice(ControllerSliceImplementation(parent: parent, model: model, slice: slice, index: 0))
     }
     
-    func sliceDate() -> NSDate? {
+    func sliceDate() -> Date? {
         return nil
     }
 }
@@ -143,7 +143,7 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         return updates.count
     }
     
-    func account(n: Int) -> ControllerTransitionAccountInterface? {
+    func account(_ n: Int) -> ControllerTransitionAccountInterface? {
         if (n >= updates.count) {
             return nil
         } else {
@@ -155,7 +155,7 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         }
     }
     
-    func whereToMove(account: ControllerTransitionInterface) -> (Int, Bool)? {
+    func whereToMove(_ account: ControllerTransitionInterface) -> (Int, Bool)? {
         if let t = account as? ControllerTransitionImplementation<Model> {
             return numbers[t.account]
         } else {
@@ -189,7 +189,7 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         parent.removeSlice(newSlice)
     }
     
-    func sliceDate() -> NSDate? {
+    func sliceDate() -> Date? {
         return model.dateOfSlice(slice)
     }
 }

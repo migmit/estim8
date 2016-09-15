@@ -21,17 +21,17 @@ class DecantImplementation: DecantView {
         self.parent = parent
     }
     
-    func setView(view: DecantViewController) {
+    func setView(_ view: DecantViewController) {
         self.view = view
         view.setViewImplementation(self)
     }
     
     func showSubView() {
-        parent.performSegueWithIdentifier("Decant", sender: self)
+        parent.performSegue(withIdentifier: "Decant", sender: self)
     }
     
     func hideSubView() {
-        view?.navigationController?.popViewControllerAnimated(true)
+        view?.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -45,53 +45,53 @@ class DecantChildViewController: UITableViewController, NumberFieldDelegate {
     
     @IBOutlet var settingsTable: UITableView!
     
-    weak var parent: DecantViewController? = nil
+    weak var parentController: DecantViewController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         amountText.numberDelegate = self
         amountText.showSign(false)
-        parent?.setContainerHeightValue(settingsTable.rectForSection(0).height)
+        parentController?.setContainerHeightValue(settingsTable.rect(forSection: 0).height)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        let center = NSNotificationCenter.defaultCenter()
-        if let p = parent {
-            center.addObserver(p, selector: #selector(DecantViewController.notificationValueChanged), name: UITextFieldTextDidChangeNotification, object: amountText)
+    override func viewWillAppear(_ animated: Bool) {
+        let center = NotificationCenter.default
+        if let p = parentController {
+            center.addObserver(p, selector: #selector(DecantViewController.notificationValueChanged), name: NSNotification.Name.UITextFieldTextDidChange, object: amountText)
         }
         super.viewWillAppear(animated)
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        switch indexPath.row {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch (indexPath as NSIndexPath).row {
         case 0:
             amountText.resignFirstResponder()
-            parent?.showPickler(false)
+            parentController?.showPickler(false)
             break
         case 1:
             amountText.becomeFirstResponder()
         case 2:
             amountText.resignFirstResponder()
-            parent?.showPickler(true)
+            parentController?.showPickler(true)
             break
         default:
             break
         }
     }
     
-    func numberFieldDidBeginEditing(numberField: NumberField) {
-        parent?.pickler.hidden = true
+    func numberFieldDidBeginEditing(_ numberField: NumberField) {
+        parentController?.pickler.isHidden = true
     }
     
     func getAmount() -> NSDecimalNumber? {
         return amountText.getValue()
     }
     
-    func setCellDetails(to: Bool, title: String, detail: String?) {
+    func setCellDetails(_ to: Bool, title: String, detail: String?) {
         let cell = to ? toCell : fromCell
-        cell.textLabel?.text = title
-        cell.detailTextLabel?.text = detail
+        cell?.textLabel?.text = title
+        cell?.detailTextLabel?.text = detail
     }
     
 }
@@ -102,7 +102,7 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     var viewImplementation: DecantImplementation? = nil
     
-    func setViewImplementation(viewImplementation: DecantImplementation) {
+    func setViewImplementation(_ viewImplementation: DecantImplementation) {
         self.viewImplementation = viewImplementation
     }
     
@@ -112,7 +112,7 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     var editingTo: Bool = false
     
-    let numberFormatter: NSNumberFormatter = NSNumberFormatter()
+    let numberFormatter: NumberFormatter = NumberFormatter()
     
     var child: DecantChildViewController? = nil
     
@@ -124,25 +124,25 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(buttonDoneClicked))
-        numberFormatter.numberStyle = .DecimalStyle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(buttonDoneClicked))
+        numberFormatter.numberStyle = .decimal
         scroll.delegate = self
     }
     
-    override func viewWillAppear(animated: Bool) {
-        parentNavigationBarHidden = navigationController?.navigationBarHidden ?? false
+    override func viewWillAppear(_ animated: Bool) {
+        parentNavigationBarHidden = navigationController?.isNavigationBarHidden ?? false
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        scroll.directionalLockEnabled = true
+        scroll.isDirectionalLockEnabled = true
         pickler.dataSource = self
         pickler.delegate = self
-        pickler.hidden = true
+        pickler.isHidden = true
         fixFromToCells()
         super.viewWillAppear(animated)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(parentNavigationBarHidden, animated: animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         super.viewWillDisappear(animated)        
     }
 
@@ -151,11 +151,11 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if let controller = viewImplementation?.controller {
             return controller.numberOfAccounts()
         } else {
@@ -163,7 +163,7 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if let controller = viewImplementation?.controller {
             return controller.account(row)?.name()
         } else {
@@ -171,7 +171,7 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (editingTo) {
             toSelected = row
         } else {
@@ -180,25 +180,25 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         fixFromToCells()
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollView.contentOffset = CGPoint(x: 0, y: scrollView.contentOffset.y)
     }
     
     func somethingChanged() {
         if let amount = child?.getAmount(), let controller = viewImplementation?.controller {
-            navigationItem.rightBarButtonItem?.enabled = controller.canDecant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true)
+            navigationItem.rightBarButtonItem?.isEnabled = controller.canDecant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true)
         }
     }
     
     func fixFromToCells() {
         if let controller = viewImplementation?.controller {
             if let fromAccount = controller.account(fromSelected) {
-                child?.setCellDetails(false, title: fromAccount.name(), detail: numberFormatter.stringFromNumber(fromAccount.value()))
+                child?.setCellDetails(false, title: fromAccount.name(), detail: numberFormatter.string(from: fromAccount.value()))
             } else {
                 child?.setCellDetails(false, title: "unknown", detail: "--")
             }
             if let toAccount = controller.account(toSelected) {
-                child?.setCellDetails(true, title: toAccount.name(), detail: numberFormatter.stringFromNumber(toAccount.value()))
+                child?.setCellDetails(true, title: toAccount.name(), detail: numberFormatter.string(from: toAccount.value()))
             } else {
                 child?.setCellDetails(true, title: "unknown", detail: "--")
             }
@@ -212,23 +212,23 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                 if (!(controller.decant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true))) {
                     let fromAccountName = controller.account(fromSelected)?.name() ?? "<unknown>"
                     let toAccountName = controller.account(toSelected)?.name() ?? "<unknown>"
-                    let alert = UIAlertController(title: "Error", message: "Can't decant \(amount) from \"\(fromAccountName)\" to \"\(toAccountName)\"", preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    let alert = UIAlertController(title: "Error", message: "Can't decant \(amount) from \"\(fromAccountName)\" to \"\(toAccountName)\"", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }
     }
     
-    func notificationValueChanged(notification: NSNotification) {
+    func notificationValueChanged(_ notification: Notification) {
         somethingChanged()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier ?? "" {
         case "DecantEmbed":
-            if let c = segue.destinationViewController as? DecantChildViewController {
-                c.parent = self
+            if let c = segue.destination as? DecantChildViewController {
+                c.parentController = self
                 child = c
             }
         default:
@@ -236,13 +236,13 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         }
     }
     
-    func showPickler(to: Bool) {
+    func showPickler(_ to: Bool) {
         editingTo = to
-        pickler.hidden = false
+        pickler.isHidden = false
         pickler.selectRow(to ? toSelected : fromSelected, inComponent: 0, animated: true)
     }
     
-    func setContainerHeightValue(height: CGFloat) {
+    func setContainerHeightValue(_ height: CGFloat) {
         containerHeight.constant = height
     }
 

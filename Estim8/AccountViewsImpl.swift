@@ -18,7 +18,7 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
         self.model = model
     }
     
-    func setView(view: MainWindowView) {
+    func setView(_ view: MainWindowView) {
         self.view = view
     }
     
@@ -26,7 +26,7 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
         return model.liveAccounts().count
     }
     
-    func account(n: Int) -> ControllerAccountInterface? {
+    func account(_ n: Int) -> ControllerAccountInterface? {
         let accounts = model.liveAccounts()
         if (n >= accounts.count) {
             return nil
@@ -35,11 +35,11 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
         }
     }
     
-    func refreshAccount(n: Int) {
+    func refreshAccount(_ n: Int) {
         view?.refreshAccount(n)
     }
     
-    func removeAccount(n: Int) {
+    func removeAccount(_ n: Int) {
         view?.removeAccount(n)
     }
     
@@ -96,7 +96,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         oldCurrency = selectedCurrency
     }
     
-    func setView(view: EditAccountView) {
+    func setView(_ view: EditAccountView) {
         self.view = view
     }
     
@@ -118,7 +118,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         return ControllerROCurrencyImplementation<Model>(model: model, currency: selectedCurrency)
     }
     
-    func setValue(value: NSDecimalNumber) -> Bool {
+    func setValue(_ value: NSDecimalNumber) -> Bool {
         if (canSetValue(value)) {
             view?.hideSubView()
             model.updateAccount(account, value: value, currency: selectedCurrency)
@@ -129,10 +129,10 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         }
     }
     
-    func canSetValue(value: NSDecimalNumber) -> Bool {
+    func canSetValue(_ value: NSDecimalNumber) -> Bool {
         let isNegative = model.accountIsNegative(account)
-        let verifyValue = isNegative ? value.decimalNumberByMultiplyingBy(-1) : value
-        return verifyValue.compare(0) != .OrderedAscending
+        let verifyValue = isNegative ? value.multiplying(by: -1) : value
+        return verifyValue.compare(0) != .orderedAscending
     }
     
     func remove() {
@@ -148,7 +148,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         listCurrenciesView.showSubView()
     }
     
-    func currencySelected(currency: ControllerROCurrencyInterface) {
+    func currencySelected(_ currency: ControllerROCurrencyInterface) {
         if let c = currency as? ControllerROCurrencyImplementation<Model> {
             oldCurrency = selectedCurrency
             selectedCurrency = c.currency
@@ -156,12 +156,12 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: ControllerEdit
         view?.currencySelected(currency)
     }
     
-    func recalculate(value: NSDecimalNumber) -> NSDecimalNumber {
+    func recalculate(_ value: NSDecimalNumber) -> NSDecimalNumber {
         if (oldCurrency == selectedCurrency) {
             return value
         } else {
             let rate = model.exchangeRate(selectedCurrency, to: oldCurrency)
-            return value.decimalNumberByMultiplyingBy(rate.0)
+            return value.multiplying(by: rate.0)
         }
     }
     
@@ -182,11 +182,11 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         self.model = model
     }
     
-    func setView(view: CreateAccountView) {
+    func setView(_ view: CreateAccountView) {
         self.view = view
     }
     
-    func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
+    func create(_ title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
         if (canCreate(title, initialValue: initialValue, isNegative: isNegative)) {
             if let c = selectedCurrency  {
                 view?.hideSubView()
@@ -201,9 +201,9 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         }
     }
     
-    func canCreate(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
-        let verifyValue = isNegative ? initialValue.decimalNumberByMultiplyingBy(-1) : initialValue
-        return verifyValue.compare(0) != .OrderedAscending && !title.isEmpty
+    func canCreate(_ title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
+        let verifyValue = isNegative ? initialValue.multiplying(by: -1) : initialValue
+        return verifyValue.compare(0) != .orderedAscending && !title.isEmpty
     }
     
     func selectCurrency() {
@@ -213,7 +213,7 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: ControllerCr
         listCurrenciesView.showSubView()
     }
     
-    func currencySelected(currency: ControllerROCurrencyInterface) {
+    func currencySelected(_ currency: ControllerROCurrencyInterface) {
         if let c = currency as? ControllerROCurrencyImplementation<Model> {
             selectedCurrency = c.currency
         }
@@ -239,7 +239,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         self.model = model
     }
     
-    func setView(view: DecantView) {
+    func setView(_ view: DecantView) {
         self.view = view
     }
     
@@ -247,7 +247,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         return model.liveAccounts().count
     }
     
-    func account(n: Int) -> ControllerROAccountInterface? {
+    func account(_ n: Int) -> ControllerROAccountInterface? {
         let accounts = model.liveAccounts()
         if (n >= accounts.count) {
             return nil
@@ -256,7 +256,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         }
     }
     
-    func decant(from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool {
+    func decant(_ from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool {
         if let (amountFrom, amountTo) = decantData(from, to: to, amount: amount, useFromCurrency: useFromCurrency) {
             let accounts = model.liveAccounts()
             let accountFrom = accounts[from]
@@ -274,11 +274,11 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         }
     }
     
-    func canDecant(from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool {
+    func canDecant(_ from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool {
         return decantData(from, to: to, amount: amount, useFromCurrency: useFromCurrency) != nil
     }
     
-    func decantData(from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> (NSDecimalNumber, NSDecimalNumber)? {
+    func decantData(_ from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> (NSDecimalNumber, NSDecimalNumber)? {
         let accounts = model.liveAccounts()
         if (from >= accounts.count || to >= accounts.count || from == to || amount == 0) {
             return nil
@@ -288,10 +288,10 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
             let currencyFrom = model.currencyOfUpdate(model.updatesOfAccount(accountFrom)[0])
             let currencyTo = model.currencyOfUpdate(model.updatesOfAccount(accountTo)[0])
             let rate = model.exchangeRate(currencyFrom, to: currencyTo)
-            let addAmountFrom = useFromCurrency ? amount : amount.decimalNumberByMultiplyingBy(rate.0)
-            let addAmountTo = useFromCurrency ? amount.decimalNumberByMultiplyingBy(rate.1) : amount
+            let addAmountFrom = useFromCurrency ? amount : amount.multiplying(by: rate.0)
+            let addAmountTo = useFromCurrency ? amount.multiplying(by: rate.1) : amount
             if
-                let amountFrom = tryAddToAccount(accountFrom, add: addAmountFrom.decimalNumberByMultiplyingBy(-1)),
+                let amountFrom = tryAddToAccount(accountFrom, add: addAmountFrom.multiplying(by: -1)),
                 let amountTo = tryAddToAccount(accountTo, add: addAmountTo) {
                 return (amountFrom, amountTo)
             } else {
@@ -300,14 +300,14 @@ class ControllerDecantImplementation<Model: ModelInterface>: ControllerDecantInt
         }
     }
     
-    private func tryAddToAccount(account: Model.Account, add: NSDecimalNumber) -> NSDecimalNumber? {
+    fileprivate func tryAddToAccount(_ account: Model.Account, add: NSDecimalNumber) -> NSDecimalNumber? {
         let isNegative = model.accountIsNegative(account)
         let updates = model.updatesOfAccount(account)
         let update = updates[0]
         let oldValue = model.valueOfUpdate(update)
-        let newValue = oldValue.decimalNumberByAdding(add)
-        let verifyValue = isNegative ? newValue.decimalNumberByMultiplyingBy(-1) : newValue
-        if (verifyValue.compare(0) == .OrderedAscending) {
+        let newValue = oldValue.adding(add)
+        let verifyValue = isNegative ? newValue.multiplying(by: -1) : newValue
+        if (verifyValue.compare(0) == .orderedAscending) {
             return nil
         } else {
             return newValue
@@ -329,7 +329,7 @@ class ControllerSlicesImplementation<Model: ModelInterface>: ControllerSlicesInt
         self.accounts = model.liveAccounts() + model.deadAccounts()
     }
     
-    func setView(view: SlicesView) {
+    func setView(_ view: SlicesView) {
         self.view = view
     }
     
@@ -337,7 +337,7 @@ class ControllerSlicesImplementation<Model: ModelInterface>: ControllerSlicesInt
         return model.slices().count + 1
     }
     
-    func slice(n: Int) -> ControllerSliceInterface? {
+    func slice(_ n: Int) -> ControllerSliceInterface? {
         let slices = model.slices()
         if (n == 0) {
             return ControllerCurrentStatePseudoSliceImplementation(parent: self, model: model)
@@ -348,11 +348,11 @@ class ControllerSlicesImplementation<Model: ModelInterface>: ControllerSlicesInt
         }
     }
     
-    func createSlice(slice: ControllerSliceInterface) {
+    func createSlice(_ slice: ControllerSliceInterface) {
         view?.createSlice(slice)
     }
     
-    func removeSlice(slice: ControllerSliceInterface) {
+    func removeSlice(_ slice: ControllerSliceInterface) {
         view?.removeSlice(slice)
     }
 }

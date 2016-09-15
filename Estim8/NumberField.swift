@@ -9,17 +9,17 @@
 import UIKit
 
 protocol NumberFieldDelegate {
-    func numberFieldDidBeginEditing(numberField: NumberField)
+    func numberFieldDidBeginEditing(_ numberField: NumberField)
 }
 
 class NumberField: UITextField, UITextFieldDelegate {
     var initialUsesGroupingSeparator: Bool = false
     
-    private var isNegative: Bool = false
+    fileprivate var isNegative: Bool = false
     
-    let numberFormatter: NSNumberFormatter = NSNumberFormatter()
+    let numberFormatter: NumberFormatter = NumberFormatter()
     
-    private var leftLabel: UILabel? = nil
+    fileprivate var leftLabel: UILabel? = nil
     
     var numberDelegate: NumberFieldDelegate? = nil
     
@@ -29,41 +29,41 @@ class NumberField: UITextField, UITextFieldDelegate {
     }
     
     func initialize() {
-        numberFormatter.numberStyle = .DecimalStyle
+        numberFormatter.numberStyle = .decimal
         delegate = self
         let h = bounds.height
-        let leftLabel: UILabel = UILabel(frame: CGRectMake(0, 0, h, h))
-        leftLabel.textAlignment = .Center
+        let leftLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: h, height: h))
+        leftLabel.textAlignment = .center
         leftView = leftLabel
-        leftViewMode = .Always
+        leftViewMode = .always
         self.leftLabel = leftLabel
         adjustLeftView()
-        borderStyle = .RoundedRect
-        textAlignment = .Left
-        autocorrectionType = .No
-        keyboardType = .DecimalPad
+        borderStyle = .roundedRect
+        textAlignment = .left
+        autocorrectionType = .no
+        keyboardType = .decimalPad
     }
     
-    func showSign(show: Bool) {
-        self.leftViewMode = show ? .Always : .Never
+    func showSign(_ show: Bool) {
+        self.leftViewMode = show ? .always : .never
     }
     
     func zeroRepresentation() -> String {
-        return editing ? "" : "0"
+        return isEditing ? "" : "0"
     }
     
-    func setFieldText(value: NSDecimalNumber) {
+    func setFieldText(_ value: NSDecimalNumber) {
         switch value.compare(0) {
-        case .OrderedAscending:
-            text = numberFormatter.stringFromNumber(value.decimalNumberByMultiplyingBy(-1))
-        case .OrderedSame:
+        case .orderedAscending:
+            text = numberFormatter.string(from: value.multiplying(by: -1))
+        case .orderedSame:
             text = zeroRepresentation()
-        case .OrderedDescending:
-            text = numberFormatter.stringFromNumber(value)
+        case .orderedDescending:
+            text = numberFormatter.string(from: value)
         }
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         let value = getValue()
         initialUsesGroupingSeparator = numberFormatter.usesGroupingSeparator
         numberFormatter.usesGroupingSeparator = false
@@ -71,17 +71,17 @@ class NumberField: UITextField, UITextFieldDelegate {
         numberDelegate?.numberFieldDidBeginEditing(self)
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         let value = getValue()
         numberFormatter.usesGroupingSeparator = initialUsesGroupingSeparator
         setFieldText(value)
     }
     
-    func textToNumber(from: String) -> NSDecimalNumber? {
+    func textToNumber(_ from: String) -> NSDecimalNumber? {
         if (from.isEmpty) {
             return 0
-        } else if let v = numberFormatter.numberFromString(from) {
-            if (v.compare(0) != .OrderedAscending) {
+        } else if let v = numberFormatter.number(from: from) {
+            if (v.compare(0) != .orderedAscending) {
                 return NSDecimalNumber(decimal: v.decimalValue)
             } else {
                 return nil
@@ -91,26 +91,26 @@ class NumberField: UITextField, UITextFieldDelegate {
         }
     }
     
-    func setIsNegative(isNegative: Bool) {
+    func setIsNegative(_ isNegative: Bool) {
         self.isNegative = isNegative
         adjustLeftView()
     }
     
-    func setValue(value: NSDecimalNumber, isNegative: Bool) {
+    func setValue(_ value: NSDecimalNumber, isNegative: Bool) {
         setFieldText(value)
         setIsNegative(isNegative)
     }
     
     func getValue() -> NSDecimalNumber {
-        return (textToNumber(text ?? "") ?? 0).decimalNumberByMultiplyingBy(isNegative ? -1 : 1)
+        return (textToNumber(text ?? "") ?? 0).multiplying(by: isNegative ? -1 : 1)
     }
     
     func adjustLeftView() {
         leftLabel?.text = isNegative ? "-" : "+"
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        let text = ((textField.text ?? "") as NSString).stringByReplacingCharactersInRange(range, withString: string)
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let text = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
         return textToNumber(text) != nil
     }
     

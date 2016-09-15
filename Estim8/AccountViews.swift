@@ -12,7 +12,7 @@ protocol ControllerInterface {
     
     func numberOfAccounts() -> Int
     
-    func account(n: Int) -> ControllerAccountInterface?
+    func account(_ n: Int) -> ControllerAccountInterface?
     
     func createAccount()
     
@@ -23,23 +23,23 @@ protocol ControllerInterface {
 
 protocol ControllerEditAccountInterface: ControllerROAccountInterface, ControllerCurrencySelectedProtocol {
     
-    func setValue(value: NSDecimalNumber) -> Bool
+    func setValue(_ value: NSDecimalNumber) -> Bool
     
-    func canSetValue(value: NSDecimalNumber) -> Bool
+    func canSetValue(_ value: NSDecimalNumber) -> Bool
     
     func remove()
     
     func selectCurrency()
     
-    func recalculate(value: NSDecimalNumber) -> NSDecimalNumber // from previously selected currency to the new one
+    func recalculate(_ value: NSDecimalNumber) -> NSDecimalNumber // from previously selected currency to the new one
     
 }
 
 protocol ControllerCreateAccountInterface: ControllerCurrencySelectedProtocol {
     
-    func create(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
+    func create(_ title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
     
-    func canCreate(title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
+    func canCreate(_ title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
     
     func selectCurrency()
     
@@ -51,11 +51,11 @@ protocol ControllerDecantInterface {
     
     func numberOfAccounts() -> Int
     
-    func account(n: Int) -> ControllerROAccountInterface?
+    func account(_ n: Int) -> ControllerROAccountInterface?
     
-    func decant(from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool
+    func decant(_ from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool
     
-    func canDecant(from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool
+    func canDecant(_ from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool
     
 }
 
@@ -63,6 +63,6 @@ protocol ControllerSlicesInterface {
     
     func numberOfSlices() -> Int
     
-    func slice(n: Int) -> ControllerSliceInterface?
+    func slice(_ n: Int) -> ControllerSliceInterface?
     
 }

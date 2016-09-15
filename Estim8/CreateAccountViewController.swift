@@ -21,24 +21,24 @@ class CreateAccountImplementation: CreateAccountView {
         self.parent = parent
     }
     
-    func setView(view: CreateAccountViewController) {
+    func setView(_ view: CreateAccountViewController) {
         self.view = view
         view.setViewImplementation(self)
     }
     
     func showSubView() {
-        parent.performSegueWithIdentifier("CreateAccount", sender: self)
+        parent.performSegue(withIdentifier: "CreateAccount", sender: self)
     }
     
     func hideSubView() {
-        view?.navigationController?.popViewControllerAnimated(true)
+        view?.navigationController?.popViewController(animated: true)
     }
     
-    func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
+    func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
         return ListCurrenciesImplementation(controller: controller, parent: view!)
     }
     
-    func currencySelected(selected: ControllerROCurrencyInterface) {
+    func currencySelected(_ selected: ControllerROCurrencyInterface) {
         //TODO
     }
     
@@ -58,32 +58,32 @@ class CreateAccountViewController: SubViewController, ListCurrenciesViewControll
     
     var isNegative: Bool = false
     
-    func showListCurrenciesView(sender: ListCurrenciesView) {
-        performSegueWithIdentifier("ListCurrencies", sender: sender)
+    func showListCurrenciesView(_ sender: ListCurrenciesView) {
+        performSegue(withIdentifier: "ListCurrencies", sender: sender)
     }
     
-    func setViewImplementation(viewImplementation: CreateAccountImplementation) {
+    func setViewImplementation(_ viewImplementation: CreateAccountImplementation) {
         self.viewImplementation = viewImplementation
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(buttonSaveClicked))
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(buttonSaveClicked))
         navigationItem.rightBarButtonItem = saveButton
-        saveButton.enabled = false
+        saveButton.isEnabled = false
     }
     
-    override func viewWillAppear(animated: Bool) {
-        let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: #selector(notificationTitleChanged), name: UITextFieldTextDidChangeNotification, object: accountTitleText)
-        center.addObserver(self, selector: #selector(notificationValueChanged), name: UITextFieldTextDidChangeNotification, object: accountValueText)
+    override func viewWillAppear(_ animated: Bool) {
+        let center = NotificationCenter.default
+        center.addObserver(self, selector: #selector(notificationTitleChanged), name: NSNotification.Name.UITextFieldTextDidChange, object: accountTitleText)
+        center.addObserver(self, selector: #selector(notificationValueChanged), name: NSNotification.Name.UITextFieldTextDidChange, object: accountValueText)
         somethingChanged()
         accountTitleText.becomeFirstResponder()
         super.viewWillAppear(animated)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
         super.viewWillDisappear(animated)
     }
     
@@ -92,10 +92,10 @@ class CreateAccountViewController: SubViewController, ListCurrenciesViewControll
         // Dispose of any resources that can be recreated.
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch indexPath.section {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch (indexPath as NSIndexPath).section {
         case 0:
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 0:
                 accountTitleText.becomeFirstResponder()
             case 1:
@@ -104,23 +104,23 @@ class CreateAccountViewController: SubViewController, ListCurrenciesViewControll
                 break
             }
         case 1:
-            if (indexPath.row == 1) {
+            if ((indexPath as NSIndexPath).row == 1) {
                 isNegative = true
-                positiveCell.accessoryType = .None
-                negativeCell.accessoryType = .Checkmark
+                positiveCell.accessoryType = .none
+                negativeCell.accessoryType = .checkmark
                 accountValueText.setIsNegative(true)
                 somethingChanged()
             } else {
                 isNegative = false
-                positiveCell.accessoryType = .Checkmark
-                negativeCell.accessoryType = .None
+                positiveCell.accessoryType = .checkmark
+                negativeCell.accessoryType = .none
                 accountValueText.setIsNegative(false)
                 somethingChanged()
             }
         default:
             break
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func buttonSaveClicked() {
@@ -128,10 +128,10 @@ class CreateAccountViewController: SubViewController, ListCurrenciesViewControll
         let title = accountTitleText.text ?? ""
         let value = accountValueText.getValue()
         if let controller = viewImplementation?.controller {
-            if (!(controller.create(title, initialValue: value, isNegative: isNegative) ?? false)) {
-                let alert = UIAlertController(title: "Error", message: "Can't create \(isNegative ? "negative" : "positive") account \"\(title)\" with value \(value)", preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+            if (!(controller.create(title, initialValue: value, isNegative: isNegative))) {
+                let alert = UIAlertController(title: "Error", message: "Can't create \(isNegative ? "negative" : "positive") account \"\(title)\" with value \(value)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -140,17 +140,17 @@ class CreateAccountViewController: SubViewController, ListCurrenciesViewControll
         let title = accountTitleText.text ?? ""
         let value = accountValueText.getValue()
         if let controller = viewImplementation?.controller {
-            navigationItem.rightBarButtonItem?.enabled = controller.canCreate(title, initialValue: value, isNegative: isNegative)
+            navigationItem.rightBarButtonItem?.isEnabled = controller.canCreate(title, initialValue: value, isNegative: isNegative)
         } else {
-            navigationItem.rightBarButtonItem?.enabled = false
+            navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
     
-    func notificationTitleChanged(notification: NSNotification) {
+    func notificationTitleChanged(_ notification: Notification) {
         somethingChanged()
     }
     
-    func notificationValueChanged(notification: NSNotification) {
+    func notificationValueChanged(_ notification: Notification) {
         somethingChanged()
     }
     /*

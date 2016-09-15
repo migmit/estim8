@@ -19,40 +19,40 @@ class MainWindowImplementation: MainWindowView {
         self.view = view
     }
     
-    func createAccount(controller: ControllerCreateAccountInterface) -> CreateAccountView {
+    func createAccount(_ controller: ControllerCreateAccountInterface) -> CreateAccountView {
         return CreateAccountImplementation(controller: controller, parent: view!)
     }
     
-    func decant(controller: ControllerDecantInterface) -> DecantView {
+    func decant(_ controller: ControllerDecantInterface) -> DecantView {
         return DecantImplementation(controller: controller, parent: view!)
     }
     
-    func showSlices(controller: ControllerSlicesInterface) -> SlicesView {
+    func showSlices(_ controller: ControllerSlicesInterface) -> SlicesView {
         return SlicesImplementation(controller: controller, parent: view!)
     }
     
-    func editAccount(controller: ControllerEditAccountInterface) -> EditAccountView {
+    func editAccount(_ controller: ControllerEditAccountInterface) -> EditAccountView {
         return EditAccountImplementation(controller: controller, parent: view!)
     }
     
-    func refreshAccount(n: Int) {
-        view?.accountsTable.reloadRowsAtIndexPaths([NSIndexPath(forRow: n, inSection: 0)], withRowAnimation: .None)
+    func refreshAccount(_ n: Int) {
+        view?.accountsTable.reloadRows(at: [IndexPath(row: n, section: 0)], with: .none)
     }
     
-    func removeAccount(n: Int) {
-        view?.accountsTable.deleteRowsAtIndexPaths([NSIndexPath(forRow: n, inSection: 0)], withRowAnimation: .Top)
+    func removeAccount(_ n: Int) {
+        view?.accountsTable.deleteRows(at: [IndexPath(row: n, section: 0)], with: .top)
     }
     
     func addAccount() {
-        view?.accountsTable.insertRowsAtIndexPaths([NSIndexPath(forRow: controller.numberOfAccounts()-1, inSection: 0)], withRowAnimation: .Top)
+        view?.accountsTable.insertRows(at: [IndexPath(row: controller.numberOfAccounts()-1, section: 0)], with: .top)
     }
 }
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let updateInterval: NSTimeInterval = 24*60*60
+    let updateInterval: TimeInterval = 24*60*60
     
-    let sinceLastUpdate: NSTimeInterval = 12*60*60
+    let sinceLastUpdate: TimeInterval = 12*60*60
     
     var viewImplementation: MainWindowImplementation? = nil
     
@@ -62,8 +62,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBarHidden = true
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        navigationController?.isNavigationBarHidden = true
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         let model = ModelImplementation(managedObjectContext: managedObjectContext)
         let updater = UpdaterFrontendImpl(model: model, updateInterval: updateInterval, sinceLastUpdate: sinceLastUpdate, backend: UpdaterBackendECBImpl())
@@ -80,39 +80,39 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if let selectedRow = accountsTable.indexPathForSelectedRow {
-            accountsTable.deselectRowAtIndexPath(selectedRow, animated: false)
+            accountsTable.deselectRow(at: selectedRow, animated: false)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier ?? "" {
         case "EditAccount":
             if let editAccount = sender as? EditAccountImplementation {
-                editAccount.setView(segue.destinationViewController as! EditAccountViewController)
+                editAccount.setView(segue.destination as! EditAccountViewController)
             }
         case "CreateAccount":
             if let createAccount = sender as? CreateAccountImplementation {
-                createAccount.setView(segue.destinationViewController as! CreateAccountViewController)
+                createAccount.setView(segue.destination as! CreateAccountViewController)
             }
         case "Decant":
             if let decant = sender as? DecantImplementation {
-                decant.setView(segue.destinationViewController as! DecantViewController)
+                decant.setView(segue.destination as! DecantViewController)
             }
         case "Slices":
             if let slices = sender as? SlicesImplementation {
-                slices.setView(segue.destinationViewController as! SlicesViewController)
+                slices.setView(segue.destination as! SlicesViewController)
             }
         default: break
         }
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         return false
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let controller = viewImplementation?.controller {
             return controller.numberOfAccounts()
         } else {
@@ -120,51 +120,51 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell")
-        if let account = viewImplementation?.controller.account(indexPath.row) {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell")
+        if let account = viewImplementation?.controller.account((indexPath as NSIndexPath).row) {
             cell?.textLabel?.text = account.name()
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = .DecimalStyle
-            let valueText = numberFormatter.stringFromNumber(account.value())
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            let valueText = numberFormatter.string(from: account.value())
             cell?.detailTextLabel?.text = valueText.map{$0 + account.currency().symbol()}
         }
         return cell!
     }
     
-    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if let controller = viewImplementation?.controller {
-            controller.account(indexPath.row)?.edit()
+            controller.account((indexPath as NSIndexPath).row)?.edit()
         }
         return indexPath
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return .Delete
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .delete
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if let controller = viewImplementation?.controller {
-            let alert = UIAlertController(title: controller.account(indexPath.row)?.name() ?? "", message: "Delete?", preferredStyle: .ActionSheet)
-            alert.addAction(UIAlertAction(title: "Yes", style: .Destructive, handler: {_ in controller.account(indexPath.row)?.remove()}))
-            alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: {_ in tableView.setEditing(false, animated: true)}))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: controller.account((indexPath as NSIndexPath).row)?.name() ?? "", message: "Delete?", preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {_ in controller.account((indexPath as NSIndexPath).row)?.remove()}))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: {_ in tableView.setEditing(false, animated: true)}))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
-    @IBAction func buttonPlusClicked(sender: UIBarButtonItem) {
+    @IBAction func buttonPlusClicked(_ sender: UIBarButtonItem) {
         viewImplementation?.controller.createAccount()
     }
     
-    @IBAction func buttonDecantClicked(sender: AnyObject) {
+    @IBAction func buttonDecantClicked(_ sender: AnyObject) {
         viewImplementation?.controller.decant()
     }
     
-    @IBAction func buttonSlicesClicked(sender: AnyObject) {
+    @IBAction func buttonSlicesClicked(_ sender: AnyObject) {
         viewImplementation?.controller.showSlices()
     }
 }

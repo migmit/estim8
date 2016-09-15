@@ -15,15 +15,15 @@ class UpdaterFrontendImpl<Model: ModelInterface>: UpdaterFrontend {
     
     let model: Model
     
-    let updateInterval: NSTimeInterval
+    let updateInterval: TimeInterval
     
-    let sinceLastUpdate: NSTimeInterval
+    let sinceLastUpdate: TimeInterval
     
     let lastUpdateKey = "updater.lastUpdate"
     
-    var timer: NSTimer?
+    var timer: Timer?
     
-    init(model: Model, updateInterval: NSTimeInterval, sinceLastUpdate: NSTimeInterval, backend: UpdaterBackendProtocol) { // updateInterval > sinceLastUpdate
+    init(model: Model, updateInterval: TimeInterval, sinceLastUpdate: TimeInterval, backend: UpdaterBackendProtocol) { // updateInterval > sinceLastUpdate
         self.model = model
         self.backend = backend
         self.updateInterval = updateInterval
@@ -31,13 +31,13 @@ class UpdaterFrontendImpl<Model: ModelInterface>: UpdaterFrontend {
     }
     
     @objc func startUpdating() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let lastUpdateDate = defaults.objectForKey(lastUpdateKey) as? NSDate
-        let updatePossible = lastUpdateDate.map{$0.dateByAddingTimeInterval(sinceLastUpdate).compare(NSDate()) == .OrderedAscending} ?? true
+        let defaults = UserDefaults.standard
+        let lastUpdateDate = defaults.object(forKey: lastUpdateKey) as? Date
+        let updatePossible = lastUpdateDate.map{$0.addingTimeInterval(sinceLastUpdate).compare(Date()) == .orderedAscending} ?? true
         if (updatePossible) {
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) {
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
                 let exchangeRates = self.backend.getExchangeRates()
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     let currencies = self.model.liveCurrencies()
                     for c in currencies {
                         if
@@ -47,7 +47,7 @@ class UpdaterFrontendImpl<Model: ModelInterface>: UpdaterFrontend {
                             self.model.updateCurrency(c, base: nil, rate: rate.0, invRate: rate.1, manual: false)
                         }
                     }
-                    defaults.setObject(NSDate(), forKey: self.lastUpdateKey)
+                    defaults.set(Date(), forKey: self.lastUpdateKey)
                     self.setTimer()
                 }
             }
@@ -57,9 +57,9 @@ class UpdaterFrontendImpl<Model: ModelInterface>: UpdaterFrontend {
     }
     
     func setTimer() {
-        let timer = NSTimer(fireDate: NSDate().dateByAddingTimeInterval(updateInterval), interval: 0, target: self, selector: #selector(startUpdating), userInfo: nil, repeats: false)
+        let timer = Timer(fireAt: Date().addingTimeInterval(updateInterval), interval: 0, target: self, selector: #selector(startUpdating), userInfo: nil, repeats: false)
         self.timer = timer
-        NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+        RunLoop.current.add(timer, forMode: RunLoopMode.defaultRunLoopMode)
     }
     
     func stopUpdating() {

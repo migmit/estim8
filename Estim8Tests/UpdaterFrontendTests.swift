@@ -16,17 +16,17 @@ class UpdaterFrontendTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         let dict = defaults.dictionaryRepresentation()
         for (key, _) in dict {
-            defaults.removeObjectForKey(key)
+            defaults.removeObject(forKey: key)
         }
         
         do {
-            if let objectModel: NSManagedObjectModel = NSManagedObjectModel.mergedModelFromBundles(nil){
+            if let objectModel: NSManagedObjectModel = NSManagedObjectModel.mergedModel(from: nil){
                 if let coordinator: NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel){
-                    try coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
-                    let context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+                    try coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
+                    let context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
                     context.persistentStoreCoordinator = coordinator
                     
                     do {try context.save()} catch {}
@@ -45,14 +45,14 @@ class UpdaterFrontendTests: XCTestCase {
     }
     
     func testUpdatingOnce() {
-        XCTAssertNil(NSUserDefaults.standardUserDefaults().objectForKey("updater.lastUpdate"))
+        XCTAssertNil(UserDefaults.standard.object(forKey: "updater.lastUpdate"))
         let euroCurrency = model!.addCurrencyAndUpdate("Euro", code: "EUR", symbol: "€", base: nil, rate: 1, invRate: 1, manual: true)
         let backend = UpdaterBackendMoc()
         backend.exchangeRates = ["EUR" : (2,0.5), "USD" : (0.5, 2)]
         let updater = UpdaterFrontendImpl(model: model!, updateInterval: 60*60, sinceLastUpdate: 60*60, backend: backend)
         updater.startUpdating()
         updater.stopUpdating()
-        NSRunLoop.mainRunLoop().runUntilDate(NSDate().dateByAddingTimeInterval(1))
+        RunLoop.main.run(until: Date().addingTimeInterval(1))
         XCTAssertEqual(model!.liveCurrencies().count, 1)
         let updates = model!.updatesOfCurrency(euroCurrency)
         XCTAssertEqual(updates.count, 2)
@@ -69,7 +69,7 @@ class UpdaterFrontendTests: XCTestCase {
         let updater = UpdaterFrontendImpl(model: model!, updateInterval: 60*60, sinceLastUpdate: 60*60, backend: backend)
         updater.startUpdating()
         updater.stopUpdating()
-        NSRunLoop.mainRunLoop().runUntilDate(NSDate().dateByAddingTimeInterval(1))
+        RunLoop.main.run(until: Date().addingTimeInterval(1))
         XCTAssertEqual(model!.liveCurrencies().count, 2)
         let euroUpdates = model!.updatesOfCurrency(euroCurrency)
         XCTAssertEqual(euroUpdates.count, 2)
@@ -88,14 +88,14 @@ class UpdaterFrontendTests: XCTestCase {
         backend.exchangeRates = ["EUR": (2.5, 0.4)]
         let updater = UpdaterFrontendImpl(model: model!, updateInterval: 1, sinceLastUpdate: 0.5, backend: backend)
         updater.startUpdating()
-        NSRunLoop.mainRunLoop().runUntilDate(NSDate().dateByAddingTimeInterval(0.1))
+        RunLoop.main.run(until: Date().addingTimeInterval(0.1))
         XCTAssertEqual(model!.liveCurrencies().count, 1)
         let updates = model!.updatesOfCurrency(euroCurrency)
         XCTAssertEqual(updates.count, 2)
         let rate = model!.rateOfCurrencyUpdate(updates[0])
         XCTAssertEqual(rate.0, 2.5)
         backend.exchangeRates = ["EUR" : (5, 0.2)]
-        NSRunLoop.mainRunLoop().runUntilDate(NSDate().dateByAddingTimeInterval(1.1))
+        RunLoop.main.run(until: Date().addingTimeInterval(1.1))
         updater.stopUpdating()
         let newUpdates = model!.updatesOfCurrency(euroCurrency)
         XCTAssertEqual(newUpdates.count, 3)

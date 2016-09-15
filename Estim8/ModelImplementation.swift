@@ -28,97 +28,97 @@ class ModelImplementation: ModelInterface {
     typealias CurrencyUpdate = NSManagedObject
     
     func liveAccounts() -> [Account] {
-        let fetchRequest = NSFetchRequest(entityName: "Account")
+        let fetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "Account")
         fetchRequest.predicate = NSPredicate(format: "removed == NO")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sortingIndex", ascending: true)]
         do {
-            let results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Account]
-            return results ?? []
+            let results = try managedObjectContext.fetch(fetchRequest)
+            return results 
         } catch {
             return []
         }
     }
     
     func deadAccounts() -> [Account] {
-        let fetchRequest = NSFetchRequest(entityName: "Account")
+        let fetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "Account")
         fetchRequest.predicate = NSPredicate(format: "removed == YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "closingDate", ascending: false)]
             [NSSortDescriptor(key: "sortingIndex", ascending: true)]
         do {
-            let results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Account]
-            return results ?? []
+            let results = try managedObjectContext.fetch(fetchRequest)
+            return results 
         } catch {
             return []
         }
     }
     
     func slices() -> [Slice] {
-        let fetchRequest = NSFetchRequest(entityName: "Slice")
+        let fetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "Slice")
         fetchRequest.predicate = NSPredicate(format: "removed == NO")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         do {
-            let results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Slice]
-            return results ?? []
+            let results = try managedObjectContext.fetch(fetchRequest)
+            return results 
         } catch {
             return []
         }
     }
     
-    func accountIsNegative(a: Account) -> Bool {
-        return a.valueForKey("negative") as! Bool
+    func accountIsNegative(_ a: Account) -> Bool {
+        return a.value(forKey: "negative") as! Bool
     }
     
-    func accountOpenDate(a: Account) -> NSDate {
-        return a.valueForKey("openDate") as! NSDate
+    func accountOpenDate(_ a: Account) -> Date {
+        return a.value(forKey: "openDate") as! Date
     }
     
-    func accountClosingDate(a: Account) -> NSDate? {
-        return (a.valueForKey("removed") as! Bool) ? a.valueForKey("closingDate") as? NSDate : nil
+    func accountClosingDate(_ a: Account) -> Date? {
+        return (a.value(forKey: "removed") as! Bool) ? a.value(forKey: "closingDate") as? Date : nil
     }
     
-    func nameOfAccount(a: Account) -> String {
-        return a.valueForKey("title") as! String
+    func nameOfAccount(_ a: Account) -> String {
+        return a.value(forKey: "title") as! String
     }
     
-    func valueOfUpdate(u: Update) -> NSDecimalNumber {
-        return u.valueForKey("value") as! NSDecimalNumber
+    func valueOfUpdate(_ u: Update) -> NSDecimalNumber {
+        return u.value(forKey: "value") as! NSDecimalNumber
     }
     
-    func dateOfUpdate(u: Update) -> NSDate {
-        return u.valueForKey("date") as! NSDate
+    func dateOfUpdate(_ u: Update) -> Date {
+        return u.value(forKey: "date") as! Date
     }
     
-    func accountOfUpdate(u: Update) -> Account {
-        return u.valueForKey("account") as! Account
+    func accountOfUpdate(_ u: Update) -> Account {
+        return u.value(forKey: "account") as! Account
     }
     
-    func lastUpdatesOfSlice(s: Slice) -> [Update] {
-        return Array(s.valueForKey("lastUpdates") as! Set<Update>)
+    func lastUpdatesOfSlice(_ s: Slice) -> [Update] {
+        return Array(s.value(forKey: "lastUpdates") as! Set<Update>)
     }
     
-    func updatesOfAccount(a: Account) -> [Update] {
-        return (a.valueForKey("updates") as! Set<Update>).sort{dateOfUpdate($0).compare(dateOfUpdate($1)) == .OrderedDescending}
+    func updatesOfAccount(_ a: Account) -> [Update] {
+        return (a.value(forKey: "updates") as! Set<Update>).sorted{dateOfUpdate($0).compare(dateOfUpdate($1)) == .orderedDescending}
     }
     
-    func dateOfSlice(s: Slice) -> NSDate {
-        return s.valueForKey("date") as! NSDate
+    func dateOfSlice(_ s: Slice) -> Date {
+        return s.value(forKey: "date") as! Date
     }
     
-    func removeAccount(a: Account) {
+    func removeAccount(_ a: Account) {
         a.setValue(true, forKey: "removed")
-        a.setValue(NSDate(), forKey: "closingDate")
+        a.setValue(Date(), forKey: "closingDate")
         do {try managedObjectContext.save()} catch {}
     }
     
-    func removeSlice(s: Slice) {
+    func removeSlice(_ s: Slice) {
         s.setValue(true, forKey: "removed")
         do {try managedObjectContext.save()} catch {}
     }
     
-    func updateAccount(a: Account, value: NSDecimalNumber, currency: Currency) {
-        let updateDescr = NSEntityDescription.entityForName("Update", inManagedObjectContext: managedObjectContext)!
-        let update = NSManagedObject(entity: updateDescr, insertIntoManagedObjectContext: managedObjectContext)
-        update.setValue(NSDate(), forKey: "date")
+    func updateAccount(_ a: Account, value: NSDecimalNumber, currency: Currency) {
+        let updateDescr = NSEntityDescription.entity(forEntityName: "Update", in: managedObjectContext)!
+        let update = NSManagedObject(entity: updateDescr, insertInto: managedObjectContext)
+        update.setValue(Date(), forKey: "date")
         update.setValue(value, forKey: "value")
         update.setValue(a, forKey: "account")
         update.setValue(Set<Slice>(), forKey: "slices")
@@ -127,28 +127,31 @@ class ModelImplementation: ModelInterface {
         do {try managedObjectContext.save()} catch {}
     }
     
-    func addAccountAndUpdate(title: String, value: NSDecimalNumber, isNegative: Bool, currency: Currency) -> Account {
-        let countRequest = NSFetchRequest(entityName: "Account")
-        var error: NSError?
-        let count: Int = managedObjectContext.countForFetchRequest(countRequest, error: &error)
-        let accountDescr = NSEntityDescription.entityForName("Account", inManagedObjectContext: managedObjectContext)!
-        let account = NSManagedObject(entity: accountDescr, insertIntoManagedObjectContext: managedObjectContext)
+    func addAccountAndUpdate(_ title: String, value: NSDecimalNumber, isNegative: Bool, currency: Currency) -> Account? {
+        let countRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "Account")
+        do {
+            let count: Int = try managedObjectContext.count(for: countRequest)
+        let accountDescr = NSEntityDescription.entity(forEntityName: "Account", in: managedObjectContext)!
+        let account = NSManagedObject(entity: accountDescr, insertInto: managedObjectContext)
         account.setValue(isNegative, forKey: "negative")
-        account.setValue(NSDate(), forKey: "openDate")
+        account.setValue(Date(), forKey: "openDate")
         account.setValue(false, forKey: "removed")
         account.setValue(title, forKey: "title")
         account.setValue(count, forKey: "sortingIndex")
         account.setValue(Set<Update>(), forKey: "updates")
         updateAccount(account, value: value, currency: currency)
         return account
+        } catch {
+            return nil
+        }
     }
     
     func createSlice() -> Slice {
         let accounts = liveAccounts()
         let updates = accounts.map{updatesOfAccount($0)[0]}
-        let sliceDescr = NSEntityDescription.entityForName("Slice", inManagedObjectContext: managedObjectContext)!
-        let slice = NSManagedObject(entity: sliceDescr, insertIntoManagedObjectContext: managedObjectContext)
-        slice.setValue(NSDate(), forKey: "date")
+        let sliceDescr = NSEntityDescription.entity(forEntityName: "Slice", in: managedObjectContext)!
+        let slice = NSManagedObject(entity: sliceDescr, insertInto: managedObjectContext)
+        slice.setValue(Date(), forKey: "date")
         slice.setValue(false, forKey: "removed")
         slice.setValue(Set<Update>(updates), forKey: "lastUpdates")
         do {try managedObjectContext.save()} catch {}
@@ -157,54 +160,54 @@ class ModelImplementation: ModelInterface {
     
     //==================================
     
-    func currencyOfUpdate(update: Update) -> Currency {
-        return (update.valueForKey("currencyUpdate") as! CurrencyUpdate).valueForKey("currency") as! Currency
+    func currencyOfUpdate(_ update: Update) -> Currency {
+        return (update.value(forKey: "currencyUpdate") as! CurrencyUpdate).value(forKey: "currency") as! Currency
     }
     
-    func codeOfCurrency(currency: Currency) -> String? {
-        return currency.valueForKey("code") as? String
+    func codeOfCurrency(_ currency: Currency) -> String? {
+        return currency.value(forKey: "code") as? String
     }
     
-    func nameOfCurrency(currency: Currency) -> String {
-        return currency.valueForKey("name") as! String
+    func nameOfCurrency(_ currency: Currency) -> String {
+        return currency.value(forKey: "name") as! String
     }
     
-    func symbolOfCurrency(currency: Currency) -> String {
-        return currency.valueForKey("symbol") as! String
+    func symbolOfCurrency(_ currency: Currency) -> String {
+        return currency.value(forKey: "symbol") as! String
     }
     
-    func currencyAddDate(currency: Currency) -> NSDate {
-        return currency.valueForKey("addDate") as! NSDate
+    func currencyAddDate(_ currency: Currency) -> Date {
+        return currency.value(forKey: "addDate") as! Date
     }
     
-    func currencyRemoveDate(currency: Currency) -> NSDate? {
-        return (currency.valueForKey("removed") as! Bool) ? currency.valueForKey("removeDate") as? NSDate : nil
+    func currencyRemoveDate(_ currency: Currency) -> Date? {
+        return (currency.value(forKey: "removed") as! Bool) ? currency.value(forKey: "removeDate") as? Date : nil
     }
     
-    func updatesOfCurrency(currency: Currency) -> [CurrencyUpdate] {
-        return (currency.valueForKey("updates") as! Set<CurrencyUpdate>).sort{dateOfCurrencyUpdate($0).compare(dateOfCurrencyUpdate($1)) == .OrderedDescending}
+    func updatesOfCurrency(_ currency: Currency) -> [CurrencyUpdate] {
+        return (currency.value(forKey: "updates") as! Set<CurrencyUpdate>).sorted{dateOfCurrencyUpdate($0).compare(dateOfCurrencyUpdate($1)) == .orderedDescending}
     }
     
-    func currencyUpdateIsManual(cUpdate: CurrencyUpdate) -> Bool {
-        return cUpdate.valueForKey("manual") as! Bool
+    func currencyUpdateIsManual(_ cUpdate: CurrencyUpdate) -> Bool {
+        return cUpdate.value(forKey: "manual") as! Bool
     }
     
-    func dateOfCurrencyUpdate(cUpdate: CurrencyUpdate) -> NSDate {
-        return cUpdate.valueForKey("date") as! NSDate
+    func dateOfCurrencyUpdate(_ cUpdate: CurrencyUpdate) -> Date {
+        return cUpdate.value(forKey: "date") as! Date
     }
     
-    func rateOfCurrencyUpdate(cUpdate: CurrencyUpdate) -> (NSDecimalNumber, NSDecimalNumber) {
-        return (cUpdate.valueForKey("rate") as! NSDecimalNumber, cUpdate.valueForKey("inverseRate") as! NSDecimalNumber)
+    func rateOfCurrencyUpdate(_ cUpdate: CurrencyUpdate) -> (NSDecimalNumber, NSDecimalNumber) {
+        return (cUpdate.value(forKey: "rate") as! NSDecimalNumber, cUpdate.value(forKey: "inverseRate") as! NSDecimalNumber)
     }
     
-    func currenciesOfUpdate(cUpdate: CurrencyUpdate) -> (Currency, Currency?) {
-        return (cUpdate.valueForKey("currency") as! Currency, cUpdate.valueForKey("base") as? Currency)
+    func currenciesOfUpdate(_ cUpdate: CurrencyUpdate) -> (Currency, Currency?) {
+        return (cUpdate.value(forKey: "currency") as! Currency, cUpdate.value(forKey: "base") as? Currency)
     }
     
-    func updateCurrency(currency: Currency, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) {
-        let cUpdateDescr = NSEntityDescription.entityForName("CurrencyUpdate", inManagedObjectContext: managedObjectContext)!
-        let cUpdate = NSManagedObject(entity: cUpdateDescr, insertIntoManagedObjectContext: managedObjectContext)
-        cUpdate.setValue(NSDate(), forKey: "date")
+    func updateCurrency(_ currency: Currency, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) {
+        let cUpdateDescr = NSEntityDescription.entity(forEntityName: "CurrencyUpdate", in: managedObjectContext)!
+        let cUpdate = NSManagedObject(entity: cUpdateDescr, insertInto: managedObjectContext)
+        cUpdate.setValue(Date(), forKey: "date")
         cUpdate.setValue(rate, forKey: "rate")
         cUpdate.setValue(invRate, forKey: "inverseRate")
         cUpdate.setValue(manual, forKey: "manual")
@@ -214,51 +217,54 @@ class ModelImplementation: ModelInterface {
         do {try managedObjectContext.save()} catch {}
     }
     
-    func changeCurrency(currency: Currency, name: String, code: String?, symbol: String) {
+    func changeCurrency(_ currency: Currency, name: String, code: String?, symbol: String) {
         currency.setValue(name, forKey: "name")
         currency.setValue(code, forKey: "code")
         currency.setValue(symbol, forKey: "symbol")
         do {try managedObjectContext.save()} catch {}    
     }
     
-    func addCurrencyAndUpdate(name: String, code: String?, symbol: String, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency {
-        let countRequest = NSFetchRequest(entityName: "Currency")
-        var error: NSError?
-        let count: Int = managedObjectContext.countForFetchRequest(countRequest, error: &error)
-        let currencyDescr = NSEntityDescription.entityForName("Currency", inManagedObjectContext: managedObjectContext)!
-        let currency = NSManagedObject(entity: currencyDescr, insertIntoManagedObjectContext: managedObjectContext)
+    func addCurrencyAndUpdate(_ name: String, code: String?, symbol: String, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency? {
+        let countRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "Currency")
+        do {
+        let count: Int = try managedObjectContext.count(for: countRequest)
+        let currencyDescr = NSEntityDescription.entity(forEntityName: "Currency", in: managedObjectContext)!
+        let currency = NSManagedObject(entity: currencyDescr, insertInto: managedObjectContext)
         currency.setValue(name, forKey: "name")
         currency.setValue(code, forKey: "code")
         currency.setValue(symbol, forKey: "symbol")
-        currency.setValue(NSDate(), forKey: "addDate")
+        currency.setValue(Date(), forKey: "addDate")
         currency.setValue(false, forKey: "removed")
         currency.setValue(count, forKey: "sortingIndex")
         currency.setValue(Set<CurrencyUpdate>(), forKey: "based")
         currency.setValue(Set<CurrencyUpdate>(), forKey: "updates")
         updateCurrency(currency, base: base, rate: rate, invRate: invRate, manual: manual)
         return currency
+        } catch {
+            return nil
+        }
     }
     
-    func removeCurrency(currency: Currency) {
+    func removeCurrency(_ currency: Currency) {
         currency.setValue(true, forKey: "removed")
-        currency.setValue(NSDate(), forKey: "removeDate")
+        currency.setValue(Date(), forKey: "removeDate")
         do {try managedObjectContext.save()} catch {}
     }
     
     func liveCurrencies() -> [Currency] {
-        let fetchRequest = NSFetchRequest(entityName: "Currency")
+        let fetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "Currency")
         fetchRequest.predicate = NSPredicate(format: "removed == NO")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sortingIndex", ascending: true)]
         do {
-            let results = try managedObjectContext.executeFetchRequest(fetchRequest) as? [Currency]
-            return results ?? []
+            let results = try managedObjectContext.fetch(fetchRequest)
+            return results 
         } catch {
             return []
         }
     }
     
-    func preferredBaseOfCurrency(currency: Currency) -> Currency? {
-        return currency.valueForKey("preferredBase") as? Currency
+    func preferredBaseOfCurrency(_ currency: Currency) -> Currency? {
+        return currency.value(forKey: "preferredBase") as? Currency
     }
     
 }

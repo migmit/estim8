@@ -17,13 +17,13 @@ class SubViewController: UITableViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        parentNavigationBarHidden = navigationController?.navigationBarHidden ?? false
+    override func viewWillAppear(_ animated: Bool) {
+        parentNavigationBarHidden = navigationController?.isNavigationBarHidden ?? false
         navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillAppear(animated)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(parentNavigationBarHidden, animated: animated)
         super.viewWillDisappear(animated)
     }

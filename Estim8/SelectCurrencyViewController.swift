@@ -21,7 +21,7 @@ class SelectCurrencyImplementation: SelectCurrencyView {
         self.parent = parent
     }
     
-    func setView(view: SelectCurrencyViewController) {
+    func setView(_ view: SelectCurrencyViewController) {
         self.view = view
         view.setViewImplementation(self)
     }
@@ -31,7 +31,7 @@ class SelectCurrencyImplementation: SelectCurrencyView {
     }
     
     func hideSubView() {
-        view?.navigationController?.popViewControllerAnimated(true)
+        view?.navigationController?.popViewController(animated: true)
     }
     
 }
@@ -40,7 +40,7 @@ class SelectCurrencyViewController: SubViewController {
     
     var viewImplementation: SelectCurrencyImplementation? = nil
     
-    func setViewImplementation(viewImplementation: SelectCurrencyImplementation) {
+    func setViewImplementation(_ viewImplementation: SelectCurrencyImplementation) {
         self.viewImplementation = viewImplementation
     }
 

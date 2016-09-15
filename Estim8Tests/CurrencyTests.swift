@@ -33,7 +33,7 @@ class CurrencyTests: XCTestCase {
         view?.createAccount()?.tapCurrency()
     }
     
-    func createCurrency(name: String, code: String?, symbol: String, rate: NSDecimalNumber, index: Int) {
+    func createCurrency(_ name: String, code: String?, symbol: String, rate: NSDecimalNumber, index: Int) {
         view?.listCurrencies()?.tapPlus()
         view?.createCurrency()?.name = name
         view?.createCurrency()?.code = code

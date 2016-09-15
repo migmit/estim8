@@ -24,79 +24,79 @@ protocol ModelInterface {
     
     func deadAccounts() -> [Account] //ordered by date, descending
     
-    func accountIsNegative(a: Account) -> Bool
+    func accountIsNegative(_ a: Account) -> Bool
     
-    func accountOpenDate(a: Account) -> NSDate
+    func accountOpenDate(_ a: Account) -> Date
     
-    func accountClosingDate(a: Account) -> NSDate?
+    func accountClosingDate(_ a: Account) -> Date?
     
-    func nameOfAccount(a: Account) -> String
+    func nameOfAccount(_ a: Account) -> String
     
-    func accountOfUpdate(u: Update) -> Account
+    func accountOfUpdate(_ u: Update) -> Account
     
-    func valueOfUpdate(u: Update) -> NSDecimalNumber
+    func valueOfUpdate(_ u: Update) -> NSDecimalNumber
     
-    func dateOfUpdate(u: Update) -> NSDate
+    func dateOfUpdate(_ u: Update) -> Date
     
-    func lastUpdatesOfSlice(s: Slice) -> [Update]
+    func lastUpdatesOfSlice(_ s: Slice) -> [Update]
     
-    func updatesOfAccount(a: Account) -> [Update] //ordered backwards, non-empty
+    func updatesOfAccount(_ a: Account) -> [Update] //ordered backwards, non-empty
     
     func slices() -> [Slice] //ordered backwards
     
-    func dateOfSlice(s: Slice) -> NSDate
+    func dateOfSlice(_ s: Slice) -> Date
     
-    func addAccountAndUpdate(name: String, value: NSDecimalNumber, isNegative: Bool, currency: Currency) -> Account
+    func addAccountAndUpdate(_ name: String, value: NSDecimalNumber, isNegative: Bool, currency: Currency) -> Account?
     
     func createSlice() -> Slice
     
-    func updateAccount(a: Account, value: NSDecimalNumber, currency: Currency)
+    func updateAccount(_ a: Account, value: NSDecimalNumber, currency: Currency)
     
-    func removeAccount(a: Account)
+    func removeAccount(_ a: Account)
     
-    func removeSlice(s: Slice)
+    func removeSlice(_ s: Slice)
     
     //==================================
     
-    func currencyOfUpdate(update: Update) -> Currency
+    func currencyOfUpdate(_ update: Update) -> Currency
     
-    func codeOfCurrency(currency: Currency) -> String? // "USD", "HUF"
+    func codeOfCurrency(_ currency: Currency) -> String? // "USD", "HUF"
     
-    func nameOfCurrency(currency: Currency) -> String // "US dollar", "Hungarian forint"
+    func nameOfCurrency(_ currency: Currency) -> String // "US dollar", "Hungarian forint"
     
-    func symbolOfCurrency(currency: Currency) -> String // "$", "Ft"
+    func symbolOfCurrency(_ currency: Currency) -> String // "$", "Ft"
     
-    func currencyAddDate(currency: Currency) -> NSDate
+    func currencyAddDate(_ currency: Currency) -> Date
     
-    func currencyRemoveDate(currency: Currency) -> NSDate?
+    func currencyRemoveDate(_ currency: Currency) -> Date?
     
-    func updatesOfCurrency(currency: Currency) -> [CurrencyUpdate] // ordered backwards, non-empty
+    func updatesOfCurrency(_ currency: Currency) -> [CurrencyUpdate] // ordered backwards, non-empty
     
-    func currencyUpdateIsManual(cUpdate: CurrencyUpdate) -> Bool
+    func currencyUpdateIsManual(_ cUpdate: CurrencyUpdate) -> Bool
     
-    func dateOfCurrencyUpdate(cUpdate: CurrencyUpdate) -> NSDate
+    func dateOfCurrencyUpdate(_ cUpdate: CurrencyUpdate) -> Date
     
-    func rateOfCurrencyUpdate(cUpdate: CurrencyUpdate) -> (NSDecimalNumber, NSDecimalNumber) // rate, inverse rate
+    func rateOfCurrencyUpdate(_ cUpdate: CurrencyUpdate) -> (NSDecimalNumber, NSDecimalNumber) // rate, inverse rate
     
-    func currenciesOfUpdate(cUpdate: CurrencyUpdate) -> (Currency, Currency?) // currency, based on
+    func currenciesOfUpdate(_ cUpdate: CurrencyUpdate) -> (Currency, Currency?) // currency, based on
     
-    func updateCurrency(currency: Currency, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool)
+    func updateCurrency(_ currency: Currency, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool)
     
-    func changeCurrency(currency: Currency, name: String, code: String?, symbol: String)
+    func changeCurrency(_ currency: Currency, name: String, code: String?, symbol: String)
     
-    func addCurrencyAndUpdate(name: String, code: String?, symbol: String, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency
+    func addCurrencyAndUpdate(_ name: String, code: String?, symbol: String, base: Currency?, rate: NSDecimalNumber, invRate: NSDecimalNumber, manual: Bool) -> Currency?
     
-    func removeCurrency(currency: Currency)
+    func removeCurrency(_ currency: Currency)
     
     func liveCurrencies() -> [Currency]
     
-    func preferredBaseOfCurrency(currency: Currency) -> Currency?
+    func preferredBaseOfCurrency(_ currency: Currency) -> Currency?
     
 }
 
 extension ModelInterface {
 
-    final func exchangeRate(from: Currency, to: Currency) -> (NSDecimalNumber, NSDecimalNumber) { // from->to, to->from
+    final func exchangeRate(_ from: Currency, to: Currency) -> (NSDecimalNumber, NSDecimalNumber) { // from->to, to->from
         var fa: Currency? = from
         var fRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
         var allFromAncestors = [(fa, fRate.0, fRate.1)]
@@ -104,18 +104,18 @@ extension ModelInterface {
             let lastUpdate = updatesOfCurrency(fa!)[0]
             fa = currenciesOfUpdate(lastUpdate).1
             let rate = rateOfCurrencyUpdate(lastUpdate)
-            fRate = (fRate.0.decimalNumberByMultiplyingBy(rate.0), fRate.1.decimalNumberByMultiplyingBy(rate.1))
+            fRate = (fRate.0.multiplying(by: rate.0), fRate.1.multiplying(by: rate.1))
             allFromAncestors.append((fa, fRate.0, fRate.1))
         }
         var tRate: (NSDecimalNumber, NSDecimalNumber) = (1,1)
         var ta: Currency? = to
-        while (!allFromAncestors.contains({triple in return triple.0 == ta})) {
+        while (!allFromAncestors.contains(where: {triple in return triple.0 == ta})) {
             let lastUpdate = updatesOfCurrency(ta!)[0]
             ta = currenciesOfUpdate(lastUpdate).1
             let rate = rateOfCurrencyUpdate(lastUpdate)
-            tRate = (tRate.0.decimalNumberByMultiplyingBy(rate.0), tRate.1.decimalNumberByMultiplyingBy(rate.1))
+            tRate = (tRate.0.multiplying(by: rate.0), tRate.1.multiplying(by: rate.1))
         }
-        return (tRate.0.decimalNumberByMultiplyingBy(fRate.1),tRate.1.decimalNumberByMultiplyingBy(fRate.0))
+        return (tRate.0.multiplying(by: fRate.1),tRate.1.multiplying(by: fRate.0))
     }
 
 }

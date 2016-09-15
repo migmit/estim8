@@ -8,13 +8,13 @@
 
 import CoreData
 
-func setupTestCoreData(createCurrency: Bool) throws -> MocView? {
+func setupTestCoreData(_ createCurrency: Bool) throws -> MocView? {
     if
-        let objectModel: NSManagedObjectModel = NSManagedObjectModel.mergedModelFromBundles(nil),
+        let objectModel: NSManagedObjectModel = NSManagedObjectModel.mergedModel(from: nil),
         let coordinator: NSPersistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel)
     {
-        try coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
-        let context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.MainQueueConcurrencyType)
+        try coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
+        let context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
         
         do {try context.save()} catch {}

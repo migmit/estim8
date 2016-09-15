@@ -15,8 +15,8 @@ class UpdaterBackendECBImpl: UpdaterBackendProtocol {
     func getExchangeRates() -> [String : (NSDecimalNumber, NSDecimalNumber)] {
         let delegate = UpdaterBackendECBDelegate()
         if
-            let url = NSURL(string: feedURL),
-            let parser = NSXMLParser(contentsOfURL: url)
+            let url = URL(string: feedURL),
+            let parser = XMLParser(contentsOf: url)
         {
             parser.delegate = delegate
             parser.parse()
@@ -26,18 +26,18 @@ class UpdaterBackendECBImpl: UpdaterBackendProtocol {
     
 }
 
-class UpdaterBackendECBDelegate: NSObject, NSXMLParserDelegate {
+class UpdaterBackendECBDelegate: NSObject, XMLParserDelegate {
     
     var result: [String : (NSDecimalNumber, NSDecimalNumber)] = ["EUR" : (1,1)]
     
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         if (elementName == "Cube") {
             if
                 let currency = attributeDict["currency"],
                 let rate = attributeDict["rate"]
             {
-                let euroToThis = NSDecimalNumber(string: rate, locale: [NSLocaleDecimalSeparator : "."])
-                result[currency] = (NSDecimalNumber.one().decimalNumberByDividingBy(euroToThis), euroToThis)
+                let euroToThis = NSDecimalNumber(string: rate, locale: [NSLocale.Key.decimalSeparator : "."])
+                result[currency] = (NSDecimalNumber.one.dividing(by: euroToThis), euroToThis)
             }
         }
     }

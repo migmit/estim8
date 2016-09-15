@@ -10,17 +10,17 @@ import Foundation
 
 protocol MainWindowView: class {
     
-    func createAccount(controller: ControllerCreateAccountInterface) -> CreateAccountView
+    func createAccount(_ controller: ControllerCreateAccountInterface) -> CreateAccountView
     
-    func decant(controller: ControllerDecantInterface) -> DecantView
+    func decant(_ controller: ControllerDecantInterface) -> DecantView
     
-    func showSlices(controller: ControllerSlicesInterface) -> SlicesView
+    func showSlices(_ controller: ControllerSlicesInterface) -> SlicesView
     
-    func editAccount(controller: ControllerEditAccountInterface) -> EditAccountView
+    func editAccount(_ controller: ControllerEditAccountInterface) -> EditAccountView
     
-    func refreshAccount(n: Int)
+    func refreshAccount(_ n: Int)
     
-    func removeAccount(n: Int)
+    func removeAccount(_ n: Int)
     
     func addAccount()    
 }
@@ -34,17 +34,17 @@ protocol SubView: class {
 
 protocol EditAccountView: SubView {
     
-    func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView
+    func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView
     
-    func currencySelected(selected: ControllerROCurrencyInterface)
+    func currencySelected(_ selected: ControllerROCurrencyInterface)
 
 }
 
 protocol CreateAccountView: SubView {
     
-    func selectCurrency(controller: ControllerListCurrenciesInterface) -> ListCurrenciesView
+    func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView
     
-    func currencySelected(selected: ControllerROCurrencyInterface)
+    func currencySelected(_ selected: ControllerROCurrencyInterface)
     
 }
 
@@ -54,9 +54,9 @@ protocol DecantView: SubView {
 
 protocol SlicesView: SubView {
     
-    func createSlice(slice: ControllerSliceInterface)
+    func createSlice(_ slice: ControllerSliceInterface)
     
-    func removeSlice(slice: ControllerSliceInterface)
+    func removeSlice(_ slice: ControllerSliceInterface)
 }
 
 protocol SelectCurrencyView: SubView {
@@ -65,13 +65,13 @@ protocol SelectCurrencyView: SubView {
 
 protocol ListCurrenciesView: SubView {
     
-    func createCurrency(controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView
+    func createCurrency(_ controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView
     
-    func editCurrency(controller: ControllerEditCurrencyInterface) -> EditCurrencyView
+    func editCurrency(_ controller: ControllerEditCurrencyInterface) -> EditCurrencyView
     
-    func refreshCurrency(n: Int)
+    func refreshCurrency(_ n: Int)
     
-    func removeCurrency(n: Int)
+    func removeCurrency(_ n: Int)
     
     func addCurrency()
     
@@ -79,28 +79,28 @@ protocol ListCurrenciesView: SubView {
 
 protocol EditCurrencyView: SubView {
     
-    func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView
+    func selectRelative(_ controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView
     
-    func relativeSelected(selected: ControllerROCurrencyInterface?)
+    func relativeSelected(_ selected: ControllerROCurrencyInterface?)
     
 }
 
 protocol CreateCurrencyView: SubView {
     
-    func selectRelative(controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView
+    func selectRelative(_ controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView
     
-    func relativeSelected(selected: ControllerROCurrencyInterface?)
+    func relativeSelected(_ selected: ControllerROCurrencyInterface?)
     
 }
 
 protocol ListCurrenciesViewControllerInterface {
     
-    func showListCurrenciesView(sender: ListCurrenciesView)
+    func showListCurrenciesView(_ sender: ListCurrenciesView)
     
 }
 
 protocol SelectCurrencyViewControllerInterface {
     
-    func showSelectCurrencyView(sender: SelectCurrencyView)
+    func showSelectCurrencyView(_ sender: SelectCurrencyView)
     
 }

@@ -28,7 +28,7 @@ class AccountTests: XCTestCase {
         super.tearDown()
     }
     
-    func createAccount(title: String, value: NSDecimalNumber, isNegative: Bool) {
+    func createAccount(_ title: String, value: NSDecimalNumber, isNegative: Bool) {
         view?.mainWindow()?.tapPlusButton()
         view?.createAccount()?.title = title
         view?.createAccount()?.value = value
@@ -40,18 +40,18 @@ class AccountTests: XCTestCase {
         view?.createAccount()?.tapOk()
     }
     
-    func updateAccount(n: Int, value: NSDecimalNumber) {
+    func updateAccount(_ n: Int, value: NSDecimalNumber) {
         view?.mainWindow()?.tapAccount(n)
         view?.editAccount()?.value = value
         view?.editAccount()?.tapOk()
     }
     
-    func deleteAccount(n: Int) {
+    func deleteAccount(_ n: Int) {
         view?.mainWindow()?.tapAccount(n)
         view?.editAccount()?.tapDeleteButton()
     }
     
-    func decant(from: Int, to: Int, amount: NSDecimalNumber) {
+    func decant(_ from: Int, to: Int, amount: NSDecimalNumber) {
         view?.mainWindow()?.tapDecantButton()
         view?.decant()?.fromSelected = from
         view?.decant()?.toSelected = to
