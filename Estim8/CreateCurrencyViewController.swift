@@ -31,7 +31,7 @@ class CreateCurrencyImplementation: CreateCurrencyView {
     }
     
     func hideSubView() {
-        view?.navigationController?.popViewController(animated: true)
+        _ = view?.navigationController?.popViewController(animated: true)
     }
     
     func selectRelative(_ controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {

@@ -31,7 +31,7 @@ class ListCurrenciesImplementation: ListCurrenciesView {
     }
     
     func hideSubView() {
-        view?.navigationController?.popViewController(animated: true)
+        _ = view?.navigationController?.popViewController(animated: true)
     }
     
     func createCurrency(_ controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView {

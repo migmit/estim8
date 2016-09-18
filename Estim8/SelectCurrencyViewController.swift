@@ -31,7 +31,7 @@ class SelectCurrencyImplementation: SelectCurrencyView {
     }
     
     func hideSubView() {
-        view?.navigationController?.popViewController(animated: true)
+        _ = view?.navigationController?.popViewController(animated: true)
     }
     
 }
