@@ -50,7 +50,7 @@ protocol ControllerBaseCurrencySelectedProtocol {
     
 }
 
-protocol ControllerEditCurrencyInterface: ControllerROCurrencyInterface, ControllerBaseCurrencySelectedProtocol {
+protocol ControllerEditCurrencyInterface: ControllerROCurrencyInterface {
     
     func setCurrency(_ name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
     
@@ -64,7 +64,7 @@ protocol ControllerEditCurrencyInterface: ControllerROCurrencyInterface, Control
     
 }
 
-protocol ControllerCreateCurrencyInterface: ControllerBaseCurrencySelectedProtocol {
+protocol ControllerCreateCurrencyInterface {
     
     func create(_ name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
     

@@ -74,7 +74,15 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
     }
     
     func edit() {
-        let editController = ControllerEditAccountImplementation(parent: parent, model: model, account: account, index: index)
+        let editController = ControllerEditAccountImplementation(model: model, account: account)
+        editController.setResponseFunction{(response: EditResponse) in
+            switch response {
+            case .Delete:
+                self.parent.removeAccount(self.index)
+            case .SetValue:
+                self.parent.refreshAccount(self.index)
+            }
+        }
         let editView = view.editAccount(editController)
         editController.setView(editView)
         editView.showSubView()

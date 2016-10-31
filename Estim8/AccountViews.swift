@@ -21,7 +21,7 @@ protocol ControllerInterface {
     func showSlices()
 }
 
-protocol ControllerEditAccountInterface: ControllerROAccountInterface, ControllerCurrencySelectedProtocol {
+protocol ControllerEditAccountInterface: ControllerROAccountInterface {
     
     func setValue(_ value: NSDecimalNumber) -> Bool
     
@@ -35,7 +35,7 @@ protocol ControllerEditAccountInterface: ControllerROAccountInterface, Controlle
     
 }
 
-protocol ControllerCreateAccountInterface: ControllerCurrencySelectedProtocol {
+protocol ControllerCreateAccountInterface {
     
     func create(_ title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
     

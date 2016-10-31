@@ -72,8 +72,16 @@ class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerROCurre
     }
     
     func edit() {
-        let editController =
-            ControllerEditCurrencyImplementation<Model>(parent: parent, model: model, currency: currency, index: index, dependentCurrencies: dependentCurrencies, accounts: accounts)
+        let editController = ControllerEditCurrencyImplementation<Model>(model: model, currency: currency, index: index, dependentCurrencies: dependentCurrencies, accounts: accounts)
+        editController.setResponseFunction{(response) in
+            switch response {
+            case .Refresh(let currencies):
+                self.parent.refreshCurrency(self.index)
+                currencies.forEach{self.parent.refreshCurrency($0)}
+            case .Delete:
+                self.parent.removeCurrency(self.index)
+            }
+        }
         let editView = view.editCurrency(editController)
         editController.setView(editView)
         editView.showSubView()
