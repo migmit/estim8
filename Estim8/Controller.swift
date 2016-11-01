@@ -8,14 +8,8 @@
 
 import Foundation
 
-protocol ControllerProtocol {
-    associatedtype CPResponse
-    func setResponseFunction(_ responseFunction: @escaping (CPResponse) -> ())
-}
-
-class Controller<Response>: ControllerProtocol {
+class Controller<Response> {
     
-    typealias CPResponse = Response
     var responseFunction: ((Response) -> ())? = nil
     
     func setResponseFunction(_ responseFunction: @escaping (Response) -> ()) {

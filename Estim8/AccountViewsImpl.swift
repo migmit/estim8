@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ControllerImplementation<Model: ModelInterface>: Controller<()>, ControllerInterface {
+class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
     
     let model: Model
     
