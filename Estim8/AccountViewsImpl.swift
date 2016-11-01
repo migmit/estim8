@@ -37,15 +37,11 @@ class ControllerImplementation<Model: ModelInterface>: ControllerInterface {
     }
     
     func createAccount(handler: @escaping (()) -> ()) -> ControllerCreateAccountInterface {
-        let createController = ControllerCreateAccountImplementation(model: model)
-        createController.setResponseFunction(handler)
-        return createController
+        return ControllerCreateAccountImplementation(model: model).setResponseFunction(handler)
     }
     
     func decant(handler: @escaping ((Int, Int)) -> ()) -> ControllerDecantInterface {
-        let decantController = ControllerDecantImplementation(model: model)
-        decantController.setResponseFunction(handler)
-        return decantController
+        return ControllerDecantImplementation(model: model).setResponseFunction(handler)
     }
     
     func showSlices() -> ControllerSlicesInterface {
@@ -117,15 +113,13 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: Controller<Edi
     }
     
     func selectCurrency(handler: @escaping (ControllerROCurrencyInterface) -> ()) -> ControllerListCurrenciesInterface {
-        let listCurrenciesController = ControllerListCurrenciesImplementation<Model>(model: model, selected: selectedCurrency)
-        listCurrenciesController.setResponseFunction{(currency: ControllerROCurrencyInterface) in
-            if let c = currency as? ControllerROCurrencyImplementation<Model> {
+        return ControllerListCurrenciesImplementation<Model>(model: model, selected: selectedCurrency).setResponseFunction{
+            if let c = $0 as? ControllerROCurrencyImplementation<Model> {
                 self.oldCurrency = self.selectedCurrency
                 self.selectedCurrency = c.currency
             }
-            handler(currency)
+            handler($0)
         }
-        return listCurrenciesController
     }
     
     func recalculate(_ value: NSDecimalNumber) -> NSDecimalNumber {
@@ -169,14 +163,12 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: Controller<(
     }
     
     func selectCurrency(handler: @escaping (ControllerROCurrencyInterface) -> ()) -> ControllerListCurrenciesInterface {
-        let listCurrenciesController = ControllerListCurrenciesImplementation<Model>(model: model, selected: selectedCurrency)
-        listCurrenciesController.setResponseFunction{(currency: ControllerROCurrencyInterface) in
-            if let c = currency as? ControllerROCurrencyImplementation<Model> {
+        return ControllerListCurrenciesImplementation<Model>(model: model, selected: selectedCurrency).setResponseFunction{
+            if let c = $0 as? ControllerROCurrencyImplementation<Model> {
                 self.selectedCurrency = c.currency
             }
-            handler(currency)
+            handler($0)
         }
-        return listCurrenciesController
     }
     
     func currency() -> ControllerROCurrencyInterface? {

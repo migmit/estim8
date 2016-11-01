@@ -63,9 +63,7 @@ class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerROCurre
     }
     
     func edit(handler: @escaping (EditCurrencyResponse) -> ()) -> ControllerEditCurrencyInterface {
-        let editController = ControllerEditCurrencyImplementation<Model>(model: model, currency: currency, dependentCurrencies: dependentCurrencies, accounts: accounts)
-        editController.setResponseFunction(handler)
-        return editController
+        return ControllerEditCurrencyImplementation<Model>(model: model, currency: currency, dependentCurrencies: dependentCurrencies, accounts: accounts).setResponseFunction(handler)
     }
     
     func remove() -> Bool {

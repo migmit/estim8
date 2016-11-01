@@ -141,13 +141,11 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: Controller<
         return true
     }
     
-    func createCurrency1(handler: @escaping () -> ()) -> ControllerCreateCurrencyInterface {
-        let createController = ControllerCreateCurrencyImplementation(model: model)
-        createController.setResponseFunction{(_: ()) in
+    func createCurrency(handler: @escaping () -> ()) -> ControllerCreateCurrencyInterface {
+        return ControllerCreateCurrencyImplementation(model: model).setResponseFunction{_ in
             self.refreshData()
             handler()
         }
-        return createController
     }
     
     func refreshData() {
@@ -278,16 +276,14 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: Controller<Ed
     }
     
     func selectCurrency(handler: @escaping (ControllerROCurrencyInterface?) -> ()) -> ControllerSelectCurrencyInterface {
-        let selectCurrencyController = ControllerSelectCurrencyImplementation<Model>(model: model, baseFor: currency, selected: baseCurrency)
-        selectCurrencyController.setResponseFunction{(currency: ControllerROCurrencyInterface?) in
-            if let c = currency as? ControllerROCurrencyImplementation<Model> {
+        return ControllerSelectCurrencyImplementation<Model>(model: model, baseFor: currency, selected: baseCurrency).setResponseFunction{
+            if let c = $0 as? ControllerROCurrencyImplementation<Model> {
                 self.baseCurrency = c.currency
             } else {
                 self.baseCurrency = nil
             }
-            handler(currency)
+            handler($0)
         }
-        return selectCurrencyController
     }
     
 }
@@ -320,10 +316,9 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: Controller<
     }
     
     func selectCurrency(handler: @escaping (ControllerROCurrencyInterface?) -> ()) -> ControllerSelectCurrencyInterface {
-        let selectCurrencyController = ControllerSelectCurrencyImplementation<Model>(model: model, baseFor: nil, selected: nil)
-        selectCurrencyController.setResponseFunction{(currency: ControllerROCurrencyInterface?) in
-            if let c = currency as? ControllerROCurrencyImplementation<Model> {
-                if let b = currency?.relative() as? ControllerROCurrencyImplementation<Model> {
+        return ControllerSelectCurrencyImplementation<Model>(model: model, baseFor: nil, selected: nil).setResponseFunction{
+            if let c = $0 as? ControllerROCurrencyImplementation<Model> {
+                if let b = c.relative() as? ControllerROCurrencyImplementation<Model> {
                     self.baseCurrency = b.currency
                     self.rateMultiplier = c.rate()
                 } else {
@@ -333,9 +328,8 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: Controller<
             } else {
                 self.baseCurrency = nil
             }
-            handler(currency)
+            handler($0)
         }
-        return selectCurrencyController
     }
     
     func relative() -> ControllerROCurrencyInterface? {

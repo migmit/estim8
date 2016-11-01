@@ -34,7 +34,7 @@ protocol ControllerListCurrenciesInterface {
     
     func canSelect(_ n: Int) -> Bool
     
-    func createCurrency1(handler: @escaping () -> ()) -> ControllerCreateCurrencyInterface
+    func createCurrency(handler: @escaping () -> ()) -> ControllerCreateCurrencyInterface
     
     func refreshData()
     

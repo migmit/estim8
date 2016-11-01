@@ -12,8 +12,9 @@ class Controller<Response> {
     
     var responseFunction: ((Response) -> ())? = nil
     
-    func setResponseFunction(_ responseFunction: @escaping (Response) -> ()) {
+    func setResponseFunction(_ responseFunction: @escaping (Response) -> ()) -> Self {
         self.responseFunction = responseFunction
+        return self
     }
     
     func respond(_ response: Response) {

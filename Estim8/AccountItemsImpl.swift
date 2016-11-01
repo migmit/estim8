@@ -68,9 +68,7 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
     }
     
     func edit() -> ControllerEditAccountInterface {
-        let editController = ControllerEditAccountImplementation(model: model, account: account)
-        editController.setResponseFunction(handler)
-        return editController
+        return ControllerEditAccountImplementation(model: model, account: account).setResponseFunction(handler)
     }
     
     func remove() {

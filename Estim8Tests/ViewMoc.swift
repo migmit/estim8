@@ -592,7 +592,7 @@ class ListCurrenciesMoc {
     }
     
     func tapPlus() {
-        let createController = controller.createCurrency1{self.addCurrency()}
+        let createController = controller.createCurrency{self.addCurrency()}
         CreateCurrencyMoc(parent: self, controller: createController, view: view).showSubView()
     }
     
