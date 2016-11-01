@@ -34,7 +34,9 @@ protocol ControllerListCurrenciesInterface {
     
     func canSelect(_ n: Int) -> Bool
     
-    func createCurrency()
+    func createCurrency1(handler: @escaping () -> ()) -> ControllerCreateCurrencyInterface
+    
+    func refreshData()
     
 }
 
@@ -60,7 +62,7 @@ protocol ControllerEditCurrencyInterface: ControllerROCurrencyInterface {
     
     func canRemove() -> Bool
     
-    func selectCurrency()
+    func selectCurrency(handler: @escaping (ControllerROCurrencyInterface?) -> ()) -> ControllerSelectCurrencyInterface
     
 }
 
@@ -70,7 +72,7 @@ protocol ControllerCreateCurrencyInterface {
     
     func canCreate(_ name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool
     
-    func selectCurrency()
+    func selectCurrency(handler: @escaping (ControllerROCurrencyInterface?) -> ()) -> ControllerSelectCurrencyInterface
     
     func relative() -> ControllerROCurrencyInterface?
     

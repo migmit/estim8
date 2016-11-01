@@ -8,23 +8,6 @@
 
 import Foundation
 
-protocol MainWindowView: class {
-    
-    func createAccount(_ controller: ControllerCreateAccountInterface) -> CreateAccountView
-    
-    func decant(_ controller: ControllerDecantInterface) -> DecantView
-    
-    func showSlices(_ controller: ControllerSlicesInterface) -> SlicesView
-    
-    func editAccount(_ controller: ControllerEditAccountInterface) -> EditAccountView
-    
-    func refreshAccount(_ n: Int)
-    
-    func removeAccount(_ n: Int)
-    
-    func addAccount()
-}
-
 protocol SubView: class {
     
     func showSubView()
@@ -54,9 +37,6 @@ protocol DecantView: SubView {
 
 protocol SlicesView: SubView {
     
-    func createSlice(_ slice: ControllerSliceInterface)
-    
-    func removeSlice(_ slice: ControllerSliceInterface)
 }
 
 protocol SelectCurrencyView: SubView {

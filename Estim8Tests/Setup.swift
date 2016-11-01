@@ -25,7 +25,6 @@ func setupTestCoreData(_ createCurrency: Bool) throws -> MocView? {
         
         let controller = ControllerImplementation(model: model)
         let mainWindowView = MainWindowMoc(controller: controller)
-        controller.setView(mainWindowView)
         let view = MocView(mainWindow: mainWindowView)
         mainWindowView.setView(view)
         return view

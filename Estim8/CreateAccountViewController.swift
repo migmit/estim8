@@ -128,7 +128,9 @@ class CreateAccountViewController: SubViewController, ListCurrenciesViewControll
         let title = accountTitleText.text ?? ""
         let value = accountValueText.getValue()
         if let controller = viewImplementation?.controller {
-            if (!(controller.create(title, initialValue: value, isNegative: isNegative))) {
+            if (controller.create(title, initialValue: value, isNegative: isNegative)) {
+                viewImplementation?.hideSubView()
+            } else {
                 let alert = UIAlertController(title: "Error", message: "Can't create \(isNegative ? "negative" : "positive") account \"\(title)\" with value \(value)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ControllerSelectCurrencyImplementation<Model: ModelInterface>: Controller<ControllerROCurrencyInterface?, SelectCurrencyView>, ControllerSelectCurrencyInterface {
+class ControllerSelectCurrencyImplementation<Model: ModelInterface>: Controller<ControllerROCurrencyInterface?>, ControllerSelectCurrencyInterface {
     
     let model: Model
     
@@ -48,7 +48,6 @@ class ControllerSelectCurrencyImplementation<Model: ModelInterface>: Controller<
     
     func select(_ n: Int) -> Bool {
         if (canSelect(n)) {
-            view?.hideSubView()
             respond(currency(n))
             return true
         } else {
@@ -83,7 +82,7 @@ class ControllerSelectCurrencyImplementation<Model: ModelInterface>: Controller<
     
 }
 
-class ControllerListCurrenciesImplementation<Model: ModelInterface>: Controller<ControllerROCurrencyInterface, ListCurrenciesView>, ControllerListCurrenciesInterface {
+class ControllerListCurrenciesImplementation<Model: ModelInterface>: Controller<ControllerROCurrencyInterface>, ControllerListCurrenciesInterface {
     
     let model: Model
     
@@ -110,7 +109,7 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: Controller<
         } else {
             let c = currencies[n]
             if let data = currencyData[c] {
-                return ControllerCurrencyImplementation(parent: self, model: model, view: view!, currency: c, index: n, dependentCurrencies: data.0, accounts: data.1)
+                return ControllerCurrencyImplementation(parent: self, model: model, currency: c, index: n, dependentCurrencies: data.0, accounts: data.1)
             } else {
                 return nil
             }
@@ -128,7 +127,6 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: Controller<
     func select(_ n: Int) -> Bool {
         if (canSelect(n)) {
             if let c = currency(n) {
-                view?.hideSubView()
                 respond(c)
                 return true
             } else {
@@ -143,29 +141,13 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: Controller<
         return true
     }
     
-    func createCurrency() {
+    func createCurrency1(handler: @escaping () -> ()) -> ControllerCreateCurrencyInterface {
         let createController = ControllerCreateCurrencyImplementation(model: model)
         createController.setResponseFunction{(_: ()) in
-            self.addCurrency()
+            self.refreshData()
+            handler()
         }
-        let createView = view!.createCurrency(createController)
-        createController.setView(createView)
-        createView.showSubView()
-    }
-    
-    func refreshCurrency(_ n: Int) {
-        refreshData()
-        view?.refreshCurrency(n)
-    }
-    
-    func removeCurrency(_ n: Int) {
-        refreshData()
-        view?.removeCurrency(n)
-    }
-    
-    func addCurrency() {
-        refreshData()
-        view?.addCurrency()
+        return createController
     }
     
     func refreshData() {
@@ -206,7 +188,7 @@ enum EditCurrencyResponse {
     case Delete
 }
 
-class ControllerEditCurrencyImplementation<Model: ModelInterface>: Controller<EditCurrencyResponse, EditCurrencyView>, ControllerEditCurrencyInterface {
+class ControllerEditCurrencyImplementation<Model: ModelInterface>: Controller<EditCurrencyResponse>, ControllerEditCurrencyInterface {
     
     let model: Model
     
@@ -259,7 +241,6 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: Controller<Ed
     
     func setCurrency(_ name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
         if (canSetCurrency(name, code: code, symbol: symbol, rate: rate)) {
-            view?.hideSubView()
             model.changeCurrency(currency, name: name, code: code, symbol: symbol)
             model.updateCurrency(currency, base: baseCurrency, rate: rate.0, invRate: rate.1, manual: true)
             let currenciesToRefresh = (baseCurrency == nil) ? [] :
@@ -287,7 +268,6 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: Controller<Ed
     
     func remove() -> Bool {
         if (canRemove()) {
-            view?.hideSubView()
             model.removeCurrency(currency)
             respond(.Delete)
             return true
@@ -300,7 +280,7 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: Controller<Ed
         return accounts.isEmpty
     }
     
-    func selectCurrency() {
+    func selectCurrency(handler: @escaping (ControllerROCurrencyInterface?) -> ()) -> ControllerSelectCurrencyInterface {
         let selectCurrencyController = ControllerSelectCurrencyImplementation<Model>(model: model, baseFor: currency, selected: baseCurrency)
         selectCurrencyController.setResponseFunction{(currency: ControllerROCurrencyInterface?) in
             if let c = currency as? ControllerROCurrencyImplementation<Model> {
@@ -308,16 +288,14 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: Controller<Ed
             } else {
                 self.baseCurrency = nil
             }
-            self.view?.relativeSelected(currency)
+            handler(currency)
         }
-        let selectCurrencyView = view!.selectRelative(selectCurrencyController)
-        selectCurrencyController.setView(selectCurrencyView)
-        selectCurrencyView.showSubView()
+        return selectCurrencyController
     }
     
 }
 
-class ControllerCreateCurrencyImplementation<Model: ModelInterface>: Controller<(), CreateCurrencyView>, ControllerCreateCurrencyInterface {
+class ControllerCreateCurrencyImplementation<Model: ModelInterface>: Controller<()>, ControllerCreateCurrencyInterface {
     
     let model: Model
     
@@ -331,7 +309,6 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: Controller<
     
     func create(_ name: String, code: String?, symbol: String, rate: (NSDecimalNumber, NSDecimalNumber)) -> Bool {
         if (canCreate(name, code: code, symbol: symbol, rate: rate)) {
-            view?.hideSubView()
             let newRate = (rate.0.multiplying(by: rateMultiplier.0), rate.1.multiplying(by: rateMultiplier.1))
             _ = model.addCurrencyAndUpdate(name, code: code, symbol: symbol, base: baseCurrency, rate: newRate.0, invRate: newRate.1, manual: true)
             respond(())
@@ -345,7 +322,7 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: Controller<
         return !name.isEmpty && rate.0.compare(0) == .orderedDescending && rate.1.compare(0) == .orderedDescending
     }
     
-    func selectCurrency() {
+    func selectCurrency(handler: @escaping (ControllerROCurrencyInterface?) -> ()) -> ControllerSelectCurrencyInterface {
         let selectCurrencyController = ControllerSelectCurrencyImplementation<Model>(model: model, baseFor: nil, selected: nil)
         selectCurrencyController.setResponseFunction{(currency: ControllerROCurrencyInterface?) in
             if let c = currency as? ControllerROCurrencyImplementation<Model> {
@@ -359,11 +336,9 @@ class ControllerCreateCurrencyImplementation<Model: ModelInterface>: Controller<
             } else {
                 self.baseCurrency = nil
             }
-            self.view?.relativeSelected(currency)
+            handler(currency)
         }
-        let selectCurrencyView = view!.selectRelative(selectCurrencyController)
-        selectCurrencyController.setView(selectCurrencyView)
-        selectCurrencyView.showSubView()
+        return selectCurrencyController
     }
     
     func relative() -> ControllerROCurrencyInterface? {

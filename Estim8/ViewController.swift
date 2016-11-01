@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainWindowImplementation: MainWindowView {
+class MainWindowImplementation {
     
     let controller: ControllerInterface
     
@@ -70,7 +70,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let controller = ControllerImplementation(model: model)
         let mainWindow = MainWindowImplementation(controller: controller, view: self)
         updater.startUpdating()
-        controller.setView(mainWindow)
         self.viewImplementation = mainWindow
         self.updater = updater
     }
@@ -122,7 +121,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell")
-        if let account = viewImplementation?.controller.account((indexPath as NSIndexPath).row) {
+        let maybeAccount = viewImplementation?.controller.account((indexPath as NSIndexPath).row) {(accountResponse) in
+            switch accountResponse {
+            case .Remove(let index): self.viewImplementation?.removeAccount(index)
+            case .Refresh(let index): self.viewImplementation?.refreshAccount(index)
+            }
+        }
+        if let account = maybeAccount {
             cell?.textLabel?.text = account.name()
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
@@ -133,8 +138,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if let controller = viewImplementation?.controller {
-            controller.account((indexPath as NSIndexPath).row)?.edit()
+        let maybeAccount = viewImplementation?.controller.account((indexPath as NSIndexPath).row) {(accountResponse) in
+            switch accountResponse {
+            case .Remove(let index): self.viewImplementation?.removeAccount(index)
+            case .Refresh(let index): self.viewImplementation?.refreshAccount(index)
+            }
+        }
+        if let editController = maybeAccount?.edit(),
+            let editView = viewImplementation?.editAccount(editController){
+            editView.showSubView()
         }
         return indexPath
     }
@@ -148,24 +160,45 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if let controller = viewImplementation?.controller {
-            let alert = UIAlertController(title: controller.account((indexPath as NSIndexPath).row)?.name() ?? "", message: "Delete?", preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {_ in controller.account((indexPath as NSIndexPath).row)?.remove()}))
-            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: {_ in tableView.setEditing(false, animated: true)}))
+        let maybeAccount = viewImplementation?.controller.account((indexPath as NSIndexPath).row) {(accountResponse) in
+            switch accountResponse {
+            case .Remove(let index): self.viewImplementation?.removeAccount(index)
+            case .Refresh(let index): self.viewImplementation?.refreshAccount(index)
+            }
+        }
+        if let account = maybeAccount {
+            let alert = UIAlertController(title: account.name(), message: "Delete?", preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive) {_ in account.remove()})
+            alert.addAction(UIAlertAction(title: "No", style: .cancel) {_ in tableView.setEditing(false, animated: true)})
             self.present(alert, animated: true, completion: nil)
         }
     }
     
     @IBAction func buttonPlusClicked(_ sender: UIBarButtonItem) {
-        viewImplementation?.controller.createAccount()
+        if let view = viewImplementation {
+            let createController = view.controller.createAccount { _ in view.addAccount() }
+            let createView = view.createAccount(createController)
+            createView.showSubView()
+        }
     }
     
     @IBAction func buttonDecantClicked(_ sender: AnyObject) {
-        viewImplementation?.controller.decant()
+        if let view = viewImplementation {
+            let decantController = view.controller.decant{(fromTo) in
+                let (from, to) = fromTo
+                view.refreshAccount(from)
+                view.refreshAccount(to)
+            }
+            let decantView = view.decant(decantController)
+            decantView.showSubView()
+        }
     }
     
     @IBAction func buttonSlicesClicked(_ sender: AnyObject) {
-        viewImplementation?.controller.showSlices()
+        if let slicesController = viewImplementation?.controller.showSlices(),
+            let slicesView = viewImplementation?.showSlices(slicesController) {
+            slicesView.showSubView()
+        }
     }
 }
 

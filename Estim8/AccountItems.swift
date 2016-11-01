@@ -22,7 +22,7 @@ protocol ControllerROAccountInterface {
 
 protocol ControllerAccountInterface: ControllerROAccountInterface {
     
-    func edit()
+    func edit() -> ControllerEditAccountInterface
     
     func remove()
     

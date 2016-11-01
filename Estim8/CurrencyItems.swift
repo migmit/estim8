@@ -25,7 +25,7 @@ protocol ControllerROCurrencyInterface {
 
 protocol ControllerCurrencyInterface: ControllerROCurrencyInterface {
     
-    func edit()
+    func edit(handler: @escaping (EditCurrencyResponse) -> ()) -> ControllerEditCurrencyInterface
     
     func remove() -> Bool
     

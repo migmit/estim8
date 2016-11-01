@@ -24,7 +24,7 @@ protocol ControllerSliceInterface {
     
     func prev() -> ControllerSliceInterface?
     
-    func createOrRemove()
+    func createOrRemove() -> ControllerSliceInterface
     
     func sliceDate() -> Date?
 }

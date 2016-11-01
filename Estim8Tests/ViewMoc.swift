@@ -120,7 +120,7 @@ class MocView {
     }
 }
 
-class MainWindowMoc: MainWindowView {
+class MainWindowMoc {
     
     let controller: ControllerInterface
     
@@ -132,12 +132,21 @@ class MainWindowMoc: MainWindowView {
         self.controller = controller
     }
     
+    func getAccount(_ index: Int) -> ControllerAccountInterface? {
+        return controller.account(index) {(accountResponse) in
+            switch accountResponse {
+            case .Remove(let index): self.removeAccount(index)
+            case .Refresh(let index): self.refreshAccount(index)
+            }
+        }
+    }
+    
     func setView(_ view: MocView) {
         self.view = view
         let n = controller.numberOfAccounts()
         if (n > 0) {
             for i in 0...(n-1) {
-                if let account = controller.account(i) {
+                if let account = getAccount(i) {
                     display.append((account.name(), account.value()))
                 }
             }
@@ -161,7 +170,7 @@ class MainWindowMoc: MainWindowView {
     }
     
     func refreshAccount(_ n: Int) {
-        let account = controller.account(n)!
+        let account = getAccount(n)!
         display[n] = (account.name(), account.value())
     }
     
@@ -171,29 +180,42 @@ class MainWindowMoc: MainWindowView {
     
     func addAccount() {
         let n = display.count
-        if let account = controller.account(n) {
+        if let account = getAccount(n) {
             display.append((account.name(), account.value()))
         }
     }
     
     func tapAccount(_ n: Int) {
-        controller.account(n)?.edit()
+        if let editController = getAccount(n)?.edit(){
+            let editView = editAccount(editController)
+            editView.showSubView()
+        }
     }
     
     func tapPlusButton() {
-        controller.createAccount()
+        let createController = controller.createAccount{_ in self.addAccount()}
+        let createView = createAccount(createController)
+        createView.showSubView()
     }
     
     func tapDecantButton() {
-        controller.decant()
+        let decantController = controller.decant {(fromTo) in
+            let (from, to) = fromTo
+            self.refreshAccount(from)
+            self.refreshAccount(to)
+        }
+        let decantView = decant(decantController)
+        decantView.showSubView()
     }
     
     func tapHistoryButton() {
-        controller.showSlices()
+        let slicesController = controller.showSlices()
+        let slicesView = showSlices(slicesController)
+        slicesView.showSubView()
     }
     
     func strikeOverAccount(_ n: Int) {
-        if let account = controller.account(n) {
+        if let account = getAccount(n) {
             account.remove()
         }
     }
@@ -238,12 +260,16 @@ class CreateAccountMoc: CreateAccountView {
     
     func tapOk() {
         if (!title.isEmpty) {
-            _ = controller.create(title, initialValue: value, isNegative: isNegative)
+            if (controller.create(title, initialValue: value, isNegative: isNegative)) {
+                hideSubView()
+            }
         }
     }
     
     func tapCurrency() {
-        controller.selectCurrency()
+        let listCurrenciesController = controller.selectCurrency{self.currencySelected($0)}
+        let listCurrenciesView = selectCurrency(listCurrenciesController)
+        listCurrenciesView.showSubView()
     }
     
     func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
@@ -309,7 +335,9 @@ class DecantMoc: DecantView {
     }
     
     func tapOk() {
-        _ = controller.decant(fromSelected, to: toSelected, amount: value, useFromCurrency: useFromCurrency)
+        if (controller.decant(fromSelected, to: toSelected, amount: value, useFromCurrency: useFromCurrency)) {
+            hideSubView()
+        }
     }
 }
 
@@ -389,16 +417,6 @@ class SlicesMoc: SlicesView {
         view.state = .mainWindow(parent)
     }
     
-    func createSlice(_ slice: ControllerSliceInterface) {
-        numberOfSlices += 1
-        state = State(controller: controller, number: slice.sliceIndex())!
-    }
-    
-    func removeSlice(_ slice: ControllerSliceInterface) {
-        numberOfSlices -= 1
-        state = State(controller: controller, number: slice.sliceIndex())!
-    }
-    
     func tapPrevButton() {
         if let s = state.slice.prev() {
             state = State(controller: controller, slice: s)
@@ -422,7 +440,8 @@ class SlicesMoc: SlicesView {
     }
     
     func tapCreateDeleteButton() {
-        state.slice.createOrRemove()
+        numberOfSlices = controller.numberOfSlices()
+        state = State(controller: controller, slice: state.slice.createOrRemove())
     }
     
     func expect(_ expect: [(String, NSDecimalNumber)?], buttonTitle: String, prevEnabled: Bool, nextEnabled: Bool) {
@@ -480,15 +499,20 @@ class EditAccountMoc: EditAccountView {
     }
     
     func tapOk() {
-        _ = controller.setValue(value)
+        if (controller.setValue(value)) {
+            hideSubView()
+        }
     }
     
     func tapDeleteButton() {
         controller.remove()
+        hideSubView()
     }
     
     func tapCurrency() {
-        controller.selectCurrency()
+        let listCurrenciesController = controller.selectCurrency{self.currencySelected($0)}
+        let listCurrenciesView = selectCurrency(listCurrenciesController)
+        listCurrenciesView.showSubView()
     }
     
     func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
@@ -577,19 +601,39 @@ class ListCurrenciesMoc: ListCurrenciesView {
     }
     
     func tapCurrency(_ n: Int) {
-        _ = controller.select(n)
+        if (controller.select(n)) {
+            hideSubView()
+        }
     }
     
     func strikeCurrency(_ n: Int, toEdit: Bool) {
         if (toEdit) {
-            controller.currency(n)?.edit()
+            if let currencyController = controller.currency(n) {
+                let editController = currencyController.edit{(response) in
+                    self.controller.refreshData()
+                    switch response {
+                    case .Refresh(let currencies):
+                        self.refreshCurrency(n)
+                        currencies.forEach{self.refreshCurrency($0)}
+                    case .Delete:
+                        self.removeCurrency(n)
+                    }
+                }
+                let editView = editCurrency(editController)
+                editView.showSubView()
+            }
         } else {
-            _ = controller.currency(n)?.remove()
+            if (controller.currency(n)?.remove() ?? false) {
+                controller.refreshData()
+                removeCurrency(n)
+            }
         }
     }
     
     func tapPlus() {
-        controller.createCurrency()
+        let createController = controller.createCurrency1{self.addCurrency()}
+        let createView = createCurrency(createController)
+        createView.showSubView()
     }
     
     func tapCancel() {
@@ -653,7 +697,9 @@ class CreateCurrencyMoc: CreateCurrencyView {
     }
     
     func tapOk() {
-        _ = controller.create(name, code: code, symbol: symbol, rate: (rate, NSDecimalNumber.one.dividing(by: rate)))
+        if (controller.create(name, code: code, symbol: symbol, rate: (rate, NSDecimalNumber.one.dividing(by: rate)))) {
+            hideSubView()
+        }
     }
     
     func tapCancel() {
@@ -661,7 +707,9 @@ class CreateCurrencyMoc: CreateCurrencyView {
     }
     
     func tapBaseCurrency() {
-        controller.selectCurrency()
+        let selectCurrencyController = controller.selectCurrency{self.relativeSelected($0)}
+        let selectCurrencyView = selectRelative(selectCurrencyController)
+        selectCurrencyView.showSubView()
     }
     
 }
@@ -713,7 +761,9 @@ class EditCurrencyMoc: EditCurrencyView {
     }
     
     func tapOk() {
-        _ = controller.setCurrency(name, code: code, symbol: symbol, rate: (rate, NSDecimalNumber.one.dividing(by: rate)))
+        if (controller.setCurrency(name, code: code, symbol: symbol, rate: (rate, NSDecimalNumber.one.dividing(by: rate)))) {
+            hideSubView()
+        }
     }
     
     func tapCancel() {
@@ -721,11 +771,15 @@ class EditCurrencyMoc: EditCurrencyView {
     }
     
     func tapDelete() {
-        _ = controller.remove()
+        if (controller.remove()) {
+            hideSubView()
+        }
     }
     
     func tapBaseCurrency() {
-        controller.selectCurrency()
+        let selectCurrencyController = controller.selectCurrency{self.relativeSelected($0)}
+        let selectCurrencyView = selectRelative(selectCurrencyController)
+        selectCurrencyView.showSubView()
     }
     
 }
@@ -793,7 +847,9 @@ class SelectCurrencyMoc: SelectCurrencyView {
     }
     
     func tapCurrency(_ n: Int) {
-        _ = controller.select(n)
+        if (controller.select(n)) {
+            hideSubView()
+        }
     }
     
     func tapCancel() {

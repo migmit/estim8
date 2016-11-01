@@ -98,7 +98,10 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
     @IBAction func buttonDeleteClicked(_ sender: UIButton) {
         if let controller = viewImplementation?.controller {
             let alert = UIAlertController(title: controller.name() , message: "Delete?", preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {_ in controller.remove()}))
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {_ in
+                controller.remove()
+                self.viewImplementation?.hideSubView()
+            }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -107,7 +110,9 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
     func buttonSaveClicked() {
         let value = accountValueText.getValue()
         if let controller = viewImplementation?.controller{
-            if (!(controller.setValue(value))) {
+            if (controller.setValue(value)) {
+                viewImplementation?.hideSubView()
+            } else {
                 let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller.name()) to \(value)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)

@@ -209,7 +209,9 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func buttonDoneClicked() {
         if let amount = child?.getAmount() {
             if let controller = viewImplementation?.controller {
-                if (!(controller.decant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true))) {
+                if (controller.decant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true)) {
+                    viewImplementation?.hideSubView()
+                } else {
                     let fromAccountName = controller.account(fromSelected)?.name() ?? "<unknown>"
                     let toAccountName = controller.account(toSelected)?.name() ?? "<unknown>"
                     let alert = UIAlertController(title: "Error", message: "Can't decant \(amount) from \"\(fromAccountName)\" to \"\(toAccountName)\"", preferredStyle: .alert)

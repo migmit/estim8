@@ -8,17 +8,22 @@
 
 import Foundation
 
+enum AccountResponse {
+    case Remove(index: Int)
+    case Refresh(index: Int)
+}
+
 protocol ControllerInterface {
     
     func numberOfAccounts() -> Int
     
-    func account(_ n: Int) -> ControllerAccountInterface?
+    func account(_ n: Int, handler: @escaping (AccountResponse) -> ()) -> ControllerAccountInterface?
     
-    func createAccount()
+    func createAccount(handler: @escaping (()) -> ()) -> ControllerCreateAccountInterface
     
-    func decant()
+    func decant(handler: @escaping ((Int, Int)) -> ()) -> ControllerDecantInterface
     
-    func showSlices()
+    func showSlices() -> ControllerSlicesInterface
 }
 
 protocol ControllerEditAccountInterface: ControllerROAccountInterface {
@@ -29,7 +34,7 @@ protocol ControllerEditAccountInterface: ControllerROAccountInterface {
     
     func remove()
     
-    func selectCurrency()
+    func selectCurrency(handler: @escaping (ControllerROCurrencyInterface) -> ()) -> ControllerListCurrenciesInterface
     
     func recalculate(_ value: NSDecimalNumber) -> NSDecimalNumber // from previously selected currency to the new one
     
@@ -41,7 +46,7 @@ protocol ControllerCreateAccountInterface {
     
     func canCreate(_ title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
     
-    func selectCurrency()
+    func selectCurrency(handler: @escaping (ControllerROCurrencyInterface) -> ()) -> ControllerListCurrenciesInterface
     
     func currency() -> ControllerROCurrencyInterface?
     

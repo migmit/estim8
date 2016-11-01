@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ControllerImplementation<Model: ModelInterface>: Controller<(), MainWindowView>, ControllerInterface {
+class ControllerImplementation<Model: ModelInterface>: Controller<()>, ControllerInterface {
     
     let model: Model
     
@@ -20,54 +20,36 @@ class ControllerImplementation<Model: ModelInterface>: Controller<(), MainWindow
         return model.liveAccounts().count
     }
     
-    func account(_ n: Int) -> ControllerAccountInterface? {
+    func account(_ n: Int, handler: @escaping (AccountResponse) -> ()) -> ControllerAccountInterface? {
         let accounts = model.liveAccounts()
         if (n >= accounts.count) {
             return nil
         } else {
-            return ControllerAccountImplementation(parent: self, model: model, view: view!, account: accounts[n], index: n)
+            return ControllerAccountImplementation(parent: self, model: model, account: accounts[n], index: n){(response: EditResponse) in
+                switch response {
+                case .Delete:
+                    handler(.Remove(index: n))
+                case .SetValue:
+                    handler(.Refresh(index: n))
+                }
+            }
         }
     }
     
-    func refreshAccount(_ n: Int) {
-        view?.refreshAccount(n)
-    }
-    
-    func removeAccount(_ n: Int) {
-        view?.removeAccount(n)
-    }
-    
-    func addAccount() {
-        view?.addAccount()
-    }
-    
-    func createAccount() {
+    func createAccount(handler: @escaping (()) -> ()) -> ControllerCreateAccountInterface {
         let createController = ControllerCreateAccountImplementation(model: model)
-        createController.setResponseFunction{(_: ()) in
-            self.addAccount()
-        }
-        let createView = view!.createAccount(createController)
-        createController.setView(createView)
-        createView.showSubView()
+        createController.setResponseFunction(handler)
+        return createController
     }
     
-    func decant() {
+    func decant(handler: @escaping ((Int, Int)) -> ()) -> ControllerDecantInterface {
         let decantController = ControllerDecantImplementation(model: model)
-        decantController.setResponseFunction{(fromTo: (Int, Int)) in
-            let (from, to) = fromTo
-            self.refreshAccount(from)
-            self.refreshAccount(to)
-        }
-        let decantView = view!.decant(decantController)
-        decantController.setView(decantView)
-        decantView.showSubView()
+        decantController.setResponseFunction(handler)
+        return decantController
     }
     
-    func showSlices() {
-        let slicesController = ControllerSlicesImplementation(model: model)
-        let slicesView = view!.showSlices(slicesController)
-        slicesController.setView(slicesView)
-        slicesView.showSubView()
+    func showSlices() -> ControllerSlicesInterface {
+        return ControllerSlicesImplementation(model: model)
     }
     
 }
@@ -77,7 +59,7 @@ enum EditResponse {
     case Delete
 }
 
-class ControllerEditAccountImplementation<Model: ModelInterface>: Controller<EditResponse, EditAccountView>, ControllerEditAccountInterface {
+class ControllerEditAccountImplementation<Model: ModelInterface>: Controller<EditResponse>, ControllerEditAccountInterface {
     
     let model: Model
     
@@ -115,7 +97,6 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: Controller<Edi
     
     func setValue(_ value: NSDecimalNumber) -> Bool {
         if (canSetValue(value)) {
-            view?.hideSubView()
             model.updateAccount(account, value: value, currency: selectedCurrency)
             respond(.SetValue)
             return true
@@ -131,23 +112,20 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: Controller<Edi
     }
     
     func remove() {
-        view?.hideSubView()
         model.removeAccount(account)
         respond(.Delete)
     }
     
-    func selectCurrency() {
+    func selectCurrency(handler: @escaping (ControllerROCurrencyInterface) -> ()) -> ControllerListCurrenciesInterface {
         let listCurrenciesController = ControllerListCurrenciesImplementation<Model>(model: model, selected: selectedCurrency)
         listCurrenciesController.setResponseFunction{(currency: ControllerROCurrencyInterface) in
             if let c = currency as? ControllerROCurrencyImplementation<Model> {
                 self.oldCurrency = self.selectedCurrency
                 self.selectedCurrency = c.currency
             }
-            self.view?.currencySelected(currency)
+            handler(currency)
         }
-        let listCurrenciesView = view!.selectCurrency(listCurrenciesController)
-        listCurrenciesController.setView(listCurrenciesView)
-        listCurrenciesView.showSubView()
+        return listCurrenciesController
     }
     
     func recalculate(_ value: NSDecimalNumber) -> NSDecimalNumber {
@@ -161,7 +139,7 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: Controller<Edi
     
 }
 
-class ControllerCreateAccountImplementation<Model: ModelInterface>: Controller<(), CreateAccountView>, ControllerCreateAccountInterface {
+class ControllerCreateAccountImplementation<Model: ModelInterface>: Controller<()>, ControllerCreateAccountInterface {
     
     let model: Model
     
@@ -174,7 +152,6 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: Controller<(
     func create(_ title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
         if (canCreate(title, initialValue: initialValue, isNegative: isNegative)) {
             if let c = selectedCurrency  {
-                view?.hideSubView()
                 _ = model.addAccountAndUpdate(title, value: initialValue, isNegative: isNegative, currency: c)
                 respond(())
                 return true
@@ -191,17 +168,15 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: Controller<(
         return verifyValue.compare(0) != .orderedAscending && !title.isEmpty
     }
     
-    func selectCurrency() {
+    func selectCurrency(handler: @escaping (ControllerROCurrencyInterface) -> ()) -> ControllerListCurrenciesInterface {
         let listCurrenciesController = ControllerListCurrenciesImplementation<Model>(model: model, selected: selectedCurrency)
         listCurrenciesController.setResponseFunction{(currency: ControllerROCurrencyInterface) in
             if let c = currency as? ControllerROCurrencyImplementation<Model> {
                 self.selectedCurrency = c.currency
             }
-            self.view?.currencySelected(currency)
+            handler(currency)
         }
-        let listCurrenciesView = view!.selectCurrency(listCurrenciesController)
-        listCurrenciesController.setView(listCurrenciesView)
-        listCurrenciesView.showSubView()
+        return listCurrenciesController
     }
     
     func currency() -> ControllerROCurrencyInterface? {
@@ -210,7 +185,7 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: Controller<(
     
 }
 
-class ControllerDecantImplementation<Model: ModelInterface>: Controller<(Int, Int), DecantView>, ControllerDecantInterface {
+class ControllerDecantImplementation<Model: ModelInterface>: Controller<(Int, Int)>, ControllerDecantInterface {
     
     let model: Model
     
@@ -236,7 +211,6 @@ class ControllerDecantImplementation<Model: ModelInterface>: Controller<(Int, In
             let accounts = model.liveAccounts()
             let accountFrom = accounts[from]
             let accountTo = accounts[to]
-            view?.hideSubView()
             let lastUpdateFrom = model.updatesOfAccount(accountFrom)[0]
             let lastUpdateTo = model.updatesOfAccount(accountTo)[0]
             model.updateAccount(accountFrom, value: amountFrom, currency: model.currencyOfUpdate(lastUpdateFrom))
@@ -290,7 +264,7 @@ class ControllerDecantImplementation<Model: ModelInterface>: Controller<(Int, In
     
 }
 
-class ControllerSlicesImplementation<Model: ModelInterface>: Controller<(), SlicesView>, ControllerSlicesInterface {
+class ControllerSlicesImplementation<Model: ModelInterface>: Controller<()>, ControllerSlicesInterface {
     
     let model: Model
     
@@ -315,12 +289,5 @@ class ControllerSlicesImplementation<Model: ModelInterface>: Controller<(), Slic
             return ControllerSliceImplementation(parent: self, model: model, slice: slices[n-1], index: n-1)
         }
     }
-    
-    func createSlice(_ slice: ControllerSliceInterface) {
-        view?.createSlice(slice)
-    }
-    
-    func removeSlice(_ slice: ControllerSliceInterface) {
-        view?.removeSlice(slice)
-    }
+
 }

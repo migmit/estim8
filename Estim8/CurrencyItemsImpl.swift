@@ -54,43 +54,29 @@ class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerROCurre
     
     let parent: ControllerListCurrenciesImplementation<Model>
     
-    let view: ListCurrenciesView
-    
     let index: Int
     
     let dependentCurrencies: [(Model.Currency, Int)]
     
     let accounts: [Model.Account]
     
-    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, view: ListCurrenciesView, currency: Model.Currency, index: Int, dependentCurrencies: [(Model.Currency, Int)], accounts: [Model.Account]) {
+    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, currency: Model.Currency, index: Int, dependentCurrencies: [(Model.Currency, Int)], accounts: [Model.Account]) {
         self.parent = parent
-        self.view = view
         self.index = index
         self.dependentCurrencies = dependentCurrencies
         self.accounts = accounts
         super.init(model: model, currency: currency)
     }
     
-    func edit() {
+    func edit(handler: @escaping (EditCurrencyResponse) -> ()) -> ControllerEditCurrencyInterface {
         let editController = ControllerEditCurrencyImplementation<Model>(model: model, currency: currency, index: index, dependentCurrencies: dependentCurrencies, accounts: accounts)
-        editController.setResponseFunction{(response) in
-            switch response {
-            case .Refresh(let currencies):
-                self.parent.refreshCurrency(self.index)
-                currencies.forEach{self.parent.refreshCurrency($0)}
-            case .Delete:
-                self.parent.removeCurrency(self.index)
-            }
-        }
-        let editView = view.editCurrency(editController)
-        editController.setView(editView)
-        editView.showSubView()
+        editController.setResponseFunction(handler)
+        return editController
     }
     
     func remove() -> Bool {
         if (canRemove()) {
             model.removeCurrency(currency)
-            parent.removeCurrency(index)
             return true
         } else {
             return false

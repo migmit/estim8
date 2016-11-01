@@ -33,14 +33,6 @@ class SlicesImplementation: SlicesView {
     func hideSubView() {
         view?.dismiss(animated: true, completion: nil)
     }
-    
-    func createSlice(_ slice: ControllerSliceInterface) {
-        view?.refreshCurrentSlice(slice)
-    }
-    
-    func removeSlice(_ slice: ControllerSliceInterface) {
-        view?.refreshCurrentSlice(slice)
-    }
 }
 
 class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
@@ -200,7 +192,9 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func createDeleteButtonClicked() {
-        currentSlice?.createOrRemove()
+        if let slice = currentSlice {
+            refreshCurrentSlice(slice.createOrRemove())
+        }
     }
     
     @IBAction func leftButtonClicked(_ sender: UIBarButtonItem) {

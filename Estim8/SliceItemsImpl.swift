@@ -76,9 +76,8 @@ class ControllerCurrentStatePseudoSliceImplementation<Model: ModelInterface>: Co
         return nil
     }
     
-    func createOrRemove() {
-        let slice = model.createSlice()
-        parent.createSlice(ControllerSliceImplementation(parent: parent, model: model, slice: slice, index: 0))
+    func createOrRemove() -> ControllerSliceInterface {
+        return ControllerSliceImplementation(parent: parent, model: model, slice: model.createSlice(), index: 0)
     }
     
     func sliceDate() -> Date? {
@@ -173,7 +172,7 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         }
     }
     
-    func prev() -> ControllerSliceInterface? {
+    func strictPrev() -> ControllerSliceInterface {
         if (index == 0) {
             return ControllerCurrentStatePseudoSliceImplementation(parent: parent, model: model)
         } else {
@@ -183,10 +182,14 @@ class ControllerSliceImplementation<Model: ModelInterface>: ControllerSliceInter
         }
     }
     
-    func createOrRemove() {
-        let newSlice = prev()!
+    func prev() -> ControllerSliceInterface? {
+        return strictPrev()
+    }
+    
+    func createOrRemove() -> ControllerSliceInterface {
+        let newSlice = strictPrev()
         model.removeSlice(slice)
-        parent.removeSlice(newSlice)
+        return newSlice
     }
     
     func sliceDate() -> Date? {

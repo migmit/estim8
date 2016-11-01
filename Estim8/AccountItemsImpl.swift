@@ -45,18 +45,18 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
     
     let model: Model
     
-    let view: MainWindowView
-    
     let account: Model.Account
     
     let index: Int
     
-    init(parent: ControllerImplementation<Model>, model: Model, view: MainWindowView, account: Model.Account, index: Int) {
+    let handler: (EditResponse) -> ()
+    
+    init(parent: ControllerImplementation<Model>, model: Model, account: Model.Account, index: Int, handler: @escaping (EditResponse) -> ()) {
         self.parent = parent
         self.model = model
-        self.view = view
         self.account = account
         self.index = index
+        self.handler = handler
     }
     
     func name() -> String {
@@ -73,24 +73,15 @@ class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountI
         return model.accountIsNegative(account)
     }
     
-    func edit() {
+    func edit() -> ControllerEditAccountInterface {
         let editController = ControllerEditAccountImplementation(model: model, account: account)
-        editController.setResponseFunction{(response: EditResponse) in
-            switch response {
-            case .Delete:
-                self.parent.removeAccount(self.index)
-            case .SetValue:
-                self.parent.refreshAccount(self.index)
-            }
-        }
-        let editView = view.editAccount(editController)
-        editController.setView(editView)
-        editView.showSubView()
+        editController.setResponseFunction(handler)
+        return editController
     }
     
     func remove() {
         model.removeAccount(account)
-        parent.removeAccount(index)
+        handler(.Delete)
     }
     
     func currency() -> ControllerROCurrencyInterface {
