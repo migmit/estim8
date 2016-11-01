@@ -109,7 +109,7 @@ class ControllerListCurrenciesImplementation<Model: ModelInterface>: Controller<
         } else {
             let c = currencies[n]
             if let data = currencyData[c] {
-                return ControllerCurrencyImplementation(parent: self, model: model, currency: c, index: n, dependentCurrencies: data.0, accounts: data.1)
+                return ControllerCurrencyImplementation(model: model, currency: c, dependentCurrencies: data.0, accounts: data.1)
             } else {
                 return nil
             }
@@ -194,18 +194,15 @@ class ControllerEditCurrencyImplementation<Model: ModelInterface>: Controller<Ed
     
     let currency: Model.Currency
     
-    let index: Int
-    
     var baseCurrency: Model.Currency?
     
     let dependentCurrencies: [(Model.Currency, Int)]
     
     let accounts: [Model.Account]
     
-    init(model: Model, currency: Model.Currency, index: Int, dependentCurrencies: [(Model.Currency, Int)], accounts: [Model.Account]) {
+    init(model: Model, currency: Model.Currency, dependentCurrencies: [(Model.Currency, Int)], accounts: [Model.Account]) {
         self.model = model
         self.currency = currency
-        self.index = index
         let lastUpdate = model.updatesOfCurrency(currency)[0]
         self.baseCurrency = model.currenciesOfUpdate(lastUpdate).1
         self.dependentCurrencies = dependentCurrencies

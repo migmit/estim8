@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectCurrencyImplementation: SelectCurrencyView {
+class SelectCurrencyImplementation {
     
     let controller: ControllerSelectCurrencyInterface
     
@@ -27,7 +27,7 @@ class SelectCurrencyImplementation: SelectCurrencyView {
     }
     
     func showSubView() {
-        parent.showSelectCurrencyView(self)
+        parent.showSelectCurrencyView(controller)
     }
     
     func hideSubView() {

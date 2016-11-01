@@ -41,21 +41,15 @@ class ControllerROAccountImplementation<Model: ModelInterface>: ControllerROAcco
 
 class ControllerAccountImplementation<Model: ModelInterface>: ControllerAccountInterface {
     
-    let parent: ControllerImplementation<Model>
-    
     let model: Model
     
     let account: Model.Account
     
-    let index: Int
-    
     let handler: (EditResponse) -> ()
     
-    init(parent: ControllerImplementation<Model>, model: Model, account: Model.Account, index: Int, handler: @escaping (EditResponse) -> ()) {
-        self.parent = parent
+    init(model: Model, account: Model.Account, handler: @escaping (EditResponse) -> ()) {
         self.model = model
         self.account = account
-        self.index = index
         self.handler = handler
     }
     

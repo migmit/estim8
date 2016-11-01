@@ -153,22 +153,6 @@ class MainWindowMoc {
         }
     }
     
-    func createAccount(_ createAccount: ControllerCreateAccountInterface) -> CreateAccountView {
-        return CreateAccountMoc(parent: self, controller: createAccount, view: view!)
-    }
-    
-    func decant(_ decant: ControllerDecantInterface) -> DecantView {
-        return DecantMoc(parent: self, controller: decant, view: view!)
-    }
-    
-    func showSlices(_ slices: ControllerSlicesInterface) -> SlicesView {
-        return SlicesMoc(parent: self, controller: slices, view: view!)
-    }
-    
-    func editAccount(_ editAccount: ControllerEditAccountInterface) -> EditAccountView {
-        return EditAccountMoc(parent: self, controller: editAccount, view: view!)
-    }
-    
     func refreshAccount(_ n: Int) {
         let account = getAccount(n)!
         display[n] = (account.name(), account.value())
@@ -187,15 +171,13 @@ class MainWindowMoc {
     
     func tapAccount(_ n: Int) {
         if let editController = getAccount(n)?.edit(){
-            let editView = editAccount(editController)
-            editView.showSubView()
+            EditAccountMoc(parent: self, controller: editController, view: view!).showSubView()
         }
     }
     
     func tapPlusButton() {
         let createController = controller.createAccount{_ in self.addAccount()}
-        let createView = createAccount(createController)
-        createView.showSubView()
+        CreateAccountMoc(parent: self, controller: createController, view: view!).showSubView()
     }
     
     func tapDecantButton() {
@@ -204,14 +186,12 @@ class MainWindowMoc {
             self.refreshAccount(from)
             self.refreshAccount(to)
         }
-        let decantView = decant(decantController)
-        decantView.showSubView()
+        DecantMoc(parent: self, controller: decantController, view: view!).showSubView()
     }
     
     func tapHistoryButton() {
         let slicesController = controller.showSlices()
-        let slicesView = showSlices(slicesController)
-        slicesView.showSubView()
+        SlicesMoc(parent: self, controller: slicesController, view: view!).showSubView()
     }
     
     func strikeOverAccount(_ n: Int) {
@@ -226,7 +206,7 @@ class MainWindowMoc {
     }
 }
 
-class CreateAccountMoc: CreateAccountView {
+class CreateAccountMoc {
     
     let parent: MainWindowMoc
     
@@ -268,12 +248,7 @@ class CreateAccountMoc: CreateAccountView {
     
     func tapCurrency() {
         let listCurrenciesController = controller.selectCurrency{self.currencySelected($0)}
-        let listCurrenciesView = selectCurrency(listCurrenciesController)
-        listCurrenciesView.showSubView()
-    }
-    
-    func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
-        return ListCurrenciesMoc(parent: .createAccount(self), controller: controller, view: view)
+        ListCurrenciesMoc(parent: .createAccount(self), controller: listCurrenciesController, view: view).showSubView()
     }
     
     func currencySelected(_ selected: ControllerROCurrencyInterface) {
@@ -285,7 +260,7 @@ class CreateAccountMoc: CreateAccountView {
     }
 }
 
-class DecantMoc: DecantView {
+class DecantMoc {
     
     let parent: MainWindowMoc
     
@@ -341,7 +316,7 @@ class DecantMoc: DecantView {
     }
 }
 
-class SlicesMoc: SlicesView {
+class SlicesMoc {
     
     class State {
         
@@ -466,7 +441,7 @@ class SlicesMoc: SlicesView {
     }
 }
 
-class EditAccountMoc: EditAccountView {
+class EditAccountMoc {
     
     let parent: MainWindowMoc
     
@@ -511,12 +486,7 @@ class EditAccountMoc: EditAccountView {
     
     func tapCurrency() {
         let listCurrenciesController = controller.selectCurrency{self.currencySelected($0)}
-        let listCurrenciesView = selectCurrency(listCurrenciesController)
-        listCurrenciesView.showSubView()
-    }
-    
-    func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
-        return ListCurrenciesMoc(parent: .editAccount(self), controller: controller, view: view)
+        ListCurrenciesMoc(parent: .editAccount(self), controller: listCurrenciesController, view: view).showSubView()
     }
     
     func currencySelected(_ selected: ControllerROCurrencyInterface) {
@@ -537,7 +507,7 @@ enum ListCurrenciesParent {
     case createAccount(CreateAccountMoc)
 }
 
-class ListCurrenciesMoc: ListCurrenciesView {
+class ListCurrenciesMoc {
     
     fileprivate var display: [(String, (NSDecimalNumber, NSDecimalNumber), String?, (Bool, Bool))] // Currency symbol, rate, relative symbol, (can select, marked)
     
@@ -573,14 +543,6 @@ class ListCurrenciesMoc: ListCurrenciesView {
         case .createAccount(let createAccount):
             view.state = .createAccount(createAccount)
         }
-    }
-    
-    func createCurrency(_ controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView {
-        return CreateCurrencyMoc(parent: self, controller: controller, view: view)
-    }
-    
-    func editCurrency(_ controller: ControllerEditCurrencyInterface) -> EditCurrencyView {
-        return EditCurrencyMoc(parent: self, controller: controller, view: view)
     }
     
     func refreshCurrency(_ n: Int) {
@@ -619,8 +581,7 @@ class ListCurrenciesMoc: ListCurrenciesView {
                         self.removeCurrency(n)
                     }
                 }
-                let editView = editCurrency(editController)
-                editView.showSubView()
+                EditCurrencyMoc(parent: self, controller: editController, view: view).showSubView()
             }
         } else {
             if (controller.currency(n)?.remove() ?? false) {
@@ -632,8 +593,7 @@ class ListCurrenciesMoc: ListCurrenciesView {
     
     func tapPlus() {
         let createController = controller.createCurrency1{self.addCurrency()}
-        let createView = createCurrency(createController)
-        createView.showSubView()
+        CreateCurrencyMoc(parent: self, controller: createController, view: view).showSubView()
     }
     
     func tapCancel() {
@@ -654,7 +614,7 @@ class ListCurrenciesMoc: ListCurrenciesView {
     }
 }
 
-class CreateCurrencyMoc: CreateCurrencyView {
+class CreateCurrencyMoc {
     
     var name: String = ""
     
@@ -684,10 +644,6 @@ class CreateCurrencyMoc: CreateCurrencyView {
         view.state = .listCurrencies(parent)
     }
     
-    func selectRelative(_ controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {
-        return SelectCurrencyMoc(parent: .createCurrency(self), controller: controller, view: view)
-    }
-    
     func relativeSelected(_ selected: ControllerROCurrencyInterface?) {
         //do nothing
     }
@@ -708,13 +664,12 @@ class CreateCurrencyMoc: CreateCurrencyView {
     
     func tapBaseCurrency() {
         let selectCurrencyController = controller.selectCurrency{self.relativeSelected($0)}
-        let selectCurrencyView = selectRelative(selectCurrencyController)
-        selectCurrencyView.showSubView()
+        SelectCurrencyMoc(parent: .createCurrency(self), controller: selectCurrencyController, view: view).showSubView()
     }
     
 }
 
-class EditCurrencyMoc: EditCurrencyView {
+class EditCurrencyMoc {
     
     var name: String = ""
     
@@ -748,10 +703,6 @@ class EditCurrencyMoc: EditCurrencyView {
         view.state = .listCurrencies(parent)
     }
     
-    func selectRelative(_ controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {
-        return SelectCurrencyMoc(parent: .editCurrency(self), controller: controller, view: view)
-    }
-    
     func relativeSelected(_ selected: ControllerROCurrencyInterface?) {
         //do nothing
     }
@@ -778,8 +729,7 @@ class EditCurrencyMoc: EditCurrencyView {
     
     func tapBaseCurrency() {
         let selectCurrencyController = controller.selectCurrency{self.relativeSelected($0)}
-        let selectCurrencyView = selectRelative(selectCurrencyController)
-        selectCurrencyView.showSubView()
+        SelectCurrencyMoc(parent: .editCurrency(self), controller: selectCurrencyController, view: view).showSubView()
     }
     
 }
@@ -789,7 +739,7 @@ enum SelectCurrencyParent {
     case editCurrency(EditCurrencyMoc)
 }
 
-class SelectCurrencyMoc: SelectCurrencyView {
+class SelectCurrencyMoc {
     
     fileprivate let display: [(String, (Bool, Bool))?] // Symbol, (canSelect, marked)
     

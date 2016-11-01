@@ -8,60 +8,12 @@
 
 import UIKit
 
-class ListCurrenciesImplementation: ListCurrenciesView {
-    
-    let controller: ControllerListCurrenciesInterface
-    
-    let parent: ListCurrenciesViewControllerInterface
-    
-    weak var view: ListCurrenciesViewController? = nil
-    
-    init(controller: ControllerListCurrenciesInterface, parent: ListCurrenciesViewControllerInterface) {
-        self.controller = controller
-        self.parent = parent
-    }
-    
-    func setView(_ view: ListCurrenciesViewController) {
-        self.view = view
-        view.setViewImplementation(self)
-    }
-    
-    func showSubView() {
-        parent.showListCurrenciesView(self)
-    }
-    
-    func hideSubView() {
-        _ = view?.navigationController?.popViewController(animated: true)
-    }
-    
-    func createCurrency(_ controller: ControllerCreateCurrencyInterface) -> CreateCurrencyView {
-        return CreateCurrencyImplementation(controller: controller, parent: view!)
-    }
-    
-    func editCurrency(_ controller: ControllerEditCurrencyInterface) -> EditCurrencyView {
-        return EditCurrencyImplementation(controller: controller, parent: view!)
-    }
-    
-    func refreshCurrency(_ n: Int) {
-        //TODO
-    }
-    
-    func removeCurrency(_ n: Int) {
-        //TODO
-    }
-    
-    func addCurrency() {
-        //TODO
-    }
-    
-}
-
 class ListCurrenciesViewController: SubViewController {
     
-    var viewImplementation: ListCurrenciesView? = nil
+    var controller: ControllerListCurrenciesInterface? = nil
     
-    func setViewImplementation(_ viewImplementation: ListCurrenciesImplementation) {
-        self.viewImplementation = viewImplementation
+    func setController(_ controller: ControllerListCurrenciesInterface) {
+        self.controller = controller
     }
     
     override func viewDidLoad() {

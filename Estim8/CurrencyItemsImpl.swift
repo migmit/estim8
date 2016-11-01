@@ -10,9 +10,9 @@ import Foundation
 
 class ControllerROCurrencyImplementation<Model: ModelInterface>: ControllerROCurrencyInterface {
     
-    let currency: Model.Currency
-    
     let model: Model
+    
+    let currency: Model.Currency
     
     init(model: Model, currency: Model.Currency) {
         self.currency = currency
@@ -52,24 +52,18 @@ class ControllerROCurrencyImplementation<Model: ModelInterface>: ControllerROCur
 
 class ControllerCurrencyImplementation<Model: ModelInterface>: ControllerROCurrencyImplementation<Model>, ControllerCurrencyInterface {
     
-    let parent: ControllerListCurrenciesImplementation<Model>
-    
-    let index: Int
-    
     let dependentCurrencies: [(Model.Currency, Int)]
     
     let accounts: [Model.Account]
     
-    init(parent: ControllerListCurrenciesImplementation<Model>, model: Model, currency: Model.Currency, index: Int, dependentCurrencies: [(Model.Currency, Int)], accounts: [Model.Account]) {
-        self.parent = parent
-        self.index = index
+    init(model: Model, currency: Model.Currency, dependentCurrencies: [(Model.Currency, Int)], accounts: [Model.Account]) {
         self.dependentCurrencies = dependentCurrencies
         self.accounts = accounts
         super.init(model: model, currency: currency)
     }
     
     func edit(handler: @escaping (EditCurrencyResponse) -> ()) -> ControllerEditCurrencyInterface {
-        let editController = ControllerEditCurrencyImplementation<Model>(model: model, currency: currency, index: index, dependentCurrencies: dependentCurrencies, accounts: accounts)
+        let editController = ControllerEditCurrencyImplementation<Model>(model: model, currency: currency, dependentCurrencies: dependentCurrencies, accounts: accounts)
         editController.setResponseFunction(handler)
         return editController
     }

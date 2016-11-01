@@ -8,53 +8,13 @@
 
 import UIKit
 
-class MainWindowImplementation {
-    
-    let controller: ControllerInterface
-    
-    var view: ViewController? = nil
-    
-    init(controller: ControllerInterface, view: ViewController) {
-        self.controller = controller
-        self.view = view
-    }
-    
-    func createAccount(_ controller: ControllerCreateAccountInterface) -> CreateAccountView {
-        return CreateAccountImplementation(controller: controller, parent: view!)
-    }
-    
-    func decant(_ controller: ControllerDecantInterface) -> DecantView {
-        return DecantImplementation(controller: controller, parent: view!)
-    }
-    
-    func showSlices(_ controller: ControllerSlicesInterface) -> SlicesView {
-        return SlicesImplementation(controller: controller, parent: view!)
-    }
-    
-    func editAccount(_ controller: ControllerEditAccountInterface) -> EditAccountView {
-        return EditAccountImplementation(controller: controller, parent: view!)
-    }
-    
-    func refreshAccount(_ n: Int) {
-        view?.accountsTable.reloadRows(at: [IndexPath(row: n, section: 0)], with: .none)
-    }
-    
-    func removeAccount(_ n: Int) {
-        view?.accountsTable.deleteRows(at: [IndexPath(row: n, section: 0)], with: .top)
-    }
-    
-    func addAccount() {
-        view?.accountsTable.insertRows(at: [IndexPath(row: controller.numberOfAccounts()-1, section: 0)], with: .top)
-    }
-}
-
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let updateInterval: TimeInterval = 24*60*60
     
     let sinceLastUpdate: TimeInterval = 12*60*60
     
-    var viewImplementation: MainWindowImplementation? = nil
+    var controller: ControllerInterface? = nil
     
     var updater: UpdaterFrontend? = nil
     
@@ -66,11 +26,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         let model = ModelImplementation(managedObjectContext: managedObjectContext)
+        self.controller = ControllerImplementation(model: model)
         let updater = UpdaterFrontendImpl(model: model, updateInterval: updateInterval, sinceLastUpdate: sinceLastUpdate, backend: UpdaterBackendECBImpl())
-        let controller = ControllerImplementation(model: model)
-        let mainWindow = MainWindowImplementation(controller: controller, view: self)
         updater.startUpdating()
-        self.viewImplementation = mainWindow
         self.updater = updater
     }
     
@@ -112,22 +70,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let controller = viewImplementation?.controller {
-            return controller.numberOfAccounts()
-        } else {
-            return 0
+        return controller?.numberOfAccounts() ?? 0
+    }
+    
+    func getAccount(_ n: Int) -> ControllerAccountInterface? {
+        return controller?.account(n) {(accountResponse) in
+            switch accountResponse {
+            case .Remove(let index): self.removeAccount(index)
+            case .Refresh(let index): self.refreshAccount(index)
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell")
-        let maybeAccount = viewImplementation?.controller.account((indexPath as NSIndexPath).row) {(accountResponse) in
-            switch accountResponse {
-            case .Remove(let index): self.viewImplementation?.removeAccount(index)
-            case .Refresh(let index): self.viewImplementation?.refreshAccount(index)
-            }
-        }
-        if let account = maybeAccount {
+        if let account = getAccount((indexPath as NSIndexPath).row) {
             cell?.textLabel?.text = account.name()
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
@@ -138,15 +95,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let maybeAccount = viewImplementation?.controller.account((indexPath as NSIndexPath).row) {(accountResponse) in
-            switch accountResponse {
-            case .Remove(let index): self.viewImplementation?.removeAccount(index)
-            case .Refresh(let index): self.viewImplementation?.refreshAccount(index)
-            }
-        }
-        if let editController = maybeAccount?.edit(),
-            let editView = viewImplementation?.editAccount(editController){
-            editView.showSubView()
+        if let account = getAccount((indexPath as NSIndexPath).row) {
+            EditAccountImplementation(controller: account.edit(), parent: self).showSubView()
         }
         return indexPath
     }
@@ -160,13 +110,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        let maybeAccount = viewImplementation?.controller.account((indexPath as NSIndexPath).row) {(accountResponse) in
-            switch accountResponse {
-            case .Remove(let index): self.viewImplementation?.removeAccount(index)
-            case .Refresh(let index): self.viewImplementation?.refreshAccount(index)
-            }
-        }
-        if let account = maybeAccount {
+        if let account = getAccount((indexPath as NSIndexPath).row) {
             let alert = UIAlertController(title: account.name(), message: "Delete?", preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive) {_ in account.remove()})
             alert.addAction(UIAlertAction(title: "No", style: .cancel) {_ in tableView.setEditing(false, animated: true)})
@@ -175,30 +119,42 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func buttonPlusClicked(_ sender: UIBarButtonItem) {
-        if let view = viewImplementation {
-            let createController = view.controller.createAccount { _ in view.addAccount() }
-            let createView = view.createAccount(createController)
-            createView.showSubView()
+        if let c = controller {
+            let createController = c.createAccount { _ in self.addAccount() }
+            CreateAccountImplementation(controller: createController, parent: self).showSubView()
         }
     }
     
     @IBAction func buttonDecantClicked(_ sender: AnyObject) {
-        if let view = viewImplementation {
-            let decantController = view.controller.decant{(fromTo) in
+        if let c = controller {
+            let decantController = c.decant{(fromTo) in
                 let (from, to) = fromTo
-                view.refreshAccount(from)
-                view.refreshAccount(to)
+                self.refreshAccount(from)
+                self.refreshAccount(to)
             }
-            let decantView = view.decant(decantController)
-            decantView.showSubView()
+            DecantImplementation(controller: decantController, parent: self).showSubView()
         }
     }
     
     @IBAction func buttonSlicesClicked(_ sender: AnyObject) {
-        if let slicesController = viewImplementation?.controller.showSlices(),
-            let slicesView = viewImplementation?.showSlices(slicesController) {
-            slicesView.showSubView()
+        if let c = controller {
+            SlicesImplementation(controller: c.showSlices(), parent: self).showSubView()
         }
     }
+    
+    func refreshAccount(_ n: Int) {
+        accountsTable.reloadRows(at: [IndexPath(row: n, section: 0)], with: .none)
+    }
+    
+    func removeAccount(_ n: Int) {
+        accountsTable.deleteRows(at: [IndexPath(row: n, section: 0)], with: .top)
+    }
+    
+    func addAccount() {
+        if let c = controller {
+            accountsTable.insertRows(at: [IndexPath(row: c.numberOfAccounts()-1, section: 0)], with: .top)
+        }
+    }
+
 }
 

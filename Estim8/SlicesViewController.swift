@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SlicesImplementation: SlicesView {
+class SlicesImplementation {
     
     let controller: ControllerSlicesInterface
     

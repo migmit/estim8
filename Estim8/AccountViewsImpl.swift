@@ -25,7 +25,7 @@ class ControllerImplementation<Model: ModelInterface>: Controller<()>, Controlle
         if (n >= accounts.count) {
             return nil
         } else {
-            return ControllerAccountImplementation(parent: self, model: model, account: accounts[n], index: n){(response: EditResponse) in
+            return ControllerAccountImplementation(model: model, account: accounts[n]){(response: EditResponse) in
                 switch response {
                 case .Delete:
                     handler(.Remove(index: n))

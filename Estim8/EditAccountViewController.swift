@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditAccountImplementation: EditAccountView {
+class EditAccountImplementation {
     
     let controller: ControllerEditAccountInterface
     
@@ -34,10 +34,6 @@ class EditAccountImplementation: EditAccountView {
         _ = view?.navigationController?.popViewController(animated: true)
     }
     
-    func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
-        return ListCurrenciesImplementation(controller: controller, parent: view!)
-    }
-    
     func currencySelected(_ selected: ControllerROCurrencyInterface) {
         //TODO
     }
@@ -55,7 +51,7 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
         self.viewImplementation = viewImplementation
     }
     
-    func showListCurrenciesView(_ sender: ListCurrenciesView) {
+    func showListCurrenciesView(_ sender: ControllerListCurrenciesInterface) {
         performSegue(withIdentifier: "ListCurrencies", sender: sender)
     }
     

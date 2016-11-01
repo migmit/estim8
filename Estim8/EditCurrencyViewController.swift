@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditCurrencyImplementation: EditCurrencyView {
+class EditCurrencyImplementation {
     
     let controller: ControllerEditCurrencyInterface
     
@@ -34,7 +34,7 @@ class EditCurrencyImplementation: EditCurrencyView {
         _ = view?.navigationController?.popViewController(animated: true)
     }
     
-    func selectRelative(_ controller: ControllerSelectCurrencyInterface) -> SelectCurrencyView {
+    func selectRelative(_ controller: ControllerSelectCurrencyInterface) -> SelectCurrencyImplementation {
         return SelectCurrencyImplementation(controller: controller, parent: view!)
     }
     
@@ -51,7 +51,7 @@ class EditCurrencyViewController: SubViewController, SelectCurrencyViewControlle
         self.viewImplementation = viewImplementation
     }
     
-    func showSelectCurrencyView(_ sender: SelectCurrencyView) {
+    func showSelectCurrencyView(_ sender: ControllerSelectCurrencyInterface) {
         performSegue(withIdentifier: "SelectCurrency", sender: sender)
     }
     

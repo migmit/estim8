@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DecantImplementation: DecantView {
+class DecantImplementation {
     
     let controller: ControllerDecantInterface
     

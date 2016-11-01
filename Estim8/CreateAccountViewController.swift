@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateAccountImplementation: CreateAccountView {
+class CreateAccountImplementation {
     
     let controller: ControllerCreateAccountInterface
     
@@ -33,11 +33,7 @@ class CreateAccountImplementation: CreateAccountView {
     func hideSubView() {
         _ = view?.navigationController?.popViewController(animated: true)
     }
-    
-    func selectCurrency(_ controller: ControllerListCurrenciesInterface) -> ListCurrenciesView {
-        return ListCurrenciesImplementation(controller: controller, parent: view!)
-    }
-    
+        
     func currencySelected(_ selected: ControllerROCurrencyInterface) {
         //TODO
     }
@@ -58,7 +54,7 @@ class CreateAccountViewController: SubViewController, ListCurrenciesViewControll
     
     var isNegative: Bool = false
     
-    func showListCurrenciesView(_ sender: ListCurrenciesView) {
+    func showListCurrenciesView(_ sender: ControllerListCurrenciesInterface) {
         performSegue(withIdentifier: "ListCurrencies", sender: sender)
     }
     
