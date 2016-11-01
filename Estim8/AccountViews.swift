@@ -26,13 +26,16 @@ protocol ControllerInterface {
     func showSlices() -> ControllerSlicesInterface
 }
 
+enum EditAccountCommand {
+    case SetValue(NSDecimalNumber)
+    case Remove
+}
+
 protocol ControllerEditAccountInterface: ControllerROAccountInterface {
     
-    func setValue(_ value: NSDecimalNumber) -> Bool
+    func act(_ cmd: EditAccountCommand) -> Bool
     
     func canSetValue(_ value: NSDecimalNumber) -> Bool
-    
-    func remove()
     
     func selectCurrency(handler: @escaping (ControllerROCurrencyInterface) -> ()) -> ControllerListCurrenciesInterface
     
@@ -40,9 +43,15 @@ protocol ControllerEditAccountInterface: ControllerROAccountInterface {
     
 }
 
+struct CreateAccountCommand {
+    let title: String
+    let initialValue: NSDecimalNumber
+    let isNegative: Bool
+}
+
 protocol ControllerCreateAccountInterface {
     
-    func create(_ title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
+    func act(_ cmd: CreateAccountCommand) -> Bool
     
     func canCreate(_ title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool
     
@@ -52,19 +61,28 @@ protocol ControllerCreateAccountInterface {
     
 }
 
+struct DecantCommand {
+    let from: Int
+    let to: Int
+    let amount: NSDecimalNumber
+    let useFromCurrency: Bool
+}
+
 protocol ControllerDecantInterface {
+    
+    func act(_ cmd: DecantCommand) -> Bool
     
     func numberOfAccounts() -> Int
     
     func account(_ n: Int) -> ControllerROAccountInterface?
-    
-    func decant(_ from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool
     
     func canDecant(_ from: Int, to: Int, amount: NSDecimalNumber, useFromCurrency: Bool) -> Bool
     
 }
 
 protocol ControllerSlicesInterface {
+    
+    func act(_ cmd: ()) -> Bool
     
     func numberOfSlices() -> Int
     

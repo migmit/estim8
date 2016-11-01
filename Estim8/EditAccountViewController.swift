@@ -64,8 +64,9 @@ class EditAccountViewController: SubViewController {
         if let c = controller {
             let alert = UIAlertController(title: c.name() , message: "Delete?", preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {_ in
-                c.remove()
-                _ = self.navigationController?.popViewController(animated: true)
+                if (c.act(.Remove)) {
+                    _ = self.navigationController?.popViewController(animated: true)
+                }
             }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -75,7 +76,7 @@ class EditAccountViewController: SubViewController {
     func buttonSaveClicked() {
         let value = accountValueText.getValue()
         if let c = controller{
-            if (c.setValue(value)) {
+            if (c.act(.SetValue(value))) {
                 _ = navigationController?.popViewController(animated: true)
             } else {
                 let alert = UIAlertController(title: "Error", message: "Can't set the value of \(c.name()) to \(value)", preferredStyle: .alert)

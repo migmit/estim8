@@ -73,6 +73,15 @@ class ControllerEditAccountImplementation<Model: ModelInterface>: Controller<Edi
         oldCurrency = selectedCurrency
     }
     
+    func act(_ cmd: EditAccountCommand) -> Bool {
+        switch cmd {
+        case .SetValue(let value): return setValue(value)
+        case .Remove:
+            remove()
+            return true
+        }
+    }
+    
     func name() -> String {
         return model.nameOfAccount(account)
     }
@@ -143,6 +152,10 @@ class ControllerCreateAccountImplementation<Model: ModelInterface>: Controller<(
         self.model = model
     }
     
+    func act(_ cmd: CreateAccountCommand) -> Bool {
+        return create(cmd.title, initialValue: cmd.initialValue, isNegative: cmd.isNegative)
+    }
+    
     func create(_ title: String, initialValue: NSDecimalNumber, isNegative: Bool) -> Bool {
         if (canCreate(title, initialValue: initialValue, isNegative: isNegative)) {
             if let c = selectedCurrency  {
@@ -183,6 +196,10 @@ class ControllerDecantImplementation<Model: ModelInterface>: Controller<(Int, In
     
     init(model: Model) {
         self.model = model
+    }
+    
+    func act(_ cmd: DecantCommand) -> Bool {
+        return decant(cmd.from, to: cmd.to, amount: cmd.amount, useFromCurrency: cmd.useFromCurrency)
     }
     
     func numberOfAccounts() -> Int {
@@ -265,6 +282,10 @@ class ControllerSlicesImplementation<Model: ModelInterface>: Controller<()>, Con
     init(model: Model) {
         self.model = model
         self.accounts = model.liveAccounts() + model.deadAccounts()
+    }
+    
+    func act(_ cmd: ()) -> Bool {
+        return false
     }
     
     func numberOfSlices() -> Int {

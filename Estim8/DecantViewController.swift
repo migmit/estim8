@@ -174,7 +174,7 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func buttonDoneClicked() {
         if let amount = child?.getAmount() {
             if let c = controller {
-                if (c.decant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true)) {
+                if (c.act(DecantCommand(from: fromSelected, to: toSelected, amount: amount, useFromCurrency: true))) {
                     _ = navigationController?.popViewController(animated: true)
                 } else {
                     let fromAccountName = c.account(fromSelected)?.name() ?? "<unknown>"

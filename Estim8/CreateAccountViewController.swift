@@ -92,7 +92,7 @@ class CreateAccountViewController: SubViewController {
         let title = accountTitleText.text ?? ""
         let value = accountValueText.getValue()
         if let c = controller {
-            if (c.create(title, initialValue: value, isNegative: isNegative)) {
+            if (c.act(CreateAccountCommand(title: title, initialValue: value, isNegative: isNegative))) {
                 _ = navigationController?.popViewController(animated: true)
             } else {
                 let alert = UIAlertController(title: "Error", message: "Can't create \(isNegative ? "negative" : "positive") account \"\(title)\" with value \(value)", preferredStyle: .alert)

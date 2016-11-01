@@ -240,7 +240,7 @@ class CreateAccountMoc {
     
     func tapOk() {
         if (!title.isEmpty) {
-            if (controller.create(title, initialValue: value, isNegative: isNegative)) {
+            if (controller.act(CreateAccountCommand(title: title, initialValue: value, isNegative: isNegative))) {
                 hideSubView()
             }
         }
@@ -310,7 +310,7 @@ class DecantMoc {
     }
     
     func tapOk() {
-        if (controller.decant(fromSelected, to: toSelected, amount: value, useFromCurrency: useFromCurrency)) {
+        if (controller.act(DecantCommand(from: fromSelected, to: toSelected, amount: value, useFromCurrency: useFromCurrency))) {
             hideSubView()
         }
     }
@@ -474,14 +474,15 @@ class EditAccountMoc {
     }
     
     func tapOk() {
-        if (controller.setValue(value)) {
+        if (controller.act(.SetValue(value))) {
             hideSubView()
         }
     }
     
     func tapDeleteButton() {
-        controller.remove()
-        hideSubView()
+        if (controller.act(.Remove)) {
+            hideSubView()
+        }
     }
     
     func tapCurrency() {
