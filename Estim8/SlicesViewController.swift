@@ -8,33 +8,6 @@
 
 import UIKit
 
-class SlicesImplementation {
-    
-    let controller: ControllerSlicesInterface
-    
-    let parent: ViewController
-    
-    weak var view: SlicesViewController? = nil
-    
-    init(controller: ControllerSlicesInterface, parent: ViewController) {
-        self.controller = controller
-        self.parent = parent
-    }
-    
-    func setView(_ view: SlicesViewController) {
-        self.view = view
-        view.setViewImplementation(self)
-    }
-    
-    func showSubView() {
-        parent.performSegue(withIdentifier: "Slices", sender: self)
-    }
-    
-    func hideSubView() {
-        view?.dismiss(animated: true, completion: nil)
-    }
-}
-
 class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     
     struct Panning {
@@ -101,7 +74,7 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     let panPointsCount = 24
     
-    var viewImplementation: SlicesImplementation? = nil
+    var controller: ControllerSlicesInterface? = nil
     
     var currentSlice: ControllerSliceInterface? = nil
     
@@ -114,8 +87,9 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var toolbar: UIToolbar!
     
     @IBOutlet weak var titleBar: UINavigationBar!
-    func setViewImplementation(_ viewImplementation: SlicesImplementation) {
-        self.viewImplementation = viewImplementation
+    
+    func setController(_ controller: ControllerSlicesInterface) {
+        self.controller = controller
     }
     
     override func viewDidLoad() {
@@ -123,7 +97,7 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panEvent))
         panRecognizer.delegate = self
         updatesTable.addGestureRecognizer(panRecognizer)
-        if let slice = viewImplementation?.controller.slice(0) {
+        if let slice = controller?.slice(0) {
             refreshCurrentSlice(slice)
         }
         dateFormatter.dateStyle = .medium
@@ -231,11 +205,11 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if let p = panning {
                     if (p.scrollingHorizontally) {
                         let shiftPoints = Int(shiftX * CGFloat(panPointsCount) / updatesTable.bounds.width)
-                        if let sliceCount = viewImplementation?.controller.numberOfSlices() {
+                        if let sliceCount = controller?.numberOfSlices() {
                             let newSliceNumber = p.oldSliceNumber + shiftPoints // shifting backwards
                             let sliceNumber = newSliceNumber < 0 ? 0 : newSliceNumber >= sliceCount ? sliceCount-1 : newSliceNumber
                             if (sliceNumber != currentSlice?.sliceIndex()) {
-                                if let slice = viewImplementation?.controller.slice(sliceNumber) {
+                                if let slice = controller?.slice(sliceNumber) {
                                     refreshCurrentSlice(slice)
                                     p.row?.translate(slice, updatesTable: updatesTable)
                                 }

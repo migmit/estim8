@@ -8,47 +8,16 @@
 
 import UIKit
 
-class EditAccountImplementation {
-    
-    let controller: ControllerEditAccountInterface
-    
-    let parent: ViewController
-    
-    weak var view: EditAccountViewController? = nil
-    
-    init(controller: ControllerEditAccountInterface, parent: ViewController) {
-        self.controller = controller
-        self.parent = parent
-    }
-    
-    func setView(_ view: EditAccountViewController) {
-        self.view = view
-        view.setViewImplementation(self)
-    }
-    
-    func showSubView() {
-        parent.performSegue(withIdentifier: "EditAccount", sender: self)
-    }
-    
-    func hideSubView() {
-        _ = view?.navigationController?.popViewController(animated: true)
-    }
-    
-    func currencySelected(_ selected: ControllerROCurrencyInterface) {
-        //TODO
-    }
-}
-
 class EditAccountViewController: SubViewController, ListCurrenciesViewControllerInterface {
     
-    var viewImplementation: EditAccountImplementation? = nil
+    var controller: ControllerEditAccountInterface? = nil
     
     @IBOutlet weak var accountNameLabel: UILabel!
     
     @IBOutlet weak var accountValueText: NumberField!
-    
-    func setViewImplementation(_ viewImplementation: EditAccountImplementation) {
-        self.viewImplementation = viewImplementation
+
+    func setController(_ controller: ControllerEditAccountInterface) {
+        self.controller = controller
     }
     
     func showListCurrenciesView(_ sender: ControllerListCurrenciesInterface) {
@@ -58,9 +27,9 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(buttonSaveClicked))
-        if let controller = self.viewImplementation?.controller {
-            accountNameLabel.text = controller.name()
-            accountValueText.setValue(controller.value(), isNegative: controller.isNegative())
+        if let c = controller {
+            accountNameLabel.text = c.name()
+            accountValueText.setValue(c.value(), isNegative: c.isNegative())
         }
     }
     
@@ -92,11 +61,11 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
     }
     
     @IBAction func buttonDeleteClicked(_ sender: UIButton) {
-        if let controller = viewImplementation?.controller {
-            let alert = UIAlertController(title: controller.name() , message: "Delete?", preferredStyle: .actionSheet)
+        if let c = controller {
+            let alert = UIAlertController(title: c.name() , message: "Delete?", preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {_ in
-                controller.remove()
-                self.viewImplementation?.hideSubView()
+                c.remove()
+                _ = self.navigationController?.popViewController(animated: true)
             }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -105,11 +74,11 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
     
     func buttonSaveClicked() {
         let value = accountValueText.getValue()
-        if let controller = viewImplementation?.controller{
-            if (controller.setValue(value)) {
-                viewImplementation?.hideSubView()
+        if let c = controller{
+            if (c.setValue(value)) {
+                _ = navigationController?.popViewController(animated: true)
             } else {
-                let alert = UIAlertController(title: "Error", message: "Can't set the value of \(controller.name()) to \(value)", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Error", message: "Can't set the value of \(c.name()) to \(value)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
@@ -118,8 +87,8 @@ class EditAccountViewController: SubViewController, ListCurrenciesViewController
     
     func somethingChanged() {
         let value = accountValueText.getValue()
-        if let controller = viewImplementation?.controller {
-            navigationItem.rightBarButtonItem?.isEnabled = controller.canSetValue(value)
+        if let c = controller {
+            navigationItem.rightBarButtonItem?.isEnabled = c.canSetValue(value)
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }

@@ -8,41 +8,9 @@
 
 import UIKit
 
-class CreateAccountImplementation {
-    
-    let controller: ControllerCreateAccountInterface
-    
-    let parent: ViewController
-    
-    weak var view: CreateAccountViewController? = nil
-    
-    init(controller: ControllerCreateAccountInterface, parent: ViewController) {
-        self.controller = controller
-        self.parent = parent
-    }
-    
-    func setView(_ view: CreateAccountViewController) {
-        self.view = view
-        view.setViewImplementation(self)
-    }
-    
-    func showSubView() {
-        parent.performSegue(withIdentifier: "CreateAccount", sender: self)
-    }
-    
-    func hideSubView() {
-        _ = view?.navigationController?.popViewController(animated: true)
-    }
-        
-    func currencySelected(_ selected: ControllerROCurrencyInterface) {
-        //TODO
-    }
-    
-}
-
 class CreateAccountViewController: SubViewController, ListCurrenciesViewControllerInterface {
     
-    var viewImplementation: CreateAccountImplementation? = nil
+    var controller: ControllerCreateAccountInterface? = nil
     
     @IBOutlet weak var accountTitleText: UITextField!
     
@@ -58,8 +26,8 @@ class CreateAccountViewController: SubViewController, ListCurrenciesViewControll
         performSegue(withIdentifier: "ListCurrencies", sender: sender)
     }
     
-    func setViewImplementation(_ viewImplementation: CreateAccountImplementation) {
-        self.viewImplementation = viewImplementation
+    func setController(_ controller: ControllerCreateAccountInterface) {
+        self.controller = controller
     }
     
     override func viewDidLoad() {
@@ -123,9 +91,9 @@ class CreateAccountViewController: SubViewController, ListCurrenciesViewControll
         accountValueText.resignFirstResponder()
         let title = accountTitleText.text ?? ""
         let value = accountValueText.getValue()
-        if let controller = viewImplementation?.controller {
-            if (controller.create(title, initialValue: value, isNegative: isNegative)) {
-                viewImplementation?.hideSubView()
+        if let c = controller {
+            if (c.create(title, initialValue: value, isNegative: isNegative)) {
+                _ = navigationController?.popViewController(animated: true)
             } else {
                 let alert = UIAlertController(title: "Error", message: "Can't create \(isNegative ? "negative" : "positive") account \"\(title)\" with value \(value)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -137,8 +105,8 @@ class CreateAccountViewController: SubViewController, ListCurrenciesViewControll
     func somethingChanged() {
         let title = accountTitleText.text ?? ""
         let value = accountValueText.getValue()
-        if let controller = viewImplementation?.controller {
-            navigationItem.rightBarButtonItem?.isEnabled = controller.canCreate(title, initialValue: value, isNegative: isNegative)
+        if let c = controller {
+            navigationItem.rightBarButtonItem?.isEnabled = c.canCreate(title, initialValue: value, isNegative: isNegative)
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }

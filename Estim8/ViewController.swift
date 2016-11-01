@@ -46,20 +46,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier ?? "" {
         case "EditAccount":
-            if let editAccount = sender as? EditAccountImplementation {
-                editAccount.setView(segue.destination as! EditAccountViewController)
+            if let editAccountController = sender as? ControllerEditAccountInterface {
+                (segue.destination as! EditAccountViewController).setController(editAccountController)
             }
         case "CreateAccount":
-            if let createAccount = sender as? CreateAccountImplementation {
-                createAccount.setView(segue.destination as! CreateAccountViewController)
+            if let createController = sender as? ControllerCreateAccountInterface {
+                (segue.destination as! CreateAccountViewController).setController(createController)
             }
         case "Decant":
-            if let decant = sender as? DecantImplementation {
-                decant.setView(segue.destination as! DecantViewController)
+            if let decantController = sender as? ControllerDecantInterface {
+                (segue.destination as! DecantViewController).setController(decantController)
             }
         case "Slices":
-            if let slices = sender as? SlicesImplementation {
-                slices.setView(segue.destination as! SlicesViewController)
+            if let slicesController = sender as? ControllerSlicesInterface {
+                (segue.destination as! SlicesViewController).setController(slicesController)
             }
         default: break
         }
@@ -96,7 +96,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if let account = getAccount((indexPath as NSIndexPath).row) {
-            EditAccountImplementation(controller: account.edit(), parent: self).showSubView()
+            let editController = account.edit()
+            performSegue(withIdentifier: "EditAccount", sender: editController)
         }
         return indexPath
     }
@@ -121,7 +122,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func buttonPlusClicked(_ sender: UIBarButtonItem) {
         if let c = controller {
             let createController = c.createAccount { _ in self.addAccount() }
-            CreateAccountImplementation(controller: createController, parent: self).showSubView()
+            performSegue(withIdentifier: "CreateAccount", sender: createController)
         }
     }
     
@@ -132,13 +133,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.refreshAccount(from)
                 self.refreshAccount(to)
             }
-            DecantImplementation(controller: decantController, parent: self).showSubView()
+            performSegue(withIdentifier: "Decant", sender: decantController)
         }
     }
     
     @IBAction func buttonSlicesClicked(_ sender: AnyObject) {
         if let c = controller {
-            SlicesImplementation(controller: c.showSlices(), parent: self).showSubView()
+            let slicesController = c.showSlices()
+            performSegue(withIdentifier: "Slices", sender: slicesController)
         }
     }
     

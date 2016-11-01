@@ -8,49 +8,16 @@
 
 import UIKit
 
-class EditCurrencyImplementation {
-    
-    let controller: ControllerEditCurrencyInterface
-    
-    let parent: ListCurrenciesViewController
-    
-    weak var view: EditCurrencyViewController? = nil
-    
-    init(controller: ControllerEditCurrencyInterface, parent: ListCurrenciesViewController) {
-        self.controller = controller
-        self.parent = parent
-    }
-    
-    func setView(_ view: EditCurrencyViewController) {
-        self.view = view
-        view.setViewImplementation(self)
-    }
-    
-    func showSubView() {
-        parent.performSegue(withIdentifier: "EditCurrency", sender: self)
-    }
-    
-    func hideSubView() {
-        _ = view?.navigationController?.popViewController(animated: true)
-    }
-    
-    func selectRelative(_ controller: ControllerSelectCurrencyInterface) -> SelectCurrencyImplementation {
-        return SelectCurrencyImplementation(controller: controller, parent: view!)
-    }
-    
-    func relativeSelected(_ selected: ControllerROCurrencyInterface?) {
-        //TODO
-    }
-}
-
 class EditCurrencyViewController: SubViewController, SelectCurrencyViewControllerInterface {
     
-    var viewImplementation: EditCurrencyImplementation? = nil
+    //        _ = view?.navigationController?.popViewController(animated: true)
     
-    func setViewImplementation(_ viewImplementation: EditCurrencyImplementation) {
-        self.viewImplementation = viewImplementation
+    var controller: ControllerEditCurrencyInterface? = nil
+    
+    func setController(_ controller: ControllerEditCurrencyInterface) {
+        self.controller = controller
     }
-    
+        
     func showSelectCurrencyView(_ sender: ControllerSelectCurrencyInterface) {
         performSegue(withIdentifier: "SelectCurrency", sender: sender)
     }

@@ -8,33 +8,6 @@
 
 import UIKit
 
-class DecantImplementation {
-    
-    let controller: ControllerDecantInterface
-    
-    let parent: ViewController
-    
-    weak var view: DecantViewController? = nil
-    
-    init(controller: ControllerDecantInterface, parent: ViewController) {
-        self.controller = controller
-        self.parent = parent
-    }
-    
-    func setView(_ view: DecantViewController) {
-        self.view = view
-        view.setViewImplementation(self)
-    }
-    
-    func showSubView() {
-        parent.performSegue(withIdentifier: "Decant", sender: self)
-    }
-    
-    func hideSubView() {
-        _ = view?.navigationController?.popViewController(animated: true)
-    }
-}
-
 class DecantChildViewController: UITableViewController, NumberFieldDelegate {
     
     @IBOutlet weak var fromCell: UITableViewCell!
@@ -100,10 +73,10 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     var parentNavigationBarHidden: Bool = false
     
-    var viewImplementation: DecantImplementation? = nil
+    var controller: ControllerDecantInterface? = nil
     
-    func setViewImplementation(_ viewImplementation: DecantImplementation) {
-        self.viewImplementation = viewImplementation
+    func setController(_ controller: ControllerDecantInterface) {
+        self.controller = controller
     }
     
     var fromSelected: Int = 0
@@ -156,19 +129,11 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if let controller = viewImplementation?.controller {
-            return controller.numberOfAccounts()
-        } else {
-            return 0
-        }
+        return controller?.numberOfAccounts() ?? 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if let controller = viewImplementation?.controller {
-            return controller.account(row)?.name()
-        } else {
-            return nil
-        }
+        return controller?.account(row)?.name()
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -185,19 +150,19 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func somethingChanged() {
-        if let amount = child?.getAmount(), let controller = viewImplementation?.controller {
-            navigationItem.rightBarButtonItem?.isEnabled = controller.canDecant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true)
+        if let amount = child?.getAmount(), let c = controller {
+            navigationItem.rightBarButtonItem?.isEnabled = c.canDecant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true)
         }
     }
     
     func fixFromToCells() {
-        if let controller = viewImplementation?.controller {
-            if let fromAccount = controller.account(fromSelected) {
+        if let c = controller {
+            if let fromAccount = c.account(fromSelected) {
                 child?.setCellDetails(false, title: fromAccount.name(), detail: numberFormatter.string(from: fromAccount.value()))
             } else {
                 child?.setCellDetails(false, title: "unknown", detail: "--")
             }
-            if let toAccount = controller.account(toSelected) {
+            if let toAccount = c.account(toSelected) {
                 child?.setCellDetails(true, title: toAccount.name(), detail: numberFormatter.string(from: toAccount.value()))
             } else {
                 child?.setCellDetails(true, title: "unknown", detail: "--")
@@ -208,12 +173,12 @@ class DecantViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     func buttonDoneClicked() {
         if let amount = child?.getAmount() {
-            if let controller = viewImplementation?.controller {
-                if (controller.decant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true)) {
-                    viewImplementation?.hideSubView()
+            if let c = controller {
+                if (c.decant(fromSelected, to: toSelected, amount: amount, useFromCurrency: true)) {
+                    _ = navigationController?.popViewController(animated: true)
                 } else {
-                    let fromAccountName = controller.account(fromSelected)?.name() ?? "<unknown>"
-                    let toAccountName = controller.account(toSelected)?.name() ?? "<unknown>"
+                    let fromAccountName = c.account(fromSelected)?.name() ?? "<unknown>"
+                    let toAccountName = c.account(toSelected)?.name() ?? "<unknown>"
                     let alert = UIAlertController(title: "Error", message: "Can't decant \(amount) from \"\(fromAccountName)\" to \"\(toAccountName)\"", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)

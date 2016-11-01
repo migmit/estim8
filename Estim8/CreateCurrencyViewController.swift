@@ -8,48 +8,14 @@
 
 import UIKit
 
-class CreateCurrencyImplementation {
-    
-    let controller: ControllerCreateCurrencyInterface
-    
-    let parent: ListCurrenciesViewController
-    
-    weak var view: CreateCurrencyViewController? = nil
-    
-    init(controller: ControllerCreateCurrencyInterface, parent: ListCurrenciesViewController) {
-        self.controller = controller
-        self.parent = parent
-    }
-    
-    func setView(_ view: CreateCurrencyViewController) {
-        self.view = view
-        view.setViewImplementation(self)
-    }
-    
-    func showSubView() {
-        parent.performSegue(withIdentifier: "CreateCurrency", sender: self)
-    }
-    
-    func hideSubView() {
-        _ = view?.navigationController?.popViewController(animated: true)
-    }
-    
-    func selectRelative(_ controller: ControllerSelectCurrencyInterface) -> SelectCurrencyImplementation {
-        return SelectCurrencyImplementation(controller: controller, parent: view!)
-    }
-    
-    func relativeSelected(_ selected: ControllerROCurrencyInterface?) {
-        //TODO
-    }
-    
-}
-
 class CreateCurrencyViewController: SubViewController, SelectCurrencyViewControllerInterface {
     
-    var viewImplementation: CreateCurrencyImplementation? = nil
+    //        _ = view?.navigationController?.popViewController(animated: true)
+
+    var controller: ControllerCreateCurrencyInterface? = nil
     
-    func setViewImplementation(_ viewImplementation: CreateCurrencyImplementation) {
-        self.viewImplementation = viewImplementation
+    func setController(_ controller: ControllerCreateCurrencyInterface) {
+        self.controller = controller
     }
     
     func showSelectCurrencyView(_ sender: ControllerSelectCurrencyInterface) {
