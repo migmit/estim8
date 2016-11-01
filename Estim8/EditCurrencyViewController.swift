@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditCurrencyViewController: SubViewController, SelectCurrencyViewControllerInterface {
+class EditCurrencyViewController: SubViewController {
     
     //        _ = view?.navigationController?.popViewController(animated: true)
     

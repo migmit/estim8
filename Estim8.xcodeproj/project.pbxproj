@@ -24,8 +24,6 @@
 		B51DE5981CB4477B0060960A /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5971CB4477B0060960A /* ModelTests.swift */; };
 		B51DE5991CB448970060960A /* ModelInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5851CB2D88B0060960A /* ModelInterface.swift */; };
 		B51DE59B1CB449E90060960A /* ModelImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5871CB2DEEE0060960A /* ModelImplementation.swift */; };
-		B51DE59D1CB57B2A0060960A /* ViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE59C1CB57B290060960A /* ViewInterface.swift */; };
-		B51DE5A51CB6C27D0060960A /* ViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE59C1CB57B290060960A /* ViewInterface.swift */; };
 		B51DE5A81CB6C36F0060960A /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5A71CB6C36F0060960A /* AccountTests.swift */; };
 		B51DE5AA1CB6C6BA0060960A /* ViewMoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5A91CB6C6BA0060960A /* ViewMoc.swift */; };
 		B51DE5AC1CB92ADF0060960A /* SubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51DE5AB1CB92ADF0060960A /* SubViewController.swift */; };
@@ -109,7 +107,6 @@
 		B51DE5851CB2D88B0060960A /* ModelInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInterface.swift; sourceTree = "<group>"; };
 		B51DE5871CB2DEEE0060960A /* ModelImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelImplementation.swift; sourceTree = "<group>"; };
 		B51DE5971CB4477B0060960A /* ModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
-		B51DE59C1CB57B290060960A /* ViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewInterface.swift; sourceTree = "<group>"; };
 		B51DE5A71CB6C36F0060960A /* AccountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
 		B51DE5A91CB6C6BA0060960A /* ViewMoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewMoc.swift; sourceTree = "<group>"; };
 		B51DE5AB1CB92ADF0060960A /* SubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubViewController.swift; sourceTree = "<group>"; };
@@ -240,7 +237,6 @@
 		B51DE59E1CB57B920060960A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B51DE59C1CB57B290060960A /* ViewInterface.swift */,
 				B51DE5521CAF401E0060960A /* ViewController.swift */,
 				B51DE5AB1CB92ADF0060960A /* SubViewController.swift */,
 				B51DE5AD1CB92F910060960A /* CreateAccountViewController.swift */,
@@ -512,7 +508,6 @@
 				B51DE5881CB2DEEE0060960A /* ModelImplementation.swift in Sources */,
 				B5A6840F1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel in Sources */,
 				B59CB3AE1D06038B001642F8 /* CurrencyItems.swift in Sources */,
-				B51DE59D1CB57B2A0060960A /* ViewInterface.swift in Sources */,
 				B59CB3B41D0604C7001642F8 /* AccountItemsImpl.swift in Sources */,
 				B52BEC111DC67E0300CB3671 /* Controller.swift in Sources */,
 				B59CB3CA1D061C19001642F8 /* CreateCurrencyViewController.swift in Sources */,
@@ -549,7 +544,6 @@
 				B59CB3C11D06073C001642F8 /* SliceItems.swift in Sources */,
 				B59CB3C01D06073C001642F8 /* CurrencyItems.swift in Sources */,
 				B51171921D1566ED00995749 /* UpdaterFrontendTests.swift in Sources */,
-				B51DE5A51CB6C27D0060960A /* ViewInterface.swift in Sources */,
 				B59CB3C21D06073C001642F8 /* AccountViews.swift in Sources */,
 				B5E41ABF1D061FA5004CAF7C /* CurrencyViews.swift in Sources */,
 				B59CB3BF1D06073C001642F8 /* AccountItems.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateAccountViewController: SubViewController, ListCurrenciesViewControllerInterface {
+class CreateAccountViewController: SubViewController {
     
     var controller: ControllerCreateAccountInterface? = nil
     
