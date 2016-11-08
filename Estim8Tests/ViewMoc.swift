@@ -122,13 +122,13 @@ class MocView {
 
 class MainWindowMoc {
     
-    let controller: ControllerInterface
+    let controller: ControllerAccountsInterface
     
     fileprivate var display: [(String, NSDecimalNumber)] = []
     
     var view: MocView? = nil
     
-    init(controller: ControllerInterface) {
+    init(controller: ControllerAccountsInterface) {
         self.controller = controller
     }
     

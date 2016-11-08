@@ -13,7 +13,7 @@ enum AccountResponse {
     case Refresh(index: Int)
 }
 
-protocol ControllerInterface {
+protocol ControllerAccountsInterface {
     
     func numberOfAccounts() -> Int
     

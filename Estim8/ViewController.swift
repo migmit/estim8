@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let sinceLastUpdate: TimeInterval = 12*60*60
     
-    var controller: ControllerInterface? = nil
+    var controller: ControllerAccountsInterface? = nil
     
     var updater: UpdaterFrontend? = nil
     
@@ -26,7 +26,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedObjectContext = appDelegate.managedObjectContext
         let model = ModelImplementation(managedObjectContext: managedObjectContext)
-        self.controller = ControllerImplementation(model: model)
+        self.controller = ControllerAccountsImplementation(model: model)
         let updater = UpdaterFrontendImpl(model: model, updateInterval: updateInterval, sinceLastUpdate: sinceLastUpdate, backend: UpdaterBackendECBImpl())
         updater.startUpdating()
         self.updater = updater

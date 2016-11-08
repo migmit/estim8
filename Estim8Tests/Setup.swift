@@ -23,7 +23,7 @@ func setupTestCoreData(_ createCurrency: Bool) throws -> MocView? {
             _ = model.addCurrencyAndUpdate("$", code: "USD", symbol: "$", base: nil, rate: 1, invRate: 1, manual: false)
         }
         
-        let controller = ControllerImplementation(model: model)
+        let controller = ControllerAccountsImplementation(model: model)
         let mainWindowView = MainWindowMoc(controller: controller)
         let view = MocView(mainWindow: mainWindowView)
         mainWindowView.setView(view)
