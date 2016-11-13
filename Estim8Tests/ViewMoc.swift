@@ -23,16 +23,12 @@ enum MocViewState {
 
 class MocView {
     
-    var state: MocViewState
+    var state: MocViewState? = nil
     
     var controllers: Controllers? = nil
     
-    init(mainWindow: MainWindowMoc) {
-        self.state = .mainWindow(mainWindow)
-    }
-    
     func mainWindow() -> MainWindowMoc? {
-        switch state {
+        switch state! {
         case .mainWindow(let mainWindow):
             return mainWindow
         default:
@@ -42,7 +38,7 @@ class MocView {
     }
     
     func createAccount() -> CreateAccountMoc? {
-        switch state {
+        switch state! {
         case .createAccount(let createAccount):
             return createAccount
         default:
@@ -52,7 +48,7 @@ class MocView {
     }
     
     func decant() -> DecantMoc? {
-        switch state {
+        switch state! {
         case .decant(let decant):
             return decant
         default:
@@ -62,7 +58,7 @@ class MocView {
     }
     
     func slices() -> SlicesMoc? {
-        switch state {
+        switch state! {
         case .slices(let slices):
             return slices
         default:
@@ -72,7 +68,7 @@ class MocView {
     }
     
     func editAccount() -> EditAccountMoc? {
-        switch state {
+        switch state! {
         case .editAccount(let editAccount):
             return editAccount
         default:
@@ -82,7 +78,7 @@ class MocView {
     }
     
     func listCurrencies() -> ListCurrenciesMoc? {
-        switch state {
+        switch state! {
         case .listCurrencies(let listCurrencies):
             return listCurrencies
         default:
@@ -92,7 +88,7 @@ class MocView {
     }
     
     func createCurrency() -> CreateCurrencyMoc? {
-        switch state {
+        switch state! {
         case .createCurrency(let createCurrency):
             return createCurrency
         default:
@@ -102,7 +98,7 @@ class MocView {
     }
     
     func editCurrency() -> EditCurrencyMoc? {
-        switch state {
+        switch state! {
         case .editCurrency(let editCurrency):
             return editCurrency
         default:
@@ -112,7 +108,7 @@ class MocView {
     }
     
     func selectCurrency() -> SelectCurrencyMoc? {
-        switch state {
+        switch state! {
         case .selectCurrency(let selectCurrency):
             return selectCurrency
         default:
@@ -130,8 +126,18 @@ class MainWindowMoc {
     
     var view: MocView? = nil
     
-    init(controller: ControllerAccountsInterface) {
-        self.controller = controller
+    init(view: MocView) {
+        self.controller = view.controllers!.accounts()
+        self.view = view
+        view.state = .mainWindow(self)
+        let n = controller.numberOfAccounts()
+        if (n > 0) {
+            for i in 0...(n-1) {
+                if let account = getAccount(i) {
+                    display.append((account.name(), account.value()))
+                }
+            }
+        }
     }
     
     func getAccount(_ index: Int) -> ControllerAccountInterface? {
@@ -139,18 +145,6 @@ class MainWindowMoc {
             switch accountResponse {
             case .Remove(let index): self.removeAccount(index)
             case .Refresh(let index): self.refreshAccount(index)
-            }
-        }
-    }
-    
-    func setView(_ view: MocView) {
-        self.view = view
-        let n = controller.numberOfAccounts()
-        if (n > 0) {
-            for i in 0...(n-1) {
-                if let account = getAccount(i) {
-                    display.append((account.name(), account.value()))
-                }
             }
         }
     }
