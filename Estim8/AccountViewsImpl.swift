@@ -44,10 +44,6 @@ class ControllerAccountsImplementation<Model: ModelInterface>: ControllerAccount
         return ControllerDecantImplementation(model: model).setResponseFunction(handler)
     }
     
-    func showSlices() -> ControllerSlicesInterface {
-        return ControllerSlicesImplementation(model: model)
-    }
-    
 }
 
 enum EditResponse {

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B50E4BCF1DD8EA34007286B8 /* Controllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50E4BCE1DD8EA33007286B8 /* Controllers.swift */; };
+		B50E4BD01DD8EB03007286B8 /* Controllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50E4BCE1DD8EA33007286B8 /* Controllers.swift */; };
+		B50E4BD21DD8EB16007286B8 /* ControllersImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50E4BD11DD8EB16007286B8 /* ControllersImpl.swift */; };
+		B50E4BD31DD8EB94007286B8 /* ControllersImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50E4BD11DD8EB16007286B8 /* ControllersImpl.swift */; };
+		B50E4BD51DD8EBEB007286B8 /* ProductionControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50E4BD41DD8EBEB007286B8 /* ProductionControllers.swift */; };
 		B511718E1D148E7C00995749 /* UpdaterFrontendImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B511718D1D148E7C00995749 /* UpdaterFrontendImpl.swift */; };
 		B51171901D155CBB00995749 /* UpdaterFrontend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B511718F1D155CBB00995749 /* UpdaterFrontend.swift */; };
 		B51171921D1566ED00995749 /* UpdaterFrontendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51171911D1566ED00995749 /* UpdaterFrontendTests.swift */; };
@@ -88,6 +93,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B50E4BCE1DD8EA33007286B8 /* Controllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Controllers.swift; sourceTree = "<group>"; };
+		B50E4BD11DD8EB16007286B8 /* ControllersImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllersImpl.swift; sourceTree = "<group>"; };
+		B50E4BD41DD8EBEB007286B8 /* ProductionControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductionControllers.swift; sourceTree = "<group>"; };
 		B511718D1D148E7C00995749 /* UpdaterFrontendImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdaterFrontendImpl.swift; sourceTree = "<group>"; };
 		B511718F1D155CBB00995749 /* UpdaterFrontend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdaterFrontend.swift; sourceTree = "<group>"; };
 		B51171911D1566ED00995749 /* UpdaterFrontendTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdaterFrontendTests.swift; sourceTree = "<group>"; };
@@ -248,6 +256,7 @@
 				B59CB3C91D061C19001642F8 /* CreateCurrencyViewController.swift */,
 				B59CB3CB1D061C8E001642F8 /* EditCurrencyViewController.swift */,
 				B59CB3CD1D061CED001642F8 /* SelectCurrencyViewController.swift */,
+				B50E4BD41DD8EBEB007286B8 /* ProductionControllers.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -287,6 +296,7 @@
 			children = (
 				B59CB3AA1D0601D5001642F8 /* Items */,
 				B59CB3A51D0600C1001642F8 /* Views */,
+				B50E4BCE1DD8EA33007286B8 /* Controllers.swift */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -297,6 +307,7 @@
 				B59CB3B21D0604B7001642F8 /* Items */,
 				B59CB3AF1D0603BF001642F8 /* Views */,
 				B52BEC101DC67E0300CB3671 /* Controller.swift */,
+				B50E4BD11DD8EB16007286B8 /* ControllersImpl.swift */,
 			);
 			name = Implementation;
 			sourceTree = "<group>";
@@ -497,6 +508,7 @@
 				B59CB3AC1D0601E6001642F8 /* AccountItems.swift in Sources */,
 				B51DE5861CB2D88B0060960A /* ModelInterface.swift in Sources */,
 				B59CB3B81D060629001642F8 /* SliceItems.swift in Sources */,
+				B50E4BD21DD8EB16007286B8 /* ControllersImpl.swift in Sources */,
 				B5B6A6D21CC4096200C53F8F /* CurrenciesUpdateToUpdate.swift in Sources */,
 				B5A39D0A1CBA9D2700079E5F /* NumberField.swift in Sources */,
 				B59CB3CE1D061CED001642F8 /* SelectCurrencyViewController.swift in Sources */,
@@ -505,6 +517,7 @@
 				B59CB3B11D0603D0001642F8 /* AccountViewsImpl.swift in Sources */,
 				B538498D1D10978A006BB230 /* UpdaterBackend.swift in Sources */,
 				B59CB3C41D06082A001642F8 /* CurrencyViews.swift in Sources */,
+				B50E4BCF1DD8EA34007286B8 /* Controllers.swift in Sources */,
 				B51DE5881CB2DEEE0060960A /* ModelImplementation.swift in Sources */,
 				B5A6840F1CC43D75003F302F /* MinimalToCurrencies.xcmappingmodel in Sources */,
 				B59CB3AE1D06038B001642F8 /* CurrencyItems.swift in Sources */,
@@ -517,6 +530,7 @@
 				B51DE5B21CB931060060960A /* SlicesViewController.swift in Sources */,
 				B59CB3C61D06083C001642F8 /* CurrencyViewsImpl.swift in Sources */,
 				B51DE5B41CB9315B0060960A /* EditAccountViewController.swift in Sources */,
+				B50E4BD51DD8EBEB007286B8 /* ProductionControllers.swift in Sources */,
 				B59CB3B61D0605B0001642F8 /* CurrencyItemsImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,6 +544,7 @@
 				B538498E1D1097C1006BB230 /* UpdaterBackend.swift in Sources */,
 				B59CB3BB1D060732001642F8 /* AccountItemsImpl.swift in Sources */,
 				B59CB3BD1D06073C001642F8 /* SliceItemsImpl.swift in Sources */,
+				B50E4BD01DD8EB03007286B8 /* Controllers.swift in Sources */,
 				B5E41AC31D0D8562004CAF7C /* CurrencyTests.swift in Sources */,
 				B59CB3BE1D06073C001642F8 /* AccountViewsImpl.swift in Sources */,
 				B52BEC121DC6817800CB3671 /* Controller.swift in Sources */,
@@ -537,6 +552,7 @@
 				B53849951D11E788006BB230 /* UpdaterImplementationDump.swift in Sources */,
 				B53849961D11E79E006BB230 /* UpdaterBackendECBImpl.swift in Sources */,
 				B51171941D1567C400995749 /* UpdaterFrontendImpl.swift in Sources */,
+				B50E4BD31DD8EB94007286B8 /* ControllersImpl.swift in Sources */,
 				B5E41AC51D0D85C8004CAF7C /* Setup.swift in Sources */,
 				B51DE5991CB448970060960A /* ModelInterface.swift in Sources */,
 				B53849911D10AAA3006BB230 /* UpdaterBackendMoc.swift in Sources */,

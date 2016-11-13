@@ -10,26 +10,14 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let updateInterval: TimeInterval = 24*60*60
-    
-    let sinceLastUpdate: TimeInterval = 12*60*60
-    
     var controller: ControllerAccountsInterface? = nil
-    
-    var updater: UpdaterFrontend? = nil
     
     @IBOutlet weak var accountsTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let managedObjectContext = appDelegate.managedObjectContext
-        let model = ModelImplementation(managedObjectContext: managedObjectContext)
-        self.controller = ControllerAccountsImplementation(model: model)
-        let updater = UpdaterFrontendImpl(model: model, updateInterval: updateInterval, sinceLastUpdate: sinceLastUpdate, backend: UpdaterBackendECBImpl())
-        updater.startUpdating()
-        self.updater = updater
+        self.controller = controllers.accounts()
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,10 +44,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         case "Decant":
             if let decantController = sender as? ControllerDecantInterface {
                 (segue.destination as! DecantViewController).setController(decantController)
-            }
-        case "Slices":
-            if let slicesController = sender as? ControllerSlicesInterface {
-                (segue.destination as! SlicesViewController).setController(slicesController)
             }
         default: break
         }
@@ -134,13 +118,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.refreshAccount(to)
             }
             performSegue(withIdentifier: "Decant", sender: decantController)
-        }
-    }
-    
-    @IBAction func buttonSlicesClicked(_ sender: AnyObject) {
-        if let c = controller {
-            let slicesController = c.showSlices()
-            performSegue(withIdentifier: "Slices", sender: slicesController)
         }
     }
     

@@ -22,8 +22,6 @@ protocol ControllerAccountsInterface {
     func createAccount(handler: @escaping (()) -> ()) -> ControllerCreateAccountInterface
     
     func decant(handler: @escaping ((Int, Int)) -> ()) -> ControllerDecantInterface
-    
-    func showSlices() -> ControllerSlicesInterface
 }
 
 protocol ControllerEditAccountInterface: ControllerROAccountInterface {

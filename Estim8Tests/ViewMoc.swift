@@ -25,6 +25,8 @@ class MocView {
     
     var state: MocViewState
     
+    var controllers: Controllers? = nil
+    
     init(mainWindow: MainWindowMoc) {
         self.state = .mainWindow(mainWindow)
     }
@@ -190,8 +192,7 @@ class MainWindowMoc {
     }
     
     func tapHistoryButton() {
-        let slicesController = controller.showSlices()
-        SlicesMoc(parent: self, controller: slicesController, view: view!).showSubView()
+        SlicesMoc(parent: self, view: view!).showSubView()
     }
     
     func strikeOverAccount(_ n: Int) {
@@ -376,9 +377,9 @@ class SlicesMoc {
     
     var state: State
     
-    init(parent: MainWindowMoc, controller: ControllerSlicesInterface, view: MocView) {
+    init(parent: MainWindowMoc, view: MocView) {
         self.parent = parent
-        self.controller = controller
+        self.controller = view.controllers!.slices()
         self.view = view
         self.numberOfSlices = controller.numberOfSlices()
         state = State(controller: controller, number: 0)!

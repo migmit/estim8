@@ -88,12 +88,9 @@ class SlicesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var titleBar: UINavigationBar!
     
-    func setController(_ controller: ControllerSlicesInterface) {
-        self.controller = controller
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.controller = controllers.slices()
         let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panEvent))
         panRecognizer.delegate = self
         updatesTable.addGestureRecognizer(panRecognizer)
